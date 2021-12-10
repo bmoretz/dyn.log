@@ -1,0 +1,52 @@
+Package: dyn.log
+Type: Package
+Title: Dynamic Logging for R Inspired by Configuration Driven Development
+Version: 0.1.0
+Authors@R: 
+    c(person(given = "Brandon",
+       family = "Moretz",
+       role = c("aut", "cre"),
+       email = "bmoretz@ionicsolutions.net",
+       comment = c(ORCID = "0000-0001-8832-5173")
+    ))
+Maintainer: Brandon Moretz <bmoretz@ionicsolutions.net>
+Description: A comprehensive and dynamic configuration driven logging package for R. While there 
+    are several excellent logging solutions already in the R ecosystem, I always feel constrained 
+    in some way by each of them. Every project is designed differently to achieve its stated goal; 
+    to solve some problem, and ultimately the utility of a logging solution is its ability to adapt 
+    to the project’s design. This is the rai·son d'ê·tre for dyn.log, to provide a modular design, 
+    template mechanics and a configuration-based integration model, so that the logger can integrate 
+    deeply into your design, even though it knows nothing about it.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Depends:
+    R (>= 4.0)
+Imports:
+    crayon (>= 1.4.1),
+    glue (>= 1.4.2),
+    R6 (>= 2.5.1),
+    rlang (>= 0.4.12),
+    stringr (>= 1.4.0),
+    yaml (>= 2.2.1),
+Roxygen: list(markdown = TRUE)
+URL: https://github.com/bmoretz/dyn-log
+BugReports: https://github.com/bmoretz/dyn-log/issues
+RoxygenNote: 7.1.2
+Suggests: 
+    devtools,
+    usethis,
+    rmarkdown,
+    knitr,
+    covr,
+    testthat (>= 3.0.0),
+    badger (>= 0.1.0),
+    remotes,
+    pkgdown,
+    prettydoc,
+    here
+Config/testthat/edition: 3
+Remotes:
+  GuangchuangYu/badger
+Language: en-US
+VignetteBuilder: knitr

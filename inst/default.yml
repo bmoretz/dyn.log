@@ -1,0 +1,31 @@
+settings:
+  threshold: TRACE
+levels:
+- name: TRACE
+  severity: !expr 600L
+  log_style: !expr crayon::make_style("antiquewhite3")$bold
+  msg_style: !expr crayon::make_style('gray40')
+- name: DEBUG
+  severity: !expr 500L
+  log_style: !expr crayon::make_style('dodgerblue')$bold
+  msg_style: !expr crayon::make_style('gray50')
+- name: INFO
+  severity: !expr 400L
+  log_style: !expr crayon::make_style('deepskyblue')$bold
+  msg_style: !expr crayon::make_style('gray60')
+- name: SUCCESS
+  severity: !expr 300L
+  log_style: !expr crayon::make_style('chartreuse')$bold
+  msg_style: !expr crayon::make_style('gray80')
+- name: WARN
+  severity: !expr 350L
+  log_style: !expr crayon::make_style('darkorange')$bold
+  msg_style: !expr crayon::make_style('gray70')
+- name: ERROR
+  severity: !expr 200L
+  log_style: !expr crayon::make_style('firebrick1')$bold
+  msg_style: !expr crayon::make_style('gray80')
+- name: FATAL
+  severity: !expr 100L
+  log_style: !expr crayon::make_style('firebrick')$bold
+  msg_style: !expr crayon::make_style('gray100')
