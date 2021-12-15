@@ -44,7 +44,7 @@ Other Logging:
 \item \href{#method-new}{\code{LogDispatch$new()}}
 \item \href{#method-get_system_context}{\code{LogDispatch$get_system_context()}}
 \item \href{#method-add_log_level}{\code{LogDispatch$add_log_level()}}
-\item \href{#method-get_bindings}{\code{LogDispatch$get_bindings()}}
+\item \href{#method-get_settings}{\code{LogDispatch$get_settings()}}
 }
 }
 \if{html}{\out{<hr>}}
@@ -96,17 +96,16 @@ reference to self to support chaining.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_bindings"></a>}}
-\if{latex}{\out{\hypertarget{method-get_bindings}{}}}
-\subsection{Method \code{get_bindings()}}{
-Public wrapper around system context used
-when evaluating log layouts.
+\if{html}{\out{<a id="method-get_settings"></a>}}
+\if{latex}{\out{\hypertarget{method-get_settings}{}}}
+\subsection{Method \code{get_settings()}}{
+Public wrapper around logger settings.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{LogDispatch$get_bindings()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{LogDispatch$get_settings()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
-system context for logging metrics.
+logger settings.
 }
 }
 }

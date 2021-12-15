@@ -36,6 +36,6 @@ attach_log_levels <- function(levels, envir) {
   invisible()
 }
 
-configure_logger <- function(envir, settings) {
+configure_logger <- function(settings, envir) {
   envir$Logger$.__enclos_env__$private$settings <- settings
 }
