@@ -1,20 +1,3 @@
-#' Mock Logger
-#'
-#' Used to test internals of a Logger
-#' instantiated via configuration.
-#'
-TestLogger <- R6::R6Class(
-  classname = "TestLogger",
-  inherit = LogDispatch,
-  portable = F,
-  public = list(
-
-    initialize = function() {
-      super$initialize()
-    }
-  )
-)
-
 test_that("load_log_config_works", {
 
   test_config_file <- system.file("test-data",
@@ -22,10 +5,13 @@ test_that("load_log_config_works", {
                                   package = "dyn.log")
 
   test_envir <- rlang::new_environment(list(
-    Logger = TestLogger$new()
+    Logger = LogDispatchTester$new()
   ))
 
-  load_log_configuration(test_config_file, envir = test_envir)
+
+  test_envir$Logger$get_settings()
+
+  set_log_configuration(test_config_file, envir = test_envir)
 
   env_vars <- ls(test_envir)
 
@@ -39,5 +25,8 @@ test_that("load_log_config_works", {
   expect_true(any(match(env_vars, 'CRITICAL')))
   expect_true(any(match(env_vars, 'FATAL')))
 
-  expect_equal(test_envir$Logger$settings$threshold, "TRACE")
+  with(test_envir$Logger$get_settings(), {
+    expect_equal(threshold, "TRACE")
+  })
+
 })

@@ -5,8 +5,8 @@
 #' @param name name of the log level is the string representation.
 #' @param severity log severity is used in determining if a message should get
 #' displayed according to the currently set evaluation threshold.
-#' @param log_style is a [crayon] style that will colorize the log level.
-#' @param msg_style is a [crayon] style that will gray scale the log message, with
+#' @param log_style is a {crayon::style()} that will colorize the log level.
+#' @param msg_style is a {crayon::style()} style that will gray scale the log message, with
 #' typically inverted strength, according to the severity.
 #'
 #' @section Severity:
@@ -43,19 +43,25 @@ new_log_level <- function(name,
     class = c(name, 'log_level')
   )
 
-  levels[[name]] <<- new_level
+  levels <- attr(new_log_level, 'levels')
+
+  if(is.null(levels)) {
+    levels <- list()
+  }
+
+  levels[[name]] <- new_level
+
+  attr(new_log_level, 'levels') <<- levels
 
   new_level
 }
-
-levels <- list()
 
 #' Gets Defined Log Levels
 #'
 #' @return defined log levels
 #' @export
 log_levels <- function() {
-  levels
+  attr(new_log_level, 'levels')
 }
 
 #' @title Get Level Name

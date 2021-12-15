@@ -238,7 +238,7 @@ value.fmt_level_info <- function(fmt, ...) {
 #' Placeholder for the log msg in a log layout.
 #'
 #' @family Log Layout
-#' @returns [new_fmt_log_msg]
+#' @returns \code{new_fmt_log_msg}
 new_fmt_log_msg <- function() {
   structure(
     list(),
@@ -268,6 +268,7 @@ value.new_fmt_log_msg <- function(fmt, ...) {
 #' @family Log Layout
 #' @returns \code{new_fmt_cls_field}
 new_fmt_cls_field <- function(style, field) {
+
   stopifnot(class(style) == "crayon")
 
   if(!is.character(field) || nchar(field) == 0)
@@ -277,8 +278,19 @@ new_fmt_cls_field <- function(style, field) {
     list(),
     style = style,
     field = field,
-    class = c('new_fmt_cls_field', 'fmt_metric')
+    class = c('new_fmt_cls_field', 'fmt_layout')
   )
+}
+
+#' Gets the value of a log msg object.
+#'
+#' @param fmt object to extract value from.
+#' @param ... further arguments passed to or from other methods.
+#'
+#' @return object's value
+#' @export
+value.new_fmt_cls_field <- function(fmt, ...) {
+  attr(fmt, 'field')
 }
 
 #' Gets the value of a log msg object.
@@ -317,20 +329,45 @@ new_log_layout <- function(...,
   )
 
   if(!identical(association, character())) {
-    layouts[[association]] <<- new_layout
+
+    layouts <- attr(new_log_layout, 'layouts')
+
+    if(is.null(layouts)) {
+      layouts <- list()
+    }
+
+    layouts[[association]] <- new_layout
+
+    attr(new_log_layout, 'layouts') <<- layouts
   }
 
   new_layout
 }
-
-layouts <- list()
 
 #' Gets Defined Log Layouts
 #'
 #' @return defined log layouts
 #' @export
 log_layouts <- function() {
-  layouts
+  attr(new_log_layout, 'layouts')
+}
+
+#' @title Get Layout
+#'
+#' @description
+#' gets a log layout associated with a class.
+#'
+#' @param association associated class
+#' @return associated \code{log_layout}
+#' @export
+get_layout <- function(association) {
+  layouts <- log_layouts()
+
+  if(!(association %in% names(layouts))) {
+    return(NULL)
+  }
+
+  layout <- layouts[[association]]
 }
 
 #' Generic override for length of a log layout.

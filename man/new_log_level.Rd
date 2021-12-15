@@ -12,9 +12,9 @@ new_log_level(name, severity, log_style = NULL, msg_style = NULL)
 \item{severity}{log severity is used in determining if a message should get
 displayed according to the currently set evaluation threshold.}
 
-\item{log_style}{is a \link{crayon} style that will colorize the log level.}
+\item{log_style}{is a {crayon::style()} that will colorize the log level.}
 
-\item{msg_style}{is a \link{crayon} style that will gray scale the log message, with
+\item{msg_style}{is a {crayon::style()} style that will gray scale the log message, with
 typically inverted strength, according to the severity.}
 }
 \value{

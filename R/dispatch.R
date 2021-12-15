@@ -77,9 +77,10 @@ LogDispatch <- R6::R6Class(
 
         has_calling_class <- ifelse(is.null(parent_env$self), F, T)
 
-        cls_scope <- list()
+        cls_scope <- list(); cls_name <- NA
 
         if(has_calling_class) {
+          cls_name <- head(class(parent_env$self), 1)
           cls_scope <- private$get_calling_class_scope(parent_env$self)
         }
 
@@ -89,14 +90,15 @@ LogDispatch <- R6::R6Class(
                            cls_scope = cls_scope,
                            caller_env = parent)
       })
+
+      invisible(self)
     },
 
     #' @description
-    #' Public wrapper around system context used
-    #' when evaluating log layouts.
-    #' @return system context for logging metrics.
-    get_bindings = function() {
-      private$bindings
+    #' Public wrapper around logger settings.
+    #' @return logger settings.
+    get_settings = function() {
+      private$settings
     }
   ),
 

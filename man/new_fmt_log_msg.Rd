@@ -7,7 +7,7 @@
 new_fmt_log_msg()
 }
 \value{
-\link{new_fmt_log_msg}
+\code{new_fmt_log_msg}
 }
 \description{
 Placeholder for the log msg in a log layout.

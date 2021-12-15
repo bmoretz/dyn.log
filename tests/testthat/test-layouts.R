@@ -12,9 +12,10 @@ test_that("literal_output_style", {
 
   expect_equal(style_info['_styles.bold.open'], c(`_styles.bold.open` = '\033[1m'))
   expect_equal(style_info['_styles.bold.close'], c(`_styles.bold.close` = '\033[22m'))
+
   expect_equal(style_info['_styles.red.open'], c(`_styles.red.open` = '\033[31m'))
-  expect_equal(style_info['_styles.bold.open'], c(`_styles.bold.open` = '\033[1m'))
   expect_equal(style_info['_styles.red.palette'], c(`_styles.red.palette` = '2'))
+  expect_equal(style_info['_styles.red.close'], c(`_styles.red.close` = '\033[39m'))
 
   value <- value(literal)
 
@@ -36,10 +37,10 @@ test_that("metric_output", {
 
   expect_equal(style_info['_styles.bold.open'], c(`_styles.bold.open` = '\033[1m'))
   expect_equal(style_info['_styles.bold.close'], c(`_styles.bold.close` = '\033[22m'))
-  expect_equal(style_info['_styles.bold.open'], c(`_styles.bold.open` = '\033[1m'))
 
-  expect_equal(style_info['_styles.red.palette'], c(`_styles.red.palette` = '2'))
   expect_equal(style_info['_styles.red.open'], c(`_styles.red.open` = '\033[31m'))
+  expect_equal(style_info['_styles.red.palette'], c(`_styles.red.palette` = '2'))
+  expect_equal(style_info['_styles.red.close'], c(`_styles.red.close` = '\033[39m'))
 
   value <- value(metric)
 
@@ -74,10 +75,10 @@ test_that("timestamp_output_dflt_fmt", {
 
   expect_equal(style_info['_styles.italic.open'], c(`_styles.italic.open` = '\033[3m'))
   expect_equal(style_info['_styles.italic.close'], c(`_styles.italic.close` = '\033[23m'))
-  expect_equal(style_info['_styles.italic.open'], c(`_styles.italic.open` = '\033[3m'))
 
   expect_equal(style_info['_styles.silver.open'], c(`_styles.silver.open` = '\033[90m'))
   expect_equal(style_info['_styles.silver.palette'], c(`_styles.silver.palette` = '9'))
+  expect_equal(style_info['_styles.silver.close'], c(`_styles.silver.close` = '\033[39m'))
 
   actual_time <- format(Sys.time(), format = "%x %H:%M:%S %z")
   evaluated_time <- attr(ts, 'value')(format(ts))
@@ -111,10 +112,10 @@ test_that("timestamp_output_custom_fmt", {
 
   expect_equal(style_info['_styles.italic.open'], c(`_styles.italic.open` = '\033[3m'))
   expect_equal(style_info['_styles.italic.close'], c(`_styles.italic.close` = '\033[23m'))
-  expect_equal(style_info['_styles.italic.open'], c(`_styles.italic.open` = '\033[3m'))
 
   expect_equal(style_info['_styles.silver.open'], c(`_styles.silver.open` = '\033[90m'))
   expect_equal(style_info['_styles.silver.palette'], c(`_styles.silver.palette` = '9'))
+  expect_equal(style_info['_styles.silver.close'], c(`_styles.silver.close` = '\033[39m'))
 
   actual_format <- format(ts)
   expect_equal(actual_format, cust_format)
@@ -130,142 +131,54 @@ test_that("timestamp_output_custom_fmt", {
   expect_equal(actual_value, expected_value)
 })
 
-test_that("call_stack_output", {
+test_that("cls_attribute_custom_fmt", {
 
-  test <- function(a, b, c) {
-    wrapper <- function(x, y, z) {
-      outer <- function(d, e, f) {
-        inner <- function(g, h, i) {
-          get_call_stack()
-        }
+  obj <- TestObject$new()
 
-        inner(d, e, f)
-      }
+  cls_fld <- new_fmt_cls_field(crayon::cyan$bold, "id")
 
-      outer(x, y, z)
-    }
-    wrapper(a, b, c)
-  }
+  expect_true(!is.null(cls_fld))
 
-  call_stack <- test(1,2,3)
+  fmt_style <- style(cls_fld)
 
-  level_one <- deparse(call_stack[[1]])
-  expect_equal(level_one, 'inner(d, e, f)')
+  expect_true(!is.null(fmt_style))
+  expect_equal(class(fmt_style), "crayon")
 
-  level_two <- deparse(call_stack[[2]])
-  expect_equal(level_two, 'outer(x, y, z)')
+  style_info <- unlist(attributes(fmt_style))
 
-  level_three <- deparse(call_stack[[3]])
-  expect_equal(level_three, 'wrapper(a, b, c)')
+  expect_equal(style_info['class'], c(class = "crayon"))
 
-  level_four <- deparse(call_stack[[4]])
-  expect_equal(level_four, 'test(1, 2, 3)')
+  expect_equal(style_info['_styles.bold.open'], c(`_styles.bold.open` = '\033[1m'))
+  expect_equal(style_info['_styles.bold.close'], c(`_styles.bold.close` = '\033[22m'))
+
+  expect_equal(style_info['_styles.cyan.open'], c(`_styles.cyan.open` = '\033[36m'))
+  expect_equal(style_info['_styles.cyan.palette'], c(`_styles.cyan.palette` = '7'))
+  expect_equal(style_info['_styles.cyan.close'], c(`_styles.cyan.close` = '\033[39m'))
+
+  expect_equal(value(cls_fld), 'id')
 })
 
-test_that("func_call_outputs_no_args", {
+test_that("can_create_layout", {
 
-  # get 3rd level of the call stack
-  fmt_fn <- new_fmt_func_call(crayon::magenta$bold, 3)
+  new_log_layout(
+    new_fmt_metric(crayon::green$bold, "sysname"),
+    new_fmt_metric(crayon::yellow$bold, "release"),
+    new_fmt_line_break(),
+    new_fmt_log_level(),
+    new_fmt_timestamp(crayon::silver$italic),
+    new_fmt_metric(crayon::magenta$bold, "top_call"),
+    new_fmt_literal(crayon::blue$italic, "literal text"),
+    new_fmt_log_msg(),
+    new_fmt_line_break(),
+    new_fmt_metric(crayon::cyan$bold, "call_stack"),
+    association = "test-layout"
+  )
 
-  test <- function(a, b, c) {
-    wrapper <- function(x, y, z) {
-      outer <- function(d, e, f) {
-        inner <- function(g, h, i) {
-          value(fmt_fn)
-        }
+  layout <- log_layouts()[["test-layout"]]
 
-        inner(d, e, f)
-      }
-
-      outer(x, y, z)
-    }
-    wrapper(a, b, c)
-  }
-
-  actual <- test()
-  expected <- 'inner'
-
-  expect_equal(actual, expected)
-})
-
-test_that("func_call_outputs_with_args", {
-
-  # get 3rd level of the call stack
-  fmt_fn <- new_fmt_func_call(crayon::magenta$bold, 3, keep_args = T)
-
-  test <- function(a, b, c) {
-    wrapper <- function(x, y, z) {
-      outer <- function(d, e, f) {
-        inner <- function(g, h, i) {
-          value(fmt_fn)
-        }
-
-        inner(d, e, f)
-      }
-
-      outer(x, y, z)
-    }
-    wrapper(a, b, c)
-  }
-
-  actual <- test()
-  expected <- 'inner(d, e, f)'
-
-  expect_equal(actual, expected)
-})
-
-test_that("call_stack_outputs_with_args", {
-
-  # get 3rd level of the call stack
-  fmt_callstack <- new_fmt_call_stack(crayon::magenta$bold, 3, keep_args = T)
-
-  test <- function(a, b, c) {
-    wrapper <- function(x, y, z) {
-      outer <- function(d, e, f) {
-        inner <- function(g, h, i) {
-          value(fmt_callstack)
-        }
-
-        inner(d, e, f)
-      }
-
-      outer(x, y, z)
-    }
-    wrapper(a, b, c)
-  }
-
-  actual <- test()
-
-  expected <- 'inner(d, e, f) outer(x, y, z) wrapper(a, b, c) test()'
-
-  #expect_equal(actual, expected)
-})
-
-test_that("call_stack_outputs_no_args", {
-
-  # get 3rd level of the call stack
-  fmt_callstack <- new_fmt_call_stack(crayon::magenta$bold, 3)
-
-  test <- function(a, b, c) {
-    wrapper <- function(x, y, z) {
-      outer <- function(d, e, f) {
-        inner <- function(g, h, i) {
-          value(fmt_callstack)
-        }
-
-        inner(d, e, f)
-      }
-
-      outer(x, y, z)
-    }
-    wrapper(a, b, c)
-  }
-
-  actual <- test()
-
-  expected <- 'inner outer wrapper test'
-
-  # expect_equal(actual, expected)
+  expect_true(!is.null(layout))
+  expect_equal(class(layout), "log_layout")
+  expect_equal(length(layout), 10)
 })
 
 test_that("log_output_format", {
@@ -290,27 +203,6 @@ test_that("log_output_format", {
                 "literal text1" )
 
   expect_equal(actual, expected)
-})
-
-test_that("loading_log_config_works", {
-
-  log_config_file <- system.file("test-data",
-                                 "test-layout.yml",
-                                 package = "dyn.log")
-
-  config <- load_log_configuration(log_config_file)
-
-  expect_equal(config$settings$threshold, "TRACE")
-
-  with(config, {
-    expect_true(!is.null(levels$TRACE))
-    expect_true(!is.null(levels$DEBUG))
-    expect_true(!is.null(levels$INFO))
-    expect_true(!is.null(levels$SUCCESS))
-    expect_true(!is.null(levels$WARN))
-    expect_true(!is.null(levels$ERROR))
-    expect_true(!is.null(levels$FATAL))
-  })
 })
 
 test_that("multi_line_fmt_works_1", {
@@ -445,20 +337,4 @@ test_that("multi_line_fmt_works_4", {
                 "literal4---literal5---literal6")
 
   expect_equal(actual, expected)
-})
-
-test_that("basic_case",{
-
-  func <- ".inner(d, e, f)"
-  actual <- extract_func_name(func)
-
-  expect_equal(actual, ".inner")
-})
-
-test_that("obj_init",{
-
-  func <- "Test$new(d, e, f)"
-  actual <- extract_func_name(func)
-
-  expect_equal(actual, "Test$new")
 })

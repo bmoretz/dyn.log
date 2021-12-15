@@ -26,6 +26,7 @@ sys_context <- function() {
 #'
 #' @family Log Layout
 #' @returns formatted call stack
+#' @importFrom stringr str_trim
 get_call_stack = function(keep_args = F) {
   # number of levels deep
   n_levels <- length(sys.parents()) * -1
@@ -58,6 +59,7 @@ get_call_stack = function(keep_args = F) {
 #'
 #' @family Log Layout, Utility
 #' @returns function name without arguments
+#' @importFrom stringr str_extract
 extract_func_name <- function(func) {
   stringr::str_extract(func, pattern = "[^(]+")
 }
