@@ -81,10 +81,19 @@ LogDispatch <- R6::R6Class(
 
         if(has_calling_class) {
           cls_name <- head(class(parent_env$self), 1)
-          cls_scope <- private$get_calling_class_scope(parent_env$self)
+          cls_scope <- private$get_class_scope(parent_env$self)
         }
 
-        evaluated <- value(layout)
+        context <- list(
+          system = private$system_context,
+          callstack = private$get_callstack(),
+          cls = cls_scope,
+          local = as.list(caller_env)
+        )
+
+        browser()
+
+        evaluated <- value(layout, context)
 
         private$dispatcher(level, msg, evaluated,
                            cls_scope = cls_scope,
@@ -114,12 +123,13 @@ LogDispatch <- R6::R6Class(
 
     system_context = NULL,
 
-    get_calling_class_scope = function(cls) {
+    get_class_scope = function(cls) {
 
       values <- list()
 
       lapply(names(as.list(cls)), function(var) {
         value <- cls[[var]]
+
         if(!(class(value) %in% c('environment', 'function')))
           values[[var]] <<- value
 
@@ -171,30 +181,15 @@ LogDispatch <- R6::R6Class(
       invisible()
     },
 
-    dispatcher = structure(function(level, msg,
-                                    ...,
-                                    cs_offset = 2,
-                                    cls_scope,
-                                    caller_env) {
-
+    get_callstack = function(offset = 2,
+                             max_levels = 5) {
       cs <- get_call_stack()
 
       # remove the framework calls from cs
-      call_stack <- head(cs, length(cs) - cs_offset)
-      top_call <- call_stack[1]
+      call_stack <- head(cs, max(length(cs) - offset, max_levels))
 
-      # evaluate log msg within context of caller
-      msg <- glue::glue(msg, .envir = caller_env)
-
-      # formatted call stack
-      call_stack <- paste0(call_stack,
-                           sep = "",
-                           collapse = ";")
-
-      # evaluate the full log
-      with(c(private$system_context, call_stack), {
-        cat(glue::glue(...))
-      })
-    }, generator = quote(dispatcher))
+      list(top_call = call_stack[1],
+           call_stack = call_stack)
+    }
   )
 )
