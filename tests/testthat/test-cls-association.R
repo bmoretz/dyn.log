@@ -15,13 +15,26 @@ test_that("can_add_log_level", {
     association = "TestObject"
   )
 
-  layout <- get_layout("TestObject")
+  layout <- get_log_layout("TestObject")
 
   evaluated <- value(layout)
+
+  fmt <- format(layout)
+
+  alist <- list(test = "123")
+
+  eval(as.name("test"), envir = alist)
+
+  eval(substitute("test"), envir = env)
+
+  fmt_types <- sapply(fmt, function(cls) class(cls))
+
+  which(fmt_types == 'new_fmt_log_msg', arr.ind = T)
+
+  value(fmt[[9]])
 
   obj <- TestObject$new()
   obj$test_method()
 
   Logger$debug("testing")
-
 })

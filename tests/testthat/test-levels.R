@@ -44,14 +44,6 @@ test_that("can_get_log_levels", {
   expect_true(!is.null(levels$TRACE))
 })
 
-test_that("can_create_log_level", {
-
-  level <- new_log_level("TEST", 10L)
-
-  expect_true(!is.null(level))
-  expect_equal(class(level), c('TEST', 'log_level'))
-})
-
 test_that("get_name_works", {
   level <- new_log_level("TEST", 10L)
 
@@ -82,4 +74,12 @@ test_that("cast_level_severity_works", {
   actual <- as.integer(level)
 
   expect_equal(actual, 10L)
+})
+
+test_that("can_create_log_level", {
+
+  level <- new_log_level("TEST", 10L)
+
+  expect_true(!is.null(level))
+  expect_equal(class(level), c('TEST', 'log_level'))
 })
