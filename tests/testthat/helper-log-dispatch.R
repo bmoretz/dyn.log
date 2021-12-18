@@ -24,5 +24,3 @@ LogDispatchTester <- R6::R6Class(
   ),
   private = list()
 )
-
-tlogger <- LogDispatchTester$new()

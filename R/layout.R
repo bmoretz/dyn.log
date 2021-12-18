@@ -36,7 +36,7 @@ new_log_layout <- function(...,
     attr(new_log_layout, 'layouts') <<- layouts
   }
 
-  new_layout
+  invisible(new_layout)
 }
 
 #' @title Log Layouts

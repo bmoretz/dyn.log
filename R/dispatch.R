@@ -77,23 +77,34 @@ LogDispatch <- R6::R6Class(
         caller_env <- rlang::caller_env()
         parent_env <- parent.env(caller_env)
 
-        has_calling_class <- ifelse(is.null(parent_env$self), F, T)
-        log_msg <- glue::glue(msg, envir = par)
+        has_calling_class <- ifelse(is.null(parent_env$self), F, T); calling_class <- NA
+        log_msg <- glue::glue(msg, .envir = parent)
         layout <- get_log_layout("default")
 
         if(has_calling_class) {
-          cls_name <- head(class(parent_env$self), 1)
+          calling_class <- parent_env$self
+
+          cls_name <- head(class(calling_class), 1)
 
           associated_layout <- get_log_layout(cls_name)
 
-          if(is.null(associated_layout)) {
+          if(!is.null(associated_layout)) {
             layout <- associated_layout
           }
         }
 
-        cntx <- private$get_context(layout)
+        context <- list()
+        fmt_types <- get_format_types(layout)
 
-        cat(glue::glue(evaluate_layout(layout, context = cntx)))
+        if(has_calling_class && any(!is.na(match(fmt_types, 'fmt_cls_field')))) {
+          context[['fmt_cls_field']] = private$get_class_scope(calling_class)
+        }
+
+        if(any(!is.na(match(fmt_types, 'fmt_metric')))) {
+          context[['fmt_metric']] = sys_context()
+        }
+
+        cat(glue::glue(evaluate_layout(layout, context)))
       })
 
       invisible(self)
@@ -117,11 +128,7 @@ LogDispatch <- R6::R6Class(
     public_bind_env = NULL,
     private_bind_env = NULL,
 
-    system_context = NULL,
-
     create_singleton = function() {
-
-      private$system_context <- sys_context()
 
       private$public_bind_env <- base::dynGet("public_bind_env")
       private$private_bind_env <- base::dynGet("private_bind_env")
@@ -159,10 +166,6 @@ LogDispatch <- R6::R6Class(
       }
 
       invisible()
-    },
-
-    get_context = function(layout) {
-
     },
 
     get_callstack = function(offset = 2) {
