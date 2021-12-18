@@ -2,13 +2,13 @@
 % Please edit documentation in R/layout.R
 \name{log_layouts}
 \alias{log_layouts}
-\title{Gets Defined Log Layouts}
+\title{Log Layouts}
 \usage{
 log_layouts()
 }
 \value{
-defined log layouts
+all layouts.
 }
 \description{
-Gets Defined Log Layouts
+Gets all available log layouts.
 }

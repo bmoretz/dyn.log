@@ -50,6 +50,8 @@ LogDispatch <- R6::R6Class(
         self <- private$instance
         private$set_bindings()
       }
+
+      invisible(self)
     },
 
     #' @description
@@ -75,20 +77,34 @@ LogDispatch <- R6::R6Class(
         caller_env <- rlang::caller_env()
         parent_env <- parent.env(caller_env)
 
-        has_calling_class <- ifelse(is.null(parent_env$self), F, T)
-
-        cls_scope <- list(); cls_name <- NA
+        has_calling_class <- ifelse(is.null(parent_env$self), F, T); calling_class <- NA
+        log_msg <- glue::glue(msg, .envir = parent)
+        layout <- get_log_layout("default")
 
         if(has_calling_class) {
-          cls_name <- head(class(parent_env$self), 1)
-          cls_scope <- private$get_calling_class_scope(parent_env$self)
+          calling_class <- parent_env$self
+
+          cls_name <- head(class(calling_class), 1)
+
+          associated_layout <- get_log_layout(cls_name)
+
+          if(!is.null(associated_layout)) {
+            layout <- associated_layout
+          }
         }
 
-        evaluated <- value(layout)
+        context <- list()
+        fmt_types <- get_format_types(layout)
 
-        private$dispatcher(level, msg, evaluated,
-                           cls_scope = cls_scope,
-                           caller_env = parent)
+        if(has_calling_class && any(!is.na(match(fmt_types, 'fmt_cls_field')))) {
+          context[['fmt_cls_field']] = private$get_class_scope(calling_class)
+        }
+
+        if(any(!is.na(match(fmt_types, 'fmt_metric')))) {
+          context[['fmt_metric']] = sys_context()
+        }
+
+        cat(glue::glue(evaluate_layout(layout, context)))
       })
 
       invisible(self)
@@ -112,26 +128,7 @@ LogDispatch <- R6::R6Class(
     public_bind_env = NULL,
     private_bind_env = NULL,
 
-    system_context = NULL,
-
-    get_calling_class_scope = function(cls) {
-
-      values <- list()
-
-      lapply(names(as.list(cls)), function(var) {
-        value <- cls[[var]]
-        if(!(class(value) %in% c('environment', 'function')))
-          values[[var]] <<- value
-
-        invisible()
-      })
-
-      values
-    },
-
     create_singleton = function() {
-
-      private$system_context <- sys_context()
 
       private$public_bind_env <- base::dynGet("public_bind_env")
       private$private_bind_env <- base::dynGet("private_bind_env")
@@ -171,30 +168,33 @@ LogDispatch <- R6::R6Class(
       invisible()
     },
 
-    dispatcher = structure(function(level, msg,
-                                    ...,
-                                    cs_offset = 2,
-                                    cls_scope,
-                                    caller_env) {
-
+    get_callstack = function(offset = 2) {
       cs <- get_call_stack()
 
+      # get the maximum call stack output setting
+      max_levels <- private$settings$max_callstack
+
       # remove the framework calls from cs
-      call_stack <- head(cs, length(cs) - cs_offset)
-      top_call <- call_stack[1]
+      call_stack <- head(cs, max(length(cs) - offset, max_levels))
 
-      # evaluate log msg within context of caller
-      msg <- glue::glue(msg, .envir = caller_env)
+      list(top_call = call_stack[1],
+           call_stack = call_stack)
+    },
 
-      # formatted call stack
-      call_stack <- paste0(call_stack,
-                           sep = "",
-                           collapse = ";")
+    get_class_scope = function(cls) {
 
-      # evaluate the full log
-      with(c(private$system_context, call_stack), {
-        cat(glue::glue(...))
+      values <- list()
+
+      lapply(names(as.list(cls)), function(var) {
+        value <- cls[[var]]
+
+        if(!(class(value) %in% c('environment', 'function')))
+          values[[var]] <<- value
+
+        invisible()
       })
-    }, generator = quote(dispatcher))
+
+      values
+    }
   )
 )

@@ -8,8 +8,7 @@ test_that("log_single_instance", {
 
 test_that("has_system_metrics", {
 
-  log <- LogDispatchTester$new()
-  context <- log$get_system_context()
+  context <- sys_context()
 
   expect_named(context['sysname'])
   expect_gt(nchar(context['sysname']), 0)
@@ -32,14 +31,19 @@ test_that("has_system_metrics", {
   expect_named(context['user'])
   expect_gt(nchar(context['user']), 0)
 
-  expect_named(context['r-ver'])
-  expect_gt(nchar(context['r-ver']), 0)
+  expect_named(context['r_ver'])
+  expect_gt(nchar(context['r_ver']), 0)
 })
 
-test_that("log_dispatch_01", {
+test_that("default_log_dispatch_works", {
   log <- LogDispatchTester$new()
 
-  #log$trace("test")
+  output <- capture_output_lines({
+    log$trace("test")
+  })
+
+  expect_gt(length(output), 0)
+  expect_gt(nchar(output), 0)
 })
 
 test_that("can_add_log_level", {
@@ -53,8 +57,10 @@ test_that("can_add_log_level", {
   expect_true(!is.null(test_level))
 
   actual <- capture_output({
-    logger$add_log_level(test_level)$test("msg")
+    var1 <- "abc"; var2 <- 123; var3 <- 0.7535651
+    logger$add_log_level(test_level)$test("log msg local vars: {var1}, {var2}, {var3}")
   })
 
-  expect_equal(actual, "")
+  expect_true(stringr::str_detect(actual, stringr::fixed("TEST ")))
+  expect_true(stringr::str_detect(actual, stringr::fixed("log msg local vars: abc, 123, 0.7535651")))
 })

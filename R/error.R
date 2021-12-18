@@ -1,4 +1,3 @@
-
 #' Unknown Severity Warning
 #'
 #' @param level attempted severity level of the log dispatch.

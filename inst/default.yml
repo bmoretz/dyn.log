@@ -1,5 +1,6 @@
 settings:
   threshold: TRACE
+  max_callstack: 5
 levels:
 - name: TRACE
   severity: !expr 600L

@@ -1,12 +1,31 @@
+#' @title Get System Info
+#'
+#' @description
+#' Wrapper around Sys.info() that provides the values
+#' in a named list format.
+#'
+#' @return
 get_system_info = function() {
-  lapply(Sys.info(), FUN = function(var) var)
+  as.list(Sys.info())
 }
 
+#' @title R Version
+#'
+#' @description
+#' Returns the R environment version is [major].[minor] format.
+#' @return
 get_r_version = function() {
   c('r_ver' = paste0(R.Version()[c('major', 'minor')], collapse = '.'))
 }
 
+#' @title System Context
+#'
+#' @description
+#' Wrapper around Sys.info() and \code{get_r_version} that provides
+#' a consolidated list of variables used for logging contexts.
+#' @return
 sys_context <- function() {
+
   sys_info <- get_system_info()
   r_ver <- get_r_version()
 
@@ -17,7 +36,11 @@ sys_context <- function() {
   sys_context
 }
 
-#' Formatted Call Stack
+env_context <- function() {
+
+}
+
+#' @title Formatted Call Stack
 #'
 #' @description
 #' Placeholder for the formatted call stack in a log layout.
@@ -49,10 +72,11 @@ get_call_stack = function(keep_args = F) {
                 })
 
   names(ret) <- paste0("callstack_", seq(length(ret)))
+
   ret
 }
 
-#' Extract Function Name
+#' @title Extract Function Name
 #'
 #' @description
 #' Extracts the name of the function from a deparse call.
@@ -63,4 +87,3 @@ get_call_stack = function(keep_args = F) {
 extract_func_name <- function(func) {
   stringr::str_extract(func, pattern = "[^(]+")
 }
-

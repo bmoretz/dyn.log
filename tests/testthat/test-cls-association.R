@@ -1,27 +1,39 @@
-test_that("can_add_log_level", {
+test_that("can_associate_log_layout", {
 
   new_log_layout(
+    new_fmt_literal(crayon::bgCyan$black$bold, "Object Id:"),
     new_fmt_cls_field(crayon::cyan$bold, "id"),
-    new_fmt_metric(crayon::green$bold, "sysname"),
-    new_fmt_metric(crayon::yellow$bold, "release"),
     new_fmt_line_break(),
     new_fmt_log_level(),
     new_fmt_timestamp(crayon::silver$italic),
-    new_fmt_metric(crayon::magenta$bold, "top_call"),
-    new_fmt_literal(crayon::blue$italic, "literal text"),
+    #new_fmt_metric(crayon::magenta$bold, "top_call"),
     new_fmt_log_msg(),
     new_fmt_line_break(),
-    new_fmt_metric(crayon::cyan$bold, "call_stack"),
+    new_fmt_metric(crayon::green$bold, "sysname"),
+    new_fmt_metric(crayon::red$bold, "nodename"),
+    new_fmt_literal(crayon::blue$bold, "R Version:"),
+    new_fmt_metric(crayon::blue$italic$bold, "r_ver"),
+    new_fmt_line_break(),
+    #new_fmt_metric(crayon::bgMagenta$bold, "call_stack"),
     association = "TestObject"
   )
 
-  layout <- get_layout("TestObject")
+  expect_true(!is.null(get_log_layout("TestObject")))
 
-  evaluated <- value(layout)
+  test_obj <- TestObject$new()
 
-  obj <- TestObject$new()
-  obj$test_method()
+  actual <- capture_output_lines({
+    test_obj$test_trace()
+  })
 
-  Logger$debug("testing")
+  expect_equal(length(actual), 3)
 
+  expect_true(stringr::str_detect(actual[1], stringr::fixed("Object Id:")))
+  expect_true(stringr::str_detect(actual[1], stringr::fixed(test_obj$id)))
+
+  expect_true(stringr::str_detect(actual[2], stringr::fixed("TRACE")))
+  expect_true(stringr::str_detect(actual[2], stringr::fixed("test - 123 - 100")))
+
+  expect_true(stringr::str_detect(actual[3], stringr::fixed(Sys.info()[["sysname"]])))
+  expect_true(stringr::str_detect(actual[3], stringr::fixed(Sys.info()[["nodename"]])))
 })

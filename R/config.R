@@ -16,6 +16,8 @@ set_log_configuration <- function(file_name, envir = parent.frame()) {
 
   lockBinding('Logger', env = envir)
 
+  create_default_layouts()
+
   invisible()
 }
 
