@@ -155,7 +155,7 @@ value.fmt_literal <- function(fmt, ...) {
 #'
 #' fmt_timestamp(blue $ italic, "%x %H:%M:%S %z")
 new_fmt_timestamp <- function(style,
-                              format = "%x %H:%M:%S %z") {
+                              format = "[%x %H:%M:%S %z]") {
   structure(
     list(),
     style = style,

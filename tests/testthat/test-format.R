@@ -81,20 +81,20 @@ test_that("timestamp_output_dflt_fmt", {
   expect_equal(style_info['_styles.silver.palette'], c(`_styles.silver.palette` = '9'))
   expect_equal(style_info['_styles.silver.close'], c(`_styles.silver.close` = '\033[39m'))
 
-  actual_time <- format(Sys.time(), format = "%x %H:%M:%S %z")
+  actual_time <- format(Sys.time(), format = "[%x %H:%M:%S %z]")
   evaluated_time <- attr(ts, 'value')(format(ts))
 
   expect_equal(actual_time, evaluated_time)
 
   actual_value <- value(ts)
-  expected_value <- format(Sys.time(), "%x %H:%M:%S %z")
+  expected_value <- format(Sys.time(), "[%x %H:%M:%S %z]")
 
   expect_equal(actual_value, expected_value)
 })
 
 test_that("timestamp_output_custom_fmt", {
 
-  cust_format <- "%Y-%m-%d %H:%M:%S"
+  cust_format <- "[%Y-%m-%d %H:%M:%S]"
 
   ts <- new_fmt_timestamp(crayon::silver$italic, cust_format)
 

@@ -1,5 +1,5 @@
 TestObject <- R6::R6Class(
-  classname = "TestClass",
+  classname = "TestObject",
 
   public = list(
     id = NULL,
@@ -8,7 +8,7 @@ TestObject <- R6::R6Class(
       self$id <- private$generate_id()
     },
 
-    test_method = function() {
+    test_trace = function() {
       a <- "test"; b <- 123; c <- 100L
 
       Logger$trace("these are some variables: {a} - {b} - {c}")
