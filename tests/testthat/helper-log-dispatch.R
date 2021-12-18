@@ -10,12 +10,19 @@ LogDispatchTester <- R6::R6Class(
 
     initialize = function() {
       super$initialize()
+
+      invisible(self)
     },
 
     get_system_metrics = function() {
       private$system_context
-    }
+    },
 
+    get_cls_scope = function(cls) {
+      private$get_class_scope(cls)
+    }
   ),
   private = list()
 )
+
+tlogger <- LogDispatchTester$new()

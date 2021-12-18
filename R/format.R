@@ -18,7 +18,11 @@ new_fmt_layout <- function(style) {
   )
 }
 
-#' Gets the value of a format object.
+#' @title Value
+#'
+#' @description
+#' Base method for getting the value of a
+#' format object.
 #'
 #' @param fmt object to extract value from.
 #' @param ... further arguments passed to or from other methods.
@@ -56,7 +60,7 @@ new_fmt_metric = function(style, metric) {
     list(),
     style = style,
     metric = metric,
-    class = c('fmt_layout', 'fmt_metric')
+    class = c('fmt_metric', 'fmt_layout')
   )
 }
 
@@ -81,15 +85,20 @@ style.fmt_layout <- function(fmt, ...) {
   attr(fmt, 'style')
 }
 
-#' Gets the value of a format object.
+#' @title Value
+#'
+#' @description
+#' Generic override for getting the value of an
+#' system info variable.
 #'
 #' @param fmt object to extract value from.
+#' @param sys_context context to evaluate the metric.
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @return object's value
 #' @export
-value.fmt_metric <- function(fmt, ...) {
-  style(fmt)(paste0('{', attr(fmt, 'metric'), '}'))
+value.fmt_metric <- function(fmt, sys_context, ...) {
+  style(fmt)(get(attr(fmt, 'metric'), sys_context))
 }
 
 #' Formatted Literal
@@ -115,7 +124,11 @@ new_fmt_literal <- function(style, literal) {
   )
 }
 
-#' Gets the value of a format object.
+#' @title Value
+#'
+#' @description
+#' Generic override for getting the value of a
+#' literal log message.
 #'
 #' @param fmt object to extract value from.
 #' @param ... further arguments passed to or from other methods.
@@ -163,7 +176,11 @@ format.fmt_timestamp <- function(fmt, ...) {
   attr(fmt, 'format')
 }
 
-#' Gets the value of a format object.
+#' @title Value
+#'
+#' @description
+#' Generic override for getting the value of a
+#' formatted timestamp.
 #'
 #' @param fmt object to extract value from.
 #' @param ... further arguments passed to or from other methods.
@@ -193,7 +210,11 @@ new_fmt_line_break <- function() {
   )
 }
 
-#' Gets the value of a format object.
+#' @title Value
+#'
+#' @description
+#' Generic override for getting the value of a
+#' new line placeholder.
 #'
 #' @param fmt object to extract value from.
 #' @param ... further arguments passed to or from other methods.
@@ -220,7 +241,11 @@ new_fmt_log_level <- function() {
   )
 }
 
-#' Gets the value of a log level object.
+#' @title Value
+#'
+#' @description
+#' Generic override for getting the value for
+#' log level information.
 #'
 #' @param fmt object to extract value from.
 #' @param ... further arguments passed to or from other methods.
@@ -243,12 +268,16 @@ new_fmt_log_msg <- function() {
   structure(
     list(),
     style = crayon::black,
-    value = glue::as_glue("{format(level, msg = {msg})}"),
+    value = glue::as_glue("{format(level, msg = {log_msg})}"),
     class = c('new_fmt_log_msg', 'fmt_layout')
   )
 }
 
-#' Gets the value of a log msg object.
+#' @title Value
+#'
+#' @description
+#' Generic override for getting the value of an
+#' log format message.
 #'
 #' @param fmt object to extract value from.
 #' @param ... further arguments passed to or from other methods.
@@ -278,19 +307,63 @@ new_fmt_cls_field <- function(style, field) {
     list(),
     style = style,
     field = field,
-    class = c('new_fmt_cls_field', 'fmt_layout')
+    class = c('fmt_cls_field', 'fmt_layout')
   )
 }
 
-#' Gets the value of a log msg object.
+#' @title Value
+#'
+#' @description
+#' Generic override for getting the value of an
+#' enclosing class variable.
 #'
 #' @param fmt object to extract value from.
-#' @param cls_scope class scope to evalute with.
+#' @param cls_context class scope to evaluate with.
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @return object's value
 #' @export
-value.new_fmt_cls_field <- function(fmt, cls_scope, ...) {
-  value <- get(attr(fmt, 'field'), cls_scope)
+value.fmt_cls_field <- function(fmt, cls_context, ...) {
+  value <- get(attr(fmt, 'field'), cls_context)
+  style(fmt)(value)
+}
+
+#' @title
+#' Formatted variable from the execution scope.
+#'
+#' @description
+#' Placeholder for an execution scope variable.
+#'
+#' @family Log Layout
+#' @returns \code{new_fmt_cls_field}
+new_fmt_exec_scope <- function(style, field) {
+
+  stopifnot(class(style) == "crayon")
+
+  if(!is.character(field) || nchar(field) == 0)
+    stop("invalid execution scope field specified")
+
+  structure(
+    list(),
+    style = style,
+    field = field,
+    class = c('fmt_exec_scope', 'fmt_layout')
+  )
+}
+
+#' @title Value
+#'
+#' @description
+#' Generic override for getting the value of an
+#' execution scope variable.
+#'
+#' @param fmt object to extract value from.
+#' @param env_context class scope to evaluate with.
+#' @param ... further arguments passed to or from other methods.
+#'
+#' @return object's value
+#' @export
+value.fmt_exec_scope <- function(fmt, env_context, ...) {
+  value <- get(attr(fmt, 'field'), env_context)
   style(fmt)(value)
 }

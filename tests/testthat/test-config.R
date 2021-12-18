@@ -8,7 +8,6 @@ test_that("load_log_config_works", {
     Logger = LogDispatchTester$new()
   ))
 
-
   test_envir$Logger$get_settings()
 
   set_log_configuration(test_config_file, envir = test_envir)

@@ -25,6 +25,7 @@ test_that("literal_output_style", {
 
 test_that("metric_output", {
 
+  context <- sys_context()
   metric <- new_fmt_metric(crayon::red$bold, "sysname")
 
   fmt_style <- style(metric)
@@ -42,10 +43,10 @@ test_that("metric_output", {
   expect_equal(style_info['_styles.red.palette'], c(`_styles.red.palette` = '2'))
   expect_equal(style_info['_styles.red.close'], c(`_styles.red.close` = '\033[39m'))
 
-  value <- value(metric)
-
-  expect_true(!is.null(value))
-  expect_equal(value, "{sysname}")
+  actual <- value(metric, context)
+  expected <- Sys.info()[['sysname']]
+  expect_true(!is.null(actual))
+  expect_equal(actual, expected)
 })
 
 test_that("newline_output", {
@@ -159,8 +160,7 @@ test_that("cls_attribute_custom_fmt", {
 
   # test format evaluation
 
-  log <- LogDispatch$new()
-  scope <- log$.__enclos_env__$private$get_class_scope(obj)
+  scope <- LogDispatch$new()$private$get_class_scope(obj)
 
   actual <- value(cls_fld, scope)
 
