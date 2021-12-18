@@ -36,6 +36,10 @@ sys_context <- function() {
   sys_context
 }
 
+env_context <- function() {
+
+}
+
 #' @title Formatted Call Stack
 #'
 #' @description

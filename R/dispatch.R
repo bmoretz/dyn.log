@@ -50,6 +50,8 @@ LogDispatch <- R6::R6Class(
         self <- private$instance
         private$set_bindings()
       }
+
+      invisible(self)
     },
 
     #' @description
@@ -76,28 +78,22 @@ LogDispatch <- R6::R6Class(
         parent_env <- parent.env(caller_env)
 
         has_calling_class <- ifelse(is.null(parent_env$self), F, T)
-
-        cls_scope <- list(); cls_name <- NA
+        log_msg <- glue::glue(msg, envir = par)
+        layout <- get_log_layout("default")
 
         if(has_calling_class) {
           cls_name <- head(class(parent_env$self), 1)
-          cls_scope <- private$get_class_scope(parent_env$self)
+
+          associated_layout <- get_log_layout(cls_name)
+
+          if(is.null(associated_layout)) {
+            layout <- associated_layout
+          }
         }
 
-        context <- list(
-          system = private$system_context,
-          callstack = private$get_callstack(),
-          cls = cls_scope,
-          local = as.list(caller_env)
-        )
+        cntx <- private$get_context(layout)
 
-        browser()
-
-        evaluated <- value(layout, context)
-
-        private$dispatcher(level, msg, evaluated,
-                           cls_scope = cls_scope,
-                           caller_env = parent)
+        cat(glue::glue(evaluate_layout(layout, context = cntx)))
       })
 
       invisible(self)
@@ -122,22 +118,6 @@ LogDispatch <- R6::R6Class(
     private_bind_env = NULL,
 
     system_context = NULL,
-
-    get_class_scope = function(cls) {
-
-      values <- list()
-
-      lapply(names(as.list(cls)), function(var) {
-        value <- cls[[var]]
-
-        if(!(class(value) %in% c('environment', 'function')))
-          values[[var]] <<- value
-
-        invisible()
-      })
-
-      values
-    },
 
     create_singleton = function() {
 
@@ -181,15 +161,37 @@ LogDispatch <- R6::R6Class(
       invisible()
     },
 
-    get_callstack = function(offset = 2,
-                             max_levels = 5) {
+    get_context = function(layout) {
+
+    },
+
+    get_callstack = function(offset = 2) {
       cs <- get_call_stack()
+
+      # get the maximum call stack output setting
+      max_levels <- private$settings$max_callstack
 
       # remove the framework calls from cs
       call_stack <- head(cs, max(length(cs) - offset, max_levels))
 
       list(top_call = call_stack[1],
            call_stack = call_stack)
+    },
+
+    get_class_scope = function(cls) {
+
+      values <- list()
+
+      lapply(names(as.list(cls)), function(var) {
+        value <- cls[[var]]
+
+        if(!(class(value) %in% c('environment', 'function')))
+          values[[var]] <<- value
+
+        invisible()
+      })
+
+      values
     }
   )
 )

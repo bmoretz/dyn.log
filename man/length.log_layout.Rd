@@ -2,7 +2,7 @@
 % Please edit documentation in R/layout.R
 \name{length.log_layout}
 \alias{length.log_layout}
-\title{Generic override for length of a log layout.}
+\title{Log Layout Length}
 \usage{
 \method{length}{log_layout}(x, ...)
 }
@@ -15,5 +15,6 @@
 number of formats in the layout.
 }
 \description{
-Generic override for length of a log layout.
+Generic override for length of a log layout that returns
+the number of individual format objects in the layout.
 }
