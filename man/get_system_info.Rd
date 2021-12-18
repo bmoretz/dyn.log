@@ -7,7 +7,7 @@
 get_system_info()
 }
 \value{
-
+\code{Sys.info()} as a named list
 }
 \description{
 Wrapper around Sys.info() that provides the values

@@ -4,7 +4,7 @@
 \alias{new_fmt_timestamp}
 \title{Formatted Timestamp}
 \usage{
-new_fmt_timestamp(style, format = "\%x \%H:\%M:\%S \%z")
+new_fmt_timestamp(style, format = "[\%x \%H:\%M:\%S \%z]")
 }
 \arguments{
 \item{style}{format style (crayon)}

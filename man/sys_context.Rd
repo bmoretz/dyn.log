@@ -7,7 +7,7 @@
 sys_context()
 }
 \value{
-
+system context for evaluating \code{fmt_metric} objects.
 }
 \description{
 Wrapper around Sys.info() and \code{get_r_version} that provides

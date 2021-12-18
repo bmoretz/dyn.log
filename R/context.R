@@ -4,7 +4,7 @@
 #' Wrapper around Sys.info() that provides the values
 #' in a named list format.
 #'
-#' @return
+#' @return \code{Sys.info()} as a named list
 get_system_info = function() {
   as.list(Sys.info())
 }
@@ -23,7 +23,7 @@ get_r_version = function() {
 #' @description
 #' Wrapper around Sys.info() and \code{get_r_version} that provides
 #' a consolidated list of variables used for logging contexts.
-#' @return
+#' @return system context for evaluating \code{fmt_metric} objects.
 sys_context <- function() {
 
   sys_info <- get_system_info()
@@ -36,16 +36,13 @@ sys_context <- function() {
   sys_context
 }
 
-env_context <- function() {
-
-}
-
 #' @title Formatted Call Stack
 #'
 #' @description
 #' Placeholder for the formatted call stack in a log layout.
 #'
-#' @param offset number of call levels to offset
+#' @param keep_args boolean to indicate if you wante to keep
+#' call arguments or not.
 #'
 #' @family Log Layout
 #' @returns formatted call stack
@@ -81,6 +78,7 @@ get_call_stack = function(keep_args = F) {
 #' @description
 #' Extracts the name of the function from a deparse call.
 #'
+#' @param func function name
 #' @family Log Layout, Utility
 #' @returns function name without arguments
 #' @importFrom stringr str_extract
