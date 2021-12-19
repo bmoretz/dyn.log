@@ -1,5 +1,5 @@
 ---
-title: "log-layouts"
+title: "Log Layouts"
 author: Brandon Moretz
 date: "`r Sys.Date()`"
 output:
@@ -22,3 +22,4 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(dyn.log)
 ```
+

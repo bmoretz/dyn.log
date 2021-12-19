@@ -1,4 +1,13 @@
+library/
+local/
+cellar/
+lock/
+python/
+staging/
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
+/doc/
+/Meta/
+inst/doc
