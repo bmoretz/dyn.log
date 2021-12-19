@@ -2,13 +2,17 @@
 % Please edit documentation in R/level.R
 \name{log_levels}
 \alias{log_levels}
-\title{Gets Defined Log Levels}
+\title{Log Levels}
 \usage{
-log_levels()
+log_levels(level = NULL)
+}
+\arguments{
+\item{level}{log level to add if not already existing.}
 }
 \value{
 defined log levels
 }
 \description{
-Gets Defined Log Levels
+an active binding to keep track of log levels created
+with \code{new_log_level}.
 }

@@ -4,11 +4,15 @@
 \alias{log_layouts}
 \title{Log Layouts}
 \usage{
-log_layouts()
+log_layouts(layout = NULL)
+}
+\arguments{
+\item{layout}{log layout to add if not already existing.}
 }
 \value{
-all layouts.
+defined log layouts
 }
 \description{
-Gets all available log layouts.
+an active binding to keep track of log layouts created
+with \code{new_log_layout}.
 }

@@ -6,6 +6,11 @@
 \usage{
 new_fmt_exec_scope(style, field)
 }
+\arguments{
+\item{style}{{crayon::style()}}
+
+\item{field}{execution scope field}
+}
 \value{
 \code{new_fmt_cls_field}
 }

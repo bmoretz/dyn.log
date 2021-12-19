@@ -10,8 +10,8 @@ R6 Class that dispatches log messages throughout the application.
 \details{
 This object is designed to a centralized logging dispatcher that
 renders log messages with the appropriate context of the calling
-object. The \link{LogLayout} object is used to generate log message
-layouts (render formats), which are used by the \link{LogDispatcher}
+object. The \code{log_layout} object is used to generate log message
+layouts (render formats), which are used by the \code{LogDispatcher}
 to render highly-customizable and detailed log messages.
 }
 \section{Metrics}{
@@ -27,7 +27,7 @@ System Context
 \item{"machine"} : {A concise description of the hardware, often the CPU type.}
 \item{"login"} : {The user's login name, or "unknown" if it cannot be ascertained.}
 \item{"user"} : {The name of the real user ID, or "unknown" if it cannot be ascertained.}
-\item{"r-ver"} : {R Version \link{major}.\link{minor}}
+\item{"r-ver"} : {R Version (major).(minor)}
 }
 }
 

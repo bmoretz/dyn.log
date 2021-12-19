@@ -15,7 +15,7 @@ new_log_layout <- function(...,
                            sep = ' ',
                            association = character()) {
 
-  new_layout <- structure(
+  new_log_layout <- structure(
     list(),
     format = list(...),
     separator = sep,
@@ -23,38 +23,46 @@ new_log_layout <- function(...,
     class = c('log_layout')
   )
 
-  if(!identical(association, character())) {
+  log_layouts(new_log_layout)
 
-    layouts <- attr(new_log_layout, 'layouts')
-
-    if(is.null(layouts)) {
-      layouts <- list()
-    }
-
-    layouts[[association]] <- new_layout
-
-    attr(new_log_layout, 'layouts') <<- layouts
-  }
-
-  invisible(new_layout)
+  invisible(new_log_layout)
 }
 
 #' @title Log Layouts
 #'
 #' @description
-#' Gets all available log layouts.
+#' an active binding to keep track of log layouts created
+#' with \code{new_log_layout}.
 #'
-#' @return all layouts.
+#' @param layout log layout to add if not already existing.
+#'
+#' @return defined log layouts
 #' @export
-log_layouts <- function() {
-  attr(new_log_layout, 'layouts')
-}
+log_layouts <- local({
+
+  layouts <- list()
+
+  function(layout = NULL) {
+    if(!is.null(layout)) {
+      association <- attr(layout, 'association')
+      if(!identical(association, character())) {
+        if(missing(association)) {
+          layouts[[association]]
+        } else {
+          layouts[[association]] <<- layout
+        }
+      }
+    }
+
+    invisible(layouts)
+  }
+})
 
 #' @title Get Log Layout
 #'
 #' @description
 #' Gets a log layout by cls assocation.
-#'
+#' @param association cls assocation
 #' @return log layout associated with cls name.
 #' @export
 get_log_layout <- function(association) {
@@ -68,32 +76,24 @@ get_log_layout <- function(association) {
   layouts[[association]]
 }
 
-#' @title Log Layout Format
+#' @title Log Layout Detail
 #'
 #' @description
-#' Gets the format of a format object.
+#' Gets the layout formats and the distinct format types in
+#' a log layout instance, which is useful for determining
+#' the appropriate amount of log context to construct.
 #'
-#' @param fmt object to extract value from.
-#' @param ... further arguments passed to or from other methods.
-#'
-#' @return layout format
-#' @export
-format.log_layout <- function(fmt, ...) {
-  attr(fmt, 'format')
-}
-
-#' @title Log Layout Format Types
-#'
-#' @description
-#' Gets the distinct format types in a log layout instance,
-#' which is useful for determining the appropriate amount
-#' of log context to construct.
-#'
-#' @param layout object to extract value from.
+#' @param layout object to extract layout detail from.
 #'
 #' @return layout format
-get_format_types <- function(layout) {
-  unique(c(sapply(format(layout), function(format) class(format))))
+log_layout_detail <- function(layout) {
+  fmt_objs <- attr(layout, 'format')
+  fmt_types <- unique(c(sapply(fmt_objs, function(format) class(format))))
+  layout_detail <- list('formats' = fmt_objs,
+                        'types' = fmt_types,
+                        'seperator' = attr(layout, 'separator'))
+  class(layout_detail) <- 'log_layout_detail'
+  layout_detail
 }
 
 #' @title Log Layout Length
@@ -113,24 +113,22 @@ length.log_layout <- function(x, ...) {
 #' A container for a set of formatters that specify the log
 #' entry layout.
 #'
-#' @param layout collection of format objects to initialize with.
+#' @param formats the layout formats needed for evaluation.
+#' @param types the distinct list of format types in the layout.
+#' @param seperator the layout separator that is inserted between entries.
 #' @param context a list of contexts needed to evaluate formats in the
 #' the layout.
 #' @family Log Layout
 #' @return evaluated log layout
 #' @export
-evaluate_layout = function(layout, context) {
+evaluate_layout = function(formats, types, seperator, context) {
 
-  format <- format(layout)
-  format_types <- get_format_types(layout)
-  separator <- attr(layout, 'separator')
-
-  range <- 1:(length(format))
+  range <- 1:(length(formats))
   groups <- list(range)
   new_lines <- numeric(0L)
 
-  if(any(!is.na(match(format_types, 'fmt_newline')))) {
-    is_break <- sapply(format, function(fmt) 'fmt_newline' %in% class(fmt))
+  if(any(!is.na(match(types, 'fmt_newline')))) {
+    is_break <- sapply(formats, function(fmt) 'fmt_newline' %in% class(fmt))
     groups <- split(range, with(rle(is_break), rep(cumsum(!values), lengths)))
     new_lines <- which(is_break, arr.ind = T)
   }
@@ -146,21 +144,21 @@ evaluate_layout = function(layout, context) {
       rng <- rng[-length(rng)]
     }
 
-    evaluated <- sapply(format[rng], function(fmt) {
+    evaluated <- sapply(formats[rng], function(fmt) {
       fmt_class <- class(fmt)
       fmt_type <- fmt_class[which(fmt_class != 'fmt_layout')]
 
       value(fmt, context[[fmt_type]])
     })
 
-    line <- paste0(evaluated, collapse = separator)
+    line <- paste0(evaluated, collapse = seperator)
 
     output <- paste0(output, line)
 
     if(has_break) {
       output <- paste0(output,
                        character(0),
-                       separator = "\n")
+                       seperator = "\n")
     }
   }
 

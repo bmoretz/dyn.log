@@ -2,18 +2,22 @@
 % Please edit documentation in R/config.R
 \name{set_log_configuration}
 \alias{set_log_configuration}
-\title{Load Log Levels}
+\title{Set Logging Configuration}
 \usage{
 set_log_configuration(file_name, envir = parent.frame())
 }
 \arguments{
 \item{file_name}{loads logging levels from a yml configuration file.}
+
+\item{envir}{environment to load logger into.}
 }
 \value{
 initialized log levels from the specified config.
 }
 \description{
-Load Log Levels
+loads the logging configuration from the
+yaml config file and loads the appropriate objects
+into the specified environment.
 }
 \seealso{
 Other Logging: 

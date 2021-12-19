@@ -6,6 +6,11 @@
 \usage{
 new_fmt_cls_field(style, field)
 }
+\arguments{
+\item{style}{{crayon::style()}}
+
+\item{field}{field in the object to display}
+}
 \value{
 \code{new_fmt_cls_field}
 }

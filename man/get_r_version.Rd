@@ -7,8 +7,9 @@
 get_r_version()
 }
 \value{
-
+R environment version is (major).(minor) format
 }
 \description{
-Returns the R environment version is \link{major}.\link{minor} format.
+Wrapper around \code{R.Version()} to produce a nicely
+formatted string for use use in sys_context.
 }

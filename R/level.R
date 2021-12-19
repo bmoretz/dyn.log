@@ -21,7 +21,7 @@
 #'  \item{"TRACE"} : {The TRACE Level designates finer-grained informational events than the DEBUG}
 #' }
 #'
-#' @return new [log_level]
+#' @return \code{log_level}
 #' @export
 new_log_level <- function(name,
                           severity,
@@ -43,26 +43,38 @@ new_log_level <- function(name,
     class = c(name, 'log_level')
   )
 
-  levels <- attr(new_log_level, 'levels')
-
-  if(is.null(levels)) {
-    levels <- list()
-  }
-
-  levels[[name]] <- new_level
-
-  attr(new_log_level, 'levels') <<- levels
+  log_levels(new_level)
 
   new_level
 }
 
-#' Gets Defined Log Levels
+#' @title Log Levels
+#'
+#' @description
+#' an active binding to keep track of log levels created
+#' with \code{new_log_level}.
+#'
+#' @param level log level to add if not already existing.
 #'
 #' @return defined log levels
 #' @export
-log_levels <- function() {
-  attr(new_log_level, 'levels')
-}
+log_levels <- local({
+
+  levels <- list()
+
+  function(level = NULL) {
+    if(!is.null(level)) {
+      level_name <- level_name(level)
+      if(missing(level_name)) {
+        levels[[level_name]]
+      } else {
+        levels[[level_name]] <<- level
+      }
+    }
+
+    invisible(levels)
+  }
+})
 
 #' @title Get Level Name
 #'
@@ -109,6 +121,10 @@ as.character.log_level <- function(x, ...) {
 #'
 #' @return level severity
 #' @export
+#' @examples
+#' \dontrun{
+#' level_severity(LEVEL)
+#' }
 level_severity <- function(level) {
   UseMethod('level_severity', level)
 }
@@ -121,7 +137,9 @@ level_severity <- function(level) {
 #' @export
 #'
 #' @examples
-#' get_severity(FATAL)
+#' \dontrun{
+#' level_severity(LEVEL)
+#' }
 level_severity <- function(level) {
   return(attr(level, 'severity'))
 }
@@ -143,6 +161,10 @@ as.integer.log_level <- function(x, ...) {
 #'
 #' @return styled level information
 #' @export
+#' @examples
+#' \dontrun{
+#' level_info(LEVEL)
+#' }
 level_info <- function(level) {
   UseMethod("level_info", level)
 }
@@ -153,17 +175,24 @@ level_info <- function(level) {
 #'
 #' @return styled level information
 #' @export
+#' @examples
+#' \dontrun{
+#' level_info(LEVEL)
+#' }
 level_info <- function(level) {
   attr(level, 'log_style')(level_name(level))
 }
 
-#' Get log level message format
+#' @title Format
+#'
+#' @description
+#' Gets log level message format.
 #'
 #' @param level log level
 #' @param msg log msg
 #' @return formatted log message
 #' @export
-format.log_level <- function(level, msg) {
+level_format <- function(level, msg) {
   attr(level, 'msg_style')(msg)
 }
 

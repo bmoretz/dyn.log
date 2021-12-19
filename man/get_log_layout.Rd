@@ -6,6 +6,9 @@
 \usage{
 get_log_layout(association)
 }
+\arguments{
+\item{association}{cls assocation}
+}
 \value{
 log layout associated with cls name.
 }

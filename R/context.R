@@ -12,8 +12,10 @@ get_system_info = function() {
 #' @title R Version
 #'
 #' @description
-#' Returns the R environment version is [major].[minor] format.
-#' @return
+#' Wrapper around \code{R.Version()} to produce a nicely
+#' formatted string for use use in sys_context.
+#'
+#' @return R environment version is (major).(minor) format
 get_r_version = function() {
   c('r_ver' = paste0(R.Version()[c('major', 'minor')], collapse = '.'))
 }

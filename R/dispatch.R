@@ -6,8 +6,8 @@
 #' @details
 #' This object is designed to a centralized logging dispatcher that
 #' renders log messages with the appropriate context of the calling
-#' object. The [LogLayout] object is used to generate log message
-#' layouts (render formats), which are used by the [LogDispatcher]
+#' object. The \code{log_layout} object is used to generate log message
+#' layouts (render formats), which are used by the \code{LogDispatcher}
 #' to render highly-customizable and detailed log messages.
 #'
 #' @section Metrics:
@@ -22,7 +22,7 @@
 #'  \item{"machine"} : {A concise description of the hardware, often the CPU type.}
 #'  \item{"login"} : {The user's login name, or "unknown" if it cannot be ascertained.}
 #'  \item{"user"} : {The name of the real user ID, or "unknown" if it cannot be ascertained.}
-#'  \item{"r-ver"} : {R Version [major].[minor]}
+#'  \item{"r-ver"} : {R Version (major).(minor)}
 #' }
 #'
 #' @seealso LogLevel
@@ -79,7 +79,7 @@ LogDispatch <- R6::R6Class(
 
         has_calling_class <- ifelse(is.null(parent_env$self), F, T); calling_class <- NA
         log_msg <- glue::glue(msg, .envir = parent)
-        layout <- get_log_layout("default")
+        log_layout <- get_log_layout("default")
 
         if(has_calling_class) {
           calling_class <- parent_env$self
@@ -89,22 +89,24 @@ LogDispatch <- R6::R6Class(
           associated_layout <- get_log_layout(cls_name)
 
           if(!is.null(associated_layout)) {
-            layout <- associated_layout
+            log_layout <- associated_layout
           }
         }
 
-        context <- list()
-        fmt_types <- get_format_types(layout)
+        with(log_layout_detail(log_layout), {
 
-        if(has_calling_class && any(!is.na(match(fmt_types, 'fmt_cls_field')))) {
-          context[['fmt_cls_field']] = private$get_class_scope(calling_class)
-        }
+          context <- list()
 
-        if(any(!is.na(match(fmt_types, 'fmt_metric')))) {
-          context[['fmt_metric']] = sys_context()
-        }
+          if(has_calling_class && any(!is.na(match(types, 'fmt_cls_field')))) {
+            context[['fmt_cls_field']] = private$get_class_scope(calling_class)
+          }
 
-        cat(glue::glue(evaluate_layout(layout, context)))
+          if(any(!is.na(match(types, 'fmt_metric')))) {
+            context[['fmt_metric']] = sys_context()
+          }
+
+          cat(glue::glue(evaluate_layout(formats, types, seperator, context)))
+        })
       })
 
       invisible(self)

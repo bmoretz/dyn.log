@@ -4,10 +4,10 @@
 \alias{format.fmt_timestamp}
 \title{Gets the format of a format object.}
 \usage{
-\method{format}{fmt_timestamp}(fmt, ...)
+\method{format}{fmt_timestamp}(x, ...)
 }
 \arguments{
-\item{fmt}{object to extract value from.}
+\item{x}{object to extract value from.}
 
 \item{...}{further arguments passed to or from other methods.}
 }
