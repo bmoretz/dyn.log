@@ -1,6 +1,8 @@
 ---
 output:
-  github_document
+  github_document:
+    pandoc_args: --webtex=https://ibm.codecogs.com/png.latex?
+always_allow_html: yes
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -41,7 +43,7 @@ deeply into your design, even though it knows nothing about it.
 
 You can install the development version of dyn.log from [GitHub](https://github.com/) with:
 
-``` r
+```r
 remotes::install_github("bmoretz/dyn.log")
 ```
 
