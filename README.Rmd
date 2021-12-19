@@ -91,49 +91,20 @@ knitr::knit_hooks$set(message = function(x, options){
 The following example wraps the logger call in *capture.output* and *message* so that the
 [crayon](https://github.com/r-lib/crayon) styles are shown correctly in markdown.
 
-```{r simple_example}
+```{r simple_example, eval=F}
 library(dyn.log)
 
 var1 <- "abc"; var2 <- 123; var3 <- runif(1)
 
-message(capture.output({
-  Logger$trace("my log message - var1: {var1}, var2: {var2}, var3: {var3}")  
-}))
+Logger$debug("my log message - var1: {var1}, var2: {var2}, var3: {var3}")
 
 ```
+![Standard Log Levels](man/figures/README-basic-log-output.PNG)
 
 ### Standard Log Levels & Styles
 
 The default configuration (above) defines the following "standard" log levels, 
-and their output can be seen below (note: your environment will look slightly 
-different than the rendered markdown, so a screen shot is included):
-
-*Rendered in markdown*:
-
-```{r, echo=F, class.source="console-out"}
-library(dyn.log)
-
-message(capture.output({
-  cat("<br>")
-  Logger$trace("Trace Message")
-  cat("<br>")
-  Logger$debug("Debug Message")
-  cat("<br>")
-  Logger$info("Info Message")
-  cat("<br>")
-  Logger$success("Success Message")
-  cat("<br>")
-  Logger$warn("Warn Message")
-  cat("<br>")
-  Logger$error("Error Message")
-  cat("<br>")
-  Logger$fatal("Fatal Message")
-  cat("<br>")
-}))
-
-```
-
-*Screenshot from a terminal*.
+and their output can be seen in the below screenshot:
 
 ![Standard Log Levels](man/figures/README-std-levels-out.PNG)
 
@@ -142,7 +113,7 @@ message(capture.output({
 Log message layouts are exposed as an S3 type in the package called *log_layout*. Layouts are
 composed from a series of objects that inherit from *fmt_layout*.
 
-```{r, customized_layout}
+```{r, customized_layout, eval=F}
 
 new_log_layout(
     new_fmt_metric(crayon::green$bold, "sysname"),
@@ -155,11 +126,10 @@ new_log_layout(
     association = "default"
   )
 
-message(paste(capture.output({
-  Logger$trace("my log message - var1: {var1}, var2: {var2}, var3: {var3}")
-}), collapse = "<br>"))
+Logger$info("my log message - var1: {var1}, var2: {var2}, var3: {var3}")
 
 ```
+![Custom Log Layout](man/figures/README-custom-log-output.PNG)
 
 For a detailed look at these objects, and how they work please see the "Log Layouts" *vignette*.
 
@@ -174,7 +144,7 @@ A TestObject is defined as below, who's primary responsibly is to assign a rando
 the instance via the constructor. There is also a method on the object that will call the logger with some
 local scope variables that should be logged as well.
 
-```{r, test_obj_def}
+```{r, test_obj_def, eval=FALSE}
 TestObject <- R6::R6Class(
   classname = "TestObject",
 
@@ -188,7 +158,7 @@ TestObject <- R6::R6Class(
     test_trace = function() {
       a <- "test"; b <- 123; c <- runif(1)
 
-      Logger$trace("these are some variables: {a} - {b} - {c}")
+      Logger$info("these are some variables: {a} - {b} - {c}")
     }
   ),
 
@@ -199,11 +169,12 @@ TestObject <- R6::R6Class(
   )
 )
 
-obj <- TestObject$new()
-obj
 ```
 
-```{r, cls_assocation}
+With the above class defined, we can create a custom log layout that associated with this R6 type with
+a new log layout:
+
+```{r, cls_assocation, eval=F}
 
   new_log_layout(
     new_fmt_literal(crayon::cyan$bold, "Object Id:"),
@@ -221,13 +192,15 @@ obj
     association = "TestObject"
   )
 
-  message(paste(capture.output({
-    obj$test_trace()
+  obj$test_trace()
     
-    Logger$trace("this is a normal log msg")
-  }), collapse = "<br>"))
-  
+  Logger$debug("this is a normal log msg")
 ```
+![Class Level Associations](man/figures/README-cls-association-output.PNG)
+
+As you can see, only when the logger is invoked from inside the class that has a custom layout associated with it
+does the custom layout get used. The follow-up log call (outside the class scope) reverts back to the standard
+layout settings.
 
 For a detailed look at class associations, and how they work please see the "Log Layouts" *vignette*.
 

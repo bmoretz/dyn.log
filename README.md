@@ -107,27 +107,15 @@ library(dyn.log)
 
 var1 <- "abc"; var2 <- 123; var3 <- runif(1)
 
-message(capture.output({
-  Logger$trace("my log message - var1: {var1}, var2: {var2}, var3: {var3}")  
-}))
+Logger$debug("my log message - var1: {var1}, var2: {var2}, var3: {var3}")
 ```
 
-<pre class="console-out"><code>#> <span style='color: #555555; font-weight: bold;'>TRACE</span> <span style='color: #555555; font-style: italic;'>[12/19/21 15:59:23 -0500]</span> <span style='color: #555555;'>my log message - var1: abc, var2: 123, var3: 0.518782177940011</span>
-</code></pre>
+![Standard Log Levels](man/figures/README-basic-log-output.PNG)
 
 ### Standard Log Levels & Styles
 
 The default configuration (above) defines the following “standard” log
-levels, and their output can be seen below (note: your environment will
-look slightly different than the rendered markdown, so a screen shot is
-included):
-
-*Rendered in markdown*:
-
-<pre class="console-out"><code>#> <br><span style='color: #555555; font-weight: bold;'>TRACE</span> <span style='color: #555555; font-style: italic;'>[12/19/21 15:59:23 -0500]</span> <span style='color: #555555;'>Trace Message</span><br><span style='color: #00BBBB; font-weight: bold;'>DEBUG</span> <span style='color: #555555; font-style: italic;'>[12/19/21 15:59:23 -0500]</span> <span style='color: #BBBBBB;'>Debug Message</span><br><span style='color: #0000BB; font-weight: bold;'>INFO</span> <span style='color: #555555; font-style: italic;'>[12/19/21 15:59:23 -0500]</span> <span style='color: #BBBBBB;'>Info Message</span><br><span style='color: #00BB00; font-weight: bold;'>SUCCESS</span> <span style='color: #555555; font-style: italic;'>[12/19/21 15:59:23 -0500]</span> <span style='color: #000000; background-color: #00BB00; font-weight: bold;'>Success Message</span><br><span style='color: #BBBB00; font-weight: bold;'>WARN</span> <span style='color: #555555; font-style: italic;'>[12/19/21 15:59:23 -0500]</span> <span style='color: #000000; background-color: #BBBB00; font-weight: bold;'>Warn Message</span><br><span style='color: #BB0000; font-weight: bold;'>ERROR</span> <span style='color: #555555; font-style: italic;'>[12/19/21 15:59:23 -0500]</span> <span style='color: #BBBBBB; background-color: #000000; font-weight: bold;'>Error Message</span><br><span style='color: #BB0000; font-weight: bold;'>FATAL</span> <span style='color: #555555; font-style: italic;'>[12/19/21 15:59:23 -0500]</span> <span style='color: #BBBBBB; background-color: #BB0000; font-weight: bold;'>Fatal Message</span><br>
-</code></pre>
-
-*Screenshot from a terminal*.
+levels, and their output can be seen in the below screenshot:
 
 ![Standard Log Levels](man/figures/README-std-levels-out.PNG)
 
@@ -149,13 +137,10 @@ new_log_layout(
     association = "default"
   )
 
-message(paste(capture.output({
-  Logger$trace("my log message - var1: {var1}, var2: {var2}, var3: {var3}")
-}), collapse = "<br>"))
+Logger$info("my log message - var1: {var1}, var2: {var2}, var3: {var3}")
 ```
 
-<pre class="console-out"><code>#> <span style='color: #00BB00; font-weight: bold;'>Linux</span>-<span style='color: #BB0000; font-weight: bold;'>5.10.16.3-microsoft-standard-WSL2</span><br><span style='color: #555555; font-weight: bold;'>TRACE</span>-<span style='color: #555555; font-style: italic;'>[12/19/21 15:59:23 -0500]</span>-<span style='color: #555555;'>my log message - var1: abc, var2: 123, var3: 0.518782177940011</span>
-</code></pre>
+![Custom Log Layout](man/figures/README-custom-log-output.PNG)
 
 For a detailed look at these objects, and how they work please see the
 “Log Layouts” *vignette*.
@@ -190,7 +175,7 @@ TestObject <- R6::R6Class(
     test_trace = function() {
       a <- "test"; b <- 123; c <- runif(1)
 
-      Logger$trace("these are some variables: {a} - {b} - {c}")
+      Logger$info("these are some variables: {a} - {b} - {c}")
     }
   ),
 
@@ -200,18 +185,10 @@ TestObject <- R6::R6Class(
     }
   )
 )
-
-obj <- TestObject$new()
-obj
-#> <TestObject>
-#>   Public:
-#>     clone: function (deep = FALSE) 
-#>     id: SLPKTYCYJWQSIWT
-#>     initialize: function () 
-#>     test_trace: function () 
-#>   Private:
-#>     generate_id: function (n = 15)
 ```
+
+With the above class defined, we can create a custom log layout that
+associated with this R6 type with a new log layout:
 
 ``` r
   new_log_layout(
@@ -230,15 +207,18 @@ obj
     association = "TestObject"
   )
 
-  message(paste(capture.output({
-    obj$test_trace()
+  obj$test_trace()
     
-    Logger$trace("this is a normal log msg")
-  }), collapse = "<br>"))
+  Logger$debug("this is a normal log msg")
 ```
 
-<pre class="console-out"><code>#> <span style='color: #00BBBB; font-weight: bold;'>Object Id:</span> <span style='color: #555555; background-color: #00BBBB; font-weight: bold;'>SLPKTYCYJWQSIWT</span><br><span style='color: #555555; font-weight: bold;'>TRACE</span> <span style='color: #555555; font-style: italic;'>[12/19/21 15:59:23 -0500]</span> <span style='color: #555555;'>these are some variables: test - 123 - 0.675599090056494</span><br><span style='color: #00BB00; font-weight: bold;'>Linux</span> <span style='color: #BB0000; font-weight: bold;'>WORKSTATION</span> <span style='color: #0000BB; font-weight: bold;'>R Version:</span> <span style='color: #0000BB; font-weight: bold; font-style: italic;'>4.1.2</span><span style='color: #00BB00; font-weight: bold;'>Linux</span>-<span style='color: #BB0000; font-weight: bold;'>5.10.16.3-microsoft-standard-WSL2</span><br><span style='color: #555555; font-weight: bold;'>TRACE</span>-<span style='color: #555555; font-style: italic;'>[12/19/21 15:59:23 -0500]</span>-<span style='color: #555555;'>this is a normal log msg</span>
-</code></pre>
+![Class Level
+Associations](man/figures/README-cls-association-output.PNG)
+
+As you can see, only when the logger is invoked from inside the class
+that has a custom layout associated with it does the custom layout get
+used. The follow-up log call (outside the class scope) reverts back to
+the standard layout settings.
 
 For a detailed look at class associations, and how they work please see
 the “Log Layouts” *vignette*.
