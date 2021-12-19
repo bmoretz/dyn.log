@@ -58,7 +58,7 @@ test_that("log_layout_format_types", {
     new_fmt_log_msg(),
     new_fmt_line_break(),
     new_fmt_metric(crayon::cyan$bold, "call_stack"),
-    sep = '-',
+    seperator = '-',
     association = "test-layout-format"
   )
 
@@ -152,7 +152,8 @@ test_that("log_layout_evaluates_metrics_multiline", {
     new_fmt_line_break(),
     new_fmt_log_level(),
     new_fmt_timestamp(crayon::silver$italic),
-    new_fmt_log_msg()
+    new_fmt_log_msg(),
+    association = "default"
   )
 
   expect_true(!is.null(log_layout))
@@ -230,7 +231,7 @@ test_that("multi_line_fmt_works_2", {
     new_fmt_literal(crayon::red$italic, "literal1"),
     new_fmt_literal(crayon::green$italic, "literal2"),
     new_fmt_literal(crayon::blue$italic, "literal3"),
-    sep = '-')
+    seperator = '-')
 
   with(log_layout_detail(log_layout), {
 
@@ -275,7 +276,7 @@ test_that("multi_line_fmt_works_3", {
     new_fmt_metric(crayon::red$bold, "machine"),
     new_fmt_metric(crayon::green$bold, "nodename"),
     new_fmt_metric(crayon::blue$bold, "user"),
-    sep = '---')
+    seperator = '---')
 
   with(log_layout_detail(log_layout), {
 
@@ -329,7 +330,7 @@ test_that("multi_line_fmt_works_4", {
      new_fmt_literal(crayon::red$italic, "literal4"),
      new_fmt_literal(crayon::green$italic, "literal5"),
      new_fmt_literal(crayon::blue$italic, "literal6"),
-     sep = '---')
+     seperator = '---')
 
   with(log_layout_detail(log_layout), {
 

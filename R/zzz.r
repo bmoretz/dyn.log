@@ -13,7 +13,7 @@ Logger <- NULL
 
   assign('Logger', LogDispatch$new(), envir = topenv())
 
-  default_config <- system.file("default.yml",
+  default_config <- system.file("default.yaml",
                                 package = pkgname)
 
   set_log_configuration(default_config, envir = topenv())

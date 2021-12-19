@@ -6,19 +6,22 @@
 #' a class of objects.
 #'
 #' @param ... collection of format objects to initialize with.
-#' @param sep format entry separator, defaults to a single space.
+#' @param seperator format entry separator, defaults to a single space.
+#' @param new_line the layout separator that is inserted between lines.
 #' @param association objects to associate this log format with.
 #' @family Log Layout
 #' @return object's value
 #' @export
 new_log_layout <- function(...,
-                           sep = ' ',
+                           seperator = ' ',
+                           new_line = '\n',
                            association = character()) {
 
   new_log_layout <- structure(
     list(),
     format = list(...),
-    separator = sep,
+    separator = seperator,
+    new_line = '\n',
     association = association,
     class = c('log_layout')
   )
@@ -91,7 +94,8 @@ log_layout_detail <- function(layout) {
   fmt_types <- unique(c(sapply(fmt_objs, function(format) class(format))))
   layout_detail <- list('formats' = fmt_objs,
                         'types' = fmt_types,
-                        'seperator' = attr(layout, 'separator'))
+                        'seperator' = attr(layout, 'separator'),
+                        'new_line' = attr(layout, 'new_line'))
   class(layout_detail) <- 'log_layout_detail'
   layout_detail
 }
@@ -118,10 +122,13 @@ length.log_layout <- function(x, ...) {
 #' @param seperator the layout separator that is inserted between entries.
 #' @param context a list of contexts needed to evaluate formats in the
 #' the layout.
+#' @param new_line the layout separator that is inserted between lines.
+#'
 #' @family Log Layout
 #' @return evaluated log layout
 #' @export
-evaluate_layout = function(formats, types, seperator, context) {
+evaluate_layout = function(formats, types, seperator, context,
+                           new_line = '\n') {
 
   range <- 1:(length(formats))
   groups <- list(range)
@@ -158,7 +165,7 @@ evaluate_layout = function(formats, types, seperator, context) {
     if(has_break) {
       output <- paste0(output,
                        character(0),
-                       seperator = "\n")
+                       seperator = new_line)
     }
   }
 

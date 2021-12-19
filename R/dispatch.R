@@ -105,7 +105,8 @@ LogDispatch <- R6::R6Class(
             context[['fmt_metric']] = sys_context()
           }
 
-          cat(glue::glue(evaluate_layout(formats, types, seperator, context)))
+          cat(glue::glue(evaluate_layout(formats, types, seperator, context,
+                                         new_line = new_line)))
         })
       })
 

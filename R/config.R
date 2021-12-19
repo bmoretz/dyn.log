@@ -19,7 +19,8 @@ set_log_configuration <- function(file_name, envir = parent.frame()) {
   configure_logger(log_config$settings, envir)
   attach_log_levels(log_config$levels, envir)
 
-  create_default_layouts()
+  create_default_layout()
+  local_init()
 
   invisible()
 }

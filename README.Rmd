@@ -1,5 +1,6 @@
 ---
-output: github_document
+output:
+  github_document
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -11,6 +12,13 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+```
+
+```{css, echo=FALSE}
+.console-out {
+  background-color: black;
+  border: 3px solid white;
+}
 ```
 
 # dyn.log
@@ -29,32 +37,196 @@ deeply into your design, even though it knows nothing about it.
 
 ## Installation
 
+#### GitHub
+
 You can install the development version of dyn.log from [GitHub](https://github.com/) with:
 
 ``` r
 remotes::install_github("bmoretz/dyn.log")
 ```
 
-## Example
+#### CRAN
 
-This is a basic example which shows you how to solve a common problem:
+You can install the latest stable version of dyn.log from CRAN:
 
-```{r example}
+(coming soon)
+
+## Overview
+
+Since everything about dyn.log is configuration driven, the package comes with a basic configuration **default.yaml**:
+
+```yaml
+`r xfun::file_string('inst/default.yaml')`
+```
+
+The *settings* node contains the core settings of the log dispatcher, by attribute.
+
+The *levels* node contains the log levels you want to have in your environment. You'll notice
+that **log_style** and **msg_style** are [crayon](https://github.com/r-lib/crayon) styles. This is
+because each level has a unique render format that helps to visually assist parsing of log information.
+
+The logging functionality is exposed by a R6 class, *LogDispatch*, that is available as a package
+namespace variable called **Logger**. The **Logger** will have methods that correspond to the *log levels*
+that are defined in its yaml configuration, which makes logging intuitive. When the package is loaded,
+the logger will appear in the top / global environment as *Logger*.
+
+Log messages are automatically assumed to be in standard [glue](https://github.com/tidyverse/glue) format
+so local environment variables are capturable in the log output.
+
+## Simple Example
+
+```{r color, echo = FALSE}
+options(crayon.enabled = TRUE)
+knitr::knit_hooks$set(message = function(x, options){
+  paste0(
+    "<pre class=\"console-out\"><code>",
+    fansi::sgr_to_html(x = x, warn = FALSE),
+    "</code></pre>"
+  )
+})
+```
+
+The following example wraps the logger call in *capture.output* and *message* so that the
+[crayon](https://github.com/r-lib/crayon) styles are shown correctly in markdown.
+
+```{r simple_example}
 library(dyn.log)
+
+var1 <- "abc"; var2 <- 123; var3 <- runif(1)
+
+message(capture.output({
+  Logger$trace("my log message - var1: {var1}, var2: {var2}, var3: {var3}")  
+}))
+
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+### Standard Log Levels & Styles
 
-```{r cars}
-summary(cars)
+The default configuration (above) defines the following "standard" log levels, 
+and their output can be seen below (note: your environment will look slightly 
+different than the rendered markdown, so a screen shot is included):
+
+*Rendered in markdown*:
+
+```{r, echo=F, class.source="console-out"}
+library(dyn.log)
+
+message(capture.output({
+  cat("<br>")
+  Logger$trace("Trace Message")
+  cat("<br>")
+  Logger$debug("Debug Message")
+  cat("<br>")
+  Logger$info("Info Message")
+  cat("<br>")
+  Logger$success("Success Message")
+  cat("<br>")
+  Logger$warn("Warn Message")
+  cat("<br>")
+  Logger$error("Error Message")
+  cat("<br>")
+  Logger$fatal("Fatal Message")
+  cat("<br>")
+}))
+
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/v1/examples>.
+*Screenshot from a terminal*.
 
-You can also embed plots, for example:
+![Standard Log Levels](man/figures/README-std-levels-out.PNG)
 
-```{r pressure, echo = FALSE}
-plot(pressure)
+### Customizing a Log Message
+
+Log message layouts are exposed as an S3 type in the package called *log_layout*. Layouts are
+composed from a series of objects that inherit from *fmt_layout*.
+
+```{r, customized_layout}
+
+new_log_layout(
+    new_fmt_metric(crayon::green$bold, "sysname"),
+    new_fmt_metric(crayon::red$bold, "release"),
+    new_fmt_line_break(),
+    new_fmt_log_level(),
+    new_fmt_timestamp(crayon::silver$italic),
+    new_fmt_log_msg(),
+    seperator = '-',
+    association = "default"
+  )
+
+message(paste(capture.output({
+  Logger$trace("my log message - var1: {var1}, var2: {var2}, var3: {var3}")
+}), collapse = "<br>"))
+
 ```
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+For a detailed look at these objects, and how they work please see the "Log Layouts" *vignette*.
+
+> (vignette("Log Layouts", package = "dyn.log")
+
+### Logging Associations
+
+One thing you may have noticed about the previous log layout definition was the *association* parameter. Associations
+are a useful way to build a customized log layout for your custom R6 types. This can be especially useful in larger applications, such as [plumber](https://github.com/rstudio/plumber/) services or [shiny](https://github.com/rstudio/shiny) dashboards.
+
+A TestObject is defined as below, who's primary responsibly is to assign a randomly generated identifier to
+the instance via the constructor. There is also a method on the object that will call the logger with some
+local scope variables that should be logged as well.
+
+```{r, test_obj_def}
+TestObject <- R6::R6Class(
+  classname = "TestObject",
+
+  public = list(
+    id = NULL,
+
+    initialize = function() {
+      self$id <- private$generate_id()
+    },
+
+    test_trace = function() {
+      a <- "test"; b <- 123; c <- runif(1)
+
+      Logger$trace("these are some variables: {a} - {b} - {c}")
+    }
+  ),
+
+  private = list(
+    generate_id = function(n = 15) {
+      paste0(sample(LETTERS, n, TRUE), collapse =  '')
+    }
+  )
+)
+
+obj <- TestObject$new()
+obj
+```
+
+```{r, cls_assocation}
+
+  new_log_layout(
+    new_fmt_literal(crayon::cyan$bold, "Object Id:"),
+    new_fmt_cls_field(crayon::bgCyan$silver$bold, "id"),
+    new_fmt_line_break(),
+    new_fmt_log_level(),
+    new_fmt_timestamp(crayon::silver$italic),
+    new_fmt_log_msg(),
+    new_fmt_line_break(),
+    new_fmt_metric(crayon::green$bold, "sysname"),
+    new_fmt_metric(crayon::red$bold, "nodename"),
+    new_fmt_literal(crayon::blue$bold, "R Version:"),
+    new_fmt_metric(crayon::blue$italic$bold, "r_ver"),
+    new_fmt_line_break(),
+    association = "TestObject"
+  )
+
+  message(paste(capture.output({
+    obj$test_trace()
+    
+    Logger$trace("this is a normal log msg")
+  }), collapse = "<br>"))
+  
+```
+
+For a detailed look at class associations, and how they work please see the "Log Layouts" *vignette*.
+
+> (vignette("Log Layouts", package = "dyn.log")

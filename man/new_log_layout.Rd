@@ -4,12 +4,19 @@
 \alias{new_log_layout}
 \title{Log Layout}
 \usage{
-new_log_layout(..., sep = " ", association = character())
+new_log_layout(
+  ...,
+  seperator = " ",
+  new_line = "\\n",
+  association = character()
+)
 }
 \arguments{
 \item{...}{collection of format objects to initialize with.}
 
-\item{sep}{format entry separator, defaults to a single space.}
+\item{seperator}{format entry separator, defaults to a single space.}
+
+\item{new_line}{the layout separator that is inserted between lines.}
 
 \item{association}{objects to associate this log format with.}
 }

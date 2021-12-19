@@ -5,7 +5,7 @@
 \title{A container for a set of formatters that specify the log
 entry layout.}
 \usage{
-evaluate_layout(formats, types, seperator, context)
+evaluate_layout(formats, types, seperator, context, new_line = "\\n")
 }
 \arguments{
 \item{formats}{the layout formats needed for evaluation.}
@@ -16,6 +16,8 @@ evaluate_layout(formats, types, seperator, context)
 
 \item{context}{a list of contexts needed to evaluate formats in the
 the layout.}
+
+\item{new_line}{the layout separator that is inserted between lines.}
 }
 \value{
 evaluated log layout

@@ -113,6 +113,7 @@ value.fmt_metric <- function(fmt, sys_context, ...) {
 #'
 #' @family Log Layout
 #' @returns log metric layout.
+#' @export
 #' @examples
 #' \dontrun{
 #' new_fmt_literal(red $ bold, "literal text")
@@ -143,7 +144,7 @@ value.fmt_literal <- function(fmt, ...) {
   style(fmt)(attr(fmt, 'value'))
 }
 
-#' Formatted Timestamp
+#' @title Formatted Timestamp
 #'
 #' @description
 #' Placeholder for a formatted timestamp in a log layout.
@@ -154,6 +155,7 @@ value.fmt_literal <- function(fmt, ...) {
 #'
 #' @family Log Layout
 #' @returns log metric layout.
+#' @export
 #' @examples
 #' \dontrun{
 #' fmt_timestamp(red $ bold, "%Y-%m-%d %H:%M:%S")
@@ -200,13 +202,14 @@ value.fmt_timestamp <- function(fmt, ...) {
   style(fmt)(v(f))
 }
 
-#' Formatted Line Break
+#' @title Formatted Line Break
 #'
 #' @description
 #' Placeholder for a new line in a log layout.
 #'
 #' @family Log Layout
 #' @returns log layout newline.
+#' @export
 new_fmt_line_break <- function() {
   structure(
     list(),
@@ -238,6 +241,7 @@ value.fmt_newline <- function(fmt, ...) {
 #'
 #' @family Log Layout
 #' @returns log level info.
+#' @export
 new_fmt_log_level <- function() {
   structure(
     list(),
@@ -270,6 +274,7 @@ value.fmt_level_info <- function(fmt, ...) {
 #'
 #' @family Log Layout
 #' @returns log layout newline.
+#' @export
 new_fmt_log_msg <- function() {
   structure(
     list(),
@@ -305,6 +310,7 @@ value.new_fmt_log_msg <- function(fmt, ...) {
 #'
 #' @family Log Layout
 #' @returns \code{new_fmt_cls_field}
+#' @export
 new_fmt_cls_field <- function(style, field) {
 
   stopifnot(class(style) == "crayon")

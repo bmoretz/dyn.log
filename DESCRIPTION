@@ -44,7 +44,8 @@ Suggests:
     remotes,
     pkgdown,
     prettydoc,
-    here
+    here,
+    fansi
 Config/testthat/edition: 3
 Remotes:
   GuangchuangYu/badger

@@ -16,8 +16,8 @@ TestObject <- R6::R6Class(
   ),
 
   private = list(
-    generate_id = function(n = 10) {
-      paste0(do.call(paste0, replicate(5, sample(LETTERS, n, TRUE), FALSE)), collapse =  '')
+    generate_id = function(n = 15) {
+      paste0(sample(LETTERS, n, TRUE), collapse =  '')
     }
   )
 )
