@@ -1,10 +1,15 @@
 ---
 title: "Log Formats"
-output: rmarkdown::html_vignette
+author: Brandon Moretz
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
 vignette: >
   %\VignetteIndexEntry{Log Formats}
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+  \usepackage[utf8]{inputenc}
 ---
 
 ```{r, include = FALSE}
