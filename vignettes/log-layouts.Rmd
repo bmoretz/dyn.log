@@ -1,6 +1,7 @@
 ---
 title: "log-layouts"
 author: Brandon Moretz
+date: "`r Sys.Date()`"
 output:
   prettydoc::html_pretty:
     theme: architect
@@ -8,7 +9,7 @@ output:
 vignette: >
   %\VignetteIndexEntry{Log Layouts}
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+  \usepackage[utf8]{inputenc}
 ---
 
 ```{r, include = FALSE}
