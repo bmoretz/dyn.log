@@ -6,6 +6,9 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/bmoretz/dyn.log/workflows/R-CMD-check/badge.svg)](https://github.com/bmoretz/dyn.log/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/bmoretz/dyn.log/branch/master/graph/badge.svg)](https://app.codecov.io/gh/bmoretz/dyn.log?branch=master)
+[![](https://img.shields.io/badge/devel%20version-0.1.1-blue.svg)](https://github.com/bmoretz/dyn.log)
 <!-- badges: end -->
 
 The goal of dyn.log is to be a comprehensive and dynamic configuration
