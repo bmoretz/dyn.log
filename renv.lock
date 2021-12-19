@@ -64,24 +64,6 @@
         "sys"
       ]
     },
-    "badger": {
-      "Package": "badger",
-      "Version": "0.1.0.993",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteUsername": "GuangchuangYu",
-      "RemoteRepo": "badger",
-      "RemoteRef": "master",
-      "RemoteSha": "6f759f978c7199a23b8867cae342a59b17b5c8f5",
-      "Hash": "7ef5a74f6d9a89d6790fa15ef606d2d3",
-      "Requirements": [
-        "desc",
-        "dlstats",
-        "rvcheck",
-        "usethis"
-      ]
-    },
     "base64enc": {
       "Package": "base64enc",
       "Version": "0.1-3",
