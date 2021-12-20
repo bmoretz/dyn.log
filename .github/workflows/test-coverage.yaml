@@ -52,7 +52,7 @@ jobs:
           path: ${{ env.renv_dir }}
           key: ${{ matrix.config.os }}-renv-${{ hashFiles('**/renv.lock') }}
           restore-keys: |
-            ${{ matrix.config.os }}-renv-${{ hashFiles('**/renv.lock') }}
+            dyn.log-${{ matrix.config.os }}-renv-${{ hashFiles('**/renv.lock') }}
 
       - name: Restore renv
         run: |
