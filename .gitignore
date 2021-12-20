@@ -1,8 +1,7 @@
 library/
 local/
 cellar/
-lock/
-python/
+lock/python/
 staging/
 .Rproj.user
 .Rhistory
@@ -10,5 +9,4 @@ staging/
 .Ruserdata
 /doc/
 /Meta/
-inst/doc
 docs
