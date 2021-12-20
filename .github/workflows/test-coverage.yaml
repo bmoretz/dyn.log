@@ -50,9 +50,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ env.renv_dir }}
-          key: ${{ matrix.config.os }}-renv-${{ hashFiles('**/renv.lock') }}
+          key: ${{ matrix.config.os }}-renv-${{ hashFiles('**/renv.lock') }}-v2
           restore-keys: |
-            dyn.log-${{ matrix.config.os }}-renv-${{ hashFiles('**/renv.lock') }}
+            ${{ matrix.config.os }}-renv-${{ hashFiles('**/renv.lock') }}-v2
 
       - name: Restore renv
         run: |
