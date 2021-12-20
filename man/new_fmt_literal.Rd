@@ -18,9 +18,11 @@ log metric layout.
 Placeholder for a formatted literal in a log layout.
 }
 \examples{
+\dontrun{
 new_fmt_literal(red $ bold, "literal text")
 
 new_fmt_literal(blue $ italic, "literal text")
+}
 }
 \seealso{
 Other Log Layout: 

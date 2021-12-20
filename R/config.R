@@ -1,22 +1,26 @@
-#' Load Log Levels
+#' @title Set Logging Configuration
+#'
+#' @description loads the logging configuration from the
+#' yaml config file and loads the appropriate objects
+#' into the specified environment.
 #'
 #' @param file_name loads logging levels from a yml configuration file.
+#' @param envir environment to load logger into.
+#'
 #' @family Logging
 #' @return initialized log levels from the specified config.
+#'
 #' @export
 #' @importFrom yaml read_yaml
 set_log_configuration <- function(file_name, envir = parent.frame()) {
 
   log_config <- yaml::read_yaml(file_name, eval.expr = T)
 
-  unlockBinding('Logger', env = envir)
-
   configure_logger(log_config$settings, envir)
   attach_log_levels(log_config$levels, envir)
 
-  lockBinding('Logger', env = envir)
-
-  create_default_layouts()
+  create_default_layout()
+  local_init()
 
   invisible()
 }

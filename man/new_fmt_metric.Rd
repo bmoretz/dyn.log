@@ -18,9 +18,11 @@ a new formatted metric
 Inserts a formatted log metric.
 }
 \examples{
+\dontrun{
 new_fmt_metric(bold $ green, "sysname")
 
 new_fmt_metric(bold $ red, "release")
+}
 }
 \seealso{
 \link{LogDispatch}

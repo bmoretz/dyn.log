@@ -4,7 +4,7 @@
 \alias{new_fmt_timestamp}
 \title{Formatted Timestamp}
 \usage{
-new_fmt_timestamp(style, format = "\%x \%H:\%M:\%S \%z")
+new_fmt_timestamp(style, format = "[\%x \%H:\%M:\%S \%z]")
 }
 \arguments{
 \item{style}{format style (crayon)}
@@ -19,9 +19,11 @@ log metric layout.
 Placeholder for a formatted timestamp in a log layout.
 }
 \examples{
+\dontrun{
 fmt_timestamp(red $ bold, "\%Y-\%m-\%d \%H:\%M:\%S")
 
 fmt_timestamp(blue $ italic, "\%x \%H:\%M:\%S \%z")
+}
 }
 \seealso{
 Other Log Layout: 

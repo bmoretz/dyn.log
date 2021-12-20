@@ -1,13 +1,15 @@
 ---
-title: "layouts"
+title: "Log Formats"
+author: Brandon Moretz
+date: "`r Sys.Date()`"
 output:
   prettydoc::html_pretty:
     theme: architect
     highlight: github
 vignette: >
-  %\VignetteIndexEntry{Log Layouts}
+  %\VignetteIndexEntry{Log Formats}
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+  \usepackage[utf8]{inputenc}
 ---
 
 ```{r, include = FALSE}

@@ -22,5 +22,10 @@ get level severity
 Gets the severity of a log level.
 }
 \examples{
-get_severity(FATAL)
+\dontrun{
+level_severity(LEVEL)
+}
+\dontrun{
+level_severity(LEVEL)
+}
 }

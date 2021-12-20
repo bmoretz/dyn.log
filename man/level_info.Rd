@@ -27,3 +27,11 @@ Gets style level information
 
 Gets style level information
 }
+\examples{
+\dontrun{
+level_info(LEVEL)
+}
+\dontrun{
+level_info(LEVEL)
+}
+}

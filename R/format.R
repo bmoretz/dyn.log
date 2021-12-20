@@ -47,9 +47,11 @@ value <- function(fmt, ...) {
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' new_fmt_metric(bold $ green, "sysname")
 #'
 #' new_fmt_metric(bold $ red, "release")
+#' }
 new_fmt_metric = function(style, metric) {
   stopifnot(class(style) == "crayon")
 
@@ -111,10 +113,13 @@ value.fmt_metric <- function(fmt, sys_context, ...) {
 #'
 #' @family Log Layout
 #' @returns log metric layout.
+#' @export
 #' @examples
+#' \dontrun{
 #' new_fmt_literal(red $ bold, "literal text")
 #'
 #' new_fmt_literal(blue $ italic, "literal text")
+#' }
 new_fmt_literal <- function(style, literal) {
   structure(
     list(),
@@ -139,7 +144,7 @@ value.fmt_literal <- function(fmt, ...) {
   style(fmt)(attr(fmt, 'value'))
 }
 
-#' Formatted Timestamp
+#' @title Formatted Timestamp
 #'
 #' @description
 #' Placeholder for a formatted timestamp in a log layout.
@@ -150,10 +155,13 @@ value.fmt_literal <- function(fmt, ...) {
 #'
 #' @family Log Layout
 #' @returns log metric layout.
+#' @export
 #' @examples
+#' \dontrun{
 #' fmt_timestamp(red $ bold, "%Y-%m-%d %H:%M:%S")
 #'
 #' fmt_timestamp(blue $ italic, "%x %H:%M:%S %z")
+#' }
 new_fmt_timestamp <- function(style,
                               format = "[%x %H:%M:%S %z]") {
   structure(
@@ -167,13 +175,13 @@ new_fmt_timestamp <- function(style,
 
 #' Gets the format of a format object.
 #'
-#' @param fmt object to extract value from.
+#' @param x object to extract value from.
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @return object's value
 #' @export
-format.fmt_timestamp <- function(fmt, ...) {
-  attr(fmt, 'format')
+format.fmt_timestamp <- function(x, ...) {
+  attr(x, 'format')
 }
 
 #' @title Value
@@ -194,13 +202,14 @@ value.fmt_timestamp <- function(fmt, ...) {
   style(fmt)(v(f))
 }
 
-#' Formatted Line Break
+#' @title Formatted Line Break
 #'
 #' @description
 #' Placeholder for a new line in a log layout.
 #'
 #' @family Log Layout
 #' @returns log layout newline.
+#' @export
 new_fmt_line_break <- function() {
   structure(
     list(),
@@ -232,6 +241,7 @@ value.fmt_newline <- function(fmt, ...) {
 #'
 #' @family Log Layout
 #' @returns log level info.
+#' @export
 new_fmt_log_level <- function() {
   structure(
     list(),
@@ -264,11 +274,12 @@ value.fmt_level_info <- function(fmt, ...) {
 #'
 #' @family Log Layout
 #' @returns log layout newline.
+#' @export
 new_fmt_log_msg <- function() {
   structure(
     list(),
     style = crayon::black,
-    value = glue::as_glue("{format(level, msg = {log_msg})}"),
+    value = glue::as_glue("{level_format(level, msg = {log_msg})}"),
     class = c('new_fmt_log_msg', 'fmt_layout')
   )
 }
@@ -294,8 +305,12 @@ value.new_fmt_log_msg <- function(fmt, ...) {
 #' @description
 #' Placeholder for a container class field
 #'
+#' @param style {crayon::style()}
+#' @param field field in the object to display
+#'
 #' @family Log Layout
 #' @returns \code{new_fmt_cls_field}
+#' @export
 new_fmt_cls_field <- function(style, field) {
 
   stopifnot(class(style) == "crayon")
@@ -333,6 +348,9 @@ value.fmt_cls_field <- function(fmt, cls_context, ...) {
 #'
 #' @description
 #' Placeholder for an execution scope variable.
+#'
+#' @param style {crayon::style()}
+#' @param field execution scope field
 #'
 #' @family Log Layout
 #' @returns \code{new_fmt_cls_field}

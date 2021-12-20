@@ -18,7 +18,7 @@ displayed according to the currently set evaluation threshold.}
 typically inverted strength, according to the severity.}
 }
 \value{
-new \link{log_level}
+\code{log_level}
 }
 \description{
 S3 object to represent a typed & predefined log level.

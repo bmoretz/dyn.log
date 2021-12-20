@@ -5,28 +5,28 @@ levels:
 - name: TRACE
   severity: !expr 600L
   log_style: !expr crayon::make_style("antiquewhite3")$bold
-  msg_style: !expr crayon::make_style('gray40')
+  msg_style: !expr crayon::make_style('gray60')
 - name: DEBUG
   severity: !expr 500L
-  log_style: !expr crayon::make_style('dodgerblue')$bold
-  msg_style: !expr crayon::make_style('gray50')
+  log_style: !expr crayon::make_style('deepskyblue2')$bold
+  msg_style: !expr crayon::make_style('gray90')
 - name: INFO
   severity: !expr 400L
-  log_style: !expr crayon::make_style('deepskyblue')$bold
-  msg_style: !expr crayon::make_style('gray60')
+  log_style: !expr crayon::make_style('dodgerblue4')$bold
+  msg_style: !expr crayon::make_style('gray100')
 - name: SUCCESS
   severity: !expr 300L
   log_style: !expr crayon::make_style('chartreuse')$bold
-  msg_style: !expr crayon::make_style('gray80')
+  msg_style: !expr crayon::bgGreen$bold$black
 - name: WARN
   severity: !expr 350L
   log_style: !expr crayon::make_style('darkorange')$bold
-  msg_style: !expr crayon::make_style('gray70')
+  msg_style: !expr crayon::bgYellow$bold$black
 - name: ERROR
   severity: !expr 200L
   log_style: !expr crayon::make_style('firebrick1')$bold
-  msg_style: !expr crayon::make_style('gray80')
+  msg_style: !expr crayon::bgBlack$bold$white
 - name: FATAL
   severity: !expr 100L
   log_style: !expr crayon::make_style('firebrick')$bold
-  msg_style: !expr crayon::make_style('gray100')
+  msg_style: !expr crayon::bgRed$bold$white

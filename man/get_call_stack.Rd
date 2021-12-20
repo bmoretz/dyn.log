@@ -7,7 +7,8 @@
 get_call_stack(keep_args = F)
 }
 \arguments{
-\item{offset}{number of call levels to offset}
+\item{keep_args}{boolean to indicate if you wante to keep
+call arguments or not.}
 }
 \value{
 formatted call stack

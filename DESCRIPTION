@@ -1,7 +1,7 @@
 Package: dyn.log
 Type: Package
 Title: Dynamic Logging for R Inspired by Configuration Driven Development
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: 
     c(person(given = "Brandon",
        family = "Moretz",
@@ -30,8 +30,8 @@ Imports:
     stringr (>= 1.4.0),
     yaml (>= 2.2.1),
 Roxygen: list(markdown = TRUE)
-URL: https://github.com/bmoretz/dyn-log
-BugReports: https://github.com/bmoretz/dyn-log/issues
+URL: https://github.com/bmoretz/dyn.log
+BugReports: https://github.com/bmoretz/dyn.log/issues
 RoxygenNote: 7.1.2
 Suggests: 
     devtools,
@@ -44,7 +44,9 @@ Suggests:
     remotes,
     pkgdown,
     prettydoc,
-    here
+    here,
+    fansi,
+    DT
 Config/testthat/edition: 3
 Remotes:
   GuangchuangYu/badger

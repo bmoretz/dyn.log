@@ -6,6 +6,9 @@
 \usage{
 extract_func_name(func)
 }
+\arguments{
+\item{func}{function name}
+}
 \value{
 function name without arguments
 }
