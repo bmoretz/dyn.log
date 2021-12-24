@@ -29,6 +29,7 @@ jobs:
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      RENV_PATHS_ROOT: ~/.local/share/renv
 
     steps:
       - uses: actions/checkout@v2
@@ -45,7 +46,7 @@ jobs:
           startsWith(runner.os, 'Windows')
         run: |
           Rscript -e "install.packages(c('remotes', 'rcmdcheck'))" -e "remotes::install_deps(dependencies = TRUE)"
-          echo "renv_dir=~\AppData\Local\renv" >> $env:GITHUB_ENV
+          echo "RENV_PATHS_ROOT=~\AppData\Local\renv" >> $env:GITHUB_ENV
 
       - name: Install System Dependencies [Linux]
         if: runner.os == 'Linux'
@@ -57,23 +58,21 @@ jobs:
             eval sudo $cmd
           done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
 
-          echo "renv_dir=~/.local/share/renv" >> $GITHUB_ENV
-
       - name: Install System Dependencies [macOS]
         if: runner.os == 'macOS'
         shell: bash
         run: |
           brew install libgit2
           Rscript -e "install.packages(c('remotes'))"
-          echo "renv_dir=~/Library/Application Support/renv" >> $GITHUB_ENV
+          echo "RENV_PATHS_ROOT=~/Library/Application Support/renv" >> $GITHUB_ENV
 
       - name: Cache packages
         uses: actions/cache@v2
         with:
-          path: ${{ env.renv_dir }}
-          key: ${{ matrix.config.os }}-renv-${{ hashFiles('**/renv.lock') }}-v2
+          path: ${{ env.RENV_PATHS_ROOT }}
+          key: ${{ matrix.config.os }}-renv-${{ matrix.config.r }}-${{ hashFiles('**/renv.lock') }}
           restore-keys: |
-            ${{ matrix.config.os }}-renv-${{ hashFiles('**/renv.lock') }}-v2
+            ${{ matrix.config.os }}-renv-${{ matrix.config.r }}-${{ hashFiles('**/renv.lock') }}
 
       - name: Restore renv
         run: |

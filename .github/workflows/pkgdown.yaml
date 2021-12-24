@@ -24,6 +24,7 @@ jobs:
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      RENV_PATHS_ROOT: ~/.local/share/renv
 
     steps:
       - uses: actions/checkout@v2.3.1
@@ -45,22 +46,20 @@ jobs:
             eval sudo $cmd
           done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
 
-          echo "renv_dir=~/.local/share/renv" >> $GITHUB_ENV
-
           Rscript -e 'remotes::install_github("jimhester/pkgdown@github-actions-deploy")'
 
       - name: Cache packages
         uses: actions/cache@v2
         with:
-          path: ${{ env.renv_dir }}
-          key: ${{ matrix.config.os }}-renv-${{ hashFiles('**/renv.lock') }}-v2
+          path: ${{ env.RENV_PATHS_ROOT }}
+          key: ${{ matrix.config.os }}-renv-${{ matrix.config.r }}-${{ hashFiles('**/renv.lock') }}
           restore-keys: |
-            ${{ matrix.config.os }}-renv-${{ hashFiles('**/renv.lock') }}-v2
+            ${{ matrix.config.os }}-renv-${{ matrix.config.r }}-${{ hashFiles('**/renv.lock') }}
 
       - name: Restore renv
         run: |
           if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
-          renv::restore()
+          renv::restore(lockfile = "renv.lock", prompt = F)
           renv::install("covr")
         shell: Rscript {0}
 
