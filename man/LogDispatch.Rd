@@ -35,6 +35,9 @@ System Context
 LogLevel
 
 Other Logging: 
+\code{\link{attach_log_levels}()},
+\code{\link{display_log_levels}()},
+\code{\link{load_log_layouts}()},
 \code{\link{set_log_configuration}()}
 }
 \concept{Logging}

@@ -5,14 +5,14 @@
 \title{Log Layout}
 \usage{
 new_log_layout(
-  ...,
+  format = list(),
   seperator = " ",
   new_line = "\\n",
   association = character()
 )
 }
 \arguments{
-\item{...}{collection of format objects to initialize with.}
+\item{format}{collection of format objects to initialize with.}
 
 \item{seperator}{format entry separator, defaults to a single space.}
 

@@ -1,16 +1,18 @@
 test_that("can_create_layout", {
 
   log_layout <- new_log_layout(
-    new_fmt_metric(crayon::green$bold, "sysname"),
-    new_fmt_metric(crayon::yellow$bold, "release"),
-    new_fmt_line_break(),
-    new_fmt_log_level(),
-    new_fmt_timestamp(crayon::silver$italic),
-    new_fmt_metric(crayon::magenta$bold, "top_call"),
-    new_fmt_literal(crayon::blue$italic, "literal text"),
-    new_fmt_log_msg(),
-    new_fmt_line_break(),
-    new_fmt_metric(crayon::cyan$bold, "call_stack")
+    format = list(
+      new_fmt_metric(crayon::green$bold, "sysname"),
+      new_fmt_metric(crayon::yellow$bold, "release"),
+      new_fmt_line_break(),
+      new_fmt_log_level(),
+      new_fmt_timestamp(crayon::silver$italic),
+      new_fmt_metric(crayon::magenta$bold, "top_call"),
+      new_fmt_literal(crayon::blue$italic, "literal text"),
+      new_fmt_log_msg(),
+      new_fmt_line_break(),
+      new_fmt_metric(crayon::cyan$bold, "call_stack")
+    )
   )
 
   expect_true(!is.null(log_layout))
@@ -21,16 +23,18 @@ test_that("can_create_layout", {
 test_that("log_layout_format", {
 
   log_layout <- new_log_layout(
-    new_fmt_metric(crayon::green$bold, "sysname"),
-    new_fmt_metric(crayon::yellow$bold, "release"),
-    new_fmt_line_break(),
-    new_fmt_log_level(),
-    new_fmt_timestamp(crayon::silver$italic),
-    new_fmt_metric(crayon::magenta$bold, "top_call"),
-    new_fmt_literal(crayon::blue$italic, "literal text"),
-    new_fmt_log_msg(),
-    new_fmt_line_break(),
-    new_fmt_metric(crayon::cyan$bold, "call_stack"),
+    format = list(
+      new_fmt_metric(crayon::green$bold, "sysname"),
+      new_fmt_metric(crayon::yellow$bold, "release"),
+      new_fmt_line_break(),
+      new_fmt_log_level(),
+      new_fmt_timestamp(crayon::silver$italic),
+      new_fmt_metric(crayon::magenta$bold, "top_call"),
+      new_fmt_literal(crayon::blue$italic, "literal text"),
+      new_fmt_log_msg(),
+      new_fmt_line_break(),
+      new_fmt_metric(crayon::cyan$bold, "call_stack")
+    ),
     association = "test-layout-format"
   )
 
@@ -48,16 +52,18 @@ test_that("log_layout_format", {
 test_that("log_layout_format_types", {
 
   log_layout <- new_log_layout(
-    new_fmt_metric(crayon::green$bold, "sysname"),
-    new_fmt_metric(crayon::yellow$bold, "release"),
-    new_fmt_line_break(),
-    new_fmt_log_level(),
-    new_fmt_timestamp(crayon::silver$italic),
-    new_fmt_metric(crayon::magenta$bold, "top_call"),
-    new_fmt_literal(crayon::blue$italic, "literal text"),
-    new_fmt_log_msg(),
-    new_fmt_line_break(),
-    new_fmt_metric(crayon::cyan$bold, "call_stack"),
+    format = list(
+      new_fmt_metric(crayon::green$bold, "sysname"),
+      new_fmt_metric(crayon::yellow$bold, "release"),
+      new_fmt_line_break(),
+      new_fmt_log_level(),
+      new_fmt_timestamp(crayon::silver$italic),
+      new_fmt_metric(crayon::magenta$bold, "top_call"),
+      new_fmt_literal(crayon::blue$italic, "literal text"),
+      new_fmt_log_msg(),
+      new_fmt_line_break(),
+      new_fmt_metric(crayon::cyan$bold, "call_stack")
+    ),
     seperator = '-',
     association = "test-layout-format"
   )
@@ -78,9 +84,11 @@ test_that("log_layout_format_types", {
 test_that("log_layout_evaluates_simple_singleline", {
 
   log_layout <- new_log_layout(
-    new_fmt_log_level(),
-    new_fmt_timestamp(crayon::silver$italic),
-    new_fmt_log_msg()
+    format = list(
+      new_fmt_log_level(),
+      new_fmt_timestamp(crayon::silver$italic),
+      new_fmt_log_msg()
+    )
   )
 
   expect_true(!is.null(log_layout))
@@ -91,18 +99,20 @@ test_that("log_layout_evaluates_simple_singleline", {
 
     actual <- evaluate_layout(formats, types, seperator)
 
-    expect_true(stringr::str_detect(actual, pattern = stringr::fixed("{level_info(level)}")))
-    expect_true(stringr::str_detect(actual, pattern = stringr::fixed(" {level_format(level, msg = {log_msg})}")))
+    expect_true(stringr::str_detect(actual, pattern = stringr::fixed("{format(level)}")))
+    expect_true(stringr::str_detect(actual, pattern = stringr::fixed(" {format(level, message = {log_msg})}")))
   })
 })
 
 test_that("log_layout_evaluates_simple_multiline", {
 
   log_layout <- new_log_layout(
-    new_fmt_log_level(),
-    new_fmt_timestamp(crayon::silver$italic),
-    new_fmt_line_break(),
-    new_fmt_log_msg()
+    format = list(
+      new_fmt_log_level(),
+      new_fmt_timestamp(crayon::silver$italic),
+      new_fmt_line_break(),
+      new_fmt_log_msg()
+    )
   )
 
   expect_true(!is.null(log_layout))
@@ -113,19 +123,21 @@ test_that("log_layout_evaluates_simple_multiline", {
 
     actual <- evaluate_layout(formats, types, seperator)
 
-    expect_true(stringr::str_detect(actual, pattern = stringr::fixed("{level_info(level)}")))
-    expect_true(stringr::str_detect(actual, pattern = stringr::fixed("\n{level_format(level, msg = {log_msg})}")))
+    expect_true(stringr::str_detect(actual, pattern = stringr::fixed("{format(level)}")))
+    expect_true(stringr::str_detect(actual, pattern = stringr::fixed("\n{format(level, message = {log_msg})}")))
   })
 })
 
 test_that("log_layout_evaluates_metrics_singleline", {
 
   log_layout <- new_log_layout(
-    new_fmt_log_level(),
-    new_fmt_metric(crayon::green$bold, "sysname"),
-    new_fmt_metric(crayon::red$bold, "release"),
-    new_fmt_timestamp(crayon::silver$italic),
-    new_fmt_log_msg()
+    format = list(
+      new_fmt_log_level(),
+      new_fmt_metric(crayon::green$bold, "sysname"),
+      new_fmt_metric(crayon::red$bold, "release"),
+      new_fmt_timestamp(crayon::silver$italic),
+      new_fmt_log_msg()
+    )
   )
 
   expect_true(!is.null(log_layout))
@@ -136,8 +148,8 @@ test_that("log_layout_evaluates_metrics_singleline", {
 
     actual <- evaluate_layout(formats, types, seperator, context)
 
-    expect_true(stringr::str_detect(actual, pattern = stringr::fixed("{level_info(level)}")))
-    expect_true(stringr::str_detect(actual, pattern = stringr::fixed(" {level_format(level, msg = {log_msg})}")))
+    expect_true(stringr::str_detect(actual, pattern = stringr::fixed("{format(level)}")))
+    expect_true(stringr::str_detect(actual, pattern = stringr::fixed(" {format(level, message = {log_msg})}")))
 
     expect_true(stringr::str_detect(actual, pattern = stringr::fixed(Sys.info()[["sysname"]])))
     expect_true(stringr::str_detect(actual, pattern = stringr::fixed(Sys.info()[["release"]])))
@@ -147,12 +159,14 @@ test_that("log_layout_evaluates_metrics_singleline", {
 test_that("log_layout_evaluates_metrics_multiline", {
 
   log_layout <- new_log_layout(
-    new_fmt_metric(crayon::green$bold, "sysname"),
-    new_fmt_metric(crayon::red$bold, "release"),
-    new_fmt_line_break(),
-    new_fmt_log_level(),
-    new_fmt_timestamp(crayon::silver$italic),
-    new_fmt_log_msg(),
+    format = list(
+      new_fmt_metric(crayon::green$bold, "sysname"),
+      new_fmt_metric(crayon::red$bold, "release"),
+      new_fmt_line_break(),
+      new_fmt_log_level(),
+      new_fmt_timestamp(crayon::silver$italic),
+      new_fmt_log_msg()
+    ),
     association = "default"
   )
 
@@ -166,8 +180,8 @@ test_that("log_layout_evaluates_metrics_multiline", {
 
     actual <- evaluate_layout(formats, types, seperator, context)
 
-    expect_true(stringr::str_detect(actual, pattern = stringr::fixed("\n{level_info(level)}")))
-    expect_true(stringr::str_detect(actual, pattern = stringr::fixed(" {level_format(level, msg = {log_msg})}")))
+    expect_true(stringr::str_detect(actual, pattern = stringr::fixed("\n{format(level)}")))
+    expect_true(stringr::str_detect(actual, pattern = stringr::fixed(" {format(level, message = {log_msg})}")))
 
     expect_true(stringr::str_detect(actual, pattern = stringr::fixed(Sys.info()[["sysname"]])))
     expect_true(stringr::str_detect(actual, pattern = stringr::fixed(Sys.info()[["release"]])))
@@ -179,15 +193,17 @@ test_that("log_layout_evaluates_cls_attributes_multiline", {
   test_obj <- TestObject$new()
 
   log_layout <- new_log_layout(
-    new_fmt_metric(crayon::green$bold, "sysname"),
-    new_fmt_metric(crayon::red$bold, "release"),
-    new_fmt_line_break(),
-    new_fmt_log_level(),
-    new_fmt_timestamp(crayon::silver$italic),
-    new_fmt_log_msg(),
-    new_fmt_line_break(),
-    new_fmt_literal(crayon::bgCyan$bold, "Object Id:"),
-    new_fmt_cls_field(crayon::cyan$bold, "id")
+    format = list(
+      new_fmt_metric(crayon::green$bold, "sysname"),
+      new_fmt_metric(crayon::red$bold, "release"),
+      new_fmt_line_break(),
+      new_fmt_log_level(),
+      new_fmt_timestamp(crayon::silver$italic),
+      new_fmt_log_msg(),
+      new_fmt_line_break(),
+      new_fmt_literal(crayon::bgCyan$bold, "Object Id:"),
+      new_fmt_cls_field(crayon::cyan$bold, "id")
+    )
   )
 
   expect_true(!is.null(log_layout))
@@ -202,8 +218,8 @@ test_that("log_layout_evaluates_cls_attributes_multiline", {
 
     actual <- evaluate_layout(formats, types, seperator, context)
 
-    expect_true(stringr::str_detect(actual, pattern = stringr::fixed("\n{level_info(level)}")))
-    expect_true(stringr::str_detect(actual, pattern = stringr::fixed(" {level_format(level, msg = {log_msg})}")))
+    expect_true(stringr::str_detect(actual, pattern = stringr::fixed("\n{format(level)}")))
+    expect_true(stringr::str_detect(actual, pattern = stringr::fixed(" {format(level, message = {log_msg})}")))
 
     expect_true(stringr::str_detect(actual, pattern = stringr::fixed(Sys.info()[["sysname"]])))
     expect_true(stringr::str_detect(actual, pattern = stringr::fixed(Sys.info()[["release"]])))
@@ -224,13 +240,15 @@ test_that("multi_line_fmt_works_2", {
   fmt_text3 <- new_fmt_literal(crayon::blue$italic, "literal3")
 
   log_layout <- new_log_layout(
-    new_fmt_metric(crayon::red$bold, "sysname"),
-    new_fmt_metric(crayon::green$bold, "release"),
-    new_fmt_metric(crayon::blue$bold, "version"),
-    new_fmt_line_break(),
-    new_fmt_literal(crayon::red$italic, "literal1"),
-    new_fmt_literal(crayon::green$italic, "literal2"),
-    new_fmt_literal(crayon::blue$italic, "literal3"),
+    format = list(
+      new_fmt_metric(crayon::red$bold, "sysname"),
+      new_fmt_metric(crayon::green$bold, "release"),
+      new_fmt_metric(crayon::blue$bold, "version"),
+      new_fmt_line_break(),
+      new_fmt_literal(crayon::red$italic, "literal1"),
+      new_fmt_literal(crayon::green$italic, "literal2"),
+      new_fmt_literal(crayon::blue$italic, "literal3")
+    ),
     seperator = '-')
 
   with(log_layout_detail(log_layout), {
@@ -265,17 +283,19 @@ test_that("multi_line_fmt_works_2", {
 test_that("multi_line_fmt_works_3", {
 
   log_layout <- new_log_layout(
-    new_fmt_metric(crayon::red$bold, "sysname"),
-    new_fmt_metric(crayon::green$bold, "release"),
-    new_fmt_metric(crayon::blue$bold, "version"),
-    new_fmt_line_break(),
-    new_fmt_literal(crayon::red$italic, "literal1"),
-    new_fmt_literal(crayon::green$italic, "literal2"),
-    new_fmt_literal(crayon::blue$italic, "literal3"),
-    new_fmt_line_break(),
-    new_fmt_metric(crayon::red$bold, "machine"),
-    new_fmt_metric(crayon::green$bold, "nodename"),
-    new_fmt_metric(crayon::blue$bold, "user"),
+    format = list(
+      new_fmt_metric(crayon::red$bold, "sysname"),
+      new_fmt_metric(crayon::green$bold, "release"),
+      new_fmt_metric(crayon::blue$bold, "version"),
+      new_fmt_line_break(),
+      new_fmt_literal(crayon::red$italic, "literal1"),
+      new_fmt_literal(crayon::green$italic, "literal2"),
+      new_fmt_literal(crayon::blue$italic, "literal3"),
+      new_fmt_line_break(),
+      new_fmt_metric(crayon::red$bold, "machine"),
+      new_fmt_metric(crayon::green$bold, "nodename"),
+      new_fmt_metric(crayon::blue$bold, "user")
+    ),
     seperator = '---')
 
   with(log_layout_detail(log_layout), {
@@ -315,22 +335,24 @@ test_that("multi_line_fmt_works_3", {
 test_that("multi_line_fmt_works_4", {
 
   log_layout <- new_log_layout(
-     new_fmt_metric(crayon::red$bold, "sysname"),
-     new_fmt_metric(crayon::green$bold, "release"),
-     new_fmt_metric(crayon::blue$bold, "version"),
-     new_fmt_line_break(),
-     new_fmt_literal(crayon::red$italic, "literal1"),
-     new_fmt_literal(crayon::green$italic, "literal2"),
-     new_fmt_literal(crayon::blue$italic, "literal3"),
-     new_fmt_line_break(),
-     new_fmt_metric(crayon::red$bold, "machine"),
-     new_fmt_metric(crayon::green$bold, "nodename"),
-     new_fmt_metric(crayon::blue$bold, "user"),
-     new_fmt_line_break(),
-     new_fmt_literal(crayon::red$italic, "literal4"),
-     new_fmt_literal(crayon::green$italic, "literal5"),
-     new_fmt_literal(crayon::blue$italic, "literal6"),
-     seperator = '---')
+    format = list(
+      new_fmt_metric(crayon::red$bold, "sysname"),
+      new_fmt_metric(crayon::green$bold, "release"),
+      new_fmt_metric(crayon::blue$bold, "version"),
+      new_fmt_line_break(),
+      new_fmt_literal(crayon::red$italic, "literal1"),
+      new_fmt_literal(crayon::green$italic, "literal2"),
+      new_fmt_literal(crayon::blue$italic, "literal3"),
+      new_fmt_line_break(),
+      new_fmt_metric(crayon::red$bold, "machine"),
+      new_fmt_metric(crayon::green$bold, "nodename"),
+      new_fmt_metric(crayon::blue$bold, "user"),
+      new_fmt_line_break(),
+      new_fmt_literal(crayon::red$italic, "literal4"),
+      new_fmt_literal(crayon::green$italic, "literal5"),
+      new_fmt_literal(crayon::blue$italic, "literal6")
+    ),
+    seperator = '---')
 
   with(log_layout_detail(log_layout), {
 

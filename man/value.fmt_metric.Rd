@@ -4,10 +4,10 @@
 \alias{value.fmt_metric}
 \title{Value}
 \usage{
-\method{value}{fmt_metric}(fmt, sys_context, ...)
+\method{value}{fmt_metric}(obj, sys_context, ...)
 }
 \arguments{
-\item{fmt}{object to extract value from.}
+\item{obj}{object to extract value from.}
 
 \item{sys_context}{context to evaluate the metric.}
 

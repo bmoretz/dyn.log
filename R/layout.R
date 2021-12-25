@@ -5,28 +5,31 @@
 #' and understands how to associate a given format to
 #' a class of objects.
 #'
-#' @param ... collection of format objects to initialize with.
+#' @param format collection of format objects to initialize with.
 #' @param seperator format entry separator, defaults to a single space.
 #' @param new_line the layout separator that is inserted between lines.
 #' @param association objects to associate this log format with.
 #' @family Log Layout
 #' @return object's value
 #' @export
-new_log_layout <- function(...,
+new_log_layout <- function(format = list(),
                            seperator = ' ',
                            new_line = '\n',
                            association = character()) {
 
+  if(!is.list(format) || length(format) < 0)
+    stop('layouts must contain at least one format')
+
   new_log_layout <- structure(
     list(),
-    format = list(...),
+    format = format,
     separator = seperator,
     new_line = '\n',
     association = association,
     class = c('log_layout')
   )
 
-  log_layouts(new_log_layout)
+  log_layouts(association, new_log_layout)
 
   invisible(new_log_layout)
 }
@@ -37,6 +40,7 @@ new_log_layout <- function(...,
 #' an active binding to keep track of log layouts created
 #' with \code{new_log_layout}.
 #'
+#' @param association named association to the layout
 #' @param layout log layout to add if not already existing.
 #'
 #' @return defined log layouts
@@ -45,39 +49,27 @@ log_layouts <- local({
 
   layouts <- list()
 
-  function(layout = NULL) {
-    if(!is.null(layout)) {
-      association <- attr(layout, 'association')
-      if(!identical(association, character())) {
+  function(association = character(0), layout = NULL) {
+
+    if(!identical(association, character(0))) {
+
+      if(!is.null(layout)) {
+
         if(missing(association)) {
           layouts[[association]]
         } else {
           layouts[[association]] <<- layout
         }
+
+      }
+      else if( association %in% names(layouts)) {
+        return(layouts[[association]])
       }
     }
 
     invisible(layouts)
   }
 })
-
-#' @title Get Log Layout
-#'
-#' @description
-#' Gets a log layout by cls assocation.
-#' @param association cls assocation
-#' @return log layout associated with cls name.
-#' @export
-get_log_layout <- function(association) {
-
-  layouts <- log_layouts()
-
-  if(!(association %in% names(layouts))) {
-    return(NULL)
-  }
-
-  layouts[[association]]
-}
 
 #' @title Log Layout Detail
 #'
@@ -89,6 +81,7 @@ get_log_layout <- function(association) {
 #' @param layout object to extract layout detail from.
 #'
 #' @return layout format
+#' @export
 log_layout_detail <- function(layout) {
   fmt_objs <- attr(layout, 'format')
   fmt_types <- unique(c(sapply(fmt_objs, function(format) class(format))))

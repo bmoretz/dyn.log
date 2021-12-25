@@ -4,10 +4,10 @@
 \alias{value.new_fmt_log_msg}
 \title{Value}
 \usage{
-\method{value}{new_fmt_log_msg}(fmt, ...)
+\method{value}{new_fmt_log_msg}(obj, ...)
 }
 \arguments{
-\item{fmt}{object to extract value from.}
+\item{obj}{object to extract value from.}
 
 \item{...}{further arguments passed to or from other methods.}
 }

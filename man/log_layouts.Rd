@@ -4,9 +4,11 @@
 \alias{log_layouts}
 \title{Log Layouts}
 \usage{
-log_layouts(layout = NULL)
+log_layouts(association = character(0), layout = NULL)
 }
 \arguments{
+\item{association}{named association to the layout}
+
 \item{layout}{log layout to add if not already existing.}
 }
 \value{

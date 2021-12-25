@@ -50,9 +50,10 @@ test_that("can_add_log_level", {
 
   logger <- LogDispatch$new()
 
-  test_level <- new_log_level("TEST", 100L,
+  test_level <- new_log_level("TEST", "test level", 100L,
                               log_style = crayon::bgGreen$italic,
                               msg_style = crayon::cyan$bold)
+
 
   expect_true(!is.null(test_level))
 

@@ -1,12 +1,14 @@
 test_that("standard_levels_exist", {
 
-  expect_true(!is.null(FATAL))
-  expect_true(!is.null(ERROR))
-  expect_true(!is.null(WARN))
-  expect_true(!is.null(SUCCESS))
-  expect_true(!is.null(INFO))
-  expect_true(!is.null(DEBUG))
-  expect_true(!is.null(TRACE))
+  log_levels <- names(log_levels())
+
+  expect_true(any(match(log_levels, 'trace')))
+  expect_true(any(match(log_levels, 'debug')))
+  expect_true(any(match(log_levels, 'info')))
+  expect_true(any(match(log_levels, 'success')))
+  expect_true(any(match(log_levels, 'warn')))
+  expect_true(any(match(log_levels, 'error')))
+  expect_true(any(match(log_levels, 'fatal')))
 })
 
 test_that("can_get_log_levels", {
@@ -35,17 +37,17 @@ test_that("can_get_log_levels", {
   # base log levels
   expect_gte(length(levels), 7)
 
-  expect_true(!is.null(levels$FATAL))
-  expect_true(!is.null(levels$ERROR))
-  expect_true(!is.null(levels$WARN))
-  expect_true(!is.null(levels$SUCCESS))
-  expect_true(!is.null(levels$INFO))
-  expect_true(!is.null(levels$DEBUG))
-  expect_true(!is.null(levels$TRACE))
+  expect_true(!is.null(levels$fatal))
+  expect_true(!is.null(levels$error))
+  expect_true(!is.null(levels$warn))
+  expect_true(!is.null(levels$succes))
+  expect_true(!is.null(levels$info))
+  expect_true(!is.null(levels$debug))
+  expect_true(!is.null(levels$trace))
 })
 
 test_that("get_name_works", {
-  level <- new_log_level("TEST", 10L)
+  level <- new_log_level("TEST", "test level", 10L)
 
   actual <- level_name(level)
 
@@ -53,7 +55,7 @@ test_that("get_name_works", {
 })
 
 test_that("cast_level_name_works", {
-  level <- new_log_level("TEST", 10L)
+  level <- new_log_level("TEST", "test level", 10L)
 
   actual <- as.character(level)
 
@@ -61,7 +63,7 @@ test_that("cast_level_name_works", {
 })
 
 test_that("get_severity_works", {
-  level <- new_log_level("TEST", 10L)
+  level <- new_log_level("TEST", "test level", 10L)
 
   actual <- level_severity(level)
 
@@ -69,7 +71,7 @@ test_that("get_severity_works", {
 })
 
 test_that("cast_level_severity_works", {
-  level <- new_log_level("TEST", 10L)
+  level <- new_log_level("TEST", "test level", 10L)
 
   actual <- as.integer(level)
 
@@ -78,8 +80,24 @@ test_that("cast_level_severity_works", {
 
 test_that("can_create_log_level", {
 
-  level <- new_log_level("TEST", 10L)
+  level <- new_log_level("TEST", "test level", 10L)
 
   expect_true(!is.null(level))
-  expect_equal(class(level), c('TEST', 'log_level'))
+  expect_equal(class(level), c('level_TEST', 'log_level'))
+})
+
+test_that("log_levels_display",{
+
+  actual <- capture_output_lines({
+    display_log_levels()
+  })
+
+  level <- log_levels("error")
+
+  for(level in log_levels()) {
+    info <- level_info(level)
+    pattern <- paste(info$name, info$description)
+
+    expect_true(any(!is.na(match(actual, pattern))))
+  }
 })

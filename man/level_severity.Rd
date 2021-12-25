@@ -17,8 +17,6 @@ level severity
 level severity
 }
 \description{
-get level severity
-
 Gets the severity of a log level.
 }
 \examples{

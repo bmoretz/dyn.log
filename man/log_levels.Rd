@@ -4,9 +4,11 @@
 \alias{log_levels}
 \title{Log Levels}
 \usage{
-log_levels(level = NULL)
+log_levels(name = character(0), level = NULL)
 }
 \arguments{
+\item{name}{name associated with the log level}
+
 \item{level}{log level to add if not already existing.}
 }
 \value{

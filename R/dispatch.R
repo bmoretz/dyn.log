@@ -72,21 +72,23 @@ LogDispatch <- R6::R6Class(
       name <- tolower(level_name(level))
 
       self[[name]] <- rlang::as_function(function(msg,
-                                                  parent = parent.frame()) {
+                                                  parent = parent.frame(),
+                                                  layout = "default") {
 
         caller_env <- rlang::caller_env()
         parent_env <- parent.env(caller_env)
 
         has_calling_class <- ifelse(is.null(parent_env$self), F, T); calling_class <- NA
         log_msg <- glue::glue(msg, .envir = parent)
-        log_layout <- get_log_layout("default")
+
+        log_layout <- log_layouts(layout)
 
         if(has_calling_class) {
           calling_class <- parent_env$self
 
           cls_name <- head(class(calling_class), 1)
 
-          associated_layout <- get_log_layout(cls_name)
+          associated_layout <- log_layouts(cls_name)
 
           if(!is.null(associated_layout)) {
             log_layout <- associated_layout

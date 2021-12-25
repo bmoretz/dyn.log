@@ -2,7 +2,7 @@
 % Please edit documentation in R/level.R
 \name{as.character.log_level}
 \alias{as.character.log_level}
-\title{Get Level Name}
+\title{Get Log Level Name}
 \usage{
 \method{as.character}{log_level}(x, ...)
 }
