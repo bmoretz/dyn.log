@@ -4,10 +4,12 @@
 \alias{new_log_level}
 \title{Log Level}
 \usage{
-new_log_level(name, severity, log_style = NULL, msg_style = NULL)
+new_log_level(name, description, severity, log_style = NULL, msg_style = NULL)
 }
 \arguments{
 \item{name}{name of the log level is the string representation.}
+
+\item{description}{description of the log level & limited info on appropriate usage.}
 
 \item{severity}{log severity is used in determining if a message should get
 displayed according to the currently set evaluation threshold.}
@@ -26,6 +28,10 @@ S3 object to represent a typed & predefined log level.
 \section{Severity}{
 
 
+The default logging configuration comes with these levels preconfigured, each is documented
+with their intent outlined. If this doesn't match your needs, you can easily customize these
+entirely based on your needs. Please see the log levels vignette.
+
 \itemize{
 \item{"FATAL"} : {The FATAL level designates very severe error events that will presumably lead the application to abort.}
 \item{"ERROR"} : {The ERROR level designates error events that might still allow the application to continue running.}
@@ -37,3 +43,4 @@ S3 object to represent a typed & predefined log level.
 }
 }
 
+\concept{LogLevel}

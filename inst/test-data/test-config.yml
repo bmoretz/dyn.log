@@ -2,6 +2,11 @@ settings:
   threshold: TRACE
   max_callstack: 5
 levels:
+- name: STRACE
+  description: This level designates finer-grained informational events than the TRACE.
+  severity: !expr 800L
+  log_style: !expr crayon::make_style("gray25")$bold
+  msg_style: !expr crayon::make_style('gray30')
 - name: TRACE
   description: This level designates finer-grained informational events than the DEBUG.
   severity: !expr 600L
@@ -32,9 +37,14 @@ levels:
   severity: !expr 200L
   log_style: !expr crayon::make_style('firebrick1')$bold
   msg_style: !expr crayon::bgBlack$bold$white
+- name: CRITICAL
+  severity: !expr 100L
+  description: This level designates severe error events that could lead the application to abort.
+  log_style: !expr crayon::make_style('red2')$bold
+  msg_style: !expr crayon::make_style('gray90')
 - name: FATAL
   description: This level designates very severe error events that will presumably lead the application to abort.
-  severity: !expr 100L
+  severity: !expr 50L
   log_style: !expr crayon::make_style('firebrick')$bold
   msg_style: !expr crayon::bgRed$bold$white
 layouts:
@@ -42,7 +52,7 @@ layouts:
   seperator: !expr as.character(' ')
   new_line: !expr as.character('\n')
   formats: new_fmt_log_level(),
-           new_fmt_timestamp(crayon::silver$italic),
+           new_fmt_timestamp(crayon::blue$italic),
            new_fmt_log_msg()
 - association: level_msg
   seperator: !expr as.character(' ')

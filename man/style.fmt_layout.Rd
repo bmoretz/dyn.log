@@ -2,12 +2,12 @@
 % Please edit documentation in R/format.R
 \name{style.fmt_layout}
 \alias{style.fmt_layout}
-\title{Gets the style of a format object.}
+\title{Style}
 \usage{
-\method{style}{fmt_layout}(fmt, ...)
+\method{style}{fmt_layout}(obj, ...)
 }
 \arguments{
-\item{fmt}{object to extract value from.}
+\item{obj}{object to extract value from.}
 
 \item{...}{further arguments passed to or from other methods.}
 }

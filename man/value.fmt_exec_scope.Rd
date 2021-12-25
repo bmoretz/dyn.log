@@ -4,10 +4,10 @@
 \alias{value.fmt_exec_scope}
 \title{Value}
 \usage{
-\method{value}{fmt_exec_scope}(fmt, env_context, ...)
+\method{value}{fmt_exec_scope}(obj, env_context, ...)
 }
 \arguments{
-\item{fmt}{object to extract value from.}
+\item{obj}{object to extract value from.}
 
 \item{env_context}{class scope to evaluate with.}
 

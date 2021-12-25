@@ -1,24 +1,24 @@
 test_that("can_associate_log_layout", {
 
   new_log_layout(
-    new_fmt_literal(crayon::bgCyan$black$bold, "Object Id:"),
-    new_fmt_cls_field(crayon::cyan$bold, "id"),
-    new_fmt_line_break(),
-    new_fmt_log_level(),
-    new_fmt_timestamp(crayon::silver$italic),
-    #new_fmt_metric(crayon::magenta$bold, "top_call"),
-    new_fmt_log_msg(),
-    new_fmt_line_break(),
-    new_fmt_metric(crayon::green$bold, "sysname"),
-    new_fmt_metric(crayon::red$bold, "nodename"),
-    new_fmt_literal(crayon::blue$bold, "R Version:"),
-    new_fmt_metric(crayon::blue$italic$bold, "r_ver"),
-    new_fmt_line_break(),
-    #new_fmt_metric(crayon::bgMagenta$bold, "call_stack"),
+    format = list(
+      new_fmt_literal(crayon::bgCyan$black$bold, "Object Id:"),
+      new_fmt_cls_field(crayon::cyan$bold, "id"),
+      new_fmt_line_break(),
+      new_fmt_log_level(),
+      new_fmt_timestamp(crayon::silver$italic),
+      new_fmt_log_msg(),
+      new_fmt_line_break(),
+      new_fmt_metric(crayon::green$bold, "sysname"),
+      new_fmt_metric(crayon::red$bold, "nodename"),
+      new_fmt_literal(crayon::blue$bold, "R Version:"),
+      new_fmt_metric(crayon::blue$italic$bold, "r_ver"),
+      new_fmt_line_break()
+    ),
     association = "TestObject"
   )
 
-  expect_true(!is.null(get_log_layout("TestObject")))
+  expect_true(!is.null(log_layouts("TestObject")))
 
   test_obj <- TestObject$new()
 

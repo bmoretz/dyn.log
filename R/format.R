@@ -18,22 +18,7 @@ new_fmt_layout <- function(style) {
   )
 }
 
-#' @title Value
-#'
-#' @description
-#' Base method for getting the value of a
-#' format object.
-#'
-#' @param fmt object to extract value from.
-#' @param ... further arguments passed to or from other methods.
-#'
-#' @return object's value
-#' @export
-value <- function(fmt, ...) {
-  UseMethod("value", fmt)
-}
-
-#' Formatted Metric
+#' @title Formatted Metric
 #'
 #' @description
 #' Inserts a formatted log metric.
@@ -66,25 +51,18 @@ new_fmt_metric = function(style, metric) {
   )
 }
 
+#' @title Style
+#'
+#' @description
 #' Gets the style of a format object.
 #'
-#' @param fmt object to extract value from.
-#'
-#' @return object's value
-#' @export
-style <- function(fmt) {
-  UseMethod("style", fmt)
-}
-
-#' Gets the style of a format object.
-#'
-#' @param fmt object to extract value from.
+#' @param obj object to extract value from.
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @return object's value
 #' @export
-style.fmt_layout <- function(fmt, ...) {
-  attr(fmt, 'style')
+style.fmt_layout <- function(obj, ...) {
+  attr(obj, 'style')
 }
 
 #' @title Value
@@ -93,14 +71,14 @@ style.fmt_layout <- function(fmt, ...) {
 #' Generic override for getting the value of an
 #' system info variable.
 #'
-#' @param fmt object to extract value from.
+#' @param obj object to extract value from.
 #' @param sys_context context to evaluate the metric.
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @return object's value
 #' @export
-value.fmt_metric <- function(fmt, sys_context, ...) {
-  style(fmt)(get(attr(fmt, 'metric'), sys_context))
+value.fmt_metric <- function(obj, sys_context, ...) {
+  style(obj)(get(attr(obj, 'metric'), sys_context))
 }
 
 #' Formatted Literal
@@ -135,13 +113,13 @@ new_fmt_literal <- function(style, literal) {
 #' Generic override for getting the value of a
 #' literal log message.
 #'
-#' @param fmt object to extract value from.
+#' @param obj object to extract value from.
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @return object's value
 #' @export
-value.fmt_literal <- function(fmt, ...) {
-  style(fmt)(attr(fmt, 'value'))
+value.fmt_literal <- function(obj, ...) {
+  style(obj)(attr(obj, 'value'))
 }
 
 #' @title Formatted Timestamp
@@ -190,16 +168,16 @@ format.fmt_timestamp <- function(x, ...) {
 #' Generic override for getting the value of a
 #' formatted timestamp.
 #'
-#' @param fmt object to extract value from.
+#' @param obj object to extract value from.
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @return object's value
 #' @export
-value.fmt_timestamp <- function(fmt, ...) {
-  v <- attr(fmt, 'value')
-  f <- attr(fmt, 'format')
+value.fmt_timestamp <- function(obj, ...) {
+  v <- attr(obj, 'value')
+  f <- attr(obj, 'format')
 
-  style(fmt)(v(f))
+  style(obj)(v(f))
 }
 
 #' @title Formatted Line Break
@@ -225,13 +203,13 @@ new_fmt_line_break <- function() {
 #' Generic override for getting the value of a
 #' new line placeholder.
 #'
-#' @param fmt object to extract value from.
+#' @param obj object to extract value from.
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @return object's value
 #' @export
-value.fmt_newline <- function(fmt, ...) {
-  attr(fmt, 'value')
+value.fmt_newline <- function(obj, ...) {
+  attr(obj, 'value')
 }
 
 #' Formatted Log Level
@@ -246,7 +224,7 @@ new_fmt_log_level <- function() {
   structure(
     list(),
     style = crayon::black,
-    value = glue::as_glue("{level_info(level)}"),
+    value = glue::as_glue("{format(level)}"),
     class = c('fmt_level_info', 'fmt_layout')
   )
 }
@@ -257,13 +235,13 @@ new_fmt_log_level <- function() {
 #' Generic override for getting the value for
 #' log level information.
 #'
-#' @param fmt object to extract value from.
+#' @param obj object to extract value from.
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @return object's value
 #' @export
-value.fmt_level_info <- function(fmt, ...) {
-  attr(fmt, 'value')
+value.fmt_level_info <- function(obj, ...) {
+  attr(obj, 'value')
 }
 
 #' @title
@@ -279,7 +257,7 @@ new_fmt_log_msg <- function() {
   structure(
     list(),
     style = crayon::black,
-    value = glue::as_glue("{level_format(level, msg = {log_msg})}"),
+    value = glue::as_glue("{format(level, message = {log_msg})}"),
     class = c('new_fmt_log_msg', 'fmt_layout')
   )
 }
@@ -290,13 +268,13 @@ new_fmt_log_msg <- function() {
 #' Generic override for getting the value of an
 #' log format message.
 #'
-#' @param fmt object to extract value from.
+#' @param obj object to extract value from.
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @return object's value
 #' @export
-value.new_fmt_log_msg <- function(fmt, ...) {
-  attr(fmt, 'value')
+value.new_fmt_log_msg <- function(obj, ...) {
+  attr(obj, 'value')
 }
 
 #' @title
@@ -332,15 +310,15 @@ new_fmt_cls_field <- function(style, field) {
 #' Generic override for getting the value of an
 #' enclosing class variable.
 #'
-#' @param fmt object to extract value from.
+#' @param obj object to extract value from.
 #' @param cls_context class scope to evaluate with.
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @return object's value
 #' @export
-value.fmt_cls_field <- function(fmt, cls_context, ...) {
-  value <- get(attr(fmt, 'field'), cls_context)
-  style(fmt)(value)
+value.fmt_cls_field <- function(obj, cls_context, ...) {
+  value <- get(attr(obj, 'field'), cls_context)
+  style(obj)(value)
 }
 
 #' @title
@@ -375,13 +353,13 @@ new_fmt_exec_scope <- function(style, field) {
 #' Generic override for getting the value of an
 #' execution scope variable.
 #'
-#' @param fmt object to extract value from.
+#' @param obj object to extract value from.
 #' @param env_context class scope to evaluate with.
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @return object's value
 #' @export
-value.fmt_exec_scope <- function(fmt, env_context, ...) {
-  value <- get(attr(fmt, 'field'), env_context)
-  style(fmt)(value)
+value.fmt_exec_scope <- function(obj, env_context, ...) {
+  value <- get(attr(obj, 'field'), env_context)
+  style(obj)(value)
 }

@@ -2,35 +2,20 @@
 % Please edit documentation in R/level.R
 \name{level_info}
 \alias{level_info}
-\title{Gets style level information}
+\title{Log Level Information}
 \usage{
-level_info(level)
-
-level_info(level)
-
 level_info(level)
 }
 \arguments{
 \item{level}{log level}
 }
 \value{
-styled level information
-
-styled level information
-
-styled level information
+log level information
 }
 \description{
-Gets style level information
-
-Gets style level information
-
-Gets style level information
+Gets log level information.
 }
 \examples{
-\dontrun{
-level_info(LEVEL)
-}
 \dontrun{
 level_info(LEVEL)
 }

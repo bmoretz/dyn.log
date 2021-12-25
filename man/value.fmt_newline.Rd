@@ -4,10 +4,10 @@
 \alias{value.fmt_newline}
 \title{Value}
 \usage{
-\method{value}{fmt_newline}(fmt, ...)
+\method{value}{fmt_newline}(obj, ...)
 }
 \arguments{
-\item{fmt}{object to extract value from.}
+\item{obj}{object to extract value from.}
 
 \item{...}{further arguments passed to or from other methods.}
 }

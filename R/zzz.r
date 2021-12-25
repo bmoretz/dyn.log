@@ -18,5 +18,14 @@ Logger <- NULL
 
   set_log_configuration(default_config, envir = topenv())
 
+  # Always register hook in case package is later unloaded & loaded
+
+  # setHook(
+  #   packageEvent(pkgname, "onLoad"),
+  #   function(...) {
+  #     set_log_configuration(default_config, envir = topenv())
+  #   }
+  # )
+
   invisible()
 }

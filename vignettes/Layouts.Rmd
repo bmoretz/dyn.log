@@ -7,7 +7,7 @@ output:
     theme: architect
     highlight: github
 vignette: >
-  %\VignetteIndexEntry{Log Layouts}
+  %\VignetteIndexEntry{LogLayouts}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---

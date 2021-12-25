@@ -4,10 +4,10 @@
 \alias{value.fmt_cls_field}
 \title{Value}
 \usage{
-\method{value}{fmt_cls_field}(fmt, cls_context, ...)
+\method{value}{fmt_cls_field}(obj, cls_context, ...)
 }
 \arguments{
-\item{fmt}{object to extract value from.}
+\item{obj}{object to extract value from.}
 
 \item{cls_context}{class scope to evaluate with.}
 

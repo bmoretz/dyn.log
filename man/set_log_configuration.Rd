@@ -21,6 +21,9 @@ into the specified environment.
 }
 \seealso{
 Other Logging: 
-\code{\link{LogDispatch}}
+\code{\link{LogDispatch}},
+\code{\link{attach_log_levels}()},
+\code{\link{display_log_levels}()},
+\code{\link{load_log_layouts}()}
 }
 \concept{Logging}
