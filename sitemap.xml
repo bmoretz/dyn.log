@@ -37,6 +37,12 @@
     <loc>/reference/as.integer.log_level.html</loc>
   </url>
   <url>
+    <loc>/reference/attach_log_levels.html</loc>
+  </url>
+  <url>
+    <loc>/reference/display_log_levels.html</loc>
+  </url>
+  <url>
     <loc>/reference/dot-onLoad.html</loc>
   </url>
   <url>
@@ -49,10 +55,10 @@
     <loc>/reference/format.fmt_timestamp.html</loc>
   </url>
   <url>
-    <loc>/reference/get_call_stack.html</loc>
+    <loc>/reference/format.log_level.html</loc>
   </url>
   <url>
-    <loc>/reference/get_log_layout.html</loc>
+    <loc>/reference/get_call_stack.html</loc>
   </url>
   <url>
     <loc>/reference/get_r_version.html</loc>
@@ -67,7 +73,7 @@
     <loc>/reference/length.log_layout.html</loc>
   </url>
   <url>
-    <loc>/reference/level_format.html</loc>
+    <loc>/reference/level_description.html</loc>
   </url>
   <url>
     <loc>/reference/level_info.html</loc>
@@ -76,10 +82,10 @@
     <loc>/reference/level_name.html</loc>
   </url>
   <url>
-    <loc>/reference/level_name.log_level.html</loc>
+    <loc>/reference/level_severity.html</loc>
   </url>
   <url>
-    <loc>/reference/level_severity.html</loc>
+    <loc>/reference/load_log_layouts.html</loc>
   </url>
   <url>
     <loc>/reference/log_layout_detail.html</loc>
@@ -131,6 +137,9 @@
   </url>
   <url>
     <loc>/reference/style.html</loc>
+  </url>
+  <url>
+    <loc>/reference/style.log_level.html</loc>
   </url>
   <url>
     <loc>/reference/sys_context.html</loc>
