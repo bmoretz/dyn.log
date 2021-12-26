@@ -30,7 +30,7 @@ Imports:
     stringr (>= 1.4.0),
     yaml (>= 2.2.1),
 Roxygen: list(markdown = TRUE)
-URL: https://github.com/bmoretz/dyn.log
+URL: https://bmoretz.github.io/dyn.log/
 BugReports: https://github.com/bmoretz/dyn.log/issues
 RoxygenNote: 7.1.2
 Suggests: 

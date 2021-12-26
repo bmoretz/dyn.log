@@ -101,3 +101,30 @@ test_that("log_levels_display",{
     expect_true(any(!is.na(match(actual, pattern))))
   }
 })
+
+test_that("can_get_log_level_by_name", {
+  level_names <- log_levels()
+
+  matches <- sapply(level_names, function(lvl_name) {
+    lvl <- log_levels(lvl_name)
+    any(match(class(lvl), 'log_level'))
+  })
+
+  expect_true(all(matches))
+})
+
+test_that("can_get_lvl_info_by_name",{
+
+  lvl_info <- lapply(log_levels(), function(lvl_name) {
+    lvl <- log_levels(lvl_name)
+    info <- level_info(lvl)
+  })
+
+  expect_true(all(matches))
+})
+
+test_that("invalid_log_level_detail_stops", {
+  expect_error({
+    level_info("ffdsa134")
+  })
+})

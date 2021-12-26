@@ -90,10 +90,12 @@ log_levels <- local({
       }
       else if(name %in% names(levels)) {
         return(levels[[name]])
+      } else {
+        return(NULL)
       }
     }
 
-    invisible(levels)
+    names(levels)
   }
 })
 
@@ -232,6 +234,14 @@ as.integer.log_level <- function(x, ...) {
 #' level_info(LEVEL)
 #' }
 level_info <- function(level) {
+
+  if(identical(class(level), 'character')) {
+    level <- log_levels(level)
+  }
+
+  if(is.null(level) || !any(match(class(level), 'log_level'))) {
+    stop("level info must be called on a valid log level")
+  }
 
   lvl_style <- style(level)
   style_info <- list()

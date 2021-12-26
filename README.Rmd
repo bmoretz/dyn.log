@@ -257,6 +257,6 @@ For a detailed look at class associations, and how they work please see the "Log
 
 > (vignette("Log Layouts", package = "dyn.log")
 
-### Notes & Thanks
+## Acknowledgments
 
   * The pretty logger output in this document is made possible by the excellent [fansi](https://github.com/brodieG/fansi) package by [Brody Gaslam](https://twitter.com/BrodieGaslam).

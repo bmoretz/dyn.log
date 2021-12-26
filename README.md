@@ -129,7 +129,7 @@ dispatcher, e.g.:
 Logger$info("call info level like this")
 ```
 
-<PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #0000BB; font-weight: bold;'>INFO</span> <span style='color: #555555; font-style: italic;'>[12/24/21 18:53:19 -0500]</span> <span style='color: #BBBBBB;'>call info level like this</span>
+<PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #0000BB; font-weight: bold;'>INFO</span> <span style='color: #555555; font-style: italic;'>[12/25/21 11:28:49 -0500]</span> <span style='color: #BBBBBB;'>call info level like this</span>
 </CODE></PRE>
 
 All levels that have been specified via the config can be found by
@@ -249,7 +249,7 @@ var1 <- "abc"; var2 <- 123; var3 <- runif(1)
 Logger$debug("my log message - var1: {var1}, var2: {var2}, var3: {var3}")
 ```
 
-<PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #00BBBB; font-weight: bold;'>DEBUG</span> <span style='color: #555555; font-style: italic;'>[12/24/21 18:53:19 -0500]</span> <span style='color: #BBBBBB;'>my log message - var1: abc, var2: 123, var3: 0.969351699110121</span>
+<PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #00BBBB; font-weight: bold;'>DEBUG</span> <span style='color: #555555; font-style: italic;'>[12/25/21 11:28:49 -0500]</span> <span style='color: #BBBBBB;'>my log message - var1: abc, var2: 123, var3: 0.950028502847999</span>
 </CODE></PRE>
 
 ### Customizing a Log Message
@@ -276,7 +276,7 @@ Logger$info("my log message - var1: {var1}, var2: {var2}, var3: {var3}", layout 
 ```
 
 <PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #00BB00; font-weight: bold;'>Linux</span>-<span style='color: #BB0000; font-weight: bold;'>5.10.16.3-microsoft-standard-WSL2</span>
-#&gt; <span style='color: #0000BB; font-weight: bold;'>INFO</span>-<span style='color: #555555; font-style: italic;'>[12/24/21 18:53:19 -0500]</span>-<span style='color: #BBBBBB;'>my log message - var1: abc, var2: 123, var3: 0.969351699110121</span>
+#&gt; <span style='color: #0000BB; font-weight: bold;'>INFO</span>-<span style='color: #555555; font-style: italic;'>[12/25/21 11:28:49 -0500]</span>-<span style='color: #BBBBBB;'>my log message - var1: abc, var2: 123, var3: 0.950028502847999</span>
 </CODE></PRE>
 
 For a detailed look at these objects, and how they work please see the
@@ -328,7 +328,7 @@ obj
 #> <TestObject>
 #>   Public:
 #>     clone: function (deep = FALSE) 
-#>     id: ZLMHCODWNBYFSCL
+#>     id: OXDFSFRPYHNGJPX
 #>     initialize: function () 
 #>     test_method: function () 
 #>   Private:
@@ -362,8 +362,8 @@ new_log_layout(
 obj$test_method()
 ```
 
-<PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #00BBBB; font-weight: bold;'>Object Id:</span> <span style='color: #555555; background-color: #00BBBB; font-weight: bold;'>ZLMHCODWNBYFSCL</span>
-#&gt; <span style='color: #0000BB; font-weight: bold;'>INFO</span> <span style='color: #555555; font-style: italic;'>[12/24/21 18:53:19 -0500]</span> <span style='color: #BBBBBB;'>these are some variables: test - 123 - 0.889726632041857</span>
+<PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #00BBBB; font-weight: bold;'>Object Id:</span> <span style='color: #555555; background-color: #00BBBB; font-weight: bold;'>OXDFSFRPYHNGJPX</span>
+#&gt; <span style='color: #0000BB; font-weight: bold;'>INFO</span> <span style='color: #555555; font-style: italic;'>[12/25/21 11:28:49 -0500]</span> <span style='color: #BBBBBB;'>these are some variables: test - 123 - 0.943865999346599</span>
 #&gt; <span style='color: #00BB00; font-weight: bold;'>Linux</span> <span style='color: #BB0000; font-weight: bold;'>WORKSTATION</span> <span style='color: #0000BB; font-weight: bold;'>R Version:</span> <span style='color: #0000BB; font-weight: bold; font-style: italic;'>4.1.2</span>
 </CODE></PRE>
 
@@ -372,7 +372,7 @@ obj$test_method()
 Logger$debug("this is a normal log msg")
 ```
 
-<PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #00BBBB; font-weight: bold;'>DEBUG</span> <span style='color: #555555; font-style: italic;'>[12/24/21 18:53:19 -0500]</span> <span style='color: #BBBBBB;'>this is a normal log msg</span>
+<PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #00BBBB; font-weight: bold;'>DEBUG</span> <span style='color: #555555; font-style: italic;'>[12/25/21 11:28:49 -0500]</span> <span style='color: #BBBBBB;'>this is a normal log msg</span>
 </CODE></PRE>
 
 As you can see, only when the logger is invoked from inside the class
@@ -385,7 +385,7 @@ the “Log Layouts” *vignette*.
 
 > (vignette(“Log Layouts”, package = “dyn.log”)
 
-### Notes & Thanks
+## Acknowledgments
 
 -   The pretty logger output in this document is made possible by the
     excellent [fansi](https://github.com/brodieG/fansi) package by
