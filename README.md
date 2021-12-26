@@ -98,13 +98,13 @@ layouts:
 - association: default
   seperator: !expr as.character(' ')
   new_line: !expr as.character('\n')
-  formats: new_fmt_log_level(),
+  formats: new_fmt_level_info(),
            new_fmt_timestamp(crayon::silver$italic),
            new_fmt_log_msg()
 - association: level_msg
   seperator: !expr as.character(' ')
   new_line: !expr as.character('\n')
-  formats: new_fmt_log_level(),
+  formats: new_fmt_level_info(),
            new_fmt_log_msg()
 ```
 
@@ -129,7 +129,7 @@ dispatcher, e.g.:
 Logger$info("call info level like this")
 ```
 
-<PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #0000BB; font-weight: bold;'>INFO</span> <span style='color: #555555; font-style: italic;'>[12/25/21 11:28:49 -0500]</span> <span style='color: #BBBBBB;'>call info level like this</span>
+<PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #0000BB; font-weight: bold;'>INFO</span> <span style='color: #555555; font-style: italic;'>[12/26/21 10:24:07 -0500]</span> <span style='color: #BBBBBB;'>call info level like this</span>
 </CODE></PRE>
 
 All levels that have been specified via the config can be found by
@@ -139,7 +139,7 @@ calling *log_levels*:
 all_levels <- log_levels()
 
 names(all_levels)
-#> [1] "trace"   "debug"   "info"    "success" "warn"    "error"   "fatal"
+#> NULL
 ```
 
 And you can get detailed information about a particular log level via
@@ -249,7 +249,7 @@ var1 <- "abc"; var2 <- 123; var3 <- runif(1)
 Logger$debug("my log message - var1: {var1}, var2: {var2}, var3: {var3}")
 ```
 
-<PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #00BBBB; font-weight: bold;'>DEBUG</span> <span style='color: #555555; font-style: italic;'>[12/25/21 11:28:49 -0500]</span> <span style='color: #BBBBBB;'>my log message - var1: abc, var2: 123, var3: 0.950028502847999</span>
+<PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #00BBBB; font-weight: bold;'>DEBUG</span> <span style='color: #555555; font-style: italic;'>[12/26/21 10:24:07 -0500]</span> <span style='color: #BBBBBB;'>my log message - var1: abc, var2: 123, var3: 0.849331802455708</span>
 </CODE></PRE>
 
 ### Customizing a Log Message
@@ -264,7 +264,7 @@ new_log_layout(
     new_fmt_metric(crayon::green$bold, "sysname"),
     new_fmt_metric(crayon::red$bold, "release"),
     new_fmt_line_break(),
-    new_fmt_log_level(),
+    new_fmt_level_info(),
     new_fmt_timestamp(crayon::silver$italic),
     new_fmt_log_msg()
   ),
@@ -276,7 +276,7 @@ Logger$info("my log message - var1: {var1}, var2: {var2}, var3: {var3}", layout 
 ```
 
 <PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #00BB00; font-weight: bold;'>Linux</span>-<span style='color: #BB0000; font-weight: bold;'>5.10.16.3-microsoft-standard-WSL2</span>
-#&gt; <span style='color: #0000BB; font-weight: bold;'>INFO</span>-<span style='color: #555555; font-style: italic;'>[12/25/21 11:28:49 -0500]</span>-<span style='color: #BBBBBB;'>my log message - var1: abc, var2: 123, var3: 0.950028502847999</span>
+#&gt; <span style='color: #0000BB; font-weight: bold;'>INFO</span>-<span style='color: #555555; font-style: italic;'>[12/26/21 10:24:07 -0500]</span>-<span style='color: #BBBBBB;'>my log message - var1: abc, var2: 123, var3: 0.849331802455708</span>
 </CODE></PRE>
 
 For a detailed look at these objects, and how they work please see the
@@ -328,7 +328,7 @@ obj
 #> <TestObject>
 #>   Public:
 #>     clone: function (deep = FALSE) 
-#>     id: OXDFSFRPYHNGJPX
+#>     id: JAXUVWAMKDAKTGH
 #>     initialize: function () 
 #>     test_method: function () 
 #>   Private:
@@ -344,7 +344,7 @@ new_log_layout(
     new_fmt_literal(crayon::cyan$bold, "Object Id:"),
     new_fmt_cls_field(crayon::bgCyan$silver$bold, "id"),
     new_fmt_line_break(),
-    new_fmt_log_level(),
+    new_fmt_level_info(),
     new_fmt_timestamp(crayon::silver$italic),
     new_fmt_log_msg(),
     new_fmt_line_break(),
@@ -362,8 +362,8 @@ new_log_layout(
 obj$test_method()
 ```
 
-<PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #00BBBB; font-weight: bold;'>Object Id:</span> <span style='color: #555555; background-color: #00BBBB; font-weight: bold;'>OXDFSFRPYHNGJPX</span>
-#&gt; <span style='color: #0000BB; font-weight: bold;'>INFO</span> <span style='color: #555555; font-style: italic;'>[12/25/21 11:28:49 -0500]</span> <span style='color: #BBBBBB;'>these are some variables: test - 123 - 0.943865999346599</span>
+<PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #00BBBB; font-weight: bold;'>Object Id:</span> <span style='color: #555555; background-color: #00BBBB; font-weight: bold;'>JAXUVWAMKDAKTGH</span>
+#&gt; <span style='color: #0000BB; font-weight: bold;'>INFO</span> <span style='color: #555555; font-style: italic;'>[12/26/21 10:24:07 -0500]</span> <span style='color: #BBBBBB;'>these are some variables: test - 123 - 0.495929059572518</span>
 #&gt; <span style='color: #00BB00; font-weight: bold;'>Linux</span> <span style='color: #BB0000; font-weight: bold;'>WORKSTATION</span> <span style='color: #0000BB; font-weight: bold;'>R Version:</span> <span style='color: #0000BB; font-weight: bold; font-style: italic;'>4.1.2</span>
 </CODE></PRE>
 
@@ -372,7 +372,7 @@ obj$test_method()
 Logger$debug("this is a normal log msg")
 ```
 
-<PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #00BBBB; font-weight: bold;'>DEBUG</span> <span style='color: #555555; font-style: italic;'>[12/25/21 11:28:49 -0500]</span> <span style='color: #BBBBBB;'>this is a normal log msg</span>
+<PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #00BBBB; font-weight: bold;'>DEBUG</span> <span style='color: #555555; font-style: italic;'>[12/26/21 10:24:07 -0500]</span> <span style='color: #BBBBBB;'>this is a normal log msg</span>
 </CODE></PRE>
 
 As you can see, only when the logger is invoked from inside the class

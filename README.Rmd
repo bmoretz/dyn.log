@@ -166,7 +166,7 @@ new_log_layout(
     new_fmt_metric(crayon::green$bold, "sysname"),
     new_fmt_metric(crayon::red$bold, "release"),
     new_fmt_line_break(),
-    new_fmt_log_level(),
+    new_fmt_level_info(),
     new_fmt_timestamp(crayon::silver$italic),
     new_fmt_log_msg()
   ),
@@ -229,7 +229,7 @@ new_log_layout(
     new_fmt_literal(crayon::cyan$bold, "Object Id:"),
     new_fmt_cls_field(crayon::bgCyan$silver$bold, "id"),
     new_fmt_line_break(),
-    new_fmt_log_level(),
+    new_fmt_level_info(),
     new_fmt_timestamp(crayon::silver$italic),
     new_fmt_log_msg(),
     new_fmt_line_break(),

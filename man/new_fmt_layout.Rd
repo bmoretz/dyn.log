@@ -18,12 +18,10 @@ Base type for log format objects.
 \seealso{
 Other Log Layout: 
 \code{\link{evaluate_layout}()},
-\code{\link{get_call_stack}()},
 \code{\link{new_fmt_cls_field}()},
 \code{\link{new_fmt_exec_scope}()},
 \code{\link{new_fmt_line_break}()},
 \code{\link{new_fmt_literal}()},
-\code{\link{new_fmt_log_level}()},
 \code{\link{new_fmt_log_msg}()},
 \code{\link{new_fmt_metric}()},
 \code{\link{new_fmt_timestamp}()},
