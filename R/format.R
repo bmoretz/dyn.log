@@ -9,13 +9,78 @@
 #' @export
 new_fmt_layout <- function(style) {
 
-  stopifnot(class(style) != "crayon")
+  stopifnot(class(style) != 'crayon')
 
   structure(
     list(),
     style = style,
-    class = c("fmt_layout")
+    class = c('fmt_layout')
   )
+}
+
+#' @title Formatted Log Level
+#'
+#' @description
+#' Placeholder for the formatted log level in a log layout.
+#'
+#' @family Formats
+#' @returns a \code{fmt_log_level}.
+#' @export
+new_fmt_log_level <- function() {
+  structure(
+    list(),
+    style = crayon::black,
+    value = glue::as_glue("{format(level)}"),
+    class = c('fmt_log_level', 'fmt_layout')
+  )
+}
+
+#' @title Value
+#'
+#' @description
+#' Generic override for getting the value for
+#' log level information.
+#'
+#' @param obj object to extract value from.
+#' @param ... further arguments passed to or from other methods.
+#'
+#' @return object's value
+#' @export
+value.fmt_log_level <- function(obj, ...) {
+  attr(obj, 'value')
+}
+
+#' @title
+#' Formatted Messaged, based on log level
+#'
+#' @description
+#' Placeholder for the log msg in a log layout.
+#'
+#' @family Log Layout
+#' @returns log layout newline.
+#' @export
+new_fmt_log_msg <- function() {
+  structure(
+    list(),
+    style = crayon::black,
+    value = glue::as_glue("{format(level, message = {log_msg})}"),
+    class = c('fmt_log_msg', 'fmt_layout')
+  )
+}
+
+#' @title Value
+#'
+#' @description
+#' Generic override for getting the value of an
+#' log format message.
+#'
+#' @param obj object to extract value from.
+#' @param ... further arguments passed to or from other methods.
+#'
+#' @return object's value
+#' @export
+value.fmt_log_msg <- function(obj, ...) {
+  attr(obj, 'value')
 }
 
 #' @title Formatted Metric
@@ -81,47 +146,6 @@ value.fmt_metric <- function(obj, sys_context, ...) {
   style(obj)(get(attr(obj, 'metric'), sys_context))
 }
 
-#' Formatted Literal
-#'
-#' @description
-#' Placeholder for a formatted literal in a log layout.
-#'
-#' @param style format style (crayon)
-#' @param literal log value
-#'
-#' @family Log Layout
-#' @returns log metric layout.
-#' @export
-#' @examples
-#' \dontrun{
-#' new_fmt_literal(red $ bold, "literal text")
-#'
-#' new_fmt_literal(blue $ italic, "literal text")
-#' }
-new_fmt_literal <- function(style, literal) {
-  structure(
-    list(),
-    style = style,
-    value = literal,
-    class = c('fmt_literal', 'fmt_layout')
-  )
-}
-
-#' @title Value
-#'
-#' @description
-#' Generic override for getting the value of a
-#' literal log message.
-#'
-#' @param obj object to extract value from.
-#' @param ... further arguments passed to or from other methods.
-#'
-#' @return object's value
-#' @export
-value.fmt_literal <- function(obj, ...) {
-  style(obj)(attr(obj, 'value'))
-}
-
 #' @title Formatted Timestamp
 #'
 #' @description
@@ -180,6 +204,47 @@ value.fmt_timestamp <- function(obj, ...) {
   style(obj)(v(f))
 }
 
+#' @title Formatted Literal
+#'
+#' @description
+#' Placeholder for a formatted literal in a log layout.
+#'
+#' @param style format style (crayon)
+#' @param literal log value
+#'
+#' @family Log Layout
+#' @returns log metric layout.
+#' @export
+#' @examples
+#' \dontrun{
+#' new_fmt_literal(red $ bold, "literal text")
+#'
+#' new_fmt_literal(blue $ italic, "literal text")
+#' }
+new_fmt_literal <- function(style, literal) {
+  structure(
+    list(),
+    style = style,
+    value = literal,
+    class = c('fmt_literal', 'fmt_layout')
+  )
+}
+
+#' @title Value
+#'
+#' @description
+#' Generic override for getting the value of a
+#' literal log message.
+#'
+#' @param obj object to extract value from.
+#' @param ... further arguments passed to or from other methods.
+#'
+#' @return object's value
+#' @export
+value.fmt_literal <- function(obj, ...) {
+  style(obj)(attr(obj, 'value'))
+}
+
 #' @title Formatted Line Break
 #'
 #' @description
@@ -209,71 +274,6 @@ new_fmt_line_break <- function() {
 #' @return object's value
 #' @export
 value.fmt_newline <- function(obj, ...) {
-  attr(obj, 'value')
-}
-
-#' Formatted Log Level
-#'
-#' @description
-#' Placeholder for the formatted log level in a log layout.
-#'
-#' @family Log Layout
-#' @returns log level info.
-#' @export
-new_fmt_log_level <- function() {
-  structure(
-    list(),
-    style = crayon::black,
-    value = glue::as_glue("{format(level)}"),
-    class = c('fmt_level_info', 'fmt_layout')
-  )
-}
-
-#' @title Value
-#'
-#' @description
-#' Generic override for getting the value for
-#' log level information.
-#'
-#' @param obj object to extract value from.
-#' @param ... further arguments passed to or from other methods.
-#'
-#' @return object's value
-#' @export
-value.fmt_level_info <- function(obj, ...) {
-  attr(obj, 'value')
-}
-
-#' @title
-#' Formatted Messaged, based on log level
-#'
-#' @description
-#' Placeholder for the log msg in a log layout.
-#'
-#' @family Log Layout
-#' @returns log layout newline.
-#' @export
-new_fmt_log_msg <- function() {
-  structure(
-    list(),
-    style = crayon::black,
-    value = glue::as_glue("{format(level, message = {log_msg})}"),
-    class = c('new_fmt_log_msg', 'fmt_layout')
-  )
-}
-
-#' @title Value
-#'
-#' @description
-#' Generic override for getting the value of an
-#' log format message.
-#'
-#' @param obj object to extract value from.
-#' @param ... further arguments passed to or from other methods.
-#'
-#' @return object's value
-#' @export
-value.new_fmt_log_msg <- function(obj, ...) {
   attr(obj, 'value')
 }
 
@@ -332,6 +332,7 @@ value.fmt_cls_field <- function(obj, cls_context, ...) {
 #'
 #' @family Log Layout
 #' @returns \code{new_fmt_cls_field}
+#' @export
 new_fmt_exec_scope <- function(style, field) {
 
   stopifnot(class(style) == "crayon")

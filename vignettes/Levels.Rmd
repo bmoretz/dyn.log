@@ -12,13 +12,6 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
-
 # Dynamic Log Levels
 
 ```{r setup}
@@ -30,7 +23,6 @@ options(crayon.enabled=TRUE)
 knitr::opts_chunk$set(collapse = TRUE, comment = "")
 old.hooks <- fansi::set_knit_hooks(knitr::knit_hooks)
 ```
-
 
 ## Definitions
 
@@ -68,13 +60,12 @@ corresponding to that level. This enables a fairly intuitive approach to invokin
 have the previous *debug* level defined in your configuration this is how you would log a message with that level:
 
 ```{r, simple_debug_example}
-var1 <- "abc"; var2 <- 123; var3 <- runif(1)
+var1 <- "abc"; var2 <- 123; var3 <- round(runif(1), digits = 6)
 
 Logger$debug("my log message - var1: {var1}, var2: {var2}, var3: {var3}")
 ```
 
-You'll notice that all log messages by default use the standardize [glue](https://github.com/tidyverse/glue) format
-so local variables are capturable in the log output.
+You'll notice that all log messages by default use the standardize [glue](https://github.com/tidyverse/glue) format so local variables are capturable in the log output.
 
 ### Localization
 
@@ -84,16 +75,37 @@ You can see what log levels have been specified in your logging configuration by
 log_levels()
 ```
 
+Which will output only the *names* of the defined levels, not all of the detail that defines them.
+
 ### Detail
 
-Which will output only the *names* of the defined levels, not all of the detail that defines them. To get the details
-about a defined level you can call *level_info*:
+To get the details about a defined level you can call *level_info()*:
 
 ```{r, level_info_ex}
 level_info("debug")
 ```
 
+The detailed information about a log level shows every configurable attribute about the level, and
+an example of how the level renders with its associated [crayon](https://github.com/r-lib/crayon) styles
+for the level and message. A vanilla log layout consisting of only the level and msg would get rendered
+with the look of the example attribute.
 
-## Defaults
 
+## Configuration
 
+### Out of the Box
+
+The default (OTB) logging configuration closely resembles the fairly ubiquitous [log4j](https://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/Level.html) level scheme.
+
+There is a utility method called *display_log_levels()* that will output all loaded log levels from
+the configuration rendered with their defined styles & definitions:
+
+```{r, display_log_levels_ex}
+display_log_levels()
+```
+
+*Note: even through [fansi](https://github.com/brodieG/fansi) is amazing at rendering these in html format, your terminal may look slightly different; expecialy the grayscale colors on log messages.*
+
+### Customizing
+
+To customize the log levels in your environment, please see the configuration vignette.

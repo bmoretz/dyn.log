@@ -15,7 +15,7 @@ test_that("load_log_config_works", {
 
   set_log_configuration(test_config_file, envir = test_envir)
 
-  log_levels <- names(log_levels())
+  log_levels <- log_levels()
 
   expect_true(any(match(log_levels, 'strace')))
   expect_true(any(match(log_levels, 'trace')))

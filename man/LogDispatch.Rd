@@ -14,26 +14,7 @@ object. The \code{log_layout} object is used to generate log message
 layouts (render formats), which are used by the \code{LogDispatcher}
 to render highly-customizable and detailed log messages.
 }
-\section{Metrics}{
-
-
-System Context
-
-\itemize{
-\item{"sysname"} : {The operating system name.}
-\item{"release"} : {The OS release.}
-\item{"version"} : {The OS version.}
-\item{"nodename"} : {A name by which the machine is known on the network (if any).}
-\item{"machine"} : {A concise description of the hardware, often the CPU type.}
-\item{"login"} : {The user's login name, or "unknown" if it cannot be ascertained.}
-\item{"user"} : {The name of the real user ID, or "unknown" if it cannot be ascertained.}
-\item{"r-ver"} : {R Version (major).(minor)}
-}
-}
-
 \seealso{
-LogLevel
-
 Other Logging: 
 \code{\link{attach_log_levels}()},
 \code{\link{display_log_levels}()},

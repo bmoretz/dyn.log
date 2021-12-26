@@ -1,7 +1,7 @@
 Package: dyn.log
 Type: Package
 Title: Dynamic Logging for R Inspired by Configuration Driven Development
-Version: 0.1.3
+Version: 0.2.1.1
 Authors@R: 
     c(person(given = "Brandon",
        family = "Moretz",
