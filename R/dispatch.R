@@ -94,9 +94,11 @@ LogDispatch <- R6::R6Class(
           }
 
           if(any(!is.na(match(types, 'fmt_exec_scope')))) {
-            context[['fmt_exec_scope']] = exec_context()
 
-            print(context[['fmt_exec_scope']])
+            context[['fmt_exec_scope']] = exec_context(
+              max_calls = private$settings$callstack$max,
+              call_subset = c(private$settings$callstack$start,
+                              private$settings$callstack$stop))
           }
 
           cat(glue::glue(evaluate_layout(formats, types, seperator, context,

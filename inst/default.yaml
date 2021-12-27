@@ -1,6 +1,10 @@
 settings:
   threshold: TRACE
   max_callstack: 5
+  callstack:
+    max: 5
+    start: 20
+    stop: -1
 levels:
 - name: TRACE
   description: This level designates finer-grained informational events than the DEBUG.
