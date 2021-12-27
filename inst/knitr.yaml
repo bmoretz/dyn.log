@@ -3,7 +3,7 @@ settings:
   max_callstack: 5
   callstack:
     max: 5
-    start: -1
+    start: 20
     stop: -1
 levels:
 - name: TRACE

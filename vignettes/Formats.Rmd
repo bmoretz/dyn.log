@@ -16,6 +16,11 @@ vignette: >
 
 ```{r setup}
 library(dyn.log)
+
+# set logging config with tweaks for kitr output
+
+set_log_configuration(file_name = system.file("knitr.yaml", 
+                                              package = "dyn.log"))
 ```
 
 ```{r, comment="", results="asis", echo=F}
@@ -115,7 +120,7 @@ Execution scope formats give you the ability to log the context around the invoc
 context object, much like *sys_context*, called **exec_context**:
 
 ```{r, set_knitter_offset, echo=F}
-knitter_offset <- 20
+callstack_settings <- Logger$get_settings()$callstack
 ```
 
 ```{r, exec_scope_ex, eval=T}
@@ -124,7 +129,8 @@ test <- function(a, b, c) {
     outer <- function(d, e, f) {
       inner <- function(g, h, i) {
         # call_subset is used here to skip past knitr execution calls
-        exec_context(max_calls = 30, call_subset = c(knitter_offset, -1))
+        exec_context(max_calls = 30, call_subset = c(callstack_settings$start,
+                                                     callstack_settings$stop))
       }
 
       inner(d, e, f)
