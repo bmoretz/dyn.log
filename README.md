@@ -58,6 +58,10 @@ broken down in the sections that follow:
 settings:
   threshold: TRACE
   max_callstack: 5
+  callstack:
+    max: 5
+    start: 20
+    stop: -1
 levels:
 - name: TRACE
   description: This level designates finer-grained informational events than the DEBUG.
@@ -98,13 +102,13 @@ layouts:
 - association: default
   seperator: !expr as.character(' ')
   new_line: !expr as.character('\n')
-  formats: new_fmt_level_info(),
+  formats: new_fmt_log_level(),
            new_fmt_timestamp(crayon::silver$italic),
            new_fmt_log_msg()
 - association: level_msg
   seperator: !expr as.character(' ')
   new_line: !expr as.character('\n')
-  formats: new_fmt_level_info(),
+  formats: new_fmt_log_level(),
            new_fmt_log_msg()
 ```
 
@@ -126,81 +130,22 @@ automatically becomes accessible via a first-class function on the
 dispatcher, e.g.:
 
 ``` r
-Logger$info("call info level like this")
+var1 <- "abc"; var2 <- 123; var3 <- runif(1)
+Logger$debug("my log message - var1: {var1}, var2: {var2}, var3: {var3}")
 ```
 
-<PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #0000BB; font-weight: bold;'>INFO</span> <span style='color: #555555; font-style: italic;'>[12/26/21 10:24:07 -0500]</span> <span style='color: #BBBBBB;'>call info level like this</span>
-</CODE></PRE>
-
-All levels that have been specified via the config can be found by
-calling *log_levels*:
-
-``` r
-all_levels <- log_levels()
-
-names(all_levels)
-#> NULL
-```
-
-And you can get detailed information about a particular log level via
-*level_info()*:
-
-``` r
-level_info(log_levels("warn"))
-```
-
-<PRE class="fansi fansi-output"><CODE>#&gt; $name
-#&gt; [1] &quot;WARN&quot;
-#&gt; 
-#&gt; $description
-#&gt; [1] &quot;This level designates potentially harmful situations.&quot;
-#&gt; 
-#&gt; $severity
-#&gt; [1] 350
-#&gt; 
-#&gt; $style
-#&gt; $style$level
-#&gt; Crayon style function, darkorange, bold: <span style='color: #BBBB00; font-weight: bold;'>example output.</span>
-#&gt; 
-#&gt; $style$message
-#&gt; Crayon style function, bgYellow, bold, black: <span style='color: #000000; background-color: #BBBB00; font-weight: bold;'>example output.</span>
-#&gt; 
-#&gt; $style$example
-#&gt; <span style='color: #BBBB00; font-weight: bold;'>WARN</span> - <span style='color: #000000; background-color: #BBBB00; font-weight: bold;'>This level designates potentially harmful situations.</span>
-</CODE></PRE>
-
-You’ll notice that a level has **level** and **message** style
-attributes that are [crayon](https://github.com/r-lib/crayon) styles.
-This is because each level has a unique render format that helps to
-visually assist parsing of log information.
-
-To see the sample format of all loaded log levels, call
-*display_log_levels*:
-
-``` r
-display_log_levels()
-```
-
-<PRE class="fansi fansi-output"><CODE>#&gt; 
-#&gt; <span style='color: #555555; font-weight: bold;'>TRACE</span> <span style='color: #555555;'>This level designates finer-grained informational events than the DEBUG.</span>
-#&gt; 
-#&gt; <span style='color: #00BBBB; font-weight: bold;'>DEBUG</span> <span style='color: #BBBBBB;'>This level designates fine-grained informational events that are most useful to debug an application.</span>
-#&gt; 
-#&gt; <span style='color: #0000BB; font-weight: bold;'>INFO</span> <span style='color: #BBBBBB;'>This level designates informational messages that highlight the progress of the application at coarse-grained level.</span>
-#&gt; 
-#&gt; <span style='color: #00BB00; font-weight: bold;'>SUCCESS</span> <span style='color: #000000; background-color: #00BB00; font-weight: bold;'>This level designates that the operation was unencumbered.</span>
-#&gt; 
-#&gt; <span style='color: #BBBB00; font-weight: bold;'>WARN</span> <span style='color: #000000; background-color: #BBBB00; font-weight: bold;'>This level designates potentially harmful situations.</span>
-#&gt; 
-#&gt; <span style='color: #BB0000; font-weight: bold;'>ERROR</span> <span style='color: #BBBBBB; background-color: #000000; font-weight: bold;'>This level designates error events that might still allow the application to continue running.</span>
-#&gt; 
-#&gt; <span style='color: #BB0000; font-weight: bold;'>FATAL</span> <span style='color: #BBBBBB; background-color: #BB0000; font-weight: bold;'>This level designates very severe error events that will presumably lead the application to abort.</span>
-</CODE></PRE>
+![basic log ouput](man/figures/README-basic-log-output.PNG)
 
 The default logging configuration closely resembles the fairly
 ubiquitous
 [log4j](https://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/Level.html)
 scheme.
+
+For a detailed look at log levels refer to the [Log
+Levels](https://bmoretz.github.io/dyn.log/articles/Levels.html) vignette
+online, or
+
+> vignette(“Levels”, package = “dyn.log”)
 
 #### Layouts
 
@@ -249,7 +194,7 @@ var1 <- "abc"; var2 <- 123; var3 <- runif(1)
 Logger$debug("my log message - var1: {var1}, var2: {var2}, var3: {var3}")
 ```
 
-<PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #00BBBB; font-weight: bold;'>DEBUG</span> <span style='color: #555555; font-style: italic;'>[12/26/21 10:24:07 -0500]</span> <span style='color: #BBBBBB;'>my log message - var1: abc, var2: 123, var3: 0.849331802455708</span>
+<PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #00BBBB; font-weight: bold;'>DEBUG</span> <span style='color: #555555; font-style: italic;'>[12/27/21 00:52:33 -0500]</span> <span style='color: #BBBBBB;'>my log message - var1: abc, var2: 123, var3: 0.870168152963743</span>
 </CODE></PRE>
 
 ### Customizing a Log Message
@@ -264,7 +209,7 @@ new_log_layout(
     new_fmt_metric(crayon::green$bold, "sysname"),
     new_fmt_metric(crayon::red$bold, "release"),
     new_fmt_line_break(),
-    new_fmt_level_info(),
+    new_fmt_log_level(),
     new_fmt_timestamp(crayon::silver$italic),
     new_fmt_log_msg()
   ),
@@ -276,7 +221,7 @@ Logger$info("my log message - var1: {var1}, var2: {var2}, var3: {var3}", layout 
 ```
 
 <PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #00BB00; font-weight: bold;'>Linux</span>-<span style='color: #BB0000; font-weight: bold;'>5.10.16.3-microsoft-standard-WSL2</span>
-#&gt; <span style='color: #0000BB; font-weight: bold;'>INFO</span>-<span style='color: #555555; font-style: italic;'>[12/26/21 10:24:07 -0500]</span>-<span style='color: #BBBBBB;'>my log message - var1: abc, var2: 123, var3: 0.849331802455708</span>
+#&gt; <span style='color: #0000BB; font-weight: bold;'>INFO</span>-<span style='color: #555555; font-style: italic;'>[12/27/21 00:52:33 -0500]</span>-<span style='color: #BBBBBB;'>my log message - var1: abc, var2: 123, var3: 0.870168152963743</span>
 </CODE></PRE>
 
 For a detailed look at these objects, and how they work please see the
@@ -328,7 +273,7 @@ obj
 #> <TestObject>
 #>   Public:
 #>     clone: function (deep = FALSE) 
-#>     id: JAXUVWAMKDAKTGH
+#>     id: AKTVBRSYQMNDMBC
 #>     initialize: function () 
 #>     test_method: function () 
 #>   Private:
@@ -344,7 +289,7 @@ new_log_layout(
     new_fmt_literal(crayon::cyan$bold, "Object Id:"),
     new_fmt_cls_field(crayon::bgCyan$silver$bold, "id"),
     new_fmt_line_break(),
-    new_fmt_level_info(),
+    new_fmt_log_level(),
     new_fmt_timestamp(crayon::silver$italic),
     new_fmt_log_msg(),
     new_fmt_line_break(),
@@ -362,8 +307,8 @@ new_log_layout(
 obj$test_method()
 ```
 
-<PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #00BBBB; font-weight: bold;'>Object Id:</span> <span style='color: #555555; background-color: #00BBBB; font-weight: bold;'>JAXUVWAMKDAKTGH</span>
-#&gt; <span style='color: #0000BB; font-weight: bold;'>INFO</span> <span style='color: #555555; font-style: italic;'>[12/26/21 10:24:07 -0500]</span> <span style='color: #BBBBBB;'>these are some variables: test - 123 - 0.495929059572518</span>
+<PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #00BBBB; font-weight: bold;'>Object Id:</span> <span style='color: #555555; background-color: #00BBBB; font-weight: bold;'>AKTVBRSYQMNDMBC</span>
+#&gt; <span style='color: #0000BB; font-weight: bold;'>INFO</span> <span style='color: #555555; font-style: italic;'>[12/27/21 00:52:33 -0500]</span> <span style='color: #BBBBBB;'>these are some variables: test - 123 - 0.587066208710894</span>
 #&gt; <span style='color: #00BB00; font-weight: bold;'>Linux</span> <span style='color: #BB0000; font-weight: bold;'>WORKSTATION</span> <span style='color: #0000BB; font-weight: bold;'>R Version:</span> <span style='color: #0000BB; font-weight: bold; font-style: italic;'>4.1.2</span>
 </CODE></PRE>
 
@@ -372,7 +317,7 @@ obj$test_method()
 Logger$debug("this is a normal log msg")
 ```
 
-<PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #00BBBB; font-weight: bold;'>DEBUG</span> <span style='color: #555555; font-style: italic;'>[12/26/21 10:24:07 -0500]</span> <span style='color: #BBBBBB;'>this is a normal log msg</span>
+<PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #00BBBB; font-weight: bold;'>DEBUG</span> <span style='color: #555555; font-style: italic;'>[12/27/21 00:52:33 -0500]</span> <span style='color: #BBBBBB;'>this is a normal log msg</span>
 </CODE></PRE>
 
 As you can see, only when the logger is invoked from inside the class

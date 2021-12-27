@@ -88,33 +88,18 @@ The **levels** node contains the log levels you want available in your environme
 level is defined in the configuration, it automatically becomes accessible via a first-class 
 function on the dispatcher, e.g.:
 
-```{r}
-Logger$info("call info level like this")
+```{r, basic-log-output, eval=F}
+var1 <- "abc"; var2 <- 123; var3 <- runif(1)
+Logger$debug("my log message - var1: {var1}, var2: {var2}, var3: {var3}")
 ```
 
-All levels that have been specified via the config can be found by calling *log_levels*:
-
-```{r}
-all_levels <- log_levels()
-
-names(all_levels)
-```
-
-And you can get detailed information about a particular log level via *level_info()*:
-
-```{r}
-level_info(log_levels("warn"))
-```
-
-You'll notice that a level has **level** and **message** style attributes that are [crayon](https://github.com/r-lib/crayon) styles. This is because each level has a unique render format that helps to visually assist parsing of log information.
-
-To see the sample format of all loaded log levels, call *display_log_levels*:
-
-```{r}
-display_log_levels()
-```
+![basic log ouput](man/figures/README-basic-log-output.PNG)
 
 The default logging configuration closely resembles the fairly ubiquitous [log4j](https://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/Level.html) scheme.
+
+For a detailed look at log levels refer to the [Log Levels](https://bmoretz.github.io/dyn.log/articles/Levels.html) vignette online, or
+
+> vignette("Levels", package = "dyn.log")
 
 #### Layouts
 
@@ -166,7 +151,7 @@ new_log_layout(
     new_fmt_metric(crayon::green$bold, "sysname"),
     new_fmt_metric(crayon::red$bold, "release"),
     new_fmt_line_break(),
-    new_fmt_level_info(),
+    new_fmt_log_level(),
     new_fmt_timestamp(crayon::silver$italic),
     new_fmt_log_msg()
   ),
@@ -229,7 +214,7 @@ new_log_layout(
     new_fmt_literal(crayon::cyan$bold, "Object Id:"),
     new_fmt_cls_field(crayon::bgCyan$silver$bold, "id"),
     new_fmt_line_break(),
-    new_fmt_level_info(),
+    new_fmt_log_level(),
     new_fmt_timestamp(crayon::silver$italic),
     new_fmt_log_msg(),
     new_fmt_line_break(),
