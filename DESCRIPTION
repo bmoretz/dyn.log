@@ -49,7 +49,5 @@ Suggests:
     fansi,
     DT
 Config/testthat/edition: 3
-Remotes:
-  GuangchuangYu/badger
 Language: en-US
 VignetteBuilder: knitr
