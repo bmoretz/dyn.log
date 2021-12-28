@@ -137,7 +137,7 @@ as.character.log_level <- function(x, ...) {
 #' @return log level name
 #' @export
 level_name <- function(level) {
-  return(attr(level, 'name'))
+  return(attr(level, "name"))
 }
 
 #' @title Log Level Description
@@ -154,7 +154,7 @@ level_name <- function(level) {
 #' level_description(LEVEL)
 #' }
 level_description <- function(level) {
-  UseMethod('level_description', level)
+  UseMethod("level_description", level)
 }
 
 #' @title Get Log Level Description
@@ -172,7 +172,7 @@ level_description <- function(level) {
 #' level_description(LEVEL)
 #' }
 level_description <- function(level) {
-  return(attr(level, 'description'))
+  return(attr(level, "description"))
 }
 
 #' @title get level severity
@@ -186,7 +186,7 @@ level_description <- function(level) {
 #' level_severity(LEVEL)
 #' }
 level_severity <- function(level) {
-  UseMethod('level_severity', level)
+  UseMethod("level_severity", level)
 }
 
 #' @title Get Log Level Severity
@@ -204,7 +204,7 @@ level_severity <- function(level) {
 #' level_severity(LEVEL)
 #' }
 level_severity <- function(level) {
-  return(attr(level, 'severity'))
+  return(attr(level, "severity"))
 }
 
 #' Gets the severity of a log level.
@@ -235,11 +235,11 @@ as.integer.log_level <- function(x, ...) {
 #' }
 level_info <- function(level) {
 
-  if(identical(class(level), 'character')) {
+  if(identical(class(level), "character")) {
     level <- log_levels(level)
   }
 
-  if(is.null(level) || !any(match(class(level), 'log_level'))) {
+  if(is.null(level) || !any(match(class(level), "log_level"))) {
     stop("level info must be called on a valid log level")
   }
 

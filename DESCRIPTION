@@ -39,7 +39,7 @@ Suggests:
     usethis,
     rmarkdown,
     knitr,
-    covr,
+    covr (>= 3.5.1),
     testthat (>= 3.0.0),
     badger (>= 0.1.0),
     remotes,
@@ -47,7 +47,8 @@ Suggests:
     prettydoc,
     here,
     fansi,
-    DT
+    DT,
+    lintr (>= 0.28)
 Config/testthat/edition: 3
 Language: en-US
 VignetteBuilder: knitr

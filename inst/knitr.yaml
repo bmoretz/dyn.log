@@ -1,6 +1,5 @@
 settings:
   threshold: TRACE
-  max_callstack: 5
   callstack:
     max: 5
     start: 20

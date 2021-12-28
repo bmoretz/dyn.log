@@ -41,7 +41,7 @@ set_log_configuration <- function(file_name, envir = parent.frame()) {
 #' @importFrom stringr str_split str_trim
 attach_log_levels <- function(levels) {
 
-  for(level in levels) {
+  for (level in levels) {
 
     new_level <- new_log_level(name = level$name,
                                description = level$description,
@@ -70,7 +70,7 @@ attach_log_levels <- function(levels) {
 #' @importFrom stringr str_split str_trim
 load_log_layouts <- function(layouts) {
 
-  for(layout in layouts) {
+  for (layout in layouts) {
 
     parsed <- stringr::str_split(layout$formats, pattern = ",", simplify = T)
 
@@ -109,9 +109,9 @@ display_log_levels <- function() {
     info <- level_info(level)
     fn <- Logger[[tolower(info$name)]]
 
-    if(is.function(fn)) {
+    if (is.function(fn)) {
       cat("\n")
-      fn(msg = info$description, layout="level_msg")
+      fn(msg = info$description, layout = "level_msg")
       cat("\n")
     }
   })

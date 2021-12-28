@@ -5,7 +5,7 @@
 #' in a named list format.
 #' @family Context
 #' @return \code{Sys.info()} as a named list
-get_system_info = function() {
+get_system_info <- function() {
   as.list(Sys.info())
 }
 
@@ -16,8 +16,8 @@ get_system_info = function() {
 #' formatted string for use use in sys_context.
 #' @family Context
 #' @return R environment version is (major).(minor) format
-get_r_version = function() {
-  c('r_ver' = paste0(R.Version()[c('major', 'minor')], collapse = '.'))
+get_r_version <- function() {
+  c("r_ver" = paste0(R.Version()[c("major", "minor")], collapse = "."))
 }
 
 #' @title System Context
@@ -35,7 +35,7 @@ sys_context <- function() {
 
   sys_context <- c(sys_info, r_ver)
 
-  structure(sys_context, class = c('sys_context', 'context'))
+  structure(sys_context, class = c("sys_context", "context"))
 }
 
 #' @title Extract Function Name
@@ -93,18 +93,20 @@ get_call_stack = function(keep_args = F,
                                 func, extract_func_name(func))
                        })
 
-  if(filter_internal) {
+  if (filter_internal) {
     call_stack <- clean_internal_calls(call_stack)
   }
 
-  if(!identical(call_subset, c(-1, -1))) {
-    start <- max(call_subset[1], 1); end <- max(call_subset[2], length(call_stack))
+  if (!identical(call_subset, c(-1, -1))) {
+    start <- max(call_subset[1], 1)
+    end <- max(call_subset[2], length(call_stack))
+
     call_stack <- call_stack[start:end]
   }
 
   names(call_stack) <- paste0("call_", seq(length(call_stack)))
 
-  structure(call_stack, class = c('call_stack', 'stack'))
+  structure(call_stack, class = c("call_stack", "stack"))
 }
 
 #' @title Is Logger Call
@@ -117,7 +119,7 @@ get_call_stack = function(keep_args = F,
 #' @family Context
 #' @returns string representation of a func call.
 #' @importFrom stringr str_detect fixed
-is_logger_call = function(call) {
+is_logger_call <- function(call) {
   stringr::str_detect(call, pattern = stringr::fixed("Logger$"))
 }
 
@@ -127,17 +129,18 @@ is_logger_call = function(call) {
 #' Determines if a call came from the logger, so we
 #' can exclude it from the call stack.
 #'
-#' @param call function call
+#' @param call_stack call stack
+#'
 #' @family Context
 #' @returns string representation of a func call.
 #' @importFrom stringr str_starts fixed
-clean_internal_calls = function(call_stack) {
+clean_internal_calls <- function(call_stack) {
 
   internal_calls <- sapply(call_stack, function(call) {
     stringr::str_starts(call, pattern = stringr::fixed("dyn.log::"))
   }, simplify = T)
 
-  if(length(internal_calls) > 0) {
+  if (length(internal_calls) > 0) {
     call_stack <- call_stack[!internal_calls]
   }
 
@@ -167,23 +170,23 @@ exec_context <- function(keep_args = F,
                                call_subset = call_subset,
                                filter_internal = filter_internal)
 
-  lc_idx <- as.integer(which(sapply(full_stack, is_logger_call, simplify = T), arr.ind = T))
+  lcs <- sapply(full_stack, is_logger_call, simplify = T)
+  lc_idx <- as.integer(which(lcs, arr.ind = T))
 
-  if(!identical(lc_idx, integer(0))) {
+  if (!identical(lc_idx, integer(0))) {
     full_stack <- full_stack[1:lc_idx-1]
   }
 
-  #call_stack <- head(full_stack, max_calls)
   call_stack <- full_stack
   ncalls <- length(call_stack)
 
   exec_context <- list(
     call_stack = call_stack,
-    calling_fn = ifelse(ncalls == 0, 'none', call_stack[ncalls]),
+    calling_fn = ifelse(ncalls == 0, "none", call_stack[ncalls]),
     ncalls = ncalls
   )
 
-  structure(exec_context, class = c('exec_context', 'context'))
+  structure(exec_context, class = c("exec_context", "context"))
 }
 
 #' @title Calling Class Scope
@@ -197,19 +200,19 @@ exec_context <- function(keep_args = F,
 #' @return system context for evaluating \code{fmt_metric} objects.
 #' @family Context
 #' @export
-class_scope = function(cls) {
+class_scope <- function(cls) {
 
   values <- list()
 
   lapply(names(as.list(cls)), function(var) {
     value <- cls[[var]]
 
-    if(!(class(value) %in% c('environment', 'function')))
+    if(!(class(value) %in% c("environment", "function")))
       values[[var]] <<- value
 
     invisible()
   })
 
-  structure(values, class = c('cls_context', 'context'))
+  structure(values, class = c("cls_context", "context"))
 }
 

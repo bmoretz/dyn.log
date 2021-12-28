@@ -7,7 +7,7 @@
 clean_internal_calls(call_stack)
 }
 \arguments{
-\item{call}{function call}
+\item{call_stack}{call stack}
 }
 \value{
 string representation of a func call.

@@ -48,6 +48,47 @@ library(dyn.log)
 PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 </STYLE>
 
+### Logging
+
+There are three main components of a log message, each of them are
+covered in detail in their respective vignettes. For more detail about
+how logging works and how you can customize it, please see the [package
+site](https://bmoretz.github.io/dyn.log/):
+
+-   Levels
+    -   The levels you want to have accessible in your logger.
+-   Formats
+    -   The types that define contextual information to be logged in a
+        message.
+-   Layouts
+    -   Containers for format objects that define the rendering
+        specifications for a log message.
+
+The logging functionality is exposed by a R6 class, *LogDispatch*, that
+is available as a package namespace variable called **Logger**. The
+**Logger** will have methods that correspond to the *log levels* that
+are defined in its yaml configuration, which makes logging intuitive.
+When the package is loaded, the logger will appear in the top / global
+environment as *Logger*.
+
+Log messages are automatically assumed to be in standard
+[glue](https://github.com/tidyverse/glue) format so local environment
+variables are capturable in the log output.
+
+#### Simple Example
+
+The “out of the box” (OTB) configuration specifies a default vanilla log
+format that displays the level that was logged, the current time-stamp
+(with the default TS format), and the log message:
+
+``` r
+var1 <- "abc"; var2 <- 123; var3 <- runif(1)
+
+Logger$debug("my log message - var1: {var1}, var2: {var2}, var3: {var3}")
+```
+
+![basic log ouput](man/figures/README-basic-log-output.PNG)
+
 #### Configuration
 
 Everything about dyn.log is configuration driven, the package comes with
@@ -57,10 +98,9 @@ broken down in the sections that follow:
 ``` yaml
 settings:
   threshold: TRACE
-  max_callstack: 5
   callstack:
     max: 5
-    start: 20
+    start: -1
     stop: -1
 levels:
 - name: TRACE
@@ -129,21 +169,14 @@ environment. When a log level is defined in the configuration, it
 automatically becomes accessible via a first-class function on the
 dispatcher, e.g.:
 
-``` r
-var1 <- "abc"; var2 <- 123; var3 <- runif(1)
-Logger$debug("my log message - var1: {var1}, var2: {var2}, var3: {var3}")
-```
-
-![basic log ouput](man/figures/README-basic-log-output.PNG)
-
 The default logging configuration closely resembles the fairly
 ubiquitous
 [log4j](https://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/Level.html)
 scheme.
 
-For a detailed look at log levels refer to the [Log
-Levels](https://bmoretz.github.io/dyn.log/articles/Levels.html) vignette
-online, or
+For a detailed look at log levels refer to the
+[Levels](https://bmoretz.github.io/dyn.log/articles/Levels.html)
+vignette online, or
 
 > vignette(“Levels”, package = “dyn.log”)
 
@@ -154,48 +187,13 @@ render on a log call. Formats are defined in the yaml config and comes
 with some basic ones pre-configured.
 
 The default log layout is a standard format: {LEVEL} - {TIMESTAMP} -
-{MSG}, with space as a separator between format objects and the new line
-feed *“”*.
+{MSG}, with space as a separator between format objects.
 
-To view the details of a log layout, you can call *log_layout_detail*:
+For a detailed look at layouts refer to the
+[Layouts](https://bmoretz.github.io/dyn.log/articles/Layouts.html)
+vignette online, or
 
-``` r
-detail <- log_layout_detail(log_layouts("default"))
-
-names(detail)
-#> [1] "formats"   "types"     "seperator" "new_line"
-```
-
-For a detailed look at these objects, and how they work please see the
-“Log Layouts” *vignette*.
-
-### Logging
-
-The logging functionality is exposed by a R6 class, *LogDispatch*, that
-is available as a package namespace variable called **Logger**. The
-**Logger** will have methods that correspond to the *log levels* that
-are defined in its yaml configuration, which makes logging intuitive.
-When the package is loaded, the logger will appear in the top / global
-environment as *Logger*.
-
-Log messages are automatically assumed to be in standard
-[glue](https://github.com/tidyverse/glue) format so local environment
-variables are capturable in the log output.
-
-#### Simple Example
-
-The “out of the box” (OTB) configuration specifies a default vanilla log
-format that displays the level that was logged, the current time-stamp
-(with the default TS format), and the log message:
-
-``` r
-var1 <- "abc"; var2 <- 123; var3 <- runif(1)
-
-Logger$debug("my log message - var1: {var1}, var2: {var2}, var3: {var3}")
-```
-
-<PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #00BBBB; font-weight: bold;'>DEBUG</span> <span style='color: #555555; font-style: italic;'>[12/27/21 00:52:33 -0500]</span> <span style='color: #BBBBBB;'>my log message - var1: abc, var2: 123, var3: 0.870168152963743</span>
-</CODE></PRE>
+> vignette(“Layouts”, package = “dyn.log”)
 
 ### Customizing a Log Message
 
@@ -220,9 +218,7 @@ new_log_layout(
 Logger$info("my log message - var1: {var1}, var2: {var2}, var3: {var3}", layout = "custom")
 ```
 
-<PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #00BB00; font-weight: bold;'>Linux</span>-<span style='color: #BB0000; font-weight: bold;'>5.10.16.3-microsoft-standard-WSL2</span>
-#&gt; <span style='color: #0000BB; font-weight: bold;'>INFO</span>-<span style='color: #555555; font-style: italic;'>[12/27/21 00:52:33 -0500]</span>-<span style='color: #BBBBBB;'>my log message - var1: abc, var2: 123, var3: 0.870168152963743</span>
-</CODE></PRE>
+![custom log ouput](man/figures/README-custom-log-output.PNG)
 
 For a detailed look at these objects, and how they work please see the
 “Log Layouts” *vignette*.
@@ -269,15 +265,6 @@ TestObject <- R6::R6Class(
 )
 
 obj <- TestObject$new()
-obj
-#> <TestObject>
-#>   Public:
-#>     clone: function (deep = FALSE) 
-#>     id: AKTVBRSYQMNDMBC
-#>     initialize: function () 
-#>     test_method: function () 
-#>   Private:
-#>     generate_id: function (n = 15)
 ```
 
 With the above class defined, we can create a custom log layout that
@@ -305,20 +292,11 @@ new_log_layout(
 # notice above, "Logger$info" is called inside the context of the Test Object,
 # and the variables are scoped to inside the function.
 obj$test_method()
-```
-
-<PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #00BBBB; font-weight: bold;'>Object Id:</span> <span style='color: #555555; background-color: #00BBBB; font-weight: bold;'>AKTVBRSYQMNDMBC</span>
-#&gt; <span style='color: #0000BB; font-weight: bold;'>INFO</span> <span style='color: #555555; font-style: italic;'>[12/27/21 00:52:33 -0500]</span> <span style='color: #BBBBBB;'>these are some variables: test - 123 - 0.587066208710894</span>
-#&gt; <span style='color: #00BB00; font-weight: bold;'>Linux</span> <span style='color: #BB0000; font-weight: bold;'>WORKSTATION</span> <span style='color: #0000BB; font-weight: bold;'>R Version:</span> <span style='color: #0000BB; font-weight: bold; font-style: italic;'>4.1.2</span>
-</CODE></PRE>
-
-``` r
   
 Logger$debug("this is a normal log msg")
 ```
 
-<PRE class="fansi fansi-output"><CODE>#&gt; <span style='color: #00BBBB; font-weight: bold;'>DEBUG</span> <span style='color: #555555; font-style: italic;'>[12/27/21 00:52:33 -0500]</span> <span style='color: #BBBBBB;'>this is a normal log msg</span>
-</CODE></PRE>
+![custom log ouput](man/figures/README-cls-association-output.PNG)
 
 As you can see, only when the logger is invoked from inside the class
 that has a custom layout associated with it does the custom layout get
