@@ -87,11 +87,9 @@
 <h1 id="format-objects">Format Objects<a class="anchor" aria-label="anchor" href="#format-objects"></a>
 </h1>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bmoretz.github.io/dyn.log/" class="external-link">dyn.log</a></span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Error in envir$Logger &lt;- `*vtmp*` : </span>
-<span class="co">##   cannot change value of locked binding for 'Logger'</span></code></pre>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># set logging config with tweaks for kitr output</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bmoretz.github.io/dyn.log/" class="external-link">dyn.log</a></span><span class="op">)</span>
+
+<span class="co"># set logging config with tweaks for kitr output</span>
 
 <span class="fu"><a href="../reference/set_log_configuration.html">set_log_configuration</a></span><span class="op">(</span>file_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"knitr.yaml"</span>, 
                                               package <span class="op">=</span> <span class="st">"dyn.log"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -150,40 +148,40 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <h3 id="system-context">System Context<a class="anchor" aria-label="anchor" href="#system-context"></a>
 </h3>
 <p>The values available for a <strong>fmt_metric</strong> type can be accessed via <em>sys_context</em>:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">sys_context</span>()</span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="op">$</span>sysname</span>
-<span id="cb4-3"><a href="#cb4-3"></a>[<span class="dv">1</span>] <span class="st">"Linux"</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="op">$</span>release</span>
-<span id="cb4-6"><a href="#cb4-6"></a>[<span class="dv">1</span>] <span class="st">"5.11.0-1022-azure"</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="op">$</span>version</span>
-<span id="cb4-9"><a href="#cb4-9"></a>[<span class="dv">1</span>] <span class="st">"#23~20.04.1-Ubuntu SMP Fri Nov 19 10:20:52 UTC 2021"</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="op">$</span>nodename</span>
-<span id="cb4-12"><a href="#cb4-12"></a>[<span class="dv">1</span>] <span class="st">"fv-az126-670"</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a></span>
-<span id="cb4-14"><a href="#cb4-14"></a><span class="op">$</span>machine</span>
-<span id="cb4-15"><a href="#cb4-15"></a>[<span class="dv">1</span>] <span class="st">"x86_64"</span></span>
-<span id="cb4-16"><a href="#cb4-16"></a></span>
-<span id="cb4-17"><a href="#cb4-17"></a><span class="op">$</span>login</span>
-<span id="cb4-18"><a href="#cb4-18"></a>[<span class="dv">1</span>] <span class="st">"unknown"</span></span>
-<span id="cb4-19"><a href="#cb4-19"></a></span>
-<span id="cb4-20"><a href="#cb4-20"></a><span class="op">$</span>user</span>
-<span id="cb4-21"><a href="#cb4-21"></a>[<span class="dv">1</span>] <span class="st">"runner"</span></span>
-<span id="cb4-22"><a href="#cb4-22"></a></span>
-<span id="cb4-23"><a href="#cb4-23"></a><span class="op">$</span>effective_user</span>
-<span id="cb4-24"><a href="#cb4-24"></a>[<span class="dv">1</span>] <span class="st">"runner"</span></span>
-<span id="cb4-25"><a href="#cb4-25"></a></span>
-<span id="cb4-26"><a href="#cb4-26"></a><span class="op">$</span>r_ver</span>
-<span id="cb4-27"><a href="#cb4-27"></a>[<span class="dv">1</span>] <span class="st">"4.1.2"</span></span>
-<span id="cb4-28"><a href="#cb4-28"></a></span>
-<span id="cb4-29"><a href="#cb4-29"></a><span class="kw">attr</span>(,<span class="st">"class"</span>)</span>
-<span id="cb4-30"><a href="#cb4-30"></a>[<span class="dv">1</span>] <span class="st">"sys_context"</span> <span class="st">"context"</span>    </span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">sys_context</span>()</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="op">$</span>sysname</span>
+<span id="cb2-3"><a href="#cb2-3"></a>[<span class="dv">1</span>] <span class="st">"Linux"</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="op">$</span>release</span>
+<span id="cb2-6"><a href="#cb2-6"></a>[<span class="dv">1</span>] <span class="st">"5.11.0-1022-azure"</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="op">$</span>version</span>
+<span id="cb2-9"><a href="#cb2-9"></a>[<span class="dv">1</span>] <span class="st">"#23~20.04.1-Ubuntu SMP Fri Nov 19 10:20:52 UTC 2021"</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="op">$</span>nodename</span>
+<span id="cb2-12"><a href="#cb2-12"></a>[<span class="dv">1</span>] <span class="st">"fv-az33-355"</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="op">$</span>machine</span>
+<span id="cb2-15"><a href="#cb2-15"></a>[<span class="dv">1</span>] <span class="st">"x86_64"</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="op">$</span>login</span>
+<span id="cb2-18"><a href="#cb2-18"></a>[<span class="dv">1</span>] <span class="st">"unknown"</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a></span>
+<span id="cb2-20"><a href="#cb2-20"></a><span class="op">$</span>user</span>
+<span id="cb2-21"><a href="#cb2-21"></a>[<span class="dv">1</span>] <span class="st">"runner"</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a></span>
+<span id="cb2-23"><a href="#cb2-23"></a><span class="op">$</span>effective_user</span>
+<span id="cb2-24"><a href="#cb2-24"></a>[<span class="dv">1</span>] <span class="st">"runner"</span></span>
+<span id="cb2-25"><a href="#cb2-25"></a></span>
+<span id="cb2-26"><a href="#cb2-26"></a><span class="op">$</span>r_ver</span>
+<span id="cb2-27"><a href="#cb2-27"></a>[<span class="dv">1</span>] <span class="st">"4.1.2"</span></span>
+<span id="cb2-28"><a href="#cb2-28"></a></span>
+<span id="cb2-29"><a href="#cb2-29"></a><span class="kw">attr</span>(,<span class="st">"class"</span>)</span>
+<span id="cb2-30"><a href="#cb2-30"></a>[<span class="dv">1</span>] <span class="st">"sys_context"</span> <span class="st">"context"</span>    </span></code></pre></div>
 <div class="section level4">
 <h4 id="system-context-example">System Context Example<a class="anchor" aria-label="anchor" href="#system-context-example"></a>
 </h4>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/new_log_layout.html">new_log_layout</a></span><span class="op">(</span>
   format <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
     <span class="fu"><a href="../reference/new_fmt_log_level.html">new_fmt_log_level</a></span><span class="op">(</span><span class="op">)</span>,
@@ -200,7 +198,7 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 
 <span class="va">Logger</span><span class="op">$</span><span class="fu">debug</span><span class="op">(</span><span class="st">"my log message - var1: {var1}, var2: {var2}, var3: {var3}"</span>, 
              layout <span class="op">=</span> <span class="st">"ex-sys-layout"</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code><span style="color: #00D7FF; font-weight: bold;">DEBUG</span>-<span style="color: #00BB00; font-weight: bold;">Linux</span>-<span style="color: #BBBB00; font-weight: bold;">5.11.0-1022-azure</span>-<span style="color: #555555; font-style: italic;">[12/28/21 05:09:03]</span>-<span style="color: #DADADA;">my log message - var1: abc, var2: 123, var3: 0.506351</span>
+<pre class="fansi fansi-output"><code><span style="color: #00D7FF; font-weight: bold;">DEBUG</span>-<span style="color: #00BB00; font-weight: bold;">Linux</span>-<span style="color: #BBBB00; font-weight: bold;">5.11.0-1022-azure</span>-<span style="color: #555555; font-style: italic;">[12/28/21 05:40:35]</span>-<span style="color: #DADADA;">my log message - var1: abc, var2: 123, var3: 0.617511</span>
 </code></pre>
 <p>As you can see, the log message has a great deal of detail, but difficult to interpret due to the amount of information jammed into one line. This is where literals and new lines come into play.</p>
 </div>
@@ -209,7 +207,7 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <h3 id="literals-new-lines">Literals &amp; New Lines<a class="anchor" aria-label="anchor" href="#literals-new-lines"></a>
 </h3>
 <p>Literals and new lines are simple formatting objects that help you tweak the layout of a log message to something that is both informative and easy to consume. Taking the previous example, and tweaking the format slightly incorporating literals &amp; new lines, we can produce a log message like this:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/new_log_layout.html">new_log_layout</a></span><span class="op">(</span>
   format <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
     <span class="fu"><a href="../reference/new_fmt_metric.html">new_fmt_metric</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">green</a></span><span class="op">$</span><span class="va">bold</span>, <span class="st">"sysname"</span><span class="op">)</span>,
@@ -230,7 +228,7 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <span class="va">Logger</span><span class="op">$</span><span class="fu">debug</span><span class="op">(</span><span class="st">"my log message - var1: {var1}, var2: {var2}, var3: {var3}"</span>, 
              layout <span class="op">=</span> <span class="st">"ex-syslit-layout"</span><span class="op">)</span></code></pre></div>
 <pre class="fansi fansi-output"><code><span style="color: #00BB00; font-weight: bold;">Linux</span> <span style="color: #BB00BB;">[</span> <span style="color: #0000BB; font-weight: bold;">5.11.0-1022-azure</span> <span style="color: #BB00BB;">]</span>
-<span style="color: #00D7FF; font-weight: bold;">DEBUG</span> <span style="color: #555555; font-style: italic;">[12/28/21 05:09:03]</span> <span style="color: #DADADA;">my log message - var1: abc, var2: 123, var3: 0.882373</span>
+<span style="color: #00D7FF; font-weight: bold;">DEBUG</span> <span style="color: #555555; font-style: italic;">[12/28/21 05:40:35]</span> <span style="color: #DADADA;">my log message - var1: abc, var2: 123, var3: 0.270915</span>
 </code></pre>
 <p>Which has the same information as the previous example, but much easier to consume.</p>
 </div>
@@ -238,7 +236,7 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <h3 id="execution-scope">Execution Scope<a class="anchor" aria-label="anchor" href="#execution-scope"></a>
 </h3>
 <p>Execution scope formats give you the ability to log the context around the invocation of the logger, and is a context object, much like <em>sys_context</em>, called <strong>exec_context</strong>:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">test</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span>, <span class="va">c</span><span class="op">)</span> <span class="op">{</span>
   <span class="va">wrapper</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span> <span class="op">{</span>
     <span class="va">outer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">d</span>, <span class="va">e</span>, <span class="va">f</span><span class="op">)</span> <span class="op">{</span>
@@ -257,35 +255,35 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <span class="op">}</span>
 
 <span class="va">exec_context</span> <span class="op">&lt;-</span> <span class="fu">test</span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>exec_context</span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="op">$</span>call_stack</span>
-<span id="cb8-3"><a href="#cb8-3"></a>                     call_<span class="dv">1</span>                      call_<span class="dv">2</span> </span>
-<span id="cb8-4"><a href="#cb8-4"></a>       <span class="st">"knitr:::block_exec"</span>             <span class="st">"knitr:::eng_r"</span> </span>
-<span id="cb8-5"><a href="#cb8-5"></a>                     call_<span class="dv">3</span>                      call_<span class="dv">4</span> </span>
-<span id="cb8-6"><a href="#cb8-6"></a>           <span class="st">"knitr:::in_dir"</span>          <span class="st">"knitr:::evaluate"</span> </span>
-<span id="cb8-7"><a href="#cb8-7"></a>                     call_<span class="dv">5</span>                      call_<span class="dv">6</span> </span>
-<span id="cb8-8"><a href="#cb8-8"></a>       <span class="st">"evaluate::evaluate"</span>  <span class="st">"evaluate:::evaluate_call"</span> </span>
-<span id="cb8-9"><a href="#cb8-9"></a>                     call_<span class="dv">7</span>                      call_<span class="dv">8</span> </span>
-<span id="cb8-10"><a href="#cb8-10"></a>     <span class="st">"evaluate:::timing_fn"</span>             <span class="st">"base:::handle"</span> </span>
-<span id="cb8-11"><a href="#cb8-11"></a>                     call_<span class="dv">9</span>                     call_<span class="dv">10</span> </span>
-<span id="cb8-12"><a href="#cb8-12"></a><span class="st">"base::withCallingHandlers"</span>         <span class="st">"base::withVisible"</span> </span>
-<span id="cb8-13"><a href="#cb8-13"></a>                    call_<span class="dv">11</span>                     call_<span class="dv">12</span> </span>
-<span id="cb8-14"><a href="#cb8-14"></a>               <span class="st">"base::eval"</span>                <span class="st">"base::eval"</span> </span>
-<span id="cb8-15"><a href="#cb8-15"></a>                    call_<span class="dv">13</span>                     call_<span class="dv">14</span> </span>
-<span id="cb8-16"><a href="#cb8-16"></a>             <span class="st">"global::test"</span>                   <span class="st">"wrapper"</span> </span>
-<span id="cb8-17"><a href="#cb8-17"></a>                    call_<span class="dv">15</span>                     call_<span class="dv">16</span> </span>
-<span id="cb8-18"><a href="#cb8-18"></a>                    <span class="st">"outer"</span>                     <span class="st">"inner"</span> </span>
-<span id="cb8-19"><a href="#cb8-19"></a><span class="kw">attr</span>(,<span class="st">"class"</span>)</span>
-<span id="cb8-20"><a href="#cb8-20"></a>[<span class="dv">1</span>] <span class="st">"call_stack"</span> <span class="st">"stack"</span>     </span>
-<span id="cb8-21"><a href="#cb8-21"></a></span>
-<span id="cb8-22"><a href="#cb8-22"></a><span class="op">$</span>calling_fn</span>
-<span id="cb8-23"><a href="#cb8-23"></a>[<span class="dv">1</span>] <span class="st">"inner"</span></span>
-<span id="cb8-24"><a href="#cb8-24"></a></span>
-<span id="cb8-25"><a href="#cb8-25"></a><span class="op">$</span>ncalls</span>
-<span id="cb8-26"><a href="#cb8-26"></a>[<span class="dv">1</span>] <span class="dv">16</span></span>
-<span id="cb8-27"><a href="#cb8-27"></a></span>
-<span id="cb8-28"><a href="#cb8-28"></a><span class="kw">attr</span>(,<span class="st">"class"</span>)</span>
-<span id="cb8-29"><a href="#cb8-29"></a>[<span class="dv">1</span>] <span class="st">"exec_context"</span> <span class="st">"context"</span>     </span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>exec_context</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="op">$</span>call_stack</span>
+<span id="cb6-3"><a href="#cb6-3"></a>                     call_<span class="dv">1</span>                      call_<span class="dv">2</span> </span>
+<span id="cb6-4"><a href="#cb6-4"></a>       <span class="st">"knitr:::block_exec"</span>             <span class="st">"knitr:::eng_r"</span> </span>
+<span id="cb6-5"><a href="#cb6-5"></a>                     call_<span class="dv">3</span>                      call_<span class="dv">4</span> </span>
+<span id="cb6-6"><a href="#cb6-6"></a>           <span class="st">"knitr:::in_dir"</span>          <span class="st">"knitr:::evaluate"</span> </span>
+<span id="cb6-7"><a href="#cb6-7"></a>                     call_<span class="dv">5</span>                      call_<span class="dv">6</span> </span>
+<span id="cb6-8"><a href="#cb6-8"></a>       <span class="st">"evaluate::evaluate"</span>  <span class="st">"evaluate:::evaluate_call"</span> </span>
+<span id="cb6-9"><a href="#cb6-9"></a>                     call_<span class="dv">7</span>                      call_<span class="dv">8</span> </span>
+<span id="cb6-10"><a href="#cb6-10"></a>     <span class="st">"evaluate:::timing_fn"</span>             <span class="st">"base:::handle"</span> </span>
+<span id="cb6-11"><a href="#cb6-11"></a>                     call_<span class="dv">9</span>                     call_<span class="dv">10</span> </span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="st">"base::withCallingHandlers"</span>         <span class="st">"base::withVisible"</span> </span>
+<span id="cb6-13"><a href="#cb6-13"></a>                    call_<span class="dv">11</span>                     call_<span class="dv">12</span> </span>
+<span id="cb6-14"><a href="#cb6-14"></a>               <span class="st">"base::eval"</span>                <span class="st">"base::eval"</span> </span>
+<span id="cb6-15"><a href="#cb6-15"></a>                    call_<span class="dv">13</span>                     call_<span class="dv">14</span> </span>
+<span id="cb6-16"><a href="#cb6-16"></a>             <span class="st">"global::test"</span>                   <span class="st">"wrapper"</span> </span>
+<span id="cb6-17"><a href="#cb6-17"></a>                    call_<span class="dv">15</span>                     call_<span class="dv">16</span> </span>
+<span id="cb6-18"><a href="#cb6-18"></a>                    <span class="st">"outer"</span>                     <span class="st">"inner"</span> </span>
+<span id="cb6-19"><a href="#cb6-19"></a><span class="kw">attr</span>(,<span class="st">"class"</span>)</span>
+<span id="cb6-20"><a href="#cb6-20"></a>[<span class="dv">1</span>] <span class="st">"call_stack"</span> <span class="st">"stack"</span>     </span>
+<span id="cb6-21"><a href="#cb6-21"></a></span>
+<span id="cb6-22"><a href="#cb6-22"></a><span class="op">$</span>calling_fn</span>
+<span id="cb6-23"><a href="#cb6-23"></a>[<span class="dv">1</span>] <span class="st">"inner"</span></span>
+<span id="cb6-24"><a href="#cb6-24"></a></span>
+<span id="cb6-25"><a href="#cb6-25"></a><span class="op">$</span>ncalls</span>
+<span id="cb6-26"><a href="#cb6-26"></a>[<span class="dv">1</span>] <span class="dv">16</span></span>
+<span id="cb6-27"><a href="#cb6-27"></a></span>
+<span id="cb6-28"><a href="#cb6-28"></a><span class="kw">attr</span>(,<span class="st">"class"</span>)</span>
+<span id="cb6-29"><a href="#cb6-29"></a>[<span class="dv">1</span>] <span class="st">"exec_context"</span> <span class="st">"context"</span>     </span></code></pre></div>
 <p>The evaluated exec_context gives you a structure with these 3 fields:</p>
 <ul>
 <li>
@@ -317,7 +315,7 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 </li>
 </ul>
 <p>The execution scope can be accessed via the <strong>new_fmt_exec_scope</strong> format object, e.g.:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/new_log_layout.html">new_log_layout</a></span><span class="op">(</span>
   format <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
     <span class="fu"><a href="../reference/new_fmt_metric.html">new_fmt_metric</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">green</a></span><span class="op">$</span><span class="va">bold</span>, <span class="st">'sysname'</span><span class="op">)</span>,
@@ -351,7 +349,7 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 
 <span class="fu">local_fn</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre class="fansi fansi-output"><code><span style="color: #00BB00; font-weight: bold;">Linux</span>-<span style="color: #BBBB00;">5.11.0-1022-azure</span>
-<span style="color: #00D7FF; font-weight: bold;">DEBUG</span>-<span style="color: #555555; font-style: italic;">[12/28/21 05:09:04]</span>-<span style="color: #BB00BB; font-weight: bold;">fn(</span>-<span style="color: #BB00BB; font-weight: bold;">inner</span>-<span style="color: #BB00BB; font-weight: bold;">)</span>-<span style="color: #DADADA;">my log message - var1: 'abc', var2: '123', var3: '0.137895'</span>
+<span style="color: #00D7FF; font-weight: bold;">DEBUG</span>-<span style="color: #555555; font-style: italic;">[12/28/21 05:40:35]</span>-<span style="color: #BB00BB; font-weight: bold;">fn(</span>-<span style="color: #BB00BB; font-weight: bold;">inner</span>-<span style="color: #BB00BB; font-weight: bold;">)</span>-<span style="color: #DADADA;">my log message - var1: 'abc', var2: '123', var3: '0.469955'</span>
 <span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">knitr:::block_exec</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">knitr:::eng_r</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">knitr:::in_dir</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">knitr:::evaluate</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">evaluate::evaluate</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">evaluate:::evaluate_call</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">evaluate:::timing_fn</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">base:::handle</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">base::withCallingHandlers</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">base::withVisible</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">base::eval</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">base::eval</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">global::local_fn</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">outer</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">inner</span>
 </code></pre>
 </div>
