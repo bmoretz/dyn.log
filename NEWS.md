@@ -1,8 +1,22 @@
+# dyn.log 0.2.1.1
+
+* New Features
+  + added execution context & related log formatters (call stack, top call, parent fn, etc.)
+  + added vignettes for: **levels**, **formats** and **layouts**
+
+* Enhancements
+  + clearly defined context objects as structured classes.
+  + added call stack & execution scope based on [rlang](https://github.com/r-lib/rlang) trace.
+  + updated all vignettes to use [fansi](https://github.com/brodieG/fansi) package to display clean logging output like you would see in the terminal.
+  + added callstack evaluation parameters to logging configuration to account for things like [testthat](https://github.com/r-lib/testthat) and [knitr](https://github.com/yihui/knitr)
+  + general cleaned up of documentation and unittests.
+  + added a lintr github action & started working through clearing all the warnings.
+
 # dyn.log 0.1.4
 
 * Enhancements
   + focusing on cleaning up the pkgdown site, documentation, vignettes and the readme.
-  
+
 # dyn.log 0.1.3
 
 * New Features
@@ -15,7 +29,6 @@
   + moved default layouts from code to configuration under -layouts node in config.yaml.
   + cleaned up associated unit tests & documentation. cleaned up generics 'style', 'value' and 'format'.
   + updated renv pkgs cache in the github actions CI builds to reduce build time ~90%.
-
 
 # dyn.log 0.1.2
 

@@ -247,10 +247,12 @@ level_info <- function(level) {
   style_info <- list()
 
   if(!is.null(lvl_style$level) || !is.null(lvl_style$message)) {
+    lvl_fmt <- "{lvl_style$level(level_name(level))} - {lvl_style$message(level_description(level))}"
+
     style_info <- list(
       level = lvl_style$level,
       message = lvl_style$message,
-      example = glue::glue_col("{lvl_style$level(level_name(level))} - {lvl_style$message(level_description(level))}")
+      example = glue::glue_col()
     )
   }
 
