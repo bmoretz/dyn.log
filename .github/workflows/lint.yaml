@@ -8,10 +8,10 @@ on:
       - master
       - develop
 
-name: R-CMD-check
+name: lint
 
 jobs:
-  R-CMD-check:
+  lint:
     runs-on: ${{ matrix.config.os }}
 
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
@@ -20,11 +20,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macOS-latest,   r: 'release'}
-          - {os: windows-latest, r: 'release'}
-          - {os: ubuntu-latest,   r: 'devel'}
           - {os: ubuntu-latest,   r: 'release'}
-          - {os: ubuntu-latest,   r: 'oldrel'}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
@@ -39,15 +35,6 @@ jobs:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
 
-      - uses: r-lib/actions/setup-pandoc@v1
-
-      - name: Install System Dependencies [Windows]
-        if: |
-          startsWith(runner.os, 'Windows')
-        run: |
-          Rscript -e "install.packages(c('remotes', 'rcmdcheck'))" -e "remotes::install_deps(dependencies = TRUE)"
-          echo "RENV_PATHS_ROOT=~\AppData\Local\renv" >> $env:GITHUB_ENV
-
       - name: Install System Dependencies [Linux]
         if: runner.os == 'Linux'
         run: |
@@ -57,14 +44,6 @@ jobs:
           do
             eval sudo $cmd
           done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
-
-      - name: Install System Dependencies [macOS]
-        if: runner.os == 'macOS'
-        shell: bash
-        run: |
-          brew install libgit2
-          Rscript -e "install.packages(c('remotes'))"
-          echo "RENV_PATHS_ROOT=~/Library/Application Support/renv" >> $GITHUB_ENV
 
       - name: Cache packages
         uses: actions/cache@v2
@@ -78,7 +57,7 @@ jobs:
         run: |
           if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
           renv::restore()
-          renv::install("rcmdcheck")
+          renv::install("covr")
         shell: Rscript {0}
 
       - name: Session Info
@@ -89,22 +68,6 @@ jobs:
           sessioninfo::session_info(pkgs, include_base = TRUE)
         shell: Rscript {0}
 
-      - name: Check
-        env:
-          _R_CHECK_CRAN_INCOMING_: false
-        run: |
-          options(crayon.enabled = TRUE)
-          rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), build_args = c("--no-build-vignettes"), error_on = "warning", check_dir = "check")
+      - name: Lint
+        run: lintr::lint_package()
         shell: Rscript {0}
-
-      - name: Show testthat output
-        if: always()
-        run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
-        shell: bash
-
-      - name: Upload check results
-        if: failure()
-        uses: actions/upload-artifact@master
-        with:
-          name: ${{ runner.os }}-r${{ matrix.config.r }}-results
-          path: check

@@ -1,3 +1,5 @@
+lock/
+python/
 .Rproj.user
 .Rhistory
 .RData

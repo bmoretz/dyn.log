@@ -7,11 +7,11 @@ Logger <- NULL
 #'
 #' @param libname library name
 #' @param pkgname package name
-.onLoad = function (libname, pkgname) {
+.onLoad <- function(libname, pkgname) {
 
-  assign('namespace', pkgname, envir = topenv())
+  assign("namespace", pkgname, envir = topenv())
 
-  assign('Logger', LogDispatch$new(), envir = topenv())
+  assign("Logger", LogDispatch$new(), envir = topenv())
 
   default_config <- system.file("default.yaml",
                                 package = pkgname)

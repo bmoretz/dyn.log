@@ -14,13 +14,14 @@ test_that("obj_init",{
   expect_equal(actual, "Test$new")
 })
 
-test_that("call_stack_output", {
+test_that("call_stack_output_no_args", {
 
   test <- function(a, b, c) {
     wrapper <- function(x, y, z) {
       outer <- function(d, e, f) {
         inner <- function(g, h, i) {
-          get_call_stack()
+          get_call_stack(keep_args = F,
+                         filter_internal = F)
         }
 
         inner(d, e, f)
@@ -33,84 +34,101 @@ test_that("call_stack_output", {
 
   call_stack <- test(1,2,3)
 
-  # account for test_that's call stack
-  test_that_offset <- which(!is.na(match(call_stack, 'test')), arr.ind = T)
-
-  make_callstack <- function(value, level) {
-    val <- c(value)
-    names(val) <- paste0('callstack_', level)
-    val
-  }
-
-  expected_level_one <- make_callstack('test', test_that_offset)
-  expect_equal(call_stack[test_that_offset], expected_level_one)
-
-  test_that_offset <- test_that_offset+1;
-
-  expected_level_two <- make_callstack('wrapper', test_that_offset)
-  expect_equal(call_stack[test_that_offset], expected_level_two)
-
-  test_that_offset <- test_that_offset+1;
-
-  expected_level_three <- make_callstack('outer', test_that_offset)
-  expect_equal(call_stack[test_that_offset], expected_level_three)
-
-  test_that_offset <- test_that_offset+1;
-
-  expected_level_four <- make_callstack('inner', test_that_offset)
-  expect_equal(call_stack[test_that_offset], expected_level_four)
+  expect_true(stringr::str_detect(call_stack[[1]], "test"))
+  expect_true(stringr::str_detect(call_stack[[2]], "wrapper"))
+  expect_true(stringr::str_detect(call_stack[[3]], "outer"))
+  expect_true(stringr::str_detect(call_stack[[4]], "inner"))
 })
 
-# test_that("call_stack_outputs_with_args", {
-#
-#   # get 3rd level of the call stack
-#   fmt_callstack <- new_fmt_call_stack(crayon::magenta$bold, 3, keep_args = T)
-#
-#   test <- function(a, b, c) {
-#     wrapper <- function(x, y, z) {
-#       outer <- function(d, e, f) {
-#         inner <- function(g, h, i) {
-#           value(fmt_callstack)
-#         }
-#
-#         inner(d, e, f)
-#       }
-#
-#       outer(x, y, z)
-#     }
-#     wrapper(a, b, c)
-#   }
-#
-#   actual <- test()
-#
-#   expected <- 'inner(d, e, f) outer(x, y, z) wrapper(a, b, c) test()'
-#
-#   #expect_equal(actual, expected)
-# })
+test_that("call_stack_output_with_args", {
 
-# test_that("call_stack_outputs_no_args", {
-#
-#   # get 3rd level of the call stack
-#   fmt_callstack <- new_fmt_call_stack(crayon::magenta$bold, 3)
-#
-#   test <- function(a, b, c) {
-#     wrapper <- function(x, y, z) {
-#       outer <- function(d, e, f) {
-#         inner <- function(g, h, i) {
-#           value(fmt_callstack)
-#         }
-#
-#         inner(d, e, f)
-#       }
-#
-#       outer(x, y, z)
-#     }
-#     wrapper(a, b, c)
-#   }
-#
-#   actual <- test()
-#
-#   expected <- 'inner outer wrapper test'
-#
-#   # expect_equal(actual, expected)
-# })
+  test <- function(a, b, c) {
+    wrapper <- function(x, y, z) {
+      outer <- function(d, e, f) {
+        inner <- function(g, h, i) {
+          get_call_stack(keep_args = T,
+                         filter_internal = F)
+        }
+
+        inner(d, e, f)
+      }
+
+      outer(x, y, z)
+    }
+    wrapper(a, b, c)
+  }
+
+  call_stack <- test(1,2,3)
+
+  expect_true(stringr::str_detect(call_stack[[1]], pattern = stringr::fixed("test(1, 2, 3)")))
+  expect_true(stringr::str_detect(call_stack[[2]], pattern = stringr::fixed("wrapper(a, b, c)")))
+  expect_true(stringr::str_detect(call_stack[[3]], pattern = stringr::fixed("outer(x, y, z)")))
+  expect_true(stringr::str_detect(call_stack[[4]], pattern = stringr::fixed("inner(d, e, f)")))
+})
+
+test_that("execution_context_works", {
+
+  test <- function(a, b, c) {
+    wrapper <- function(x, y, z) {
+      outer <- function(d, e, f) {
+        inner <- function(g, h, i) {
+          exec_context(filter_internal = F)
+        }
+
+        inner(d, e, f)
+      }
+
+      outer(x, y, z)
+    }
+    wrapper(a, b, c)
+  }
+
+  exec_contet <- test(1,2,3)
+
+  expect_equal(class(exec_contet), c("exec_context", "context"))
+
+  expect_equal(length(exec_contet$call_stack), 6)
+
+  expect_true(stringr::str_detect(exec_contet$call_stack[[1]], "test"))
+  expect_true(stringr::str_detect(exec_contet$call_stack[[2]], "wrapper"))
+  expect_true(stringr::str_detect(exec_contet$call_stack[[3]], "outer"))
+  expect_true(stringr::str_detect(exec_contet$call_stack[[4]], "inner"))
+
+  expect_equal(exec_contet$ncalls, 6)
+})
+
+test_that("internal_calls_get_filtered", {
+
+  call_stack <- c(call_1 = "global::test",
+                  call_2 = "wrapper",
+                  call_3 = "outer",
+                  call_4 = "inner",
+                  call_5 = "dyn.log::exec_context",
+                  call_6 = "dyn.log:::get_call_stack")
+
+  actual <- clean_internal_calls(call_stack)
+
+  expected <- c(call_1 = "global::test",
+                  call_2 = "wrapper",
+                  call_3 = "outer",
+                  call_4 = "inner")
+
+  expect_equal(actual, expected)
+})
+
+test_that("internal_calls_get_filter_correctly", {
+
+  call_stack <- c(call_1 = "global::test",
+                  call_2 = "wrapper",
+                  call_3 = "outer",
+                  call_4 = "inner")
+
+  actual <- clean_internal_calls(call_stack)
+
+  expected <- c(call_1 = "global::test",
+                call_2 = "wrapper",
+                call_3 = "outer",
+                call_4 = "inner")
+
+  expect_equal(actual, expected)
+})

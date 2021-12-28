@@ -1,8 +1,8 @@
 url: ~
 template:
   bootstrap: 5
-  bootswatch: cyborg
-  theme: arrow-dark
+  bootswatch: slate
+  theme: ayu-dark
   bslib:
     base_font: {google: "Roboto"}
     heading_font: {google: "Roboto Slab"}

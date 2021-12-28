@@ -72,10 +72,10 @@ test_that("log_layout_format_types", {
     expect_gt(which(!is.na(match(types, 'fmt_metric'))), 0)
     expect_gt(which(!is.na(match(types, 'fmt_layout'))), 0)
     expect_gt(which(!is.na(match(types, 'fmt_newline'))), 0)
-    expect_gt(which(!is.na(match(types, 'fmt_level_info'))), 0)
+    expect_gt(which(!is.na(match(types, 'fmt_log_level'))), 0)
     expect_gt(which(!is.na(match(types, 'fmt_timestamp'))), 0)
     expect_gt(which(!is.na(match(types, 'fmt_literal'))), 0)
-    expect_gt(which(!is.na(match(types, 'new_fmt_log_msg'))), 0)
+    expect_gt(which(!is.na(match(types, 'fmt_log_msg'))), 0)
 
     expect_equal(seperator, '-')
   })
@@ -210,7 +210,7 @@ test_that("log_layout_evaluates_cls_attributes_multiline", {
 
   with(log_layout_detail(log_layout), {
 
-    cls_scope <- LogDispatch$new()$private$get_class_scope(test_obj)
+    cls_scope <- class_scope(test_obj)
 
     context <- list(fmt_metric = sys_context(),
                     fmt_cls_field = cls_scope)
@@ -230,14 +230,6 @@ test_that("log_layout_evaluates_cls_attributes_multiline", {
 })
 
 test_that("multi_line_fmt_works_2", {
-
-  fmt_sysname <- new_fmt_metric(crayon::red$bold, "sysname")
-  fmt_release <- new_fmt_metric(crayon::green$bold, "release")
-  fmt_version <- new_fmt_metric(crayon::blue$bold, "version")
-
-  fmt_text1 <- new_fmt_literal(crayon::red$italic, "literal1")
-  fmt_text2 <- new_fmt_literal(crayon::green$italic, "literal2")
-  fmt_text3 <- new_fmt_literal(crayon::blue$italic, "literal3")
 
   log_layout <- new_log_layout(
     format = list(

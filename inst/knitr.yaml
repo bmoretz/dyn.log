@@ -2,7 +2,7 @@ settings:
   threshold: TRACE
   callstack:
     max: 5
-    start: -1
+    start: 20
     stop: -1
 levels:
 - name: TRACE

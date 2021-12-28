@@ -7,23 +7,9 @@
 new_fmt_log_level()
 }
 \value{
-log level info.
+a \code{fmt_log_level}.
 }
 \description{
 Placeholder for the formatted log level in a log layout.
 }
-\seealso{
-Other Log Layout: 
-\code{\link{evaluate_layout}()},
-\code{\link{get_call_stack}()},
-\code{\link{new_fmt_cls_field}()},
-\code{\link{new_fmt_exec_scope}()},
-\code{\link{new_fmt_layout}()},
-\code{\link{new_fmt_line_break}()},
-\code{\link{new_fmt_literal}()},
-\code{\link{new_fmt_log_msg}()},
-\code{\link{new_fmt_metric}()},
-\code{\link{new_fmt_timestamp}()},
-\code{\link{new_log_layout}()}
-}
-\concept{Log Layout}
+\concept{Formats}

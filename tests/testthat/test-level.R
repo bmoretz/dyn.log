@@ -1,6 +1,6 @@
 test_that("standard_levels_exist", {
 
-  log_levels <- names(log_levels())
+  log_levels <- log_levels()
 
   expect_true(any(match(log_levels, 'trace')))
   expect_true(any(match(log_levels, 'debug')))
@@ -37,13 +37,13 @@ test_that("can_get_log_levels", {
   # base log levels
   expect_gte(length(levels), 7)
 
-  expect_true(!is.null(levels$fatal))
-  expect_true(!is.null(levels$error))
-  expect_true(!is.null(levels$warn))
-  expect_true(!is.null(levels$succes))
-  expect_true(!is.null(levels$info))
-  expect_true(!is.null(levels$debug))
-  expect_true(!is.null(levels$trace))
+  expect_true(!is.null(log_levels("fatal")))
+  expect_true(!is.null(log_levels("error")))
+  expect_true(!is.null(log_levels("warn")))
+  expect_true(!is.null(log_levels("success")))
+  expect_true(!is.null(log_levels("info")))
+  expect_true(!is.null(log_levels("debug")))
+  expect_true(!is.null(log_levels("debug")))
 })
 
 test_that("get_name_works", {
@@ -100,4 +100,31 @@ test_that("log_levels_display",{
 
     expect_true(any(!is.na(match(actual, pattern))))
   }
+})
+
+test_that("can_get_log_level_by_name", {
+  level_names <- log_levels()
+
+  matches <- sapply(level_names, function(lvl_name) {
+    lvl <- log_levels(lvl_name)
+    any(match(class(lvl), 'log_level'))
+  })
+
+  expect_true(all(matches))
+})
+
+test_that("can_get_lvl_info_by_name",{
+
+  lvl_info <- lapply(log_levels(), function(lvl_name) {
+    lvl <- log_levels(lvl_name)
+    info <- level_info(lvl)
+  })
+
+  expect_true(all(!is.null(lvl_info)))
+})
+
+test_that("invalid_log_level_detail_stops", {
+  expect_error({
+    level_info("ffdsa134")
+  })
 })

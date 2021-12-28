@@ -160,7 +160,7 @@ test_that("cls_attribute_custom_fmt", {
 
   # test format evaluation
 
-  scope <- LogDispatch$new()$private$get_class_scope(obj)
+  scope <- class_scope(obj)
 
   actual <- value(cls_fld, scope)
 

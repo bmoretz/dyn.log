@@ -10,25 +10,11 @@
 #' layouts (render formats), which are used by the \code{LogDispatcher}
 #' to render highly-customizable and detailed log messages.
 #'
-#' @section Metrics:
-#'
-#' System Context
-#'
-#' \itemize{
-#'  \item{"sysname"} : {The operating system name.}
-#'  \item{"release"} : {The OS release.}
-#'  \item{"version"} : {The OS version.}
-#'  \item{"nodename"} : {A name by which the machine is known on the network (if any).}
-#'  \item{"machine"} : {A concise description of the hardware, often the CPU type.}
-#'  \item{"login"} : {The user's login name, or "unknown" if it cannot be ascertained.}
-#'  \item{"user"} : {The name of the real user ID, or "unknown" if it cannot be ascertained.}
-#'  \item{"r-ver"} : {R Version (major).(minor)}
-#' }
-#'
-#' @seealso LogLevel
 #' @docType class
 #' @family Logging
 #' @importFrom R6 R6Class
+#' @importFrom rlang as_function caller_env
+#' @importFrom glue glue
 #' @export
 LogDispatch <- R6::R6Class(
   classname = "LogDispatch",
@@ -44,7 +30,7 @@ LogDispatch <- R6::R6Class(
     #' @return A new `LogLayout` object.
     initialize = function() {
 
-      if(is.null(private$public_bind_env)) {
+      if (is.null(private$public_bind_env)) {
         private$create_singleton()
       } else {
         self <- private$instance
@@ -78,19 +64,20 @@ LogDispatch <- R6::R6Class(
         caller_env <- rlang::caller_env()
         parent_env <- parent.env(caller_env)
 
-        has_calling_class <- ifelse(is.null(parent_env$self), F, T); calling_class <- NA
+        has_calling_class <- ifelse(is.null(parent_env$self), F, T)
+        calling_class <- NA
         log_msg <- glue::glue(msg, .envir = parent)
 
         log_layout <- log_layouts(layout)
 
-        if(has_calling_class) {
+        if (has_calling_class) {
           calling_class <- parent_env$self
 
           cls_name <- head(class(calling_class), 1)
 
           associated_layout <- log_layouts(cls_name)
 
-          if(!is.null(associated_layout)) {
+          if (!is.null(associated_layout)) {
             log_layout <- associated_layout
           }
         }
@@ -99,12 +86,20 @@ LogDispatch <- R6::R6Class(
 
           context <- list()
 
-          if(has_calling_class && any(!is.na(match(types, 'fmt_cls_field')))) {
-            context[['fmt_cls_field']] = private$get_class_scope(calling_class)
+          if (has_calling_class && any(!is.na(match(types, "fmt_cls_field")))) {
+            context[["fmt_cls_field"]] <- class_scope(calling_class)
           }
 
-          if(any(!is.na(match(types, 'fmt_metric')))) {
-            context[['fmt_metric']] = sys_context()
+          if (any(!is.na(match(types, "fmt_metric")))) {
+            context[["fmt_metric"]] <- sys_context()
+          }
+
+          if (any(!is.na(match(types, "fmt_exec_scope")))) {
+
+            context[["fmt_exec_scope"]] <- exec_context(
+              max_calls = private$settings$callstack$max,
+              call_subset = c(private$settings$callstack$start,
+                              private$settings$callstack$stop))
           }
 
           cat(glue::glue(evaluate_layout(formats, types, seperator, context,
@@ -138,15 +133,15 @@ LogDispatch <- R6::R6Class(
       private$public_bind_env <- base::dynGet("public_bind_env")
       private$private_bind_env <- base::dynGet("private_bind_env")
 
-      LogDispatch$set('private',
-               'public_bind_env',
-               private$public_bind_env,
-               overwrite = TRUE)
+      LogDispatch$set("private",
+                      "public_bind_env",
+                      private$public_bind_env,
+                      overwrite = TRUE)
 
-      LogDispatch$set('private',
-               'private_bind_env',
-               private$private_bind_env,
-               overwrite = TRUE)
+      LogDispatch$set("private",
+                      "private_bind_env",
+                      private$private_bind_env,
+                      overwrite = TRUE)
     },
 
     set_bindings = function() {
@@ -162,44 +157,15 @@ LogDispatch <- R6::R6Class(
 
       n <- sys.nframe()
 
-      for(idx in seq_len(n-1)) {
+      for (idx in seq_len(n - 1)) {
         parent_env <- parent.frame(idx)
         parent_keys <- ls(parent_env)
 
-        if(any(key %in% parent_keys))
+        if (any(key %in% parent_keys))
           base::assign(key, value, envir = parent_env)
       }
 
       invisible()
-    },
-
-    get_callstack = function(offset = 2) {
-      cs <- get_call_stack()
-
-      # get the maximum call stack output setting
-      max_levels <- private$settings$max_callstack
-
-      # remove the framework calls from cs
-      call_stack <- head(cs, max(length(cs) - offset, max_levels))
-
-      list(top_call = call_stack[1],
-           call_stack = call_stack)
-    },
-
-    get_class_scope = function(cls) {
-
-      values <- list()
-
-      lapply(names(as.list(cls)), function(var) {
-        value <- cls[[var]]
-
-        if(!(class(value) %in% c('environment', 'function')))
-          values[[var]] <<- value
-
-        invisible()
-      })
-
-      values
     }
   )
 )
