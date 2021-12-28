@@ -79,7 +79,7 @@ format_fn_call <- function(expr,
 #' @returns formatted call stack
 #' @importFrom stringr str_detect fixed
 #' @importFrom purrr map
-get_call_stack = function(keep_args = F,
+get_call_stack <- function(keep_args = F,
                           call_subset = c(-1, -1),
                           filter_internal = T) {
 
@@ -174,7 +174,7 @@ exec_context <- function(keep_args = F,
   lc_idx <- as.integer(which(lcs, arr.ind = T))
 
   if (!identical(lc_idx, integer(0))) {
-    full_stack <- full_stack[1:lc_idx-1]
+    full_stack <- full_stack[1:(lc_idx - 1)]
   }
 
   call_stack <- full_stack
@@ -207,7 +207,7 @@ class_scope <- function(cls) {
   lapply(names(as.list(cls)), function(var) {
     value <- cls[[var]]
 
-    if(!(class(value) %in% c("environment", "function")))
+    if (!(class(value) %in% c("environment", "function")))
       values[[var]] <<- value
 
     invisible()
@@ -215,4 +215,3 @@ class_scope <- function(cls) {
 
   structure(values, class = c("cls_context", "context"))
 }
-

@@ -3,30 +3,21 @@
 #' @description S3 object to represent a typed & predefined log level.
 #'
 #' @param name name of the log level is the string representation.
-#' @param description description of the log level & limited info on appropriate usage.
-#' @param severity log severity is used in determining if a message should get
-#' displayed according to the currently set evaluation threshold.
-#' @param log_style is a {crayon::style()} that will colorize the log level.
-#' @param msg_style is a {crayon::style()} style that will gray scale the log message, with
-#' typically inverted strength, according to the severity.
 #'
-#' @section Severity:
+#' @param description description of the log level & limited info
+#' on appropriate usage.
 #'
-#' The default logging configuration comes with these levels preconfigured, each is documented
-#' with their intent outlined. If this doesn't match your needs, you can easily customize these
-#' entirely based on your needs. Please see the log levels vignette.
+#' @param severity log severity is used in determining if a
+#' message should get displayed according to the currently set
+#' evaluation threshold.
 #'
-#' \itemize{
-#'  \item{"FATAL"} : {The FATAL level designates very severe error events that will presumably lead the application to abort.}
-#'  \item{"ERROR"} : {The ERROR level designates error events that might still allow the application to continue running.}
-#'  \item{"WARN"} : {The WARN level designates potentially harmful situations.}
-#'  \item{"SUCCESS"} : {The SUCCESS level designates that the operation was unencumbered.}
-#'  \item{"INFO"} : {The INFO level designates informational messages that highlight the progress of the application at coarse-grained level.}
-#'  \item{"DEBUG"} : {The DEBUG Level designates fine-grained informational events that are most useful to debug an application.}
-#'  \item{"TRACE"} : {The TRACE Level designates finer-grained informational events than the DEBUG}
-#' }
+#' @param log_style is a {crayon::style()} that will colorize
+#' the log level.
 #'
-#' @family LogLevel
+#' @param msg_style is a {crayon::style()} style that will gray scale the
+#' log message, with typically inverted strength, according to the severity.
+#'
+#' @family Log Level
 #' @return \code{log_level}
 #' @export
 new_log_level <- function(name,
@@ -35,14 +26,14 @@ new_log_level <- function(name,
                           log_style = NULL,
                           msg_style = NULL) {
 
-  if(!is.character(name) || nchar(name) == 0)
-    stop('invalid log level name')
+  if (!is.character(name) || nchar(name) == 0)
+    stop("invalid log level name")
 
-  if(!is.character(description) || nchar(description) == 0)
-    stop('invalid log level description')
+  if (!is.character(description) || nchar(description) == 0)
+    stop("invalid log level description")
 
-  if(!is.integer(severity) || severity < 0)
-    stop('invalid severity level')
+  if (!is.integer(severity) || severity < 0)
+    stop("invalid severity level")
 
   new_level <- structure(
     list(),
@@ -51,7 +42,7 @@ new_log_level <- function(name,
     severity = severity,
     log_style = log_style,
     msg_style = msg_style,
-    class = c(paste0('level_', name), 'log_level')
+    class = c(paste0("level_", name), "log_level")
   )
 
   log_levels(name, new_level)
@@ -76,19 +67,19 @@ log_levels <- local({
 
   function(name = character(0), level = NULL) {
 
-    if(!identical(name, character(0))) {
+    if (!identical(name, character(0))) {
 
       name <- tolower(name)
 
-      if(!is.null(level)) {
+      if (!is.null(level)) {
 
-        if(missing(name)) {
+        if (missing(name)) {
           levels[[name]]
         } else {
           levels[[name]] <<- level
         }
       }
-      else if(name %in% names(levels)) {
+      else if (name %in% names(levels)) {
         return(levels[[name]])
       } else {
         return(NULL)
@@ -109,8 +100,8 @@ log_levels <- local({
 #' @export
 style.log_level <- function(obj, ...) {
   return(list(
-    level = attr(obj, 'log_style'),
-    message = attr(obj, 'msg_style')))
+    level = attr(obj, "log_style"),
+    message = attr(obj, "msg_style")))
 }
 
 #' @title Get Log Level Name
@@ -235,24 +226,25 @@ as.integer.log_level <- function(x, ...) {
 #' }
 level_info <- function(level) {
 
-  if(identical(class(level), "character")) {
+  if (identical(class(level), "character")) {
     level <- log_levels(level)
   }
 
-  if(is.null(level) || !any(match(class(level), "log_level"))) {
+  if (is.null(level) || !any(match(class(level), "log_level"))) {
     stop("level info must be called on a valid log level")
   }
 
   lvl_style <- style(level)
   style_info <- list()
 
-  if(!is.null(lvl_style$level) || !is.null(lvl_style$message)) {
-    lvl_fmt <- "{lvl_style$level(level_name(level))} - {lvl_style$message(level_description(level))}"
+  if (!is.null(lvl_style$level) || !is.null(lvl_style$message)) {
+    lvl_fmt <- "{lvl_style$level(level_name(level))}"
+    msg_fmt <- "{lvl_style$message(level_description(level))}"
 
     style_info <- list(
       level = lvl_style$level,
       message = lvl_style$message,
-      example = glue::glue_col()
+      example = glue::glue_col(paste(lvl_fmt, msg_fmt, sep = " - "))
     )
   }
 
@@ -284,7 +276,7 @@ format.log_level <- function(x,
                              message = character(0),
                              ...) {
 
-  if(identical(message, character(0))) {
+  if (identical(message, character(0))) {
     style(x)$level(level_name(x))
   } else {
     style(x)$message(message)

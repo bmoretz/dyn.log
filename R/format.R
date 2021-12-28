@@ -9,12 +9,12 @@
 #' @export
 new_fmt_layout <- function(style) {
 
-  stopifnot(class(style) != 'crayon')
+  stopifnot(class(style) != "crayon")
 
   structure(
     list(),
     style = style,
-    class = c('fmt_layout')
+    class = c("fmt_layout")
   )
 }
 
@@ -31,7 +31,7 @@ new_fmt_log_level <- function() {
     list(),
     style = crayon::black,
     value = glue::as_glue("{format(level)}"),
-    class = c('fmt_log_level', 'fmt_layout')
+    class = c("fmt_log_level", "fmt_layout")
   )
 }
 
@@ -47,7 +47,7 @@ new_fmt_log_level <- function() {
 #' @return object's value
 #' @export
 value.fmt_log_level <- function(obj, ...) {
-  attr(obj, 'value')
+  attr(obj, "value")
 }
 
 #' @title
@@ -64,7 +64,7 @@ new_fmt_log_msg <- function() {
     list(),
     style = crayon::black,
     value = glue::as_glue("{format(level, message = {log_msg})}"),
-    class = c('fmt_log_msg', 'fmt_layout')
+    class = c("fmt_log_msg", "fmt_layout")
   )
 }
 
@@ -80,7 +80,7 @@ new_fmt_log_msg <- function() {
 #' @return object's value
 #' @export
 value.fmt_log_msg <- function(obj, ...) {
-  attr(obj, 'value')
+  attr(obj, "value")
 }
 
 #' @title Formatted Metric
@@ -102,17 +102,17 @@ value.fmt_log_msg <- function(obj, ...) {
 #'
 #' new_fmt_metric(bold $ red, "release")
 #' }
-new_fmt_metric = function(style, metric) {
+new_fmt_metric <- function(style, metric) {
   stopifnot(class(style) == "crayon")
 
-  if(!is.character(metric) || nchar(metric) == 0)
+  if (!is.character(metric) || nchar(metric) == 0)
     stop("invalid log metric specified")
 
   structure(
     list(),
     style = style,
     metric = metric,
-    class = c('fmt_metric', 'fmt_layout')
+    class = c("fmt_metric", "fmt_layout")
   )
 }
 
@@ -127,7 +127,7 @@ new_fmt_metric = function(style, metric) {
 #' @return object's value
 #' @export
 style.fmt_layout <- function(obj, ...) {
-  attr(obj, 'style')
+  attr(obj, "style")
 }
 
 #' @title Value
@@ -143,7 +143,7 @@ style.fmt_layout <- function(obj, ...) {
 #' @return object's value
 #' @export
 value.fmt_metric <- function(obj, sys_context, ...) {
-  style(obj)(get(attr(obj, 'metric'), sys_context))
+  style(obj)(get(attr(obj, "metric"), sys_context))
 }
 
 #' @title Formatted Timestamp
@@ -171,7 +171,7 @@ new_fmt_timestamp <- function(style,
     style = style,
     format = format,
     value = rlang::as_function(~ format(Sys.time(), .)),
-    class = c('fmt_timestamp', 'fmt_layout')
+    class = c("fmt_timestamp", "fmt_layout")
   )
 }
 
@@ -183,7 +183,7 @@ new_fmt_timestamp <- function(style,
 #' @return object's value
 #' @export
 format.fmt_timestamp <- function(x, ...) {
-  attr(x, 'format')
+  attr(x, "format")
 }
 
 #' @title Value
@@ -198,8 +198,8 @@ format.fmt_timestamp <- function(x, ...) {
 #' @return object's value
 #' @export
 value.fmt_timestamp <- function(obj, ...) {
-  v <- attr(obj, 'value')
-  f <- attr(obj, 'format')
+  v <- attr(obj, "value")
+  f <- attr(obj, "format")
 
   style(obj)(v(f))
 }
@@ -226,7 +226,7 @@ new_fmt_literal <- function(style, literal) {
     list(),
     style = style,
     value = literal,
-    class = c('fmt_literal', 'fmt_layout')
+    class = c("fmt_literal", "fmt_layout")
   )
 }
 
@@ -242,7 +242,7 @@ new_fmt_literal <- function(style, literal) {
 #' @return object's value
 #' @export
 value.fmt_literal <- function(obj, ...) {
-  style(obj)(attr(obj, 'value'))
+  style(obj)(attr(obj, "value"))
 }
 
 #' @title Formatted Line Break
@@ -257,8 +257,8 @@ new_fmt_line_break <- function() {
   structure(
     list(),
     style = crayon::black,
-    value = '\n',
-    class = c('fmt_newline', 'fmt_layout')
+    value = "\n",
+    class = c("fmt_newline", "fmt_layout")
   )
 }
 
@@ -274,7 +274,7 @@ new_fmt_line_break <- function() {
 #' @return object's value
 #' @export
 value.fmt_newline <- function(obj, ...) {
-  attr(obj, 'value')
+  attr(obj, "value")
 }
 
 #' @title
@@ -293,14 +293,14 @@ new_fmt_cls_field <- function(style, field) {
 
   stopifnot(class(style) == "crayon")
 
-  if(!is.character(field) || nchar(field) == 0)
+  if (!is.character(field) || nchar(field) == 0)
     stop("invalid cls field specified")
 
   structure(
     list(),
     style = style,
     field = field,
-    class = c('fmt_cls_field', 'fmt_layout')
+    class = c("fmt_cls_field", "fmt_layout")
   )
 }
 
@@ -317,7 +317,7 @@ new_fmt_cls_field <- function(style, field) {
 #' @return object's value
 #' @export
 value.fmt_cls_field <- function(obj, cls_context, ...) {
-  value <- get(attr(obj, 'field'), cls_context)
+  value <- get(attr(obj, "field"), cls_context)
   style(obj)(value)
 }
 
@@ -337,14 +337,14 @@ new_fmt_exec_scope <- function(style, field) {
 
   stopifnot(class(style) == "crayon")
 
-  if(!is.character(field) || nchar(field) == 0)
+  if (!is.character(field) || nchar(field) == 0)
     stop("invalid execution scope field specified")
 
   structure(
     list(),
     style = style,
     field = field,
-    class = c('fmt_exec_scope', 'fmt_layout')
+    class = c("fmt_exec_scope", "fmt_layout")
   )
 }
 
@@ -361,6 +361,6 @@ new_fmt_exec_scope <- function(style, field) {
 #' @return object's value
 #' @export
 value.fmt_exec_scope <- function(obj, env_context, ...) {
-  value <- get(attr(obj, 'field'), env_context)
+  value <- get(attr(obj, "field"), env_context)
   style(obj)(value)
 }
