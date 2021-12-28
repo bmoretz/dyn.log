@@ -249,4 +249,4 @@ For a detailed look at class associations, and how they work please see the "Log
   * [Hadley Wickham](https://github.com/hadley) for being super-human.
   * [Jim Hester](https://github.com/jimhester) for all the fantastic r-lib/actions (covr, lintr & build, pkgdown, etc).
   * [Brody Gaslam](https://github.com/brodieG/fansi) for developing the [fansi](https://github.com/brodieG/fansi) package which is responsible for all the the pretty logger output in the documentation.
-  * Everyone in the [#rstats](https://twitter.com/search?q=%23rstats) community for being 
+  * Everyone in the [#rstats](https://twitter.com/search?q=%23rstats) community for being inclusive, welcoming and incredibly knowledgeable.

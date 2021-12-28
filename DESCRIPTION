@@ -41,14 +41,14 @@ Suggests:
     knitr,
     covr (>= 3.5.1),
     testthat (>= 3.0.0),
+    lintr (>= 0.28),
     badger (>= 0.1.0),
     remotes,
     pkgdown,
     prettydoc,
     here,
     fansi,
-    DT,
-    lintr (>= 0.28)
+    DT
 Config/testthat/edition: 3
 Language: en-US
 VignetteBuilder: knitr

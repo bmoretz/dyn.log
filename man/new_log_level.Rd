@@ -9,15 +9,18 @@ new_log_level(name, description, severity, log_style = NULL, msg_style = NULL)
 \arguments{
 \item{name}{name of the log level is the string representation.}
 
-\item{description}{description of the log level & limited info on appropriate usage.}
+\item{description}{description of the log level & limited info
+on appropriate usage.}
 
-\item{severity}{log severity is used in determining if a message should get
-displayed according to the currently set evaluation threshold.}
+\item{severity}{log severity is used in determining if a
+message should get displayed according to the currently set
+evaluation threshold.}
 
-\item{log_style}{is a {crayon::style()} that will colorize the log level.}
+\item{log_style}{is a {crayon::style()} that will colorize
+the log level.}
 
-\item{msg_style}{is a {crayon::style()} style that will gray scale the log message, with
-typically inverted strength, according to the severity.}
+\item{msg_style}{is a {crayon::style()} style that will gray scale the
+log message, with typically inverted strength, according to the severity.}
 }
 \value{
 \code{log_level}
@@ -25,22 +28,4 @@ typically inverted strength, according to the severity.}
 \description{
 S3 object to represent a typed & predefined log level.
 }
-\section{Severity}{
-
-
-The default logging configuration comes with these levels preconfigured, each is documented
-with their intent outlined. If this doesn't match your needs, you can easily customize these
-entirely based on your needs. Please see the log levels vignette.
-
-\itemize{
-\item{"FATAL"} : {The FATAL level designates very severe error events that will presumably lead the application to abort.}
-\item{"ERROR"} : {The ERROR level designates error events that might still allow the application to continue running.}
-\item{"WARN"} : {The WARN level designates potentially harmful situations.}
-\item{"SUCCESS"} : {The SUCCESS level designates that the operation was unencumbered.}
-\item{"INFO"} : {The INFO level designates informational messages that highlight the progress of the application at coarse-grained level.}
-\item{"DEBUG"} : {The DEBUG Level designates fine-grained informational events that are most useful to debug an application.}
-\item{"TRACE"} : {The TRACE Level designates finer-grained informational events than the DEBUG}
-}
-}
-
-\concept{LogLevel}
+\concept{Log Level}
