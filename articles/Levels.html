@@ -88,6 +88,8 @@
 </h1>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bmoretz.github.io/dyn.log/" class="external-link">dyn.log</a></span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## Error in envir$Logger &lt;- `*vtmp*` : </span>
+<span class="co">##   cannot change value of locked binding for 'Logger'</span></code></pre>
 <style type="text/css" scoped>
 PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 </style>
@@ -95,12 +97,12 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <h2 id="definitions">Definitions<a class="anchor" aria-label="anchor" href="#definitions"></a>
 </h2>
 <p>One of the main objectives of <em>dyn.log</em> is to be as configuration driven as possible, which allows the logger to conform to the problem - not the other way around. Log levels are fully configuration driven, and they are specified in the logger configuration with the following schema:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">levels</span><span class="kw">:</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> DEBUG</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> This level designates fine-grained informational events that are most useful to debug an application.</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> !expr 500L</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="at">  </span><span class="fu">log_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('deepskyblue2')$bold</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="at">  </span><span class="fu">msg_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('gray90')</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">levels</span><span class="kw">:</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> DEBUG</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> This level designates fine-grained informational events that are most useful to debug an application.</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> !expr 500L</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="at">  </span><span class="fu">log_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('deepskyblue2')$bold</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="at">  </span><span class="fu">msg_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('gray90')</span></span></code></pre></div>
 <p>The levels node contains the log levels you want available in your environment. When a log level is defined in the configuration, it automatically becomes accessible via a first-class function on the dispatcher, e.g.:</p>
 <div class="section level3">
 <h3 id="attributes">Attributes<a class="anchor" aria-label="anchor" href="#attributes"></a>
@@ -123,11 +125,11 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <h3 id="invocation">Invocation<a class="anchor" aria-label="anchor" href="#invocation"></a>
 </h3>
 <p>Once you have defined a log level in the logger configuration, the dispatcher will automatically have a method corresponding to that level. This enables a fairly intuitive approach to invoking the log dispatcher, e.g., if you have the previous <em>debug</em> level defined in your configuration this is how you would log a message with that level:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">var1</span> <span class="op">&lt;-</span> <span class="st">"abc"</span>; <span class="va">var2</span> <span class="op">&lt;-</span> <span class="fl">123</span>; <span class="va">var3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">6</span><span class="op">)</span>
 
 <span class="va">Logger</span><span class="op">$</span><span class="fu">debug</span><span class="op">(</span><span class="st">"my log message - var1: {var1}, var2: {var2}, var3: {var3}"</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code><span style="color: #00D7FF; font-weight: bold;">DEBUG</span> <span style="color: #555555; font-style: italic;">[12/28/21 04:41:44 +0000]</span> <span style="color: #DADADA;">my log message - var1: abc, var2: 123, var3: 0.570217</span>
+<pre class="fansi fansi-output"><code><span style="color: #00D7FF; font-weight: bold;">DEBUG</span> <span style="color: #555555; font-style: italic;">[12/28/21 05:09:08 +0000]</span> <span style="color: #DADADA;">my log message - var1: abc, var2: 123, var3: 0.145687</span>
 </code></pre>
 <p>You’ll notice that all log messages by default use the standardize <a href="https://github.com/tidyverse/glue" class="external-link">glue</a> format so local variables are capturable in the log output.</p>
 </div>
@@ -135,15 +137,15 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <h3 id="localization">Localization<a class="anchor" aria-label="anchor" href="#localization"></a>
 </h3>
 <p>You can see what log levels have been specified in your logging configuration by calling <em>log_levels()</em>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">log_levels</span>()</span>
-<span id="cb4-2"><a href="#cb4-2"></a>[<span class="dv">1</span>] <span class="st">"trace"</span>   <span class="st">"debug"</span>   <span class="st">"info"</span>    <span class="st">"success"</span> <span class="st">"warn"</span>    <span class="st">"error"</span>   <span class="st">"fatal"</span>  </span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">log_levels</span>()</span>
+<span id="cb5-2"><a href="#cb5-2"></a>[<span class="dv">1</span>] <span class="st">"trace"</span>   <span class="st">"debug"</span>   <span class="st">"info"</span>    <span class="st">"success"</span> <span class="st">"warn"</span>    <span class="st">"error"</span>   <span class="st">"fatal"</span>  </span></code></pre></div>
 <p>Which will output only the <em>names</em> of the defined levels, not all of the detail that defines them.</p>
 </div>
 <div class="section level3">
 <h3 id="detail">Detail<a class="anchor" aria-label="anchor" href="#detail"></a>
 </h3>
 <p>To get the details about a defined level you can call <em>level_info()</em>:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/level_info.html">level_info</a></span><span class="op">(</span><span class="st">"debug"</span><span class="op">)</span></code></pre></div>
 <pre class="fansi fansi-output"><code>$name
 [1] "DEBUG"
@@ -162,6 +164,7 @@ $style$message
 Crayon style function, gray90: <span style="color: #DADADA;">example output.</span>
 
 $style$example
+<span style="color: #00D7FF; font-weight: bold;">DEBUG</span> - <span style="color: #DADADA;">This level designates fine-grained informational events that are most useful to debug an application.</span>
 </code></pre>
 <p>The detailed information about a log level shows every configurable attribute about the level, and an example of how the level renders with its associated <a href="https://github.com/r-lib/crayon" class="external-link">crayon</a> styles for the level and message. A vanilla log layout consisting of only the level and msg would get rendered with the look of the example attribute.</p>
 </div>
@@ -174,7 +177,7 @@ $style$example
 </h3>
 <p>The default (OTB) logging configuration closely resembles the fairly ubiquitous <a href="https://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/Level.html" class="external-link">log4j</a> level scheme.</p>
 <p>There is a utility method called <em>display_log_levels()</em> that will output all loaded log levels from the configuration rendered with their defined styles &amp; definitions:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/display_log_levels.html">display_log_levels</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre class="fansi fansi-output"><code>
 <span style="color: #B2B2B2; font-weight: bold;">TRACE</span> <span style="color: #949494;">This level designates finer-grained informational events than the DEBUG.</span>
