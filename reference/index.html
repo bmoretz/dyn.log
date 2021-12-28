@@ -6,11 +6,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-dark"><div class="container">
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">dyn.log</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,9 +24,13 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/Formats.html">Log Formats</a>
-    <a class="dropdown-item" href="../articles/Layouts.html">Log Layouts</a>
+    <a class="dropdown-item" href="../articles/Formats.html">Formats</a>
+    <a class="dropdown-item" href="../articles/Layouts.html">Layouts</a>
+    <a class="dropdown-item" href="../articles/Levels.html">Levels</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -85,6 +89,16 @@
         <dd>Load Log Levels</dd>
       </dl><dl><dt>
           
+          <code><a href="class_scope.html">class_scope()</a></code> 
+        </dt>
+        <dd>Calling Class Scope</dd>
+      </dl><dl><dt>
+          
+          <code><a href="clean_internal_calls.html">clean_internal_calls()</a></code> 
+        </dt>
+        <dd>Is Logger Call</dd>
+      </dl><dl><dt>
+          
           <code><a href="display_log_levels.html">display_log_levels()</a></code> 
         </dt>
         <dd>Display Log Levels</dd>
@@ -103,6 +117,11 @@ Package initialization routine.</dd>
 entry layout.</dd>
       </dl><dl><dt>
           
+          <code><a href="exec_context.html">exec_context()</a></code> 
+        </dt>
+        <dd>Execution Context</dd>
+      </dl><dl><dt>
+          
           <code><a href="extract_func_name.html">extract_func_name()</a></code> 
         </dt>
         <dd>Extract Function Name</dd>
@@ -118,6 +137,11 @@ entry layout.</dd>
         <dd>Log Level Format</dd>
       </dl><dl><dt>
           
+          <code><a href="format_fn_call.html">format_fn_call()</a></code> 
+        </dt>
+        <dd>Format Function Call</dd>
+      </dl><dl><dt>
+          
           <code><a href="get_call_stack.html">get_call_stack()</a></code> 
         </dt>
         <dd>Formatted Call Stack</dd>
@@ -131,6 +155,11 @@ entry layout.</dd>
           <code><a href="get_system_info.html">get_system_info()</a></code> 
         </dt>
         <dd>Get System Info</dd>
+      </dl><dl><dt>
+          
+          <code><a href="is_logger_call.html">is_logger_call()</a></code> 
+        </dt>
+        <dd>Is Logger Call</dd>
       </dl><dl><dt>
           
           <code><a href="length.log_layout.html">length(<i>&lt;log_layout&gt;</i>)</a></code> 
@@ -278,12 +307,17 @@ entry layout.</dd>
         <dd>Value</dd>
       </dl><dl><dt>
           
-          <code><a href="value.fmt_level_info.html">value(<i>&lt;fmt_level_info&gt;</i>)</a></code> 
+          <code><a href="value.fmt_literal.html">value(<i>&lt;fmt_literal&gt;</i>)</a></code> 
         </dt>
         <dd>Value</dd>
       </dl><dl><dt>
           
-          <code><a href="value.fmt_literal.html">value(<i>&lt;fmt_literal&gt;</i>)</a></code> 
+          <code><a href="value.fmt_log_level.html">value(<i>&lt;fmt_log_level&gt;</i>)</a></code> 
+        </dt>
+        <dd>Value</dd>
+      </dl><dl><dt>
+          
+          <code><a href="value.fmt_log_msg.html">value(<i>&lt;fmt_log_msg&gt;</i>)</a></code> 
         </dt>
         <dd>Value</dd>
       </dl><dl><dt>
@@ -299,11 +333,6 @@ entry layout.</dd>
       </dl><dl><dt>
           
           <code><a href="value.fmt_timestamp.html">value(<i>&lt;fmt_timestamp&gt;</i>)</a></code> 
-        </dt>
-        <dd>Value</dd>
-      </dl><dl><dt>
-          
-          <code><a href="value.new_fmt_log_msg.html">value(<i>&lt;new_fmt_log_msg&gt;</i>)</a></code> 
         </dt>
         <dd>Value</dd>
       </dl></div>

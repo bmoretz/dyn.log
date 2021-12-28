@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="dyn.log">
-<title>Log Formats • dyn.log</title>
+<title>Formats • dyn.log</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="../deps/_Roboto-0.4.0/font.css" rel="stylesheet">
@@ -14,7 +14,7 @@
 <link href="../deps/_Roboto%20Slab-0.4.0/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Log Formats">
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Formats">
 <meta property="og:description" content="dyn.log">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -25,11 +25,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-dark"><div class="container">
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">dyn.log</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,9 +44,13 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/Formats.html">Log Formats</a>
-    <a class="dropdown-item" href="../articles/Layouts.html">Log Layouts</a>
+    <a class="dropdown-item" href="../articles/Formats.html">Formats</a>
+    <a class="dropdown-item" href="../articles/Layouts.html">Layouts</a>
+    <a class="dropdown-item" href="../articles/Levels.html">Levels</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
@@ -68,10 +72,10 @@
 </nav><div class="container template-article">
 <script src="Formats_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <main id="main"><div class="page-header">
-      <img src="" class="logo" alt=""><h1>Log Formats</h1>
+      <img src="" class="logo" alt=""><h1>Formats</h1>
                         <h4 data-toc-skip class="author">Brandon Moretz</h4>
             
-            <h4 data-toc-skip class="date">2021-12-25</h4>
+            <h4 data-toc-skip class="date">2021-12-28</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/bmoretz/dyn.log/blob/HEAD/vignettes/Formats.Rmd" class="external-link"><code>vignettes/Formats.Rmd</code></a></small>
       <div class="d-none name"><code>Formats.Rmd</code></div>
@@ -79,9 +83,280 @@
 
     
     
+<div class="section level1">
+<h1 id="format-objects">Format Objects<a class="anchor" aria-label="anchor" href="#format-objects"></a>
+</h1>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bmoretz/dyn.log" class="external-link">dyn.log</a></span><span class="op">)</span></code></pre></div>
-  </main>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bmoretz.github.io/dyn.log/" class="external-link">dyn.log</a></span><span class="op">)</span>
+
+<span class="co"># set logging config with tweaks for kitr output</span>
+
+<span class="fu"><a href="../reference/set_log_configuration.html">set_log_configuration</a></span><span class="op">(</span>file_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"knitr.yaml"</span>, 
+                                              package <span class="op">=</span> <span class="st">"dyn.log"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<style type="text/css" scoped>
+PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
+</style>
+<div class="section level2">
+<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h2>
+<p>Format objects are the driver of customization in log rendering. Log layouts were developed with the <a href="https://en.wikipedia.org/wiki/Composite_pattern" class="external-link">composition</a> design pattern in mind; a log layout is simply a series of formats that get evaluated with their associated context to form a log message.</p>
+<p>All formats derive from the <strong>fmt_layout</strong> base type and have a couple of generics associated with them, specifically: <strong>style</strong> and <strong>value</strong>. The <strong>fmt_layout</strong> is meant to be an <a href="https://en.wikipedia.org/wiki/Abstract_type" class="external-link">abstract</a> base type; by driving from it the logging framework can make some assumptions about how to treat a format object.</p>
+</div>
+<div class="section level2">
+<h2 id="format-types">Format Types<a class="anchor" aria-label="anchor" href="#format-types"></a>
+</h2>
+<p>There are five main categories of log format objects:</p>
+<ul>
+<li>Core
+<ul>
+<li>
+<strong>fmt_level_info:</strong> the log level information.</li>
+<li>
+<strong>fmt_log_msg:</strong> the log message, evaluated with standard glue format.</li>
+</ul>
+</li>
+<li>System Context
+<ul>
+<li>
+<strong>fmt_metric:</strong> a ‘system’ context value; see below for more detail.</li>
+<li>
+<strong>fmt_timestamp:</strong> the current system time with a customizable format.</li>
+</ul>
+</li>
+<li>Execution Scope
+<ul>
+<li>
+<strong>fmt_exec_scope:</strong> an ‘execution’ context value; see below for more detail.</li>
+</ul>
+</li>
+<li>Class Fields
+<ul>
+<li>
+<strong>fmt_cls_field:</strong> a field value in the encompassing <strong>R6</strong> class; see below for more detail.</li>
+</ul>
+</li>
+<li>Literals &amp; New Lines
+<ul>
+<li>
+<strong>fmt_literal:</strong> a literal value, which is useful for tweaking exact format specifications.</li>
+<li>
+<strong>fmt_newline:</strong> a new line feed in the log message, which is useful for multi-line log messages that have a lot of contextual information in the log output.</li>
+</ul>
+</li>
+</ul>
+<div class="section level3">
+<h3 id="system-context">System Context<a class="anchor" aria-label="anchor" href="#system-context"></a>
+</h3>
+<p>The values available for a <strong>fmt_metric</strong> type can be accessed via <em>sys_context</em>:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">sys_context</span>()</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="op">$</span>sysname</span>
+<span id="cb2-3"><a href="#cb2-3"></a>[<span class="dv">1</span>] <span class="st">"Linux"</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="op">$</span>release</span>
+<span id="cb2-6"><a href="#cb2-6"></a>[<span class="dv">1</span>] <span class="st">"5.11.0-1022-azure"</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="op">$</span>version</span>
+<span id="cb2-9"><a href="#cb2-9"></a>[<span class="dv">1</span>] <span class="st">"#23~20.04.1-Ubuntu SMP Fri Nov 19 10:20:52 UTC 2021"</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="op">$</span>nodename</span>
+<span id="cb2-12"><a href="#cb2-12"></a>[<span class="dv">1</span>] <span class="st">"fv-az83-467"</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="op">$</span>machine</span>
+<span id="cb2-15"><a href="#cb2-15"></a>[<span class="dv">1</span>] <span class="st">"x86_64"</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="op">$</span>login</span>
+<span id="cb2-18"><a href="#cb2-18"></a>[<span class="dv">1</span>] <span class="st">"unknown"</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a></span>
+<span id="cb2-20"><a href="#cb2-20"></a><span class="op">$</span>user</span>
+<span id="cb2-21"><a href="#cb2-21"></a>[<span class="dv">1</span>] <span class="st">"runner"</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a></span>
+<span id="cb2-23"><a href="#cb2-23"></a><span class="op">$</span>effective_user</span>
+<span id="cb2-24"><a href="#cb2-24"></a>[<span class="dv">1</span>] <span class="st">"runner"</span></span>
+<span id="cb2-25"><a href="#cb2-25"></a></span>
+<span id="cb2-26"><a href="#cb2-26"></a><span class="op">$</span>r_ver</span>
+<span id="cb2-27"><a href="#cb2-27"></a>[<span class="dv">1</span>] <span class="st">"4.1.2"</span></span>
+<span id="cb2-28"><a href="#cb2-28"></a></span>
+<span id="cb2-29"><a href="#cb2-29"></a><span class="kw">attr</span>(,<span class="st">"class"</span>)</span>
+<span id="cb2-30"><a href="#cb2-30"></a>[<span class="dv">1</span>] <span class="st">"sys_context"</span> <span class="st">"context"</span>    </span></code></pre></div>
+<div class="section level4">
+<h4 id="system-context-example">System Context Example<a class="anchor" aria-label="anchor" href="#system-context-example"></a>
+</h4>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/new_log_layout.html">new_log_layout</a></span><span class="op">(</span>
+  format <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+    <span class="fu"><a href="../reference/new_fmt_log_level.html">new_fmt_log_level</a></span><span class="op">(</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_metric.html">new_fmt_metric</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">green</a></span><span class="op">$</span><span class="va">bold</span>, <span class="st">"sysname"</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_metric.html">new_fmt_metric</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">yellow</a></span><span class="op">$</span><span class="va">bold</span>, <span class="st">"release"</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_timestamp.html">new_fmt_timestamp</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">silver</a></span><span class="op">$</span><span class="va">italic</span>, <span class="st">"[%x %H:%M:%S]"</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_log_msg.html">new_fmt_log_msg</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="op">)</span>,
+  seperator <span class="op">=</span> <span class="st">'-'</span>,
+  association <span class="op">=</span> <span class="st">"ex-sys-layout"</span>
+<span class="op">)</span>
+
+<span class="va">var1</span> <span class="op">&lt;-</span> <span class="st">"abc"</span>; <span class="va">var2</span> <span class="op">&lt;-</span> <span class="fl">123</span>; <span class="va">var3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">6</span><span class="op">)</span>
+
+<span class="va">Logger</span><span class="op">$</span><span class="fu">debug</span><span class="op">(</span><span class="st">"my log message - var1: {var1}, var2: {var2}, var3: {var3}"</span>, 
+             layout <span class="op">=</span> <span class="st">"ex-sys-layout"</span><span class="op">)</span></code></pre></div>
+<pre class="fansi fansi-output"><code><span style="color: #00D7FF; font-weight: bold;">DEBUG</span>-<span style="color: #00BB00; font-weight: bold;">Linux</span>-<span style="color: #BBBB00; font-weight: bold;">5.11.0-1022-azure</span>-<span style="color: #555555; font-style: italic;">[12/28/21 04:37:20]</span>-<span style="color: #DADADA;">my log message - var1: abc, var2: 123, var3: 0.83705</span>
+</code></pre>
+<p>As you can see, the log message has a great deal of detail, but difficult to interpret due to the amount of information jammed into one line. This is where literals and new lines come into play.</p>
+</div>
+</div>
+<div class="section level3">
+<h3 id="literals-new-lines">Literals &amp; New Lines<a class="anchor" aria-label="anchor" href="#literals-new-lines"></a>
+</h3>
+<p>Literals and new lines are simple formatting objects that help you tweak the layout of a log message to something that is both informative and easy to consume. Taking the previous example, and tweaking the format slightly incorporating literals &amp; new lines, we can produce a log message like this:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/new_log_layout.html">new_log_layout</a></span><span class="op">(</span>
+  format <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+    <span class="fu"><a href="../reference/new_fmt_metric.html">new_fmt_metric</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">green</a></span><span class="op">$</span><span class="va">bold</span>, <span class="st">"sysname"</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_literal.html">new_fmt_literal</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">magenta</a></span>, <span class="st">"["</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_metric.html">new_fmt_metric</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">blue</a></span><span class="op">$</span><span class="va">bold</span>, <span class="st">"release"</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_literal.html">new_fmt_literal</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">magenta</a></span>, <span class="st">"]"</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_line_break.html">new_fmt_line_break</a></span><span class="op">(</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_log_level.html">new_fmt_log_level</a></span><span class="op">(</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_timestamp.html">new_fmt_timestamp</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">silver</a></span><span class="op">$</span><span class="va">italic</span>, <span class="st">"[%x %H:%M:%S]"</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_log_msg.html">new_fmt_log_msg</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="op">)</span>,
+  seperator <span class="op">=</span> <span class="st">' '</span>,
+  association <span class="op">=</span> <span class="st">"ex-syslit-layout"</span>
+<span class="op">)</span>
+
+<span class="va">var1</span> <span class="op">&lt;-</span> <span class="st">"abc"</span>; <span class="va">var2</span> <span class="op">&lt;-</span> <span class="fl">123</span>; <span class="va">var3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">6</span><span class="op">)</span>
+
+<span class="va">Logger</span><span class="op">$</span><span class="fu">debug</span><span class="op">(</span><span class="st">"my log message - var1: {var1}, var2: {var2}, var3: {var3}"</span>, 
+             layout <span class="op">=</span> <span class="st">"ex-syslit-layout"</span><span class="op">)</span></code></pre></div>
+<pre class="fansi fansi-output"><code><span style="color: #00BB00; font-weight: bold;">Linux</span> <span style="color: #BB00BB;">[</span> <span style="color: #0000BB; font-weight: bold;">5.11.0-1022-azure</span> <span style="color: #BB00BB;">]</span>
+<span style="color: #00D7FF; font-weight: bold;">DEBUG</span> <span style="color: #555555; font-style: italic;">[12/28/21 04:37:20]</span> <span style="color: #DADADA;">my log message - var1: abc, var2: 123, var3: 0.576007</span>
+</code></pre>
+<p>Which has the same information as the previous example, but much easier to consume.</p>
+</div>
+<div class="section level3">
+<h3 id="execution-scope">Execution Scope<a class="anchor" aria-label="anchor" href="#execution-scope"></a>
+</h3>
+<p>Execution scope formats give you the ability to log the context around the invocation of the logger, and is a context object, much like <em>sys_context</em>, called <strong>exec_context</strong>:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">test</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span>, <span class="va">c</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">wrapper</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">outer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">d</span>, <span class="va">e</span>, <span class="va">f</span><span class="op">)</span> <span class="op">{</span>
+      <span class="va">inner</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">g</span>, <span class="va">h</span>, <span class="va">i</span><span class="op">)</span> <span class="op">{</span>
+        <span class="co"># call_subset is used here to skip past knitr execution calls</span>
+        <span class="fu"><a href="../reference/exec_context.html">exec_context</a></span><span class="op">(</span>max_calls <span class="op">=</span> <span class="fl">30</span>, call_subset <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">callstack_settings</span><span class="op">$</span><span class="va">start</span>,
+                                                     <span class="va">callstack_settings</span><span class="op">$</span><span class="va">stop</span><span class="op">)</span><span class="op">)</span>
+      <span class="op">}</span>
+
+      <span class="fu">inner</span><span class="op">(</span><span class="va">d</span>, <span class="va">e</span>, <span class="va">f</span><span class="op">)</span>
+    <span class="op">}</span>
+
+    <span class="fu"><a href="https://rdrr.io/r/base/outer.html" class="external-link">outer</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span>
+  <span class="op">}</span>
+  <span class="fu">wrapper</span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span>, <span class="va">c</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="va">exec_context</span> <span class="op">&lt;-</span> <span class="fu">test</span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>exec_context</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="op">$</span>call_stack</span>
+<span id="cb6-3"><a href="#cb6-3"></a>                     call_<span class="dv">1</span>                      call_<span class="dv">2</span> </span>
+<span id="cb6-4"><a href="#cb6-4"></a>       <span class="st">"knitr:::block_exec"</span>             <span class="st">"knitr:::eng_r"</span> </span>
+<span id="cb6-5"><a href="#cb6-5"></a>                     call_<span class="dv">3</span>                      call_<span class="dv">4</span> </span>
+<span id="cb6-6"><a href="#cb6-6"></a>           <span class="st">"knitr:::in_dir"</span>          <span class="st">"knitr:::evaluate"</span> </span>
+<span id="cb6-7"><a href="#cb6-7"></a>                     call_<span class="dv">5</span>                      call_<span class="dv">6</span> </span>
+<span id="cb6-8"><a href="#cb6-8"></a>       <span class="st">"evaluate::evaluate"</span>  <span class="st">"evaluate:::evaluate_call"</span> </span>
+<span id="cb6-9"><a href="#cb6-9"></a>                     call_<span class="dv">7</span>                      call_<span class="dv">8</span> </span>
+<span id="cb6-10"><a href="#cb6-10"></a>     <span class="st">"evaluate:::timing_fn"</span>             <span class="st">"base:::handle"</span> </span>
+<span id="cb6-11"><a href="#cb6-11"></a>                     call_<span class="dv">9</span>                     call_<span class="dv">10</span> </span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="st">"base::withCallingHandlers"</span>         <span class="st">"base::withVisible"</span> </span>
+<span id="cb6-13"><a href="#cb6-13"></a>                    call_<span class="dv">11</span>                     call_<span class="dv">12</span> </span>
+<span id="cb6-14"><a href="#cb6-14"></a>               <span class="st">"base::eval"</span>                <span class="st">"base::eval"</span> </span>
+<span id="cb6-15"><a href="#cb6-15"></a>                    call_<span class="dv">13</span>                     call_<span class="dv">14</span> </span>
+<span id="cb6-16"><a href="#cb6-16"></a>             <span class="st">"global::test"</span>                   <span class="st">"wrapper"</span> </span>
+<span id="cb6-17"><a href="#cb6-17"></a>                    call_<span class="dv">15</span>                     call_<span class="dv">16</span> </span>
+<span id="cb6-18"><a href="#cb6-18"></a>                    <span class="st">"outer"</span>                     <span class="st">"inner"</span> </span>
+<span id="cb6-19"><a href="#cb6-19"></a><span class="kw">attr</span>(,<span class="st">"class"</span>)</span>
+<span id="cb6-20"><a href="#cb6-20"></a>[<span class="dv">1</span>] <span class="st">"call_stack"</span> <span class="st">"stack"</span>     </span>
+<span id="cb6-21"><a href="#cb6-21"></a></span>
+<span id="cb6-22"><a href="#cb6-22"></a><span class="op">$</span>calling_fn</span>
+<span id="cb6-23"><a href="#cb6-23"></a>[<span class="dv">1</span>] <span class="st">"inner"</span></span>
+<span id="cb6-24"><a href="#cb6-24"></a></span>
+<span id="cb6-25"><a href="#cb6-25"></a><span class="op">$</span>ncalls</span>
+<span id="cb6-26"><a href="#cb6-26"></a>[<span class="dv">1</span>] <span class="dv">16</span></span>
+<span id="cb6-27"><a href="#cb6-27"></a></span>
+<span id="cb6-28"><a href="#cb6-28"></a><span class="kw">attr</span>(,<span class="st">"class"</span>)</span>
+<span id="cb6-29"><a href="#cb6-29"></a>[<span class="dv">1</span>] <span class="st">"exec_context"</span> <span class="st">"context"</span>     </span></code></pre></div>
+<p>The evaluated exec_context gives you a structure with these 3 fields:</p>
+<ul>
+<li>
+<strong>call_stack:</strong> a named vector of calls
+<ul>
+<li>
+<em>call_1</em> : “global::test” - top level call</li>
+<li>
+<em>call_2</em> : “wrapper” - …</li>
+<li>
+<em>call_3</em> : “outer” - …</li>
+<li>
+<em>call_4</em> : “inner” - inner most fn call</li>
+</ul>
+</li>
+<li>
+<strong>calling_fn:</strong> name of the function enclosing the logger call.
+<ul>
+<li>
+<em>calling_fn:</em> inner</li>
+</ul>
+</li>
+<li>
+<strong>ncalls:</strong> number of calls in the stack.
+<ul>
+<li>
+<em>ncalls:</em> 4</li>
+</ul>
+</li>
+</ul>
+<p>The execution scope can be accessed via the <strong>new_fmt_exec_scope</strong> format object, e.g.:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/new_log_layout.html">new_log_layout</a></span><span class="op">(</span>
+  format <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+    <span class="fu"><a href="../reference/new_fmt_metric.html">new_fmt_metric</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">green</a></span><span class="op">$</span><span class="va">bold</span>, <span class="st">'sysname'</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_metric.html">new_fmt_metric</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">blue</a></span><span class="op">$</span><span class="va">yellow</span>, <span class="st">'release'</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_line_break.html">new_fmt_line_break</a></span><span class="op">(</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_log_level.html">new_fmt_log_level</a></span><span class="op">(</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_timestamp.html">new_fmt_timestamp</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">silver</a></span><span class="op">$</span><span class="va">italic</span>, <span class="st">'[%x %H:%M:%S]'</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_literal.html">new_fmt_literal</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">magenta</a></span><span class="op">$</span><span class="va">bold</span>, <span class="st">'fn('</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_exec_scope.html">new_fmt_exec_scope</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">magenta</a></span><span class="op">$</span><span class="va">bold</span>, <span class="st">'calling_fn'</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_literal.html">new_fmt_literal</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">magenta</a></span><span class="op">$</span><span class="va">bold</span>, <span class="st">')'</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_log_msg.html">new_fmt_log_msg</a></span><span class="op">(</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_line_break.html">new_fmt_line_break</a></span><span class="op">(</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_exec_scope.html">new_fmt_exec_scope</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">bgYellow</a></span><span class="op">$</span><span class="va">blue</span><span class="op">$</span><span class="va">bold</span>, <span class="st">'call_stack'</span><span class="op">)</span>
+  <span class="op">)</span>,
+  seperator <span class="op">=</span> <span class="st">'-'</span>,
+  association <span class="op">=</span> <span class="st">'ex-sysexec-cs-layout'</span>
+<span class="op">)</span>
+
+<span class="va">local_fn</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">outer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">inner</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
+      <span class="va">var1</span> <span class="op">&lt;-</span> <span class="st">"abc"</span>; <span class="va">var2</span> <span class="op">&lt;-</span> <span class="fl">123</span>; <span class="va">var3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">6</span><span class="op">)</span>
+      
+      <span class="va">Logger</span><span class="op">$</span><span class="fu">debug</span><span class="op">(</span><span class="st">"my log message - var1: '{var1}', var2: '{var2}', var3: '{var3}'"</span>, 
+                   layout <span class="op">=</span> <span class="st">'ex-sysexec-cs-layout'</span><span class="op">)</span>
+    <span class="op">}</span>
+    <span class="fu">inner</span><span class="op">(</span><span class="op">)</span>
+  <span class="op">}</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/outer.html" class="external-link">outer</a></span><span class="op">(</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="fu">local_fn</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre class="fansi fansi-output"><code><span style="color: #00BB00; font-weight: bold;">Linux</span>-<span style="color: #BBBB00;">5.11.0-1022-azure</span>
+<span style="color: #00D7FF; font-weight: bold;">DEBUG</span>-<span style="color: #555555; font-style: italic;">[12/28/21 04:37:20]</span>-<span style="color: #BB00BB; font-weight: bold;">fn(</span>-<span style="color: #BB00BB; font-weight: bold;">inner</span>-<span style="color: #BB00BB; font-weight: bold;">)</span>-<span style="color: #DADADA;">my log message - var1: 'abc', var2: '123', var3: '0.89613'</span>
+<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">knitr:::block_exec</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">knitr:::eng_r</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">knitr:::in_dir</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">knitr:::evaluate</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">evaluate::evaluate</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">evaluate:::evaluate_call</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">evaluate:::timing_fn</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">base:::handle</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">base::withCallingHandlers</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">base::withVisible</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">base::eval</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">base::eval</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">global::local_fn</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">outer</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">inner</span>
+</code></pre>
+</div>
+</div>
+</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 

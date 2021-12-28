@@ -37,11 +37,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-dark"><div class="container">
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
     
     <a class="navbar-brand me-2" href="index.html">dyn.log</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,9 +56,13 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="articles/Formats.html">Log Formats</a>
-    <a class="dropdown-item" href="articles/Layouts.html">Log Layouts</a>
+    <a class="dropdown-item" href="articles/Formats.html">Formats</a>
+    <a class="dropdown-item" href="articles/Layouts.html">Layouts</a>
+    <a class="dropdown-item" href="articles/Levels.html">Levels</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="news/index.html">Changelog</a>
 </li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
@@ -105,65 +109,104 @@
 <h3 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h3>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bmoretz/dyn.log" class="external-link">dyn.log</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bmoretz.github.io/dyn.log/" class="external-link">dyn.log</a></span><span class="op">)</span></code></pre></div>
 <style type="text/css" scoped>
 PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 </style>
+</div>
+<div class="section level3">
+<h3 id="logging">Logging<a class="anchor" aria-label="anchor" href="#logging"></a>
+</h3>
+<p>There are three main components of a log message, each of them are covered in detail in their respective vignettes. For more detail about how logging works and how you can customize it, please see the <a href="https://bmoretz.github.io/dyn.log/" class="external-link">package site</a>:</p>
+<ul>
+<li>Levels
+<ul>
+<li>The levels you want to have accessible in your logger.</li>
+</ul>
+</li>
+<li>Formats
+<ul>
+<li>The types that define contextual information to be logged in a message.</li>
+</ul>
+</li>
+<li>Layouts
+<ul>
+<li>Containers for format objects that define the rendering specifications for a log message.</li>
+</ul>
+</li>
+</ul>
+<p>The logging functionality is exposed by a R6 class, <em>LogDispatch</em>, that is available as a package namespace variable called <strong>Logger</strong>. The <strong>Logger</strong> will have methods that correspond to the <em>log levels</em> that are defined in its yaml configuration, which makes logging intuitive. When the package is loaded, the logger will appear in the top / global environment as <em>Logger</em>.</p>
+<p>Log messages are automatically assumed to be in standard <a href="https://github.com/tidyverse/glue" class="external-link">glue</a> format so local environment variables are capturable in the log output.</p>
+<div class="section level4">
+<h4 id="simple-example">Simple Example<a class="anchor" aria-label="anchor" href="#simple-example"></a>
+</h4>
+<p>The “out of the box” (OTB) configuration specifies a default vanilla log format that displays the level that was logged, the current time-stamp (with the default TS format), and the log message:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">var1</span> <span class="op">&lt;-</span> <span class="st">"abc"</span>; <span class="va">var2</span> <span class="op">&lt;-</span> <span class="fl">123</span>; <span class="va">var3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
+
+<span class="va">Logger</span><span class="op">$</span><span class="fu">debug</span><span class="op">(</span><span class="st">"my log message - var1: {var1}, var2: {var2}, var3: {var3}"</span><span class="op">)</span></code></pre></div>
+<div class="figure">
+<img src="reference/figures/README-basic-log-output.PNG" alt=""><p class="caption">basic log ouput</p>
+</div>
+</div>
 <div class="section level4">
 <h4 id="configuration">Configuration<a class="anchor" aria-label="anchor" href="#configuration"></a>
 </h4>
 <p>Everything about dyn.log is configuration driven, the package comes with a basic configuration <strong>default.yaml</strong>, show below it its entirety and broken down in the sections that follow:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">settings</span><span class="kw">:</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="at">  </span><span class="fu">threshold</span><span class="kw">:</span><span class="at"> TRACE</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="at">  </span><span class="fu">max_callstack</span><span class="kw">:</span><span class="at"> </span><span class="dv">5</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="fu">levels</span><span class="kw">:</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> TRACE</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> This level designates finer-grained informational events than the DEBUG.</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> !expr 600L</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="at">  </span><span class="fu">log_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style("antiquewhite3")$bold</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a><span class="at">  </span><span class="fu">msg_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('gray60')</span></span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> DEBUG</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> This level designates fine-grained informational events that are most useful to debug an application.</span></span>
-<span id="cb3-12"><a href="#cb3-12"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> !expr 500L</span></span>
-<span id="cb3-13"><a href="#cb3-13"></a><span class="at">  </span><span class="fu">log_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('deepskyblue2')$bold</span></span>
-<span id="cb3-14"><a href="#cb3-14"></a><span class="at">  </span><span class="fu">msg_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('gray90')</span></span>
-<span id="cb3-15"><a href="#cb3-15"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> INFO</span></span>
-<span id="cb3-16"><a href="#cb3-16"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> This level designates informational messages that highlight the progress of the application at coarse-grained level.</span></span>
-<span id="cb3-17"><a href="#cb3-17"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> !expr 400L</span></span>
-<span id="cb3-18"><a href="#cb3-18"></a><span class="at">  </span><span class="fu">log_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('dodgerblue4')$bold</span></span>
-<span id="cb3-19"><a href="#cb3-19"></a><span class="at">  </span><span class="fu">msg_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('gray100')</span></span>
-<span id="cb3-20"><a href="#cb3-20"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> SUCCESS</span></span>
-<span id="cb3-21"><a href="#cb3-21"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> This level designates that the operation was unencumbered.</span></span>
-<span id="cb3-22"><a href="#cb3-22"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> !expr 300L</span></span>
-<span id="cb3-23"><a href="#cb3-23"></a><span class="at">  </span><span class="fu">log_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('chartreuse')$bold</span></span>
-<span id="cb3-24"><a href="#cb3-24"></a><span class="at">  </span><span class="fu">msg_style</span><span class="kw">:</span><span class="at"> !expr crayon::bgGreen$bold$black</span></span>
-<span id="cb3-25"><a href="#cb3-25"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> WARN</span></span>
-<span id="cb3-26"><a href="#cb3-26"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> This level designates potentially harmful situations.</span></span>
-<span id="cb3-27"><a href="#cb3-27"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> !expr 350L</span></span>
-<span id="cb3-28"><a href="#cb3-28"></a><span class="at">  </span><span class="fu">log_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('darkorange')$bold</span></span>
-<span id="cb3-29"><a href="#cb3-29"></a><span class="at">  </span><span class="fu">msg_style</span><span class="kw">:</span><span class="at"> !expr crayon::bgYellow$bold$black</span></span>
-<span id="cb3-30"><a href="#cb3-30"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> ERROR</span></span>
-<span id="cb3-31"><a href="#cb3-31"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> This level designates error events that might still allow the application to continue running.</span></span>
-<span id="cb3-32"><a href="#cb3-32"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> !expr 200L</span></span>
-<span id="cb3-33"><a href="#cb3-33"></a><span class="at">  </span><span class="fu">log_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('firebrick1')$bold</span></span>
-<span id="cb3-34"><a href="#cb3-34"></a><span class="at">  </span><span class="fu">msg_style</span><span class="kw">:</span><span class="at"> !expr crayon::bgBlack$bold$white</span></span>
-<span id="cb3-35"><a href="#cb3-35"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> FATAL</span></span>
-<span id="cb3-36"><a href="#cb3-36"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> This level designates very severe error events that will presumably lead the application to abort.</span></span>
-<span id="cb3-37"><a href="#cb3-37"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> !expr 100L</span></span>
-<span id="cb3-38"><a href="#cb3-38"></a><span class="at">  </span><span class="fu">log_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('firebrick')$bold</span></span>
-<span id="cb3-39"><a href="#cb3-39"></a><span class="at">  </span><span class="fu">msg_style</span><span class="kw">:</span><span class="at"> !expr crayon::bgRed$bold$white</span></span>
-<span id="cb3-40"><a href="#cb3-40"></a><span class="fu">layouts</span><span class="kw">:</span></span>
-<span id="cb3-41"><a href="#cb3-41"></a><span class="kw">-</span><span class="at"> </span><span class="fu">association</span><span class="kw">:</span><span class="at"> default</span></span>
-<span id="cb3-42"><a href="#cb3-42"></a><span class="at">  </span><span class="fu">seperator</span><span class="kw">:</span><span class="at"> !expr as.character(' ')</span></span>
-<span id="cb3-43"><a href="#cb3-43"></a><span class="at">  </span><span class="fu">new_line</span><span class="kw">:</span><span class="at"> !expr as.character('\n')</span></span>
-<span id="cb3-44"><a href="#cb3-44"></a><span class="at">  </span><span class="fu">formats</span><span class="kw">:</span><span class="at"> new_fmt_log_level(),</span></span>
-<span id="cb3-45"><a href="#cb3-45"></a><span class="at">           new_fmt_timestamp(crayon::silver$italic),</span></span>
-<span id="cb3-46"><a href="#cb3-46"></a><span class="at">           new_fmt_log_msg()</span></span>
-<span id="cb3-47"><a href="#cb3-47"></a><span class="kw">-</span><span class="at"> </span><span class="fu">association</span><span class="kw">:</span><span class="at"> level_msg</span></span>
-<span id="cb3-48"><a href="#cb3-48"></a><span class="at">  </span><span class="fu">seperator</span><span class="kw">:</span><span class="at"> !expr as.character(' ')</span></span>
-<span id="cb3-49"><a href="#cb3-49"></a><span class="at">  </span><span class="fu">new_line</span><span class="kw">:</span><span class="at"> !expr as.character('\n')</span></span>
-<span id="cb3-50"><a href="#cb3-50"></a><span class="at">  </span><span class="fu">formats</span><span class="kw">:</span><span class="at"> new_fmt_log_level(),</span></span>
-<span id="cb3-51"><a href="#cb3-51"></a><span class="at">           new_fmt_log_msg()</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">settings</span><span class="kw">:</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="at">  </span><span class="fu">threshold</span><span class="kw">:</span><span class="at"> TRACE</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="at">  </span><span class="fu">callstack</span><span class="kw">:</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="at">    </span><span class="fu">max</span><span class="kw">:</span><span class="at"> </span><span class="dv">5</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="at">    </span><span class="fu">start</span><span class="kw">:</span><span class="at"> </span><span class="dv">-1</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="at">    </span><span class="fu">stop</span><span class="kw">:</span><span class="at"> </span><span class="dv">-1</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="fu">levels</span><span class="kw">:</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> TRACE</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> This level designates finer-grained informational events than the DEBUG.</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> !expr 600L</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="at">  </span><span class="fu">log_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style("antiquewhite3")$bold</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="at">  </span><span class="fu">msg_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('gray60')</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> DEBUG</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> This level designates fine-grained informational events that are most useful to debug an application.</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> !expr 500L</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="at">  </span><span class="fu">log_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('deepskyblue2')$bold</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="at">  </span><span class="fu">msg_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('gray90')</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> INFO</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> This level designates informational messages that highlight the progress of the application at coarse-grained level.</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> !expr 400L</span></span>
+<span id="cb4-21"><a href="#cb4-21"></a><span class="at">  </span><span class="fu">log_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('dodgerblue4')$bold</span></span>
+<span id="cb4-22"><a href="#cb4-22"></a><span class="at">  </span><span class="fu">msg_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('gray100')</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> SUCCESS</span></span>
+<span id="cb4-24"><a href="#cb4-24"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> This level designates that the operation was unencumbered.</span></span>
+<span id="cb4-25"><a href="#cb4-25"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> !expr 300L</span></span>
+<span id="cb4-26"><a href="#cb4-26"></a><span class="at">  </span><span class="fu">log_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('chartreuse')$bold</span></span>
+<span id="cb4-27"><a href="#cb4-27"></a><span class="at">  </span><span class="fu">msg_style</span><span class="kw">:</span><span class="at"> !expr crayon::bgGreen$bold$black</span></span>
+<span id="cb4-28"><a href="#cb4-28"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> WARN</span></span>
+<span id="cb4-29"><a href="#cb4-29"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> This level designates potentially harmful situations.</span></span>
+<span id="cb4-30"><a href="#cb4-30"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> !expr 350L</span></span>
+<span id="cb4-31"><a href="#cb4-31"></a><span class="at">  </span><span class="fu">log_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('darkorange')$bold</span></span>
+<span id="cb4-32"><a href="#cb4-32"></a><span class="at">  </span><span class="fu">msg_style</span><span class="kw">:</span><span class="at"> !expr crayon::bgYellow$bold$black</span></span>
+<span id="cb4-33"><a href="#cb4-33"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> ERROR</span></span>
+<span id="cb4-34"><a href="#cb4-34"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> This level designates error events that might still allow the application to continue running.</span></span>
+<span id="cb4-35"><a href="#cb4-35"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> !expr 200L</span></span>
+<span id="cb4-36"><a href="#cb4-36"></a><span class="at">  </span><span class="fu">log_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('firebrick1')$bold</span></span>
+<span id="cb4-37"><a href="#cb4-37"></a><span class="at">  </span><span class="fu">msg_style</span><span class="kw">:</span><span class="at"> !expr crayon::bgBlack$bold$white</span></span>
+<span id="cb4-38"><a href="#cb4-38"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> FATAL</span></span>
+<span id="cb4-39"><a href="#cb4-39"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> This level designates very severe error events that will presumably lead the application to abort.</span></span>
+<span id="cb4-40"><a href="#cb4-40"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> !expr 100L</span></span>
+<span id="cb4-41"><a href="#cb4-41"></a><span class="at">  </span><span class="fu">log_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('firebrick')$bold</span></span>
+<span id="cb4-42"><a href="#cb4-42"></a><span class="at">  </span><span class="fu">msg_style</span><span class="kw">:</span><span class="at"> !expr crayon::bgRed$bold$white</span></span>
+<span id="cb4-43"><a href="#cb4-43"></a><span class="fu">layouts</span><span class="kw">:</span></span>
+<span id="cb4-44"><a href="#cb4-44"></a><span class="kw">-</span><span class="at"> </span><span class="fu">association</span><span class="kw">:</span><span class="at"> default</span></span>
+<span id="cb4-45"><a href="#cb4-45"></a><span class="at">  </span><span class="fu">seperator</span><span class="kw">:</span><span class="at"> !expr as.character(' ')</span></span>
+<span id="cb4-46"><a href="#cb4-46"></a><span class="at">  </span><span class="fu">new_line</span><span class="kw">:</span><span class="at"> !expr as.character('\n')</span></span>
+<span id="cb4-47"><a href="#cb4-47"></a><span class="at">  </span><span class="fu">formats</span><span class="kw">:</span><span class="at"> new_fmt_log_level(),</span></span>
+<span id="cb4-48"><a href="#cb4-48"></a><span class="at">           new_fmt_timestamp(crayon::silver$italic),</span></span>
+<span id="cb4-49"><a href="#cb4-49"></a><span class="at">           new_fmt_log_msg()</span></span>
+<span id="cb4-50"><a href="#cb4-50"></a><span class="kw">-</span><span class="at"> </span><span class="fu">association</span><span class="kw">:</span><span class="at"> level_msg</span></span>
+<span id="cb4-51"><a href="#cb4-51"></a><span class="at">  </span><span class="fu">seperator</span><span class="kw">:</span><span class="at"> !expr as.character(' ')</span></span>
+<span id="cb4-52"><a href="#cb4-52"></a><span class="at">  </span><span class="fu">new_line</span><span class="kw">:</span><span class="at"> !expr as.character('\n')</span></span>
+<span id="cb4-53"><a href="#cb4-53"></a><span class="at">  </span><span class="fu">formats</span><span class="kw">:</span><span class="at"> new_fmt_log_level(),</span></span>
+<span id="cb4-54"><a href="#cb4-54"></a><span class="at">           new_fmt_log_msg()</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="settings">Settings<a class="anchor" aria-label="anchor" href="#settings"></a>
@@ -178,91 +221,28 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <h4 id="levels">Levels<a class="anchor" aria-label="anchor" href="#levels"></a>
 </h4>
 <p>The <strong>levels</strong> node contains the log levels you want available in your environment. When a log level is defined in the configuration, it automatically becomes accessible via a first-class function on the dispatcher, e.g.:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">Logger</span><span class="op">$</span><span class="fu">info</span><span class="op">(</span><span class="st">"call info level like this"</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code><span class="co">#&gt; INFO [12/24/21 18:53:19 -0500] call info level like this</span></code></pre>
-<p>All levels that have been specified via the config can be found by calling <em>log_levels</em>:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">all_levels</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/log_levels.html">log_levels</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">all_levels</span><span class="op">)</span>
-<span class="co">#&gt; [1] "trace"   "debug"   "info"    "success" "warn"    "error"   "fatal"</span></code></pre></div>
-<p>And you can get detailed information about a particular log level via <em>level_info()</em>:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/level_info.html">level_info</a></span><span class="op">(</span><span class="fu"><a href="reference/log_levels.html">log_levels</a></span><span class="op">(</span><span class="st">"warn"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code><span class="co">#&gt; $name</span>
-<span class="co">#&gt; [1] "WARN"</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $description</span>
-<span class="co">#&gt; [1] "This level designates potentially harmful situations."</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $severity</span>
-<span class="co">#&gt; [1] 350</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $style</span>
-<span class="co">#&gt; $style$level</span>
-<span class="co">#&gt; Crayon style function, darkorange, bold: example output.</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $style$message</span>
-<span class="co">#&gt; Crayon style function, bgYellow, bold, black: example output.</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $style$example</span>
-<span class="co">#&gt; WARN - This level designates potentially harmful situations.</span></code></pre>
-<p>You’ll notice that a level has <strong>level</strong> and <strong>message</strong> style attributes that are <a href="https://github.com/r-lib/crayon" class="external-link">crayon</a> styles. This is because each level has a unique render format that helps to visually assist parsing of log information.</p>
-<p>To see the sample format of all loaded log levels, call <em>display_log_levels</em>:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/display_log_levels.html">display_log_levels</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code><span class="co">#&gt; </span>
-<span class="co">#&gt; TRACE This level designates finer-grained informational events than the DEBUG.</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; DEBUG This level designates fine-grained informational events that are most useful to debug an application.</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; INFO This level designates informational messages that highlight the progress of the application at coarse-grained level.</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; SUCCESS This level designates that the operation was unencumbered.</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; WARN This level designates potentially harmful situations.</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ERROR This level designates error events that might still allow the application to continue running.</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; FATAL This level designates very severe error events that will presumably lead the application to abort.</span></code></pre>
 <p>The default logging configuration closely resembles the fairly ubiquitous <a href="https://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/Level.html" class="external-link">log4j</a> scheme.</p>
+<p>For a detailed look at log levels refer to the <a href="https://bmoretz.github.io/dyn.log/articles/Levels.html" class="external-link">Levels</a> vignette online, or</p>
+<blockquote>
+<p>vignette(“Levels”, package = “dyn.log”)</p>
+</blockquote>
 </div>
 <div class="section level4">
 <h4 id="layouts">Layouts<a class="anchor" aria-label="anchor" href="#layouts"></a>
 </h4>
 <p>Every log message needs to have a format so the dispatcher knows what to render on a log call. Formats are defined in the yaml config and comes with some basic ones pre-configured.</p>
-<p>The default log layout is a standard format: {LEVEL} - {TIMESTAMP} - {MSG}, with space as a separator between format objects and the new line feed <em>“”</em>.</p>
-<p>To view the details of a log layout, you can call <em>log_layout_detail</em>:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">detail</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/log_layout_detail.html">log_layout_detail</a></span><span class="op">(</span><span class="fu"><a href="reference/log_layouts.html">log_layouts</a></span><span class="op">(</span><span class="st">"default"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">detail</span><span class="op">)</span>
-<span class="co">#&gt; [1] "formats"   "types"     "seperator" "new_line"</span></code></pre></div>
-<p>For a detailed look at these objects, and how they work please see the “Log Layouts” <em>vignette</em>.</p>
-</div>
-</div>
-<div class="section level3">
-<h3 id="logging">Logging<a class="anchor" aria-label="anchor" href="#logging"></a>
-</h3>
-<p>The logging functionality is exposed by a R6 class, <em>LogDispatch</em>, that is available as a package namespace variable called <strong>Logger</strong>. The <strong>Logger</strong> will have methods that correspond to the <em>log levels</em> that are defined in its yaml configuration, which makes logging intuitive. When the package is loaded, the logger will appear in the top / global environment as <em>Logger</em>.</p>
-<p>Log messages are automatically assumed to be in standard <a href="https://github.com/tidyverse/glue" class="external-link">glue</a> format so local environment variables are capturable in the log output.</p>
-<div class="section level4">
-<h4 id="simple-example">Simple Example<a class="anchor" aria-label="anchor" href="#simple-example"></a>
-</h4>
-<p>The “out of the box” (OTB) configuration specifies a default vanilla log format that displays the level that was logged, the current time-stamp (with the default TS format), and the log message:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">var1</span> <span class="op">&lt;-</span> <span class="st">"abc"</span>; <span class="va">var2</span> <span class="op">&lt;-</span> <span class="fl">123</span>; <span class="va">var3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
-
-<span class="va">Logger</span><span class="op">$</span><span class="fu">debug</span><span class="op">(</span><span class="st">"my log message - var1: {var1}, var2: {var2}, var3: {var3}"</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code><span class="co">#&gt; DEBUG [12/24/21 18:53:19 -0500] my log message - var1: abc, var2: 123, var3: 0.969351699110121</span></code></pre>
+<p>The default log layout is a standard format: {LEVEL} - {TIMESTAMP} - {MSG}, with space as a separator between format objects.</p>
+<p>For a detailed look at layouts refer to the <a href="https://bmoretz.github.io/dyn.log/articles/Layouts.html" class="external-link">Layouts</a> vignette online, or</p>
+<blockquote>
+<p>vignette(“Layouts”, package = “dyn.log”)</p>
+</blockquote>
 </div>
 </div>
 <div class="section level3">
 <h3 id="customizing-a-log-message">Customizing a Log Message<a class="anchor" aria-label="anchor" href="#customizing-a-log-message"></a>
 </h3>
 <p>Log message layouts are exposed as an S3 type in the package called <em>log_layout</em>. Layouts are composed from a series of objects that inherit from <em>fmt_layout</em>.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/new_log_layout.html">new_log_layout</a></span><span class="op">(</span>
   format <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
     <span class="fu"><a href="reference/new_fmt_metric.html">new_fmt_metric</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">green</a></span><span class="op">$</span><span class="va">bold</span>, <span class="st">"sysname"</span><span class="op">)</span>,
@@ -277,8 +257,9 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <span class="op">)</span>
 
 <span class="va">Logger</span><span class="op">$</span><span class="fu">info</span><span class="op">(</span><span class="st">"my log message - var1: {var1}, var2: {var2}, var3: {var3}"</span>, layout <span class="op">=</span> <span class="st">"custom"</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code><span class="co">#&gt; Linux-5.10.16.3-microsoft-standard-WSL2</span>
-<span class="co">#&gt; INFO-[12/24/21 18:53:19 -0500]-my log message - var1: abc, var2: 123, var3: 0.969351699110121</span></code></pre>
+<div class="figure">
+<img src="reference/figures/README-custom-log-output.PNG" alt=""><p class="caption">custom log ouput</p>
+</div>
 <p>For a detailed look at these objects, and how they work please see the “Log Layouts” <em>vignette</em>.</p>
 <blockquote>
 <p>(vignette(“Log Layouts”, package = “dyn.log”)</p>
@@ -289,7 +270,7 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 </h3>
 <p>One thing you may have noticed about the previous log layout definition was the <em>association</em> parameter. Associations are a useful way to build a customized log layout for your custom R6 types. This can be especially useful in larger applications, such as <a href="https://github.com/rstudio/plumber/" class="external-link">plumber</a> services or <a href="https://github.com/rstudio/shiny" class="external-link">shiny</a> dashboards.</p>
 <p>A TestObject is defined as below, who’s primary responsibly is to assign a randomly generated identifier to the instance via the constructor. There is also a method on the object that will call the logger with some local scope variables that should be logged as well.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">TestObject</span> <span class="op">&lt;-</span> <span class="fu">R6</span><span class="fu">::</span><span class="kw"><a href="https://r6.r-lib.org/reference/R6Class.html" class="external-link">R6Class</a></span><span class="op">(</span>
   classname <span class="op">=</span> <span class="st">"TestObject"</span>,
 
@@ -314,18 +295,9 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
   <span class="op">)</span>
 <span class="op">)</span>
 
-<span class="va">obj</span> <span class="op">&lt;-</span> <span class="va">TestObject</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
-<span class="va">obj</span>
-<span class="co">#&gt; &lt;TestObject&gt;</span>
-<span class="co">#&gt;   Public:</span>
-<span class="co">#&gt;     clone: function (deep = FALSE) </span>
-<span class="co">#&gt;     id: ZLMHCODWNBYFSCL</span>
-<span class="co">#&gt;     initialize: function () </span>
-<span class="co">#&gt;     test_method: function () </span>
-<span class="co">#&gt;   Private:</span>
-<span class="co">#&gt;     generate_id: function (n = 15)</span></code></pre></div>
+<span class="va">obj</span> <span class="op">&lt;-</span> <span class="va">TestObject</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>With the above class defined, we can create a custom log layout that associated with this R6 type with a new log layout:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/new_log_layout.html">new_log_layout</a></span><span class="op">(</span>
   format <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
     <span class="fu"><a href="reference/new_fmt_literal.html">new_fmt_literal</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">cyan</a></span><span class="op">$</span><span class="va">bold</span>, <span class="st">"Object Id:"</span><span class="op">)</span>,
@@ -346,27 +318,25 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 
 <span class="co"># notice above, "Logger$info" is called inside the context of the Test Object,</span>
 <span class="co"># and the variables are scoped to inside the function.</span>
-<span class="va">obj</span><span class="op">$</span><span class="fu">test_method</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code><span class="co">#&gt; Object Id: ZLMHCODWNBYFSCL</span>
-<span class="co">#&gt; INFO [12/24/21 18:53:19 -0500] these are some variables: test - 123 - 0.889726632041857</span>
-<span class="co">#&gt; Linux WORKSTATION R Version: 4.1.2</span></code></pre>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R">  
+<span class="va">obj</span><span class="op">$</span><span class="fu">test_method</span><span class="op">(</span><span class="op">)</span>
+  
 <span class="va">Logger</span><span class="op">$</span><span class="fu">debug</span><span class="op">(</span><span class="st">"this is a normal log msg"</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code><span class="co">#&gt; DEBUG [12/24/21 18:53:19 -0500] this is a normal log msg</span></code></pre>
+<div class="figure">
+<img src="reference/figures/README-cls-association-output.PNG" alt=""><p class="caption">custom log ouput</p>
+</div>
 <p>As you can see, only when the logger is invoked from inside the class that has a custom layout associated with it does the custom layout get used. The follow-up log call (outside the class scope) reverts back to the standard layout settings.</p>
 <p>For a detailed look at class associations, and how they work please see the “Log Layouts” <em>vignette</em>.</p>
 <blockquote>
 <p>(vignette(“Log Layouts”, package = “dyn.log”)</p>
 </blockquote>
 </div>
-<div class="section level3">
-<h3 id="notes--thanks">Notes &amp; Thanks<a class="anchor" aria-label="anchor" href="#notes--thanks"></a>
-</h3>
+</div>
+<div class="section level2">
+<h2 id="acknowledgments">Acknowledgments<a class="anchor" aria-label="anchor" href="#acknowledgments"></a>
+</h2>
 <ul>
 <li>The pretty logger output in this document is made possible by the excellent <a href="https://github.com/brodieG/fansi" class="external-link">fansi</a> package by <a href="https://twitter.com/BrodieGaslam" class="external-link">Brody Gaslam</a>.</li>
 </ul>
-</div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">

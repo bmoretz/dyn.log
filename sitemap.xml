@@ -16,6 +16,9 @@
     <loc>/articles/Layouts.html</loc>
   </url>
   <url>
+    <loc>/articles/Levels.html</loc>
+  </url>
+  <url>
     <loc>/articles/index.html</loc>
   </url>
   <url>
@@ -23,6 +26,9 @@
   </url>
   <url>
     <loc>/index.html</loc>
+  </url>
+  <url>
+    <loc>/news/index.html</loc>
   </url>
   <url>
     <loc>/reference/LogDispatch.html</loc>
@@ -40,6 +46,12 @@
     <loc>/reference/attach_log_levels.html</loc>
   </url>
   <url>
+    <loc>/reference/class_scope.html</loc>
+  </url>
+  <url>
+    <loc>/reference/clean_internal_calls.html</loc>
+  </url>
+  <url>
     <loc>/reference/display_log_levels.html</loc>
   </url>
   <url>
@@ -49,6 +61,9 @@
     <loc>/reference/evaluate_layout.html</loc>
   </url>
   <url>
+    <loc>/reference/exec_context.html</loc>
+  </url>
+  <url>
     <loc>/reference/extract_func_name.html</loc>
   </url>
   <url>
@@ -56,6 +71,9 @@
   </url>
   <url>
     <loc>/reference/format.log_level.html</loc>
+  </url>
+  <url>
+    <loc>/reference/format_fn_call.html</loc>
   </url>
   <url>
     <loc>/reference/get_call_stack.html</loc>
@@ -68,6 +86,9 @@
   </url>
   <url>
     <loc>/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/is_logger_call.html</loc>
   </url>
   <url>
     <loc>/reference/length.log_layout.html</loc>
@@ -154,10 +175,13 @@
     <loc>/reference/value.fmt_exec_scope.html</loc>
   </url>
   <url>
-    <loc>/reference/value.fmt_level_info.html</loc>
+    <loc>/reference/value.fmt_literal.html</loc>
   </url>
   <url>
-    <loc>/reference/value.fmt_literal.html</loc>
+    <loc>/reference/value.fmt_log_level.html</loc>
+  </url>
+  <url>
+    <loc>/reference/value.fmt_log_msg.html</loc>
   </url>
   <url>
     <loc>/reference/value.fmt_metric.html</loc>
@@ -170,8 +194,5 @@
   </url>
   <url>
     <loc>/reference/value.html</loc>
-  </url>
-  <url>
-    <loc>/reference/value.new_fmt_log_msg.html</loc>
   </url>
 </urlset>
