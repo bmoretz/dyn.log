@@ -2,13 +2,12 @@
 % Please edit documentation in R/layout.R
 \name{evaluate_layout}
 \alias{evaluate_layout}
-\title{A container for a set of formatters that specify the log
-entry layout.}
+\title{Evaluate Layout}
 \usage{
-evaluate_layout(layout, context)
+evaluate_layout(detail, context)
 }
 \arguments{
-\item{layout}{The layout specified for evaluation.}
+\item{detail}{The details of the layout specified for evaluation.}
 
 \item{context}{a list of contexts needed to evaluate formats in the
 the layout.}
@@ -17,8 +16,8 @@ the layout.}
 evaluated log layout
 }
 \description{
-A container for a set of formatters that specify the log
-entry layout.
+Evaluates a log layout, which is simply a container for a
+set of formats that specify the log entry layout.
 }
 \seealso{
 Other Log Layout: 

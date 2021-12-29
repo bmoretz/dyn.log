@@ -55,6 +55,8 @@ test_that("can_add_log_level", {
                               msg_style = crayon::cyan$bold)
 
 
+  logger$private$settings$threshold <- "TEST"
+
   expect_true(!is.null(test_level))
 
   actual <- capture_output({
@@ -62,8 +64,26 @@ test_that("can_add_log_level", {
     logger$add_log_level(test_level)$test("log msg local vars: {var1}, {var2}, {var3}")
   })
 
+  logger$private$settings$threshold <- "TRACE"
+
   expect_true(stringr::str_detect(actual, stringr::fixed("TEST ")))
   expect_true(stringr::str_detect(actual, stringr::fixed("log msg local vars: abc, 123, 0.7535651")))
 })
 
-layout <- log_layouts("default")
+test_that("log_threshold_works", {
+
+  logger <- LogDispatch$new()
+
+  logger$private$settings$threshold <- "INFO"
+
+  actual <- capture_output({
+    var1 <- "abc"; var2 <- 123; var3 <- 0.7535651
+    logger$trace("log msg local vars: {var1}, {var2}, {var3}")
+  })
+
+  logger$private$settings$threshold <- "TRACE"
+
+  expect_equal(actual, "")
+  expect_false(stringr::str_detect(actual, stringr::fixed("TEST ")))
+  expect_false(stringr::str_detect(actual, stringr::fixed("log msg local vars: abc, 123, 0.7535651")))
+})

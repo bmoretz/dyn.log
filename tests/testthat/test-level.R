@@ -92,13 +92,11 @@ test_that("log_levels_display",{
     display_log_levels()
   })
 
-  level <- log_levels("error")
-
   for(level in log_levels()) {
     info <- level_info(level)
     pattern <- paste(info$name, info$description)
 
-    expect_true(any(!is.na(match(actual, pattern))))
+    expect_true(any(!is.na(match(actual, pattern))), label = info$name)
   }
 })
 

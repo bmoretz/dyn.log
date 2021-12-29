@@ -61,6 +61,13 @@ LogDispatch <- R6::R6Class(
                                                   parent = parent.frame(),
                                                   layout = "default") {
 
+        current <- level_severity(log_levels(level))
+        threshold <- level_severity(log_levels(private$settings$threshold))
+
+        if(current > threshold) {
+          return(invisible(NULL))
+        }
+
         caller_env <- rlang::caller_env()
         parent_env <- parent.env(caller_env)
 
