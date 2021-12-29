@@ -94,7 +94,7 @@ LogDispatch <- R6::R6Class(
         }
 
         detail <- log_layout_detail(log_layout)
-
+        
         context <- list()
 
         if (has_calling_class && any(!is.na(match(detail$types, "fmt_cls_field")))) {
@@ -114,7 +114,7 @@ LogDispatch <- R6::R6Class(
         }
 
         evaluated <- evaluate_layout(detail, context)
-
+        
         cat(glue::glue(evaluated),
             fill = T,
             file = stdout())

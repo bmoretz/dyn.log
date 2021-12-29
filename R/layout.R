@@ -50,7 +50,7 @@ log_layouts <- local({
   layouts <- list()
 
   function(association = character(0), layout = NULL) {
-
+    
     if (!(missing(association) || identical(association, character(0)))) {
       if (!is.null(layout)) {
         layouts[[association]] <<- layout
@@ -77,7 +77,7 @@ log_layouts <- local({
 #' @return layout format
 #' @export
 log_layout_detail <- function(layout) {
-
+  
   fmt_objs <- attr(layout, "format")
   fmt_types <- unique(c(sapply(fmt_objs, function(format) class(format))))
 

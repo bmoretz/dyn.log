@@ -66,7 +66,7 @@ log_levels <- local({
   levels <- list()
 
   function(name = character(0), level = NULL) {
-
+    
     if (!(missing(name) || identical(name, character(0)))) {
       name <- tolower(name)
 
