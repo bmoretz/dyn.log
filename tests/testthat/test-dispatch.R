@@ -65,3 +65,5 @@ test_that("can_add_log_level", {
   expect_true(stringr::str_detect(actual, stringr::fixed("TEST ")))
   expect_true(stringr::str_detect(actual, stringr::fixed("log msg local vars: abc, 123, 0.7535651")))
 })
+
+layout <- log_layouts("default")

@@ -82,29 +82,35 @@ LogDispatch <- R6::R6Class(
           }
         }
 
-        with(log_layout_detail(log_layout), {
+        if (is.null(layout)) {
+          stop("cannot log without an associated layout.")
+        }
 
-          context <- list()
+        detail <- log_layout_detail(log_layout)
 
-          if (has_calling_class && any(!is.na(match(types, "fmt_cls_field")))) {
-            context[["fmt_cls_field"]] <- class_scope(calling_class)
-          }
+        context <- list()
 
-          if (any(!is.na(match(types, "fmt_metric")))) {
-            context[["fmt_metric"]] <- sys_context()
-          }
+        if (has_calling_class && any(!is.na(match(detail$types, "fmt_cls_field")))) {
+          context[["fmt_cls_field"]] <- class_scope(calling_class)
+        }
 
-          if (any(!is.na(match(types, "fmt_exec_scope")))) {
+        if (any(!is.na(match(detail$types, "fmt_metric")))) {
+          context[["fmt_metric"]] <- sys_context()
+        }
 
-            context[["fmt_exec_scope"]] <- exec_context(
-              max_calls = private$settings$callstack$max,
-              call_subset = c(private$settings$callstack$start,
-                              private$settings$callstack$stop))
-          }
+        if (any(!is.na(match(detail$types, "fmt_exec_scope")))) {
 
-          cat(glue::glue(evaluate_layout(formats, types, seperator, context,
-                                         new_line = new_line)))
-        })
+          context[["fmt_exec_scope"]] <- exec_context(
+            max_calls = private$settings$callstack$max,
+            call_subset = c(private$settings$callstack$start,
+                            private$settings$callstack$stop))
+        }
+
+        evaluated <- evaluate_layout(detail, context)
+
+        cat(glue::glue(evaluated),
+            fill = T,
+            file = stdout())
       })
 
       invisible(self)
