@@ -66,27 +66,18 @@ log_levels <- local({
   levels <- list()
 
   function(name = character(0), level = NULL) {
-
-    if (!identical(name, character(0))) {
-
+    
+    if (!(missing(name) || identical(name, character(0)))) {
       name <- tolower(name)
 
       if (!is.null(level)) {
-
-        if (missing(name)) {
-          levels[[name]]
-        } else {
-          levels[[name]] <<- level
-        }
+        levels[[name]] <<- level
+      } else if (name %in% names(levels)) {
+          return(levels[[name]])
       }
-      else if (name %in% names(levels)) {
-        return(levels[[name]])
-      } else {
-        return(NULL)
-      }
+    } else {
+      invisible(names(levels))
     }
-
-    names(levels)
   }
 })
 

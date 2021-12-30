@@ -61,6 +61,13 @@ LogDispatch <- R6::R6Class(
                                                   parent = parent.frame(),
                                                   layout = "default") {
 
+        current <- level_severity(log_levels(level))
+        threshold <- level_severity(log_levels(private$settings$threshold))
+
+        if(current > threshold) {
+          return(invisible(NULL))
+        }
+
         caller_env <- rlang::caller_env()
         parent_env <- parent.env(caller_env)
 
@@ -82,29 +89,35 @@ LogDispatch <- R6::R6Class(
           }
         }
 
-        with(log_layout_detail(log_layout), {
+        if (is.null(layout)) {
+          stop("cannot log without an associated layout.")
+        }
 
-          context <- list()
+        detail <- log_layout_detail(log_layout)
+        
+        context <- list()
 
-          if (has_calling_class && any(!is.na(match(types, "fmt_cls_field")))) {
-            context[["fmt_cls_field"]] <- class_scope(calling_class)
-          }
+        if (has_calling_class && any(!is.na(match(detail$types, "fmt_cls_field")))) {
+          context[["fmt_cls_field"]] <- class_scope(calling_class)
+        }
 
-          if (any(!is.na(match(types, "fmt_metric")))) {
-            context[["fmt_metric"]] <- sys_context()
-          }
+        if (any(!is.na(match(detail$types, "fmt_metric")))) {
+          context[["fmt_metric"]] <- sys_context()
+        }
 
-          if (any(!is.na(match(types, "fmt_exec_scope")))) {
+        if (any(!is.na(match(detail$types, "fmt_exec_scope")))) {
 
-            context[["fmt_exec_scope"]] <- exec_context(
-              max_calls = private$settings$callstack$max,
-              call_subset = c(private$settings$callstack$start,
-                              private$settings$callstack$stop))
-          }
+          context[["fmt_exec_scope"]] <- exec_context(
+            max_calls = private$settings$callstack$max,
+            call_subset = c(private$settings$callstack$start,
+                            private$settings$callstack$stop))
+        }
 
-          cat(glue::glue(evaluate_layout(formats, types, seperator, context,
-                                         new_line = new_line)))
-        })
+        evaluated <- evaluate_layout(detail, context)
+        
+        cat(glue::glue(evaluated),
+            fill = T,
+            file = stdout())
       })
 
       invisible(self)

@@ -110,7 +110,6 @@ display_log_levels <- function() {
     fn <- Logger[[tolower(info$name)]]
 
     if (is.function(fn)) {
-      cat("\n")
       fn(msg = info$description, layout = "level_msg")
       cat("\n")
     }

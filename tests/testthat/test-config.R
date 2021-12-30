@@ -20,7 +20,6 @@ test_that("load_log_config_works", {
 
   log_levels <- log_levels()
 
-  expect_true(any(match(log_levels, 'strace')))
   expect_true(any(match(log_levels, 'trace')))
   expect_true(any(match(log_levels, 'debug')))
   expect_true(any(match(log_levels, 'info')))
@@ -34,4 +33,6 @@ test_that("load_log_config_works", {
     expect_equal(threshold, "TRACE")
   })
 
+  log_levels("STRACE", NULL)
+  log_levels("CRITICAL", NULL)
 })

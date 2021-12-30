@@ -2,21 +2,21 @@
 % Please edit documentation in R/format.R
 \name{new_fmt_timestamp}
 \alias{new_fmt_timestamp}
-\title{Formatted Timestamp}
+\title{Formatted Time stamp}
 \usage{
 new_fmt_timestamp(style, format = "[\%x \%H:\%M:\%S \%z]")
 }
 \arguments{
 \item{style}{format style (crayon)}
 
-\item{format}{timestamp format, defaults to: \%x \%H:\%M:\%S \%z,
+\item{format}{time stamp format, defaults to: \%x \%H:\%M:\%S \%z,
 e.g., 12/04/21 14:31:25 -0500}
 }
 \value{
 log metric layout.
 }
 \description{
-Placeholder for a formatted timestamp in a log layout.
+Placeholder for a formatted time stamp in a log layout.
 }
 \examples{
 \dontrun{

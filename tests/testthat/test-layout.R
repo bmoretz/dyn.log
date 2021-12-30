@@ -81,6 +81,13 @@ test_that("log_layout_format_types", {
   })
 })
 
+test_that("no_association_is_null", {
+
+  no_association <- log_layouts("missing_association")
+
+  expect_true(is.null(no_association))
+})
+
 test_that("log_layout_evaluates_simple_singleline", {
 
   log_layout <- new_log_layout(
@@ -93,15 +100,18 @@ test_that("log_layout_evaluates_simple_singleline", {
 
   expect_true(!is.null(log_layout))
 
-  with(log_layout_detail(log_layout), {
+  context = list()
 
-    context = list()
+  detail <- log_layout_detail(log_layout)
 
-    actual <- evaluate_layout(formats, types, seperator)
+  expect_true(!is.null(detail))
+  expect_equal(length(detail$formats), 3)
+  expect_equal(length(detail$types), 4)
 
-    expect_true(stringr::str_detect(actual, pattern = stringr::fixed("{format(level)}")))
-    expect_true(stringr::str_detect(actual, pattern = stringr::fixed(" {format(level, message = {log_msg})}")))
-  })
+  actual <- evaluate_layout(detail, context)
+
+  expect_true(stringr::str_detect(actual, pattern = stringr::fixed("{format(level)}")))
+  expect_true(stringr::str_detect(actual, pattern = stringr::fixed(" {format(level, message = {log_msg})}")))
 })
 
 test_that("log_layout_evaluates_simple_multiline", {
@@ -117,15 +127,18 @@ test_that("log_layout_evaluates_simple_multiline", {
 
   expect_true(!is.null(log_layout))
 
-  with(log_layout_detail(log_layout), {
+  context = list()
 
-    context = list()
+  detail <- log_layout_detail(log_layout)
 
-    actual <- evaluate_layout(formats, types, seperator)
+  expect_true(!is.null(detail))
+  expect_equal(length(detail$formats), 4)
+  expect_equal(length(detail$types), 5)
 
-    expect_true(stringr::str_detect(actual, pattern = stringr::fixed("{format(level)}")))
-    expect_true(stringr::str_detect(actual, pattern = stringr::fixed("\n{format(level, message = {log_msg})}")))
-  })
+  actual <- evaluate_layout(detail, context)
+
+  expect_true(stringr::str_detect(actual, pattern = stringr::fixed("{format(level)}")))
+  expect_true(stringr::str_detect(actual, pattern = stringr::fixed("\n{format(level, message = {log_msg})}")))
 })
 
 test_that("log_layout_evaluates_metrics_singleline", {
@@ -142,18 +155,21 @@ test_that("log_layout_evaluates_metrics_singleline", {
 
   expect_true(!is.null(log_layout))
 
-  with(log_layout_detail(log_layout), {
+  detail <- log_layout_detail(log_layout)
 
-    context = list(fmt_metric = sys_context())
+  expect_true(!is.null(detail))
+  expect_equal(length(detail$formats), 5)
+  expect_equal(length(detail$types), 5)
 
-    actual <- evaluate_layout(formats, types, seperator, context)
+  context = list(fmt_metric = sys_context())
 
-    expect_true(stringr::str_detect(actual, pattern = stringr::fixed("{format(level)}")))
-    expect_true(stringr::str_detect(actual, pattern = stringr::fixed(" {format(level, message = {log_msg})}")))
+  actual <- evaluate_layout(detail, context)
 
-    expect_true(stringr::str_detect(actual, pattern = stringr::fixed(Sys.info()[["sysname"]])))
-    expect_true(stringr::str_detect(actual, pattern = stringr::fixed(Sys.info()[["release"]])))
-  })
+  expect_true(stringr::str_detect(actual, pattern = stringr::fixed("{format(level)}")))
+  expect_true(stringr::str_detect(actual, pattern = stringr::fixed(" {format(level, message = {log_msg})}")))
+
+  expect_true(stringr::str_detect(actual, pattern = stringr::fixed(Sys.info()[["sysname"]])))
+  expect_true(stringr::str_detect(actual, pattern = stringr::fixed(Sys.info()[["release"]])))
 })
 
 test_that("log_layout_evaluates_metrics_multiline", {
@@ -172,20 +188,21 @@ test_that("log_layout_evaluates_metrics_multiline", {
 
   expect_true(!is.null(log_layout))
 
-  expect_true(!is.null(log_layout))
+  detail <- log_layout_detail(log_layout)
 
-  with(log_layout_detail(log_layout), {
+  expect_true(!is.null(detail))
+  expect_equal(length(detail$formats), 6)
+  expect_equal(length(detail$types), 6)
 
-    context = list(fmt_metric = sys_context())
+  context = list(fmt_metric = sys_context())
 
-    actual <- evaluate_layout(formats, types, seperator, context)
+  actual <- evaluate_layout(detail, context)
 
-    expect_true(stringr::str_detect(actual, pattern = stringr::fixed("\n{format(level)}")))
-    expect_true(stringr::str_detect(actual, pattern = stringr::fixed(" {format(level, message = {log_msg})}")))
+  expect_true(stringr::str_detect(actual, pattern = stringr::fixed("\n{format(level)}")))
+  expect_true(stringr::str_detect(actual, pattern = stringr::fixed(" {format(level, message = {log_msg})}")))
 
-    expect_true(stringr::str_detect(actual, pattern = stringr::fixed(Sys.info()[["sysname"]])))
-    expect_true(stringr::str_detect(actual, pattern = stringr::fixed(Sys.info()[["release"]])))
-  })
+  expect_true(stringr::str_detect(actual, pattern = stringr::fixed(Sys.info()[["sysname"]])))
+  expect_true(stringr::str_detect(actual, pattern = stringr::fixed(Sys.info()[["release"]])))
 })
 
 test_that("log_layout_evaluates_cls_attributes_multiline", {
@@ -208,25 +225,27 @@ test_that("log_layout_evaluates_cls_attributes_multiline", {
 
   expect_true(!is.null(log_layout))
 
-  with(log_layout_detail(log_layout), {
+  detail <- log_layout_detail(log_layout)
 
-    cls_scope <- class_scope(test_obj)
+  expect_true(!is.null(detail))
+  expect_equal(length(detail$formats), 9)
+  expect_equal(length(detail$types), 8)
 
-    context <- list(fmt_metric = sys_context(),
-                    fmt_cls_field = cls_scope)
+  cls_scope <- class_scope(test_obj)
 
+  context <- list(fmt_metric = sys_context(),
+                  fmt_cls_field = cls_scope)
 
-    actual <- evaluate_layout(formats, types, seperator, context)
+  actual <- evaluate_layout(detail, context)
 
-    expect_true(stringr::str_detect(actual, pattern = stringr::fixed("\n{format(level)}")))
-    expect_true(stringr::str_detect(actual, pattern = stringr::fixed(" {format(level, message = {log_msg})}")))
+  expect_true(stringr::str_detect(actual, pattern = stringr::fixed("\n{format(level)}")))
+  expect_true(stringr::str_detect(actual, pattern = stringr::fixed(" {format(level, message = {log_msg})}")))
 
-    expect_true(stringr::str_detect(actual, pattern = stringr::fixed(Sys.info()[["sysname"]])))
-    expect_true(stringr::str_detect(actual, pattern = stringr::fixed(Sys.info()[["release"]])))
+  expect_true(stringr::str_detect(actual, pattern = stringr::fixed(Sys.info()[["sysname"]])))
+  expect_true(stringr::str_detect(actual, pattern = stringr::fixed(Sys.info()[["release"]])))
 
-    expect_true(stringr::str_detect(actual, pattern = stringr::fixed("Object Id:")))
-    expect_true(stringr::str_detect(actual, pattern = stringr::fixed(test_obj$id)))
-  })
+  expect_true(stringr::str_detect(actual, pattern = stringr::fixed("Object Id:")))
+  expect_true(stringr::str_detect(actual, pattern = stringr::fixed(test_obj$id)))
 })
 
 test_that("multi_line_fmt_works_2", {
@@ -243,33 +262,35 @@ test_that("multi_line_fmt_works_2", {
     ),
     seperator = '-')
 
-  with(log_layout_detail(log_layout), {
+  detail <- log_layout_detail(log_layout)
 
-    context <- list(fmt_metric = sys_context())
+  expect_true(!is.null(detail))
+  expect_equal(length(detail$formats), 7)
+  expect_equal(length(detail$types), 4)
 
+  context <- list(fmt_metric = sys_context())
 
-    actual <- evaluate_layout(formats, types, seperator, context)
+  actual <- evaluate_layout(detail, context)
 
-    expected_metrics <- paste(Sys.info()[["sysname"]],
-                              Sys.info()[["release"]],
-                              Sys.info()[["version"]],
-                              sep = '-')
+  expected_metrics <- paste(Sys.info()[["sysname"]],
+                            Sys.info()[["release"]],
+                            Sys.info()[["version"]],
+                            sep = '-')
 
-    expect_true(stringr::str_detect(actual, stringr::fixed(expected_metrics)))
+  expect_true(stringr::str_detect(actual, stringr::fixed(expected_metrics)))
 
-    expected_literals <- paste("literal1",
-                               "literal2",
-                               "literal3",
-                               sep = "-")
+  expected_literals <- paste("literal1",
+                             "literal2",
+                             "literal3",
+                             sep = "-")
 
-    expect_true(stringr::str_detect(actual, stringr::fixed(expected_literals)))
+  expect_true(stringr::str_detect(actual, stringr::fixed(expected_literals)))
 
-    output <- capture_output_lines({
-      cat(actual)
-    })
-
-    expect_equal(length(output), 2)
+  output <- capture_output_lines({
+    cat(actual)
   })
+
+  expect_equal(length(output), 2)
 })
 
 test_that("multi_line_fmt_works_3", {
@@ -290,38 +311,41 @@ test_that("multi_line_fmt_works_3", {
     ),
     seperator = '---')
 
-  with(log_layout_detail(log_layout), {
+  detail <- log_layout_detail(log_layout)
 
-    context <- list(fmt_metric = sys_context())
-    actual <- evaluate_layout(formats, types, seperator, context)
+  expect_true(!is.null(detail))
+  expect_equal(length(detail$formats), 11)
+  expect_equal(length(detail$types), 4)
 
-    expected_metrics <- paste(Sys.info()[["sysname"]],
-                              Sys.info()[["release"]],
-                              Sys.info()[["version"]],
+  context <- list(fmt_metric = sys_context())
+  actual <- evaluate_layout(detail, context)
+
+  expected_metrics <- paste(Sys.info()[["sysname"]],
+                            Sys.info()[["release"]],
+                            Sys.info()[["version"]],
+                            sep = '---')
+
+  expect_true(stringr::str_detect(actual, stringr::fixed(expected_metrics)))
+
+  expected_literals <- paste("literal1",
+                             "literal2",
+                             "literal3",
+                             sep = "---")
+
+  expect_true(stringr::str_detect(actual, stringr::fixed(expected_literals)))
+
+  expected_metrics_2 <- paste(Sys.info()[["machine"]],
+                              Sys.info()[["nodename"]],
+                              Sys.info()[["user"]],
                               sep = '---')
 
-    expect_true(stringr::str_detect(actual, stringr::fixed(expected_metrics)))
+  expect_true(stringr::str_detect(actual, stringr::fixed(expected_metrics_2)))
 
-    expected_literals <- paste("literal1",
-                               "literal2",
-                               "literal3",
-                               sep = "---")
-
-    expect_true(stringr::str_detect(actual, stringr::fixed(expected_literals)))
-
-    expected_metrics_2 <- paste(Sys.info()[["machine"]],
-                                Sys.info()[["nodename"]],
-                                Sys.info()[["user"]],
-                                sep = '---')
-
-    expect_true(stringr::str_detect(actual, stringr::fixed(expected_metrics_2)))
-
-    output <- capture_output_lines({
-      cat(actual)
-    })
-
-    expect_equal(length(output), 3)
+  output <- capture_output_lines({
+    cat(actual)
   })
+
+  expect_equal(length(output), 3)
 })
 
 test_that("multi_line_fmt_works_4", {
@@ -346,43 +370,46 @@ test_that("multi_line_fmt_works_4", {
     ),
     seperator = '---')
 
-  with(log_layout_detail(log_layout), {
+  detail <- log_layout_detail(log_layout)
 
-    context <- list(fmt_metric = sys_context())
-    actual <- evaluate_layout(formats, types, seperator, context)
+  expect_true(!is.null(detail))
+  expect_equal(length(detail$formats), 15)
+  expect_equal(length(detail$types), 4)
 
-    expected_metrics <- paste(Sys.info()[["sysname"]],
-                              Sys.info()[["release"]],
-                              Sys.info()[["version"]],
+  context <- list(fmt_metric = sys_context())
+  actual <- evaluate_layout(detail, context)
+
+  expected_metrics <- paste(Sys.info()[["sysname"]],
+                            Sys.info()[["release"]],
+                            Sys.info()[["version"]],
+                            sep = '---')
+
+  expect_true(stringr::str_detect(actual, stringr::fixed(expected_metrics)))
+
+  expected_literals <- paste("literal1",
+                             "literal2",
+                             "literal3",
+                             sep = "---")
+
+  expect_true(stringr::str_detect(actual, stringr::fixed(expected_literals)))
+
+  expected_metrics_2 <- paste(Sys.info()[["machine"]],
+                              Sys.info()[["nodename"]],
+                              Sys.info()[["user"]],
                               sep = '---')
 
-    expect_true(stringr::str_detect(actual, stringr::fixed(expected_metrics)))
+  expect_true(stringr::str_detect(actual, stringr::fixed(expected_metrics_2)))
 
-    expected_literals <- paste("literal1",
-                               "literal2",
-                               "literal3",
+  expected_literals_2 <- paste("literal4",
+                               "literal5",
+                               "literal6",
                                sep = "---")
 
-    expect_true(stringr::str_detect(actual, stringr::fixed(expected_literals)))
+  expect_true(stringr::str_detect(actual, stringr::fixed(expected_literals_2)))
 
-    expected_metrics_2 <- paste(Sys.info()[["machine"]],
-                                Sys.info()[["nodename"]],
-                                Sys.info()[["user"]],
-                                sep = '---')
-
-    expect_true(stringr::str_detect(actual, stringr::fixed(expected_metrics_2)))
-
-    expected_literals_2 <- paste("literal4",
-                                 "literal5",
-                                 "literal6",
-                                 sep = "---")
-
-    expect_true(stringr::str_detect(actual, stringr::fixed(expected_literals_2)))
-
-    output <- capture_output_lines({
-      cat(actual)
-    })
-
-    expect_equal(length(output), 4)
+  output <- capture_output_lines({
+    cat(actual)
   })
+
+  expect_equal(length(output), 4)
 })

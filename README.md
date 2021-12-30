@@ -310,6 +310,14 @@ the “Log Layouts” *vignette*.
 
 ## Acknowledgments
 
--   The pretty logger output in this document is made possible by the
-    excellent [fansi](https://github.com/brodieG/fansi) package by
-    [Brody Gaslam](https://twitter.com/BrodieGaslam).
+-   R Core for developing and maintaining such an amazing language.
+-   R Studio for building an incredible open-source ecosystem.
+-   [Hadley Wickham](https://github.com/hadley) for being super-human.
+-   [Jim Hester](https://github.com/jimhester) for all the fantastic
+    r-lib/actions (covr, lintr & build, pkgdown, etc).
+-   [Brody Gaslam](https://github.com/brodieG/fansi) for developing the
+    [fansi](https://github.com/brodieG/fansi) package which is
+    responsible for all the the pretty logger output in the
+    documentation.
+-   Everyone in the [#rstats](https://twitter.com/search?q=%23rstats)
+    community for being

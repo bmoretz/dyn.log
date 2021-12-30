@@ -146,13 +146,13 @@ value.fmt_metric <- function(obj, sys_context, ...) {
   style(obj)(get(attr(obj, "metric"), sys_context))
 }
 
-#' @title Formatted Timestamp
+#' @title Formatted Time stamp
 #'
 #' @description
-#' Placeholder for a formatted timestamp in a log layout.
+#' Placeholder for a formatted time stamp in a log layout.
 #'
 #' @param style format style (crayon)
-#' @param format timestamp format, defaults to: %x %H:%M:%S %z,
+#' @param format time stamp format, defaults to: %x %H:%M:%S %z,
 #' e.g., 12/04/21 14:31:25 -0500
 #'
 #' @family Log Layout

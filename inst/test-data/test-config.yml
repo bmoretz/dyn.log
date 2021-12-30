@@ -2,11 +2,6 @@ settings:
   threshold: TRACE
   max_callstack: 5
 levels:
-- name: STRACE
-  description: This level designates finer-grained informational events than the TRACE.
-  severity: !expr 800L
-  log_style: !expr crayon::make_style("gray25")$bold
-  msg_style: !expr crayon::make_style('gray30')
 - name: TRACE
   description: This level designates finer-grained informational events than the DEBUG.
   severity: !expr 600L
