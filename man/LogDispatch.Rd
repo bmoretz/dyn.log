@@ -17,7 +17,9 @@ to render highly-customizable and detailed log messages.
 \seealso{
 Other Logging: 
 \code{\link{attach_log_levels}()},
+\code{\link{configure_logger}()},
 \code{\link{display_log_levels}()},
+\code{\link{init_logger}()},
 \code{\link{load_log_layouts}()},
 \code{\link{set_log_configuration}()}
 }
@@ -29,6 +31,7 @@ Other Logging:
 \item \href{#method-get_system_context}{\code{LogDispatch$get_system_context()}}
 \item \href{#method-add_log_level}{\code{LogDispatch$add_log_level()}}
 \item \href{#method-get_settings}{\code{LogDispatch$get_settings()}}
+\item \href{#method-set_settings}{\code{LogDispatch$set_settings()}}
 }
 }
 \if{html}{\out{<hr>}}
@@ -90,6 +93,19 @@ Public wrapper around logger settings.
 
 \subsection{Returns}{
 logger settings.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-set_settings"></a>}}
+\if{latex}{\out{\hypertarget{method-set_settings}{}}}
+\subsection{Method \code{set_settings()}}{
+Public wrapper around updating settings.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{LogDispatch$set_settings(settings)}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+None.
 }
 }
 }

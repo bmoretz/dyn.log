@@ -16,12 +16,11 @@ set_log_configuration <- function(file_name, envir = parent.frame()) {
 
   log_config <- yaml::read_yaml(file_name, eval.expr = T)
 
-  configure_logger(log_config$settings, envir)
-
+  configure_logger(log_config$settings)
   attach_log_levels(log_config$levels)
   load_log_layouts(log_config$layouts)
 
-  local_init()
+  init_logger()
 
   invisible()
 }
@@ -53,6 +52,26 @@ attach_log_levels <- function(levels) {
   }
 
   invisible()
+}
+
+#' @title Init Logger
+#'
+#' @description
+#' Attaches a reference to the global
+#' logger to the top env if one doesn't
+#' already exist.
+#'
+#' @param pos enviroment level (1=topenv)
+#'
+#' @family Logging
+#'
+#' @importFrom stringr str_split str_trim
+init_logger <- function(pos=1) {
+  envir <- as.environment(pos)
+
+  if (!any(!is.na(match(ls(envir), "Logger")))) {
+    assign("Logger", LogDispatch$new(), envir  = envir)
+  }
 }
 
 #' @title Load Log Layouts
@@ -87,8 +106,17 @@ load_log_layouts <- function(layouts) {
   }
 }
 
-configure_logger <- function(settings, envir) {
-  envir$Logger$.__enclos_env__$private$settings <- settings
+#' @title Configure Logger
+#'
+#' @description
+#' Parses and loads settings for the log dispatcher.
+#'
+#' @param settings loaded from config
+#' @family Logging
+#'
+#' @importFrom stringr str_split str_trim
+configure_logger <- function(settings) {
+  Logger$set_settings(settings)
 }
 
 #' @title Display Log Levels
@@ -115,5 +143,5 @@ display_log_levels <- function() {
     }
   })
 
-  invisible(NULL)
+  invisible()
 }

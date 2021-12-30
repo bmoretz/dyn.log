@@ -5,8 +5,10 @@ test_that("load_log_config_works", {
                                   package = "dyn.log")
 
   test_envir <- rlang::new_environment(list(
-    Logger = LogDispatchTester$new()
+    Logger = LogDispatch$new()
   ))
+
+  set_log_configuration(test_config_file, envir = test_envir)
 
   settings <- test_envir$Logger$get_settings()
 
@@ -15,8 +17,6 @@ test_that("load_log_config_works", {
   expect_equal(settings$callstack$max, 5)
   expect_equal(settings$callstack$start, -1)
   expect_equal(settings$callstack$stop, -1)
-
-  set_log_configuration(test_config_file, envir = test_envir)
 
   log_levels <- log_levels()
 
@@ -33,6 +33,4 @@ test_that("load_log_config_works", {
     expect_equal(threshold, "TRACE")
   })
 
-  log_levels("STRACE", NULL)
-  log_levels("CRITICAL", NULL)
 })
