@@ -1,4 +1,4 @@
-#' Format Layout
+#' @title Format Layout
 #'
 #' @description
 #' Base type for log format objects.
@@ -9,7 +9,7 @@
 #' @export
 new_fmt_layout <- function(style) {
 
-  stopifnot(class(style) != "crayon")
+  stopifnot(class(style) == "crayon")
 
   structure(
     list(),
@@ -103,10 +103,18 @@ value.fmt_log_msg <- function(obj, ...) {
 #' new_fmt_metric(bold $ red, "release")
 #' }
 new_fmt_metric <- function(style, metric) {
+
   stopifnot(class(style) == "crayon")
 
   if (!is.character(metric) || nchar(metric) == 0)
     stop("invalid log metric specified")
+
+  valid_metric <- any(!is.na(match(names(sys_context()), metric)))
+
+  if (!valid_metric) {
+    stop(paste0("metric '", metric, "' is not a reconized system metric.",
+    "See ?sys_context for more information."))
+  }
 
   structure(
     list(),

@@ -13,3 +13,4 @@
 ^pkgdown$
 ^Makefile$
 ^\.lintr$
+^cran-comments.md$

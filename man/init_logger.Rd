@@ -7,7 +7,7 @@
 init_logger(pos = 1)
 }
 \arguments{
-\item{pos}{enviroment level (1=topenv)}
+\item{pos}{environment level (1=topenv)}
 }
 \description{
 Attaches a reference to the global

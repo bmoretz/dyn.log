@@ -60,11 +60,6 @@ You can install the latest stable version of dyn.log from CRAN:
 library(dyn.log)
 ```
 
-```{r, comment="", results="asis", echo=F}
-options(crayon.enabled=TRUE)
-old.hooks <- fansi::set_knit_hooks(knitr::knit_hooks)
-```
-
 ### Logging
 
 There are three main components of a log message, each of them are covered in detail in their respective vignettes. For more detail about how logging works and how you can customize it, please see the [package site](https://bmoretz.github.io/dyn.log/):

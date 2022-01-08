@@ -18,7 +18,6 @@ vignette: >
 library(dyn.log)
 
 # set logging config with tweaks for kitr output
-
 set_log_configuration(file_name = system.file("knitr.yaml", 
                                               package = "dyn.log"))
 ```

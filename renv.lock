@@ -427,10 +427,10 @@
     },
     "gert": {
       "Package": "gert",
-      "Version": "1.4.3",
+      "Version": "1.5.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "3a3f29a74f8bd85ed8d53ab039b18bcd",
+      "Hash": "8fddce7cbd59467106266a6e93e253b4",
       "Requirements": [
         "askpass",
         "credentials",
@@ -956,15 +956,15 @@
     },
     "renv": {
       "Package": "renv",
-      "Version": "0.14.0-148",
+      "Version": "0.15.0-10",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteUsername": "rstudio",
       "RemoteRepo": "renv",
       "RemoteRef": "HEAD",
-      "RemoteSha": "c939e9922e787969b1c3c83f4480643c5e3cdbcb",
+      "RemoteSha": "f03d9d6b828f4bae15b79816a69d44f374cafbd4",
       "RemoteHost": "api.github.com",
-      "Hash": "b3cadac7badc1f5a4577e1f5910c845a",
+      "Hash": "ac8e4c950dc95b328044ae6678ce0aa9",
       "Requirements": []
     },
     "rex": {

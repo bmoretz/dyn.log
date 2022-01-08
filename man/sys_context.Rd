@@ -13,16 +13,30 @@ system context for evaluating \code{fmt_metric} objects.
 Wrapper around Sys.info() and \code{get_r_version} that provides
 a consolidated list of variables used for logging contexts.
 }
+\section{Metrics}{
+
+
+System Context
+
+\itemize{
+\item{"sysname"} : {The operating system name.}
+\item{"release"} : {The OS release.}
+\item{"version"} : {The OS version.}
+\item{"nodename"} : {A name by which the machine is known on the network (if any).}
+\item{"machine"} : {A concise description of the hardware, often the CPU type.}
+\item{"login"} : {The user's login name, or "unknown" if it cannot be ascertained.}
+\item{"user"} : {The name of the real user ID, or "unknown" if it cannot be ascertained.}
+\item{"r-ver"} : {R Version in (major).(minor) format.}
+}
+}
+
 \seealso{
 Other Context: 
 \code{\link{class_scope}()},
-\code{\link{clean_internal_calls}()},
 \code{\link{exec_context}()},
-\code{\link{extract_func_name}()},
 \code{\link{format_fn_call}()},
 \code{\link{get_call_stack}()},
 \code{\link{get_r_version}()},
-\code{\link{get_system_info}()},
-\code{\link{is_logger_call}()}
+\code{\link{get_system_info}()}
 }
 \concept{Context}

@@ -17,15 +17,8 @@ Determines if a call came from the logger, so we
 can exclude it from the call stack.
 }
 \seealso{
-Other Context: 
-\code{\link{class_scope}()},
+Other Internal: 
 \code{\link{clean_internal_calls}()},
-\code{\link{exec_context}()},
-\code{\link{extract_func_name}()},
-\code{\link{format_fn_call}()},
-\code{\link{get_call_stack}()},
-\code{\link{get_r_version}()},
-\code{\link{get_system_info}()},
-\code{\link{sys_context}()}
+\code{\link{extract_func_name}()}
 }
-\concept{Context}
+\concept{Internal}

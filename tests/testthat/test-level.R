@@ -100,6 +100,24 @@ test_that("log_levels_display",{
   }
 })
 
+test_that("can_remove_log_level", {
+
+  lvl <- new_log_level(name = "TEST",
+                       description = "for testing",
+                       severity = 42L,
+                       log_style = crayon::blue,
+                       msg_style = crayon::silver)
+
+  all_levels <- log_levels()
+
+  expect_true(any(!is.na(match(all_levels, tolower(level_name(lvl))))))
+
+  log_levels("TEST", level = NA)
+
+  all_levels <- log_levels()
+  expect_true(all(is.na(match(all_levels, tolower(level_name(lvl))))))
+})
+
 test_that("can_get_log_level_by_name", {
   level_names <- log_levels()
 

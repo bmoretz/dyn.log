@@ -36,7 +36,7 @@ test_that("has_system_metrics", {
 })
 
 test_that("default_log_dispatch_works", {
-  log <- LogDispatchTester$new()
+  log <- LogDispatch$new()
 
   output <- capture_output_lines({
     log$trace("test")

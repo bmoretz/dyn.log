@@ -104,6 +104,13 @@ Public wrapper around updating settings.
 \if{html}{\out{<div class="r">}}\preformatted{LogDispatch$set_settings(settings)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{settings}}{Logger settings.}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Returns}{
 None.
 }

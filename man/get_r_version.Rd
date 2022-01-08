@@ -16,13 +16,10 @@ formatted string for use use in sys_context.
 \seealso{
 Other Context: 
 \code{\link{class_scope}()},
-\code{\link{clean_internal_calls}()},
 \code{\link{exec_context}()},
-\code{\link{extract_func_name}()},
 \code{\link{format_fn_call}()},
 \code{\link{get_call_stack}()},
 \code{\link{get_system_info}()},
-\code{\link{is_logger_call}()},
 \code{\link{sys_context}()}
 }
 \concept{Context}

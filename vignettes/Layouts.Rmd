@@ -18,8 +18,26 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
+# Format Objects
 
 ```{r setup}
 library(dyn.log)
+
+# set logging config with tweaks for kitr output
+set_log_configuration(file_name = system.file("knitr.yaml", 
+                                              package = "dyn.log"))
 ```
 
+```{r, comment="", results="asis", echo=F}
+options(crayon.enabled=TRUE)
+knitr::opts_chunk$set(collapse = TRUE,
+                      fig.path = "man/figures/FORMAT-",
+                      comment = "")
+old.hooks <- fansi::set_knit_hooks(knitr::knit_hooks)
+```
+
+## Overview
+
+Format objects are the driver of customization in log rendering. Log layouts were developed with the [composition](https://en.wikipedia.org/wiki/Composite_pattern) design pattern in mind; a log layout is simply a series of formats that get evaluated with their associated context to form a log message.
+
+All formats derive from the **fmt_layout** base type and have a couple of generics associated with them, specifically: **style** and **value**. The **fmt_layout** is meant to be an [abstract](https://en.wikipedia.org/wiki/Abstract_type) base type; by driving from it the logging framework can make some assumptions about how to treat a format object.

@@ -44,10 +44,6 @@ You can install the latest stable version of dyn.log from CRAN:
 library(dyn.log)
 ```
 
-<STYLE type='text/css' scoped>
-PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
-</STYLE>
-
 ### Logging
 
 There are three main components of a log message, each of them are
@@ -320,4 +316,5 @@ the “Log Layouts” *vignette*.
     responsible for all the the pretty logger output in the
     documentation.
 -   Everyone in the [#rstats](https://twitter.com/search?q=%23rstats)
-    community for being
+    community for being inclusive, welcoming and incredibly
+    knowledgeable.

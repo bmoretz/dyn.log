@@ -1,5 +1,4 @@
 lock/
-python/
 .Rproj.user
 .Rhistory
 .RData
@@ -9,6 +8,5 @@ python/
 library/
 local/
 cellar/
-lock/python/
 staging/
 docs
