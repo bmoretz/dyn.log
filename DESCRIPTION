@@ -38,6 +38,7 @@ Suggests:
     devtools,
     usethis,
     rmarkdown,
+    markdown,
     knitr,
     covr (>= 3.5.1),
     testthat (>= 3.0.0),

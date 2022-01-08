@@ -6,6 +6,7 @@ output:
   prettydoc::html_pretty:
     theme: architect
     highlight: github
+  
 vignette: >
   %\VignetteIndexEntry{Levels}
   %\VignetteEngine{knitr::rmarkdown}
@@ -89,7 +90,6 @@ The detailed information about a log level shows every configurable attribute ab
 an example of how the level renders with its associated [crayon](https://github.com/r-lib/crayon) styles
 for the level and message. A vanilla log layout consisting of only the level and msg would get rendered
 with the look of the example attribute.
-
 
 ## Configuration
 

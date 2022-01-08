@@ -38,6 +38,29 @@ old.hooks <- fansi::set_knit_hooks(knitr::knit_hooks)
 
 ## Overview
 
-Format objects are the driver of customization in log rendering. Log layouts were developed with the [composition](https://en.wikipedia.org/wiki/Composite_pattern) design pattern in mind; a log layout is simply a series of formats that get evaluated with their associated context to form a log message.
+Log **Layouts** are the mechanism that ties everything in the package together with a composition based design. A log layout is essentially a container for formats, which defines exactly how the log message will get rendered. Layouts also have additional metadata attributes which allow for overrides to the default format *separators*, *spacing*, etc., as well as mechanism for associating a particular log layout with a type of R6 class.
 
-All formats derive from the **fmt_layout** base type and have a couple of generics associated with them, specifically: **style** and **value**. The **fmt_layout** is meant to be an [abstract](https://en.wikipedia.org/wiki/Abstract_type) base type; by driving from it the logging framework can make some assumptions about how to treat a format object.
+### Defaults
+
+There are two basic layouts that come with the standard configuration (*default.yaml*) bundled with the package, **default** and **log_level**.
+
+```yaml
+layouts:
+- association: default
+  seperator: !expr as.character(' ')
+  new_line: !expr as.character('\n')
+  formats: new_fmt_log_level(),
+           new_fmt_timestamp(crayon::silver$italic),
+           new_fmt_log_msg()
+- association: level_msg
+  seperator: !expr as.character(' ')
+  new_line: !expr as.character('\n')
+  formats: new_fmt_log_level(),
+           new_fmt_log_msg()
+
+```
+
+```{r}
+
+```
+
