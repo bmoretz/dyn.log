@@ -5,6 +5,7 @@
 ^LICENSE\.md$
 ^README\.Rmd$
 ^\.github$
+^staging$
 ^codecov\.yml$
 ^doc$
 ^Meta$
