@@ -30,13 +30,10 @@ a consolidated list of variables used for logging contexts.
 \seealso{
 Other Context: 
 \code{\link{class_scope}()},
-\code{\link{clean_internal_calls}()},
-\code{\link{extract_func_name}()},
 \code{\link{format_fn_call}()},
 \code{\link{get_call_stack}()},
 \code{\link{get_r_version}()},
 \code{\link{get_system_info}()},
-\code{\link{is_logger_call}()},
 \code{\link{sys_context}()}
 }
 \concept{Context}

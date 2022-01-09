@@ -61,7 +61,7 @@ attach_log_levels <- function(levels) {
 #' logger to the top env if one doesn't
 #' already exist.
 #'
-#' @param pos enviroment level (1=topenv)
+#' @param pos environment level (1=topenv)
 #'
 #' @family Logging
 #'

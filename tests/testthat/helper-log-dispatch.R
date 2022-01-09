@@ -10,17 +10,40 @@ LogDispatchTester <- R6::R6Class(
 
     initialize = function() {
       super$initialize()
-
-      invisible(self)
-    },
-
-    get_system_metrics = function() {
-      private$system_context
-    },
-
-    get_cls_scope = function(cls) {
-      private$get_class_scope(cls)
     }
   ),
   private = list()
 )
+
+SingletonTester <- R6::R6Class(
+  classname = "SingletonTester",
+  inherit = LogDispatch,
+  lock_objects = F,
+  lock_class = F,
+  cloneable = F,
+  portable = F,
+
+  public = list(
+
+    initialize = function() {
+
+      if (is.null(private$public_bind_env)) {
+        private$create_singleton(SingletonTester)
+      } else {
+        self <- private$instance
+        private$set_bindings()
+      }
+
+      invisible(self)
+    }
+  ),
+  private = list()
+)
+
+test_that("log_single_instance", {
+
+  inst_n <- SingletonTester$new()
+  inst_m <- SingletonTester$new()
+
+  expect_true(identical(inst_n, inst_m))
+})

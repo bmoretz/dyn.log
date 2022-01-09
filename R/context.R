@@ -3,6 +3,7 @@
 #' @description
 #' Wrapper around Sys.info() that provides the values
 #' in a named list format.
+#'
 #' @family Context
 #' @return \code{Sys.info()} as a named list
 get_system_info <- function() {
@@ -25,6 +26,22 @@ get_r_version <- function() {
 #' @description
 #' Wrapper around Sys.info() and \code{get_r_version} that provides
 #' a consolidated list of variables used for logging contexts.
+#'
+#' @section Metrics:
+#'
+#' System Context
+#'
+#' \itemize{
+#'  \item{"sysname"} : {The operating system name.}
+#'  \item{"release"} : {The OS release.}
+#'  \item{"version"} : {The OS version.}
+#'  \item{"nodename"} : {A name by which the machine is known on the network (if any).}
+#'  \item{"machine"} : {A concise description of the hardware, often the CPU type.}
+#'  \item{"login"} : {The user's login name, or "unknown" if it cannot be ascertained.}
+#'  \item{"user"} : {The name of the real user ID, or "unknown" if it cannot be ascertained.}
+#'  \item{"r-ver"} : {R Version in (major).(minor) format.}
+#' }
+#'
 #' @return system context for evaluating \code{fmt_metric} objects.
 #' @family Context
 #' @export
@@ -44,7 +61,7 @@ sys_context <- function() {
 #' Extracts the name of the function from a deparse call.
 #'
 #' @param func function name
-#' @family Context
+#' @family Internal
 #' @returns function name without arguments
 #' @importFrom stringr str_extract
 extract_func_name <- function(func) {
@@ -116,22 +133,22 @@ get_call_stack <- function(keep_args = F,
 #' can exclude it from the call stack.
 #'
 #' @param call function call
-#' @family Context
+#' @family Internal
 #' @returns string representation of a func call.
 #' @importFrom stringr str_detect fixed
 is_logger_call <- function(call) {
   stringr::str_detect(call, pattern = stringr::fixed("Logger$"))
 }
 
-#' @title Is Logger Call
+#' @title Clean System Calls
 #'
 #' @description
-#' Determines if a call came from the logger, so we
-#' can exclude it from the call stack.
+#' Cleans up any internal system calls from
+#' inside the package from the call stack.
 #'
 #' @param call_stack call stack
 #'
-#' @family Context
+#' @family Internal
 #' @returns string representation of a func call.
 #' @importFrom stringr str_starts fixed
 clean_internal_calls <- function(call_stack) {

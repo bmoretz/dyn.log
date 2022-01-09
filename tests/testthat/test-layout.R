@@ -7,11 +7,11 @@ test_that("can_create_layout", {
       new_fmt_line_break(),
       new_fmt_log_level(),
       new_fmt_timestamp(crayon::silver$italic),
-      new_fmt_metric(crayon::magenta$bold, "top_call"),
+      new_fmt_exec_scope(crayon::magenta$bold, "top_call"),
       new_fmt_literal(crayon::blue$italic, "literal text"),
       new_fmt_log_msg(),
       new_fmt_line_break(),
-      new_fmt_metric(crayon::cyan$bold, "call_stack")
+      new_fmt_exec_scope(crayon::cyan$bold, "call_stack")
     )
   )
 
@@ -29,11 +29,11 @@ test_that("log_layout_format", {
       new_fmt_line_break(),
       new_fmt_log_level(),
       new_fmt_timestamp(crayon::silver$italic),
-      new_fmt_metric(crayon::magenta$bold, "top_call"),
+      new_fmt_exec_scope(crayon::magenta$bold, "top_call"),
       new_fmt_literal(crayon::blue$italic, "literal text"),
       new_fmt_log_msg(),
       new_fmt_line_break(),
-      new_fmt_metric(crayon::cyan$bold, "call_stack")
+      new_fmt_exec_scope(crayon::cyan$bold, "call_stack")
     ),
     association = "test-layout-format"
   )
@@ -44,7 +44,7 @@ test_that("log_layout_format", {
 
   with(log_layout_detail(log_layout), {
     expect_equal(length(formats), 10)
-    expect_equal(length(types), 7)
+    expect_equal(length(types), 8)
     expect_equal(seperator, ' ')
   })
 })
@@ -58,11 +58,11 @@ test_that("log_layout_format_types", {
       new_fmt_line_break(),
       new_fmt_log_level(),
       new_fmt_timestamp(crayon::silver$italic),
-      new_fmt_metric(crayon::magenta$bold, "top_call"),
+      new_fmt_exec_scope(crayon::magenta$bold, "top_call"),
       new_fmt_literal(crayon::blue$italic, "literal text"),
       new_fmt_log_msg(),
       new_fmt_line_break(),
-      new_fmt_metric(crayon::cyan$bold, "call_stack")
+      new_fmt_exec_scope(crayon::cyan$bold, "call_stack")
     ),
     seperator = '-',
     association = "test-layout-format"

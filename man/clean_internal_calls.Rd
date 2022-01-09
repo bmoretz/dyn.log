@@ -2,7 +2,7 @@
 % Please edit documentation in R/context.R
 \name{clean_internal_calls}
 \alias{clean_internal_calls}
-\title{Is Logger Call}
+\title{Clean System Calls}
 \usage{
 clean_internal_calls(call_stack)
 }
@@ -13,19 +13,12 @@ clean_internal_calls(call_stack)
 string representation of a func call.
 }
 \description{
-Determines if a call came from the logger, so we
-can exclude it from the call stack.
+Cleans up any internal system calls from
+inside the package from the call stack.
 }
 \seealso{
-Other Context: 
-\code{\link{class_scope}()},
-\code{\link{exec_context}()},
+Other Internal: 
 \code{\link{extract_func_name}()},
-\code{\link{format_fn_call}()},
-\code{\link{get_call_stack}()},
-\code{\link{get_r_version}()},
-\code{\link{get_system_info}()},
-\code{\link{is_logger_call}()},
-\code{\link{sys_context}()}
+\code{\link{is_logger_call}()}
 }
-\concept{Context}
+\concept{Internal}

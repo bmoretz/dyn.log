@@ -13,7 +13,7 @@
 #' @docType class
 #' @family Logging
 #' @importFrom R6 R6Class
-#' @importFrom rlang as_function caller_env
+#' @importFrom rlang caller_env
 #' @importFrom glue glue
 #' @export
 LogDispatch <- R6::R6Class(
@@ -29,23 +29,14 @@ LogDispatch <- R6::R6Class(
     #' Creates a new instance of a log config.
     #' @return A new `LogLayout` object.
     initialize = function() {
-
       if (is.null(private$public_bind_env)) {
-        private$create_singleton()
+        private$create_singleton(LogDispatch)
       } else {
         self <- private$instance
         private$set_bindings()
       }
 
       invisible(self)
-    },
-
-    #' @description
-    #' Public wrapper around system context used
-    #' when evaluating log layouts.
-    #' @return system context for logging metrics.
-    get_system_context = function() {
-      private$system_context
     },
 
     #' @description
@@ -57,16 +48,14 @@ LogDispatch <- R6::R6Class(
 
       name <- tolower(level_name(level))
 
-      self[[name]] <- rlang::as_function(function(msg,
-                                                  parent = parent.frame(),
-                                                  layout = "default") {
+      self[[name]] <- function(msg,
+                               parent = parent.frame(),
+                               layout = "default") {
 
-        current <- level_severity(log_levels(level))
+        current <- level_severity(level)
         threshold <- level_severity(log_levels(private$settings$threshold))
 
-        if(current > threshold) {
-          return(invisible(NULL))
-        }
+        if(current > threshold) return()
 
         caller_env <- rlang::caller_env()
         parent_env <- parent.env(caller_env)
@@ -80,12 +69,15 @@ LogDispatch <- R6::R6Class(
         if (has_calling_class) {
           calling_class <- parent_env$self
 
-          cls_name <- head(class(calling_class), 1)
+          # match class name(s) against registered
+          # log layouts, to find the "best" class
+          # association given its hierarchy.
+          cls_name <- class(calling_class)
+          registered <- names(log_layouts())
+          layout_idx <- max(c(0L, match(cls_name, registered)), na.rm = T)
 
-          associated_layout <- log_layouts(cls_name)
-
-          if (!is.null(associated_layout)) {
-            log_layout <- associated_layout
+          if (layout_idx > 0) {
+            log_layout <- log_layouts(registered[layout_idx])
           }
         }
 
@@ -118,7 +110,7 @@ LogDispatch <- R6::R6Class(
         cat(glue::glue(evaluated),
             fill = T,
             file = stdout())
-      })
+      }
 
       invisible(self)
     },
@@ -132,6 +124,7 @@ LogDispatch <- R6::R6Class(
 
     #' @description
     #' Public wrapper around updating settings.
+    #' @param settings Logger settings.
     #' @return None.
     set_settings = function(settings) {
       private$settings <- settings
@@ -149,20 +142,20 @@ LogDispatch <- R6::R6Class(
     public_bind_env = NULL,
     private_bind_env = NULL,
 
-    create_singleton = function() {
+    create_singleton = function(obj) {
 
       private$public_bind_env <- base::dynGet("public_bind_env")
       private$private_bind_env <- base::dynGet("private_bind_env")
 
-      LogDispatch$set("private",
-                      "public_bind_env",
-                      private$public_bind_env,
-                      overwrite = TRUE)
+      obj$set("private",
+                "public_bind_env",
+                private$public_bind_env,
+                overwrite = TRUE)
 
-      LogDispatch$set("private",
-                      "private_bind_env",
-                      private$private_bind_env,
-                      overwrite = TRUE)
+      obj$set("private",
+              "private_bind_env",
+              private$private_bind_env,
+              overwrite = TRUE)
     },
 
     set_bindings = function() {

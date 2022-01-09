@@ -18,14 +18,11 @@ evaluating cls field execution scopes.
 }
 \seealso{
 Other Context: 
-\code{\link{clean_internal_calls}()},
 \code{\link{exec_context}()},
-\code{\link{extract_func_name}()},
 \code{\link{format_fn_call}()},
 \code{\link{get_call_stack}()},
 \code{\link{get_r_version}()},
 \code{\link{get_system_info}()},
-\code{\link{is_logger_call}()},
 \code{\link{sys_context}()}
 }
 \concept{Context}

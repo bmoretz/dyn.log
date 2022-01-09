@@ -1,3 +1,64 @@
+test_that("valid_format_succeeds", {
+
+  fmt <- tryCatch(
+    expr = {
+      new_fmt_layout(crayon::blue)
+    },
+    error = function(cond) {
+      cond
+    }
+  )
+
+  expect_true(inherits(fmt, "fmt_layout"))
+})
+
+test_that("invalid_format_fails", {
+
+  fmt <- tryCatch(
+    expr = {
+      new_fmt_layout("blue")
+    },
+    error = function(cond) {
+      cond
+    }
+  )
+
+  expect_true(inherits(fmt, "simpleError"))
+  expect_equal(conditionMessage(fmt),
+               'class(style) == "crayon" is not TRUE')
+})
+
+test_that("invalid_format_metric_fails", {
+
+  fmt <- tryCatch(
+    expr = {
+      new_fmt_metric(crayon::blue, '')
+    },
+    error = function(cond) {
+      cond
+    }
+  )
+
+  expect_true(inherits(fmt, "simpleError"))
+  expect_equal(conditionMessage(fmt), "invalid log metric specified")
+})
+
+test_that("invalid_format_metric_type_fails", {
+
+  fmt <- tryCatch(
+    expr = {
+      new_fmt_metric(crayon::blue, 'sys_name')
+    },
+    error = function(cond) {
+      cond
+    }
+  )
+
+  expect_true(inherits(fmt, "simpleError"))
+  expect_equal(conditionMessage(fmt),
+               "metric 'sys_name' is not a reconized system metric.See ?sys_context for more information.")
+})
+
 test_that("literal_output_style", {
 
   literal <- new_fmt_literal(crayon::red$bold, "literal value")

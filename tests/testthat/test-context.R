@@ -14,6 +14,35 @@ test_that("obj_init",{
   expect_equal(actual, "Test$new")
 })
 
+test_that("has_system_metrics", {
+
+  context <- sys_context()
+
+  expect_named(context['sysname'])
+  expect_gt(nchar(context['sysname']), 0)
+
+  expect_named(context['release'])
+  expect_gt(nchar(context['release']), 0)
+
+  expect_named(context['version'])
+  expect_gt(nchar(context['version']), 0)
+
+  expect_named(context['nodename'])
+  expect_gt(nchar(context['nodename']), 0)
+
+  expect_named(context['machine'])
+  expect_gt(nchar(context['machine']), 0)
+
+  expect_named(context['login'])
+  expect_gt(nchar(context['login']), 0)
+
+  expect_named(context['user'])
+  expect_gt(nchar(context['user']), 0)
+
+  expect_named(context['r_ver'])
+  expect_gt(nchar(context['r_ver']), 0)
+})
+
 test_that("call_stack_output_no_args", {
 
   test <- function(a, b, c) {

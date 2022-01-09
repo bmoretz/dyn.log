@@ -28,7 +28,6 @@ Other Logging:
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-new}{\code{LogDispatch$new()}}
-\item \href{#method-get_system_context}{\code{LogDispatch$get_system_context()}}
 \item \href{#method-add_log_level}{\code{LogDispatch$add_log_level()}}
 \item \href{#method-get_settings}{\code{LogDispatch$get_settings()}}
 \item \href{#method-set_settings}{\code{LogDispatch$set_settings()}}
@@ -45,20 +44,6 @@ Creates a new instance of a log config.
 
 \subsection{Returns}{
 A new \code{LogLayout} object.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_system_context"></a>}}
-\if{latex}{\out{\hypertarget{method-get_system_context}{}}}
-\subsection{Method \code{get_system_context()}}{
-Public wrapper around system context used
-when evaluating log layouts.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{LogDispatch$get_system_context()}\if{html}{\out{</div>}}
-}
-
-\subsection{Returns}{
-system context for logging metrics.
 }
 }
 \if{html}{\out{<hr>}}
@@ -104,6 +89,13 @@ Public wrapper around updating settings.
 \if{html}{\out{<div class="r">}}\preformatted{LogDispatch$set_settings(settings)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{settings}}{Logger settings.}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Returns}{
 None.
 }

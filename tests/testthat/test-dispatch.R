@@ -6,37 +6,8 @@ test_that("log_single_instance", {
   expect_true(identical(inst_n, inst_m))
 })
 
-test_that("has_system_metrics", {
-
-  context <- sys_context()
-
-  expect_named(context['sysname'])
-  expect_gt(nchar(context['sysname']), 0)
-
-  expect_named(context['release'])
-  expect_gt(nchar(context['release']), 0)
-
-  expect_named(context['version'])
-  expect_gt(nchar(context['version']), 0)
-
-  expect_named(context['nodename'])
-  expect_gt(nchar(context['nodename']), 0)
-
-  expect_named(context['machine'])
-  expect_gt(nchar(context['machine']), 0)
-
-  expect_named(context['login'])
-  expect_gt(nchar(context['login']), 0)
-
-  expect_named(context['user'])
-  expect_gt(nchar(context['user']), 0)
-
-  expect_named(context['r_ver'])
-  expect_gt(nchar(context['r_ver']), 0)
-})
-
 test_that("default_log_dispatch_works", {
-  log <- LogDispatchTester$new()
+  log <- LogDispatch$new()
 
   output <- capture_output_lines({
     log$trace("test")
@@ -44,30 +15,6 @@ test_that("default_log_dispatch_works", {
 
   expect_gt(length(output), 0)
   expect_gt(nchar(output), 0)
-})
-
-test_that("can_add_log_level", {
-
-  logger <- LogDispatch$new()
-
-  test_level <- new_log_level("TEST", "test level", 100L,
-                              log_style = crayon::bgGreen$italic,
-                              msg_style = crayon::cyan$bold)
-
-
-  logger$private$settings$threshold <- "TEST"
-
-  expect_true(!is.null(test_level))
-
-  actual <- capture_output({
-    var1 <- "abc"; var2 <- 123; var3 <- 0.7535651
-    logger$add_log_level(test_level)$test("log msg local vars: {var1}, {var2}, {var3}")
-  })
-
-  logger$private$settings$threshold <- "TRACE"
-
-  expect_true(stringr::str_detect(actual, stringr::fixed("TEST ")))
-  expect_true(stringr::str_detect(actual, stringr::fixed("log msg local vars: abc, 123, 0.7535651")))
 })
 
 test_that("log_threshold_works", {
@@ -86,4 +33,87 @@ test_that("log_threshold_works", {
   expect_equal(actual, "")
   expect_false(stringr::str_detect(actual, stringr::fixed("TEST ")))
   expect_false(stringr::str_detect(actual, stringr::fixed("log msg local vars: abc, 123, 0.7535651")))
+})
+
+test_that("can_set_log_settings", {
+
+  test_config_file <- system.file("test-data",
+                                  "test-config.yml",
+                                  package = "dyn.log")
+
+  log_config <- yaml::read_yaml(test_config_file, eval.expr = T)
+
+  dispatch <- LogDispatchTester$new()
+  dispatch$set_settings(log_config$settings)
+
+  actual <- dispatch$get_settings()
+
+  expect_equal(actual, log_config$settings)
+})
+
+test_that("add_log_level_works", {
+
+  test_config_file <- system.file("test-data",
+                                  "test-config.yml",
+                                  package = "dyn.log")
+
+  log_config <- yaml::read_yaml(test_config_file, eval.expr = T)
+
+  dispatch <- LogDispatchTester$new()
+  dispatch$set_settings(log_config$settings)
+
+  lvl <- new_log_level(name = "TEST",
+                       description = "for testing",
+                       severity = 42L,
+                       log_style = crayon::blue,
+                       msg_style = crayon::silver)
+
+  dispatch$add_log_level(lvl)
+
+  actual <- capture_output({
+    var1 <- "abc"; var2 <- 123; var3 <- 0.7535651
+    dispatch$test("log msg local vars: {var1}, {var2}, {var3}")
+  })
+
+  expect_true(stringr::str_detect(actual, stringr::fixed("TEST ")))
+  expect_true(stringr::str_detect(actual, stringr::fixed("log msg local vars: abc, 123, 0.7535651")))
+
+  # remove the log level
+  log_levels(name = "test", level = NA)
+
+  all_levels <- log_levels()
+  expect_true(all(is.na(match(all_levels, tolower(level_name(lvl))))))
+})
+
+test_that("threshold_evaluation_works", {
+
+  test_config_file <- system.file("test-data",
+                                  "test-config.yml",
+                                  package = "dyn.log")
+
+  log_config <- yaml::read_yaml(test_config_file, eval.expr = T)
+
+  dispatch <- LogDispatchTester$new()
+  dispatch$set_settings(log_config$settings)
+
+  lvl <- new_log_level(name = "TEST",
+                       description = "for testing",
+                       severity = 1000L,
+                       log_style = crayon::blue,
+                       msg_style = crayon::silver)
+
+  dispatch$add_log_level(lvl)
+
+  actual <- capture_output({
+    var1 <- "abc"; var2 <- 123; var3 <- 0.7535651
+    dispatch$test("log msg local vars: {var1}, {var2}, {var3}")
+  })
+
+  expect_equal(actual, "")
+
+  # remove the log level
+  log_levels(name = "test", level = NA)
+
+  all_levels <- log_levels()
+  expect_true(all(is.na(match(all_levels, tolower(level_name(lvl))))))
 })
