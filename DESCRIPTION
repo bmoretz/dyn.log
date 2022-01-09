@@ -42,7 +42,6 @@ Suggests:
     covr (>= 3.5.1),
     testthat (>= 3.0.0),
     lintr (>= 0.28),
-    badger (>= 0.1.0),
     remotes,
     pkgdown,
     prettydoc,
