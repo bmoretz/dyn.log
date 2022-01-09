@@ -158,7 +158,7 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <span id="cb2-9"><a href="#cb2-9"></a>[<span class="dv">1</span>] <span class="st">"#23~20.04.1-Ubuntu SMP Fri Nov 19 10:20:52 UTC 2021"</span></span>
 <span id="cb2-10"><a href="#cb2-10"></a></span>
 <span id="cb2-11"><a href="#cb2-11"></a><span class="op">$</span>nodename</span>
-<span id="cb2-12"><a href="#cb2-12"></a>[<span class="dv">1</span>] <span class="st">"fv-az33-355"</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a>[<span class="dv">1</span>] <span class="st">"fv-az126-670"</span></span>
 <span id="cb2-13"><a href="#cb2-13"></a></span>
 <span id="cb2-14"><a href="#cb2-14"></a><span class="op">$</span>machine</span>
 <span id="cb2-15"><a href="#cb2-15"></a>[<span class="dv">1</span>] <span class="st">"x86_64"</span></span>
@@ -197,7 +197,7 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 
 <span class="va">Logger</span><span class="op">$</span><span class="fu">debug</span><span class="op">(</span><span class="st">"my log message - var1: {var1}, var2: {var2}, var3: {var3}"</span>, 
              layout <span class="op">=</span> <span class="st">"ex-sys-layout"</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code><span style="color: #00D7FF; font-weight: bold;">DEBUG</span>-<span style="color: #00BB00; font-weight: bold;">Linux</span>-<span style="color: #BBBB00; font-weight: bold;">5.11.0-1022-azure</span>-<span style="color: #555555; font-style: italic;">[01/09/22 17:04:30]</span>-<span style="color: #DADADA;">my log message - var1: abc, var2: 123, var3: 0.452071</span>
+<pre class="fansi fansi-output"><code><span style="color: #00D7FF; font-weight: bold;">DEBUG</span>-<span style="color: #00BB00; font-weight: bold;">Linux</span>-<span style="color: #BBBB00; font-weight: bold;">5.11.0-1022-azure</span>-<span style="color: #555555; font-style: italic;">[01/09/22 17:24:29]</span>-<span style="color: #DADADA;">my log message - var1: abc, var2: 123, var3: 0.996939</span>
 </code></pre>
 <p>As you can see, the log message has a great deal of detail, but difficult to interpret due to the amount of information jammed into one line. This is where literals and new lines come into play.</p>
 </div>
@@ -227,7 +227,7 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <span class="va">Logger</span><span class="op">$</span><span class="fu">debug</span><span class="op">(</span><span class="st">"my log message - var1: {var1}, var2: {var2}, var3: {var3}"</span>, 
              layout <span class="op">=</span> <span class="st">"ex-syslit-layout"</span><span class="op">)</span></code></pre></div>
 <pre class="fansi fansi-output"><code><span style="color: #00BB00; font-weight: bold;">Linux</span> <span style="color: #BB00BB;">[</span> <span style="color: #0000BB; font-weight: bold;">5.11.0-1022-azure</span> <span style="color: #BB00BB;">]</span>
-<span style="color: #00D7FF; font-weight: bold;">DEBUG</span> <span style="color: #555555; font-style: italic;">[01/09/22 17:04:30]</span> <span style="color: #DADADA;">my log message - var1: abc, var2: 123, var3: 0.521242</span>
+<span style="color: #00D7FF; font-weight: bold;">DEBUG</span> <span style="color: #555555; font-style: italic;">[01/09/22 17:24:29]</span> <span style="color: #DADADA;">my log message - var1: abc, var2: 123, var3: 0.459489</span>
 </code></pre>
 <p>Which has the same information as the previous example, but much easier to consume.</p>
 </div>
@@ -348,7 +348,7 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 
 <span class="fu">local_fn</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre class="fansi fansi-output"><code><span style="color: #00BB00; font-weight: bold;">Linux</span>-<span style="color: #BBBB00;">5.11.0-1022-azure</span>
-<span style="color: #00D7FF; font-weight: bold;">DEBUG</span>-<span style="color: #555555; font-style: italic;">[01/09/22 17:04:31]</span>-<span style="color: #BB00BB; font-weight: bold;">fn(</span>-<span style="color: #BB00BB; font-weight: bold;">inner</span>-<span style="color: #BB00BB; font-weight: bold;">)</span>-<span style="color: #DADADA;">my log message - var1: 'abc', var2: '123', var3: '0.916706'</span>
+<span style="color: #00D7FF; font-weight: bold;">DEBUG</span>-<span style="color: #555555; font-style: italic;">[01/09/22 17:24:29]</span>-<span style="color: #BB00BB; font-weight: bold;">fn(</span>-<span style="color: #BB00BB; font-weight: bold;">inner</span>-<span style="color: #BB00BB; font-weight: bold;">)</span>-<span style="color: #DADADA;">my log message - var1: 'abc', var2: '123', var3: '0.148254'</span>
 <span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">knitr:::block_exec</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">knitr:::eng_r</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">knitr:::in_dir</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">knitr:::evaluate</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">evaluate::evaluate</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">evaluate:::evaluate_call</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">evaluate:::timing_fn</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">base:::handle</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">base::withCallingHandlers</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">base::withVisible</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">base::eval</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">base::eval</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">global::local_fn</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">outer</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">inner</span>
 </code></pre>
 </div>
