@@ -29,23 +29,14 @@ LogDispatch <- R6::R6Class(
     #' Creates a new instance of a log config.
     #' @return A new `LogLayout` object.
     initialize = function() {
-
       if (is.null(private$public_bind_env)) {
-        private$create_singleton()
+        private$create_singleton(LogDispatch)
       } else {
         self <- private$instance
         private$set_bindings()
       }
 
       invisible(self)
-    },
-
-    #' @description
-    #' Public wrapper around system context used
-    #' when evaluating log layouts.
-    #' @return system context for logging metrics.
-    get_system_context = function() {
-      private$system_context
     },
 
     #' @description
@@ -57,9 +48,10 @@ LogDispatch <- R6::R6Class(
 
       name <- tolower(level_name(level))
 
-      self[[name]] <- rlang::as_function(function(msg,
-                                                  parent = parent.frame(),
-                                                  layout = "default") {
+      self[[name]] <- function(msg,
+                               parent = parent.frame(),
+                               layout = "default") {
+
         current <- level_severity(level)
         threshold <- level_severity(log_levels(private$settings$threshold))
 
@@ -118,7 +110,7 @@ LogDispatch <- R6::R6Class(
         cat(glue::glue(evaluated),
             fill = T,
             file = stdout())
-      })
+      }
 
       invisible(self)
     },
@@ -150,20 +142,20 @@ LogDispatch <- R6::R6Class(
     public_bind_env = NULL,
     private_bind_env = NULL,
 
-    create_singleton = function(bind_env) {
+    create_singleton = function(obj) {
 
       private$public_bind_env <- base::dynGet("public_bind_env")
-      private$private_bind_env <-base::dynGet("private_bind_env")
+      private$private_bind_env <- base::dynGet("private_bind_env")
 
-      LogDispatch$set("private",
-                      "public_bind_env",
-                      private$public_bind_env,
-                      overwrite = TRUE)
+      obj$set("private",
+                "public_bind_env",
+                private$public_bind_env,
+                overwrite = TRUE)
 
-      LogDispatch$set("private",
-                      "private_bind_env",
-                      private$private_bind_env,
-                      overwrite = TRUE)
+      obj$set("private",
+              "private_bind_env",
+              private$private_bind_env,
+              overwrite = TRUE)
     },
 
     set_bindings = function() {

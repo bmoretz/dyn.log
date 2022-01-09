@@ -52,6 +52,12 @@ test_that("get_name_works", {
   actual <- level_name(level)
 
   expect_equal(actual, "TEST")
+
+  # clean-up test level
+  log_levels("test", level = NA)
+
+  all_levels <- log_levels()
+  expect_true(all(is.na(match(all_levels, "test"))))
 })
 
 test_that("cast_level_name_works", {
@@ -60,6 +66,12 @@ test_that("cast_level_name_works", {
   actual <- as.character(level)
 
   expect_equal(actual, "TEST")
+
+  # clean-up test level
+  log_levels("test", level = NA)
+
+  all_levels <- log_levels()
+  expect_true(all(is.na(match(all_levels, "test"))))
 })
 
 test_that("get_severity_works", {
@@ -68,14 +80,30 @@ test_that("get_severity_works", {
   actual <- level_severity(level)
 
   expect_equal(actual, 10L)
+
+  # clean-up test level
+  log_levels("test", level = NA)
+
+  all_levels <- log_levels()
+  expect_true(all(is.na(match(all_levels, "test"))))
 })
 
 test_that("cast_level_severity_works", {
-  level <- new_log_level("TEST", "test level", 10L)
+  level <- new_log_level(
+    "TEST",
+    "test level",
+    10L
+  )
 
   actual <- as.integer(level)
 
   expect_equal(actual, 10L)
+
+  # clean-up test level
+  log_levels("test", level = NA)
+
+  all_levels <- log_levels()
+  expect_true(all(is.na(match(all_levels, "test"))))
 })
 
 test_that("can_create_log_level", {
@@ -84,6 +112,9 @@ test_that("can_create_log_level", {
 
   expect_true(!is.null(level))
   expect_equal(class(level), c('level_TEST', 'log_level'))
+
+  # clean-up test level
+  log_levels("test", level = NA)
 })
 
 test_that("log_levels_display",{

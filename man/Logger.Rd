@@ -5,7 +5,7 @@
 \alias{Logger}
 \title{Global Logging Instance}
 \format{
-An object of class \code{LogDispatch} (inherits from \code{R6}) of length 16.
+An object of class \code{LogDispatch} (inherits from \code{R6}) of length 15.
 }
 \usage{
 Logger
