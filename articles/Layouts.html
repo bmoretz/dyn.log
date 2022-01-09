@@ -29,7 +29,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">dyn.log</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,7 +75,7 @@
       <img src="" class="logo" alt=""><h1>Layouts</h1>
                         <h4 data-toc-skip class="author">Brandon Moretz</h4>
             
-            <h4 data-toc-skip class="date">2021-12-30</h4>
+            <h4 data-toc-skip class="date">2022-01-09</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/bmoretz/dyn.log/blob/HEAD/vignettes/Layouts.Rmd" class="external-link"><code>vignettes/Layouts.Rmd</code></a></small>
       <div class="d-none name"><code>Layouts.Rmd</code></div>
@@ -83,9 +83,106 @@
 
     
     
+<div class="section level1">
+<h1 id="format-objects">Format Objects<a class="anchor" aria-label="anchor" href="#format-objects"></a>
+</h1>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bmoretz.github.io/dyn.log/" class="external-link">dyn.log</a></span><span class="op">)</span></code></pre></div>
-  </main>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bmoretz.github.io/dyn.log/" class="external-link">dyn.log</a></span><span class="op">)</span>
+
+<span class="co"># set logging config with tweaks for kitr output</span>
+<span class="fu"><a href="../reference/set_log_configuration.html">set_log_configuration</a></span><span class="op">(</span>file_name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"knitr.yaml"</span>, 
+                                              package <span class="op">=</span> <span class="st">"dyn.log"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<style type="text/css" scoped>
+PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
+</style>
+<div class="section level2">
+<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h2>
+<p>Log <strong>Layouts</strong> are the mechanism that ties everything in the package together with a composition based design. A log layout is essentially a container for formats, which defines exactly how the log message will get rendered. Layouts also have additional metadata attributes which allow for overrides to the default format <em>separators</em>, <em>spacing</em>, etc., as well as mechanism for associating a particular log layout with a type of R6 class.</p>
+<div class="section level3">
+<h3 id="defaults">Defaults<a class="anchor" aria-label="anchor" href="#defaults"></a>
+</h3>
+<p>There are two basic layouts that come with the standard configuration (<em>default.yaml</em>) bundled with the package, <strong>default</strong> and <strong>log_level</strong>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">layouts</span><span class="kw">:</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">-</span><span class="at"> </span><span class="fu">association</span><span class="kw">:</span><span class="at"> default</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="at">  </span><span class="fu">seperator</span><span class="kw">:</span><span class="at"> !expr as.character(' ')</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="at">  </span><span class="fu">new_line</span><span class="kw">:</span><span class="at"> !expr as.character('\n')</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="at">  </span><span class="fu">formats</span><span class="kw">:</span><span class="at"> new_fmt_log_level(),</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="at">           new_fmt_timestamp(crayon::silver$italic),</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="at">           new_fmt_log_msg()</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="kw">-</span><span class="at"> </span><span class="fu">association</span><span class="kw">:</span><span class="at"> level_msg</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="at">  </span><span class="fu">seperator</span><span class="kw">:</span><span class="at"> !expr as.character(' ')</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="at">  </span><span class="fu">new_line</span><span class="kw">:</span><span class="at"> !expr as.character('\n')</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="at">  </span><span class="fu">formats</span><span class="kw">:</span><span class="at"> new_fmt_log_level(),</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="at">           new_fmt_log_msg()</span></span></code></pre></div>
+<p>The R equivalent of creating the default layout is essentailly the same as the yaml definition:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/new_log_layout.html">new_log_layout</a></span><span class="op">(</span>
+  format <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+    <span class="fu"><a href="../reference/new_fmt_log_level.html">new_fmt_log_level</a></span><span class="op">(</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_timestamp.html">new_fmt_timestamp</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">silver</a></span><span class="op">$</span><span class="va">italic</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_log_msg.html">new_fmt_log_msg</a></span><span class="op">(</span><span class="op">)</span>    
+  <span class="op">)</span>,
+  association <span class="op">=</span> <span class="st">"default_via_r"</span>
+<span class="op">)</span></code></pre></div>
+<p>An info level log message generated with the package default config:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Logger</span><span class="op">$</span><span class="fu">info</span><span class="op">(</span><span class="st">"this is the default layout"</span><span class="op">)</span></code></pre></div>
+<pre class="fansi fansi-output"><code><span style="color: #005FAF; font-weight: bold;">INFO</span> <span style="color: #555555; font-style: italic;">[01/09/22 17:04:33 +0000]</span> <span style="color: #EEEEEE;">this is the default layout</span>
+</code></pre>
+<p>Now with the new layout defined above:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Logger</span><span class="op">$</span><span class="fu">info</span><span class="op">(</span><span class="st">"this is the custom layout object"</span>, layout <span class="op">=</span> <span class="st">"default_via_r"</span><span class="op">)</span></code></pre></div>
+<pre class="fansi fansi-output"><code><span style="color: #005FAF; font-weight: bold;">INFO</span> <span style="color: #555555; font-style: italic;">[01/09/22 17:04:33 +0000]</span> <span style="color: #EEEEEE;">this is the custom layout object</span>
+</code></pre>
+<p>which render the exact same output, the idea here is that defining layouts via custom R code or via yaml in the configuration are exactly the same.</p>
+</div>
+<div class="section level3">
+<h3 id="customization">Customization<a class="anchor" aria-label="anchor" href="#customization"></a>
+</h3>
+<p>To create a customized log layout you only need to specify what formats you want rendered (and their arguments) in the formats argument, as seen above. See the <strong>Formats</strong> vignette for more detail on formats.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/new_log_layout.html">new_log_layout</a></span><span class="op">(</span>
+  format <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+    <span class="fu"><a href="../reference/new_fmt_metric.html">new_fmt_metric</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">green</a></span><span class="op">$</span><span class="va">bold</span>, <span class="st">"sysname"</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_metric.html">new_fmt_metric</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">yellow</a></span><span class="op">$</span><span class="va">bold</span>, <span class="st">"release"</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_line_break.html">new_fmt_line_break</a></span><span class="op">(</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_log_level.html">new_fmt_log_level</a></span><span class="op">(</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_timestamp.html">new_fmt_timestamp</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">silver</a></span><span class="op">$</span><span class="va">italic</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_exec_scope.html">new_fmt_exec_scope</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">magenta</a></span><span class="op">$</span><span class="va">bold</span>, <span class="st">"calling_fn"</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_literal.html">new_fmt_literal</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">blue</a></span><span class="op">$</span><span class="va">italic</span>, <span class="st">"literal text"</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_log_msg.html">new_fmt_log_msg</a></span><span class="op">(</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_line_break.html">new_fmt_line_break</a></span><span class="op">(</span><span class="op">)</span>,
+    <span class="fu"><a href="../reference/new_fmt_exec_scope.html">new_fmt_exec_scope</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">cyan</a></span><span class="op">$</span><span class="va">bold</span>, <span class="st">"call_stack"</span><span class="op">)</span>
+  <span class="op">)</span>,
+  seperator <span class="op">=</span> <span class="st">'-'</span>,
+  association <span class="op">=</span> <span class="st">"log-with-callstack"</span>
+<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">log_fn</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">outer</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">inner</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
+      
+      <span class="va">var1</span> <span class="op">&lt;-</span> <span class="st">"abc"</span>; <span class="va">var2</span> <span class="op">&lt;-</span> <span class="fl">123</span>; <span class="va">var3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">6</span><span class="op">)</span>
+      
+      <span class="va">Logger</span><span class="op">$</span><span class="fu">debug</span><span class="op">(</span><span class="st">"my log message - var1: '{var1}', var2: '{var2}', var3: '{var3}'"</span>, 
+                   layout <span class="op">=</span> <span class="st">'log-with-callstack'</span><span class="op">)</span>
+    <span class="op">}</span>
+    <span class="fu">inner</span><span class="op">(</span><span class="op">)</span>
+  <span class="op">}</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/outer.html" class="external-link">outer</a></span><span class="op">(</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="fu">log_fn</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre class="fansi fansi-output"><code><span style="color: #00BB00; font-weight: bold;">Linux</span>-<span style="color: #BBBB00; font-weight: bold;">5.11.0-1022-azure</span>
+<span style="color: #00D7FF; font-weight: bold;">DEBUG</span>-<span style="color: #555555; font-style: italic;">[01/09/22 17:04:33 +0000]</span>-<span style="color: #BB00BB; font-weight: bold;">inner</span>-<span style="color: #0000BB; font-style: italic;">literal text</span>-<span style="color: #DADADA;">my log message - var1: 'abc', var2: '123', var3: '0.713824'</span>
+<span style="color: #00BBBB; font-weight: bold;">knitr:::block_exec</span>-<span style="color: #00BBBB; font-weight: bold;">knitr:::eng_r</span>-<span style="color: #00BBBB; font-weight: bold;">knitr:::in_dir</span>-<span style="color: #00BBBB; font-weight: bold;">knitr:::evaluate</span>-<span style="color: #00BBBB; font-weight: bold;">evaluate::evaluate</span>-<span style="color: #00BBBB; font-weight: bold;">evaluate:::evaluate_call</span>-<span style="color: #00BBBB; font-weight: bold;">evaluate:::timing_fn</span>-<span style="color: #00BBBB; font-weight: bold;">base:::handle</span>-<span style="color: #00BBBB; font-weight: bold;">base::withCallingHandlers</span>-<span style="color: #00BBBB; font-weight: bold;">base::withVisible</span>-<span style="color: #00BBBB; font-weight: bold;">base::eval</span>-<span style="color: #00BBBB; font-weight: bold;">base::eval</span>-<span style="color: #00BBBB; font-weight: bold;">global::log_fn</span>-<span style="color: #00BBBB; font-weight: bold;">outer</span>-<span style="color: #00BBBB; font-weight: bold;">inner</span>
+</code></pre>
+</div>
+</div>
+</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
