@@ -25,6 +25,36 @@ set_log_configuration <- function(file_name, envir = parent.frame()) {
   invisible()
 }
 
+#' @title Get Configurations
+#'
+#' @description
+#' Gets all avaliable logging configurations
+#' exposed by the package.
+#'
+#' @param pkgname package name to get configs for.
+#'
+#' @family Logging
+#'
+#' @importFrom stringr str_split str_trim
+get_configurations <- function(pkgname) {
+
+  config_files <- list.files(
+    system.file("", package = pkgname),
+    pattern = ".yaml",
+    full.names = T
+  )
+
+  configs <- list()
+
+  sapply(config_files, function(fname) {
+    cname <- tools::file_path_sans_ext(basename(fname))
+    configs[[cname]] <<- fname
+    invisible()
+  })
+
+  configs
+}
+
 #' @title Load Log Levels
 #'
 #' @description

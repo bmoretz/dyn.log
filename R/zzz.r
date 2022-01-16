@@ -11,16 +11,16 @@ Logger <- LogDispatch$new()
 
   assign("namespace", pkgname, envir = topenv())
 
-  default_config <- system.file("default.yaml",
-                                package = pkgname)
+  configs <- get_configurations(pkgname = pkgname)
+  assign("configs", configs, envir = topenv())
 
-  set_log_configuration(default_config, envir = topenv())
+  set_log_configuration(configs$default, envir = topenv())
 
   # Always register hook in case package is later unloaded & loaded
   setHook(
     packageEvent(pkgname, "onLoad"),
     function(...) {
-      set_log_configuration(default_config, envir = topenv())
+      set_log_configuration(configs$default, envir = topenv())
     }
   )
 

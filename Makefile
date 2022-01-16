@@ -1,87 +1,32 @@
-# prepare the package for release
-PKGNAME := $(shell sed -n "s/Package: *\([^ ]*\)/\1/p" DESCRIPTION)
-PKGVERS := $(shell sed -n "s/Version: *\([^ ]*\)/\1/p" DESCRIPTION)
-PKGSRC  := $(shell basename `pwd`)
+PKGNAME = `sed -n "s/Package: *\([^ ]*\)/\1/p" DESCRIPTION`
+PKGVERS = `sed -n "s/Version: *\([^ ]*\)/\1/p" DESCRIPTION`
 
-all: check clean
+all: check
 
-deps:
-	tlmgr install pgf preview xcolor;\
-	Rscript -e 'if (!require("Rd2roxygen")) install.packages("Rd2roxygen", repos="http://cran.rstudio.com")'
+activate:
+	Rscript -e 'source("renv/activate.R")'
 
-docs:
-	R -q -e 'library(Rd2roxygen); rab(".", build = FALSE)'
+build: activate
+	@rm -rf bin
+	@mkdir bin
 
-readme:
-	Rscript -e 'rmarkdown::render("README.Rmd", encoding="UTF8")'
+	Rscript \
+	-e 'devtools::build(path = "bin", binary = F, vignettes = T, manual = T)'
 
-build:
-	cd ..;\
-	R CMD build --no-manual $(PKGSRC)
+check: activate
+	
+	Rscript \
+	-e 'options(crayon.enabled = TRUE)' \
+	-e 'rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")'
 
-build-cran:
-	cd ..;\
-	R CMD build $(PKGSRC)
+restore: activate
+	Rscript \
+	-e 'source("renv/activate.R")' \
+	-e 'renv::restore()'
 
 install: build
-	cd ..;\
-	R CMD INSTALL $(PKGNAME)_$(PKGVERS).tar.gz
-
-check: build-cran
-	cd ..;\
-	R CMD check $(PKGNAME)_$(PKGVERS).tar.gz --as-cran
-
-integration-run:
-	xvfb-run make deps knit -C knitr-examples
-
-integration-verify:
-	GIT_PAGER=cat make diff -C knitr-examples
-
-integration: install integration-run integration-verify
-
-examples:
-	cd inst/examples;\
-	Rscript knit-all.R
-
-vignettes:
-	cd vignettes;\
-	lyx -e knitr knitr-refcard.lyx;\
-	sed -i '/\\usepackage{breakurl}/ d' knitr-refcard.Rnw;\
-	mv knitr-refcard.Rnw assets/template-refcard.tex
+	R CMD INSTALL bin/$(PKGNAME)_$(PKGVERS).tar.gz
 
 clean:
-	cd ..;\
-	$(RM) -r $(PKGNAME).Rcheck/
-
-PKGNAME := $(shell sed -n "s/Package: *\([^ ]*\)/\1/p" DESCRIPTION)
-PKGVERS := $(shell sed -n "s/Version: *\([^ ]*\)/\1/p" DESCRIPTION)
-PKGSRC  := $(shell basename `pwd`)
-
-all: rd check clean
-
-alldocs: rd readme
-
-rd:
-	Rscript -e 'roxygen2::roxygenise(".")'
-
-readme:
-	Rscript -e 'rmarkdown::render("README.Rmd", encoding="UTF8")'
-
-build:
-	R CMD build $(PKGSRC)
-
-install:
-	cd ..;\
-	R CMD INSTALL $(PKGNAME)_$(PKGVERS).tar.gz
-
-check: build
-	cd ..;\
-	Rscript -e 'rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")'
-
-clean:
-	cd ..;\
-	$(RM) -r $(PKGNAME).Rcheck/
-	$(RM) $(PKGNAME)_$(PKGVERS).*
-
-lint:
-	Rscript -e "lintr::lint_dir(path='R/')"
+	@rm -rf $(PKGNAME)_$(PKGVERS).tar.gz $(PKGNAME).Rcheck
+	@rm -r check

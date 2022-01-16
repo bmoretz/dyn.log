@@ -38,10 +38,10 @@
     },
     "MASS": {
       "Package": "MASS",
-      "Version": "7.3-54",
+      "Version": "7.3-55",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "0e59129db205112e3963904db67fd0dc",
+      "Hash": "c5232ffb549f6d7a04a152c34ca1353d",
       "Requirements": []
     },
     "Matrix": {
@@ -72,10 +72,10 @@
     },
     "Rcpp": {
       "Package": "Rcpp",
-      "Version": "1.0.7",
+      "Version": "1.0.8",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "dab19adae4440ae55aa8a9d238b246bb",
+      "Hash": "22b546dd7e337f6c0c58a39983a496bc",
       "Requirements": []
     },
     "askpass": {
@@ -395,10 +395,10 @@
     },
     "fansi": {
       "Package": "fansi",
-      "Version": "0.5.0",
+      "Version": "1.0.2",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "d447b40982c576a72b779f0a3b3da227",
+      "Hash": "f28149c2d7a1342a834b314e95e67260",
       "Requirements": []
     },
     "farver": {
@@ -721,10 +721,10 @@
     },
     "nlme": {
       "Package": "nlme",
-      "Version": "3.1-153",
+      "Version": "3.1-155",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "2d632e0d963a653a0329756ce701ecdd",
+      "Hash": "74ad940dccc9e977189a5afe5fcdb7ba",
       "Requirements": [
         "lattice"
       ]
@@ -783,10 +783,10 @@
     },
     "pkgdown": {
       "Package": "pkgdown",
-      "Version": "2.0.1",
+      "Version": "2.0.2",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "5d93e983873dc4803cd8e554cdcd40e5",
+      "Hash": "1ef66f10b752bb5f17e33fe9fa861005",
       "Requirements": [
         "bslib",
         "callr",
@@ -956,15 +956,10 @@
     },
     "renv": {
       "Package": "renv",
-      "Version": "0.15.0-10",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteUsername": "rstudio",
-      "RemoteRepo": "renv",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "f03d9d6b828f4bae15b79816a69d44f374cafbd4",
-      "RemoteHost": "api.github.com",
-      "Hash": "ac8e4c950dc95b328044ae6678ce0aa9",
+      "Version": "0.15.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "c38694b67e7f7091f7d073b3766258cc",
       "Requirements": []
     },
     "rex": {
