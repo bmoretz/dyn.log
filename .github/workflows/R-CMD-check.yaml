@@ -58,6 +58,8 @@ jobs:
             eval sudo $cmd
           done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
 
+          echo "RENV_PATHS_ROOT=$(Rscript -e 'cat(tools::R_user_dir("renv"))')" >> $GITHUB_ENV
+
       - name: Install System Dependencies [macOS]
         if: runner.os == 'macOS'
         shell: bash
@@ -65,6 +67,9 @@ jobs:
           brew install libgit2
           Rscript -e "install.packages(c('remotes'))"
           echo "RENV_PATHS_ROOT=~/Library/Application Support/renv" >> $GITHUB_ENV
+
+      - name: Display Environment
+        run: echo ${{ env.RENV_PATHS_ROOT }}
 
       - name: Cache packages
         uses: actions/cache@v2

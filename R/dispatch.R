@@ -1,4 +1,4 @@
-#' @title LogDispatch
+#' @title Log Dispatch
 #'
 #' @description
 #' R6 Class that dispatches log messages throughout the application.

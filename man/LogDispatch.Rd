@@ -3,7 +3,7 @@
 \docType{class}
 \name{LogDispatch}
 \alias{LogDispatch}
-\title{LogDispatch}
+\title{Log Dispatch}
 \description{
 R6 Class that dispatches log messages throughout the application.
 }
@@ -19,6 +19,7 @@ Other Logging:
 \code{\link{attach_log_levels}()},
 \code{\link{configure_logger}()},
 \code{\link{display_log_levels}()},
+\code{\link{get_configurations}()},
 \code{\link{init_logger}()},
 \code{\link{load_log_layouts}()},
 \code{\link{set_log_configuration}()}
