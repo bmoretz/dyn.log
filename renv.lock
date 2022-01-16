@@ -9,6 +9,14 @@
     ]
   },
   "Packages": {
+    "BH": {
+      "Package": "BH",
+      "Version": "1.78.0-0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "4e348572ffcaa2fb1e610e7a941f6f3a",
+      "Requirements": []
+    },
     "DT": {
       "Package": "DT",
       "Version": "0.20",
@@ -35,10 +43,10 @@
     },
     "Rcpp": {
       "Package": "Rcpp",
-      "Version": "1.0.7",
+      "Version": "1.0.8",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "dab19adae4440ae55aa8a9d238b246bb",
+      "Hash": "22b546dd7e337f6c0c58a39983a496bc",
       "Requirements": []
     },
     "askpass": {
@@ -323,10 +331,10 @@
     },
     "fansi": {
       "Package": "fansi",
-      "Version": "0.5.0",
+      "Version": "1.0.2",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "d447b40982c576a72b779f0a3b3da227",
+      "Hash": "f28149c2d7a1342a834b314e95e67260",
       "Requirements": []
     },
     "fastmap": {
@@ -433,6 +441,19 @@
         "htmltools",
         "jsonlite",
         "yaml"
+      ]
+    },
+    "httpgd": {
+      "Package": "httpgd",
+      "Version": "1.2.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "5879dba359512d89b0154648f32f0bbe",
+      "Requirements": [
+        "BH",
+        "cpp11",
+        "later",
+        "systemfonts"
       ]
     },
     "httr": {
@@ -621,10 +642,10 @@
     },
     "pkgdown": {
       "Package": "pkgdown",
-      "Version": "2.0.1",
+      "Version": "2.0.2",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "5d93e983873dc4803cd8e554cdcd40e5",
+      "Hash": "1ef66f10b752bb5f17e33fe9fa861005",
       "Requirements": [
         "bslib",
         "callr",
@@ -794,15 +815,15 @@
     },
     "renv": {
       "Package": "renv",
-      "Version": "0.15.0-10",
+      "Version": "0.15.1-1",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteUsername": "rstudio",
       "RemoteRepo": "renv",
       "RemoteRef": "HEAD",
-      "RemoteSha": "f03d9d6b828f4bae15b79816a69d44f374cafbd4",
+      "RemoteSha": "3e46a3e83e94b70935f0b593bff05b8a989a0cdb",
       "RemoteHost": "api.github.com",
-      "Hash": "ac8e4c950dc95b328044ae6678ce0aa9",
+      "Hash": "5d5c5bb0a4616231ba7d27d02f780e02",
       "Requirements": []
     },
     "rex": {
