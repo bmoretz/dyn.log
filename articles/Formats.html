@@ -29,14 +29,14 @@
     
     <a class="navbar-brand me-2" href="../index.html">dyn.log</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
@@ -44,6 +44,7 @@
 <li class="active nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/Configuration.html">Configuration</a>
     <a class="dropdown-item" href="../articles/Formats.html">Formats</a>
     <a class="dropdown-item" href="../articles/Layouts.html">Layouts</a>
     <a class="dropdown-item" href="../articles/Levels.html">Levels</a>
@@ -70,6 +71,9 @@
     
   </div>
 </nav><div class="container template-article">
+
+
+
 <script src="Formats_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <main id="main"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Formats</h1>
@@ -83,9 +87,9 @@
 
     
     
-<div class="section level1">
-<h1 id="format-objects">Format Objects<a class="anchor" aria-label="anchor" href="#format-objects"></a>
-</h1>
+<div class="section level2">
+<h2 id="format-objects">Format Objects<a class="anchor" aria-label="anchor" href="#format-objects"></a>
+</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bmoretz.github.io/dyn.log/" class="external-link">dyn.log</a></span><span class="op">)</span>
 
@@ -95,15 +99,15 @@
 <style type="text/css" scoped>
 PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 </style>
-<div class="section level2">
-<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
-</h2>
+<div class="section level3">
+<h3 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h3>
 <p>Format objects are the driver of customization in log rendering. Log layouts were developed with the <a href="https://en.wikipedia.org/wiki/Composite_pattern" class="external-link">composition</a> design pattern in mind; a log layout is simply a series of formats that get evaluated with their associated context to form a log message.</p>
 <p>All formats derive from the <strong>fmt_layout</strong> base type and have a couple of generics associated with them, specifically: <strong>style</strong> and <strong>value</strong>. The <strong>fmt_layout</strong> is meant to be an <a href="https://en.wikipedia.org/wiki/Abstract_type" class="external-link">abstract</a> base type; by driving from it the logging framework can make some assumptions about how to treat a format object.</p>
 </div>
-<div class="section level2">
-<h2 id="format-types">Format Types<a class="anchor" aria-label="anchor" href="#format-types"></a>
-</h2>
+<div class="section level3">
+<h3 id="format-types">Format Types<a class="anchor" aria-label="anchor" href="#format-types"></a>
+</h3>
 <p>There are five main categories of log format objects:</p>
 <ul>
 <li>Core
@@ -143,9 +147,9 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 </ul>
 </li>
 </ul>
-<div class="section level3">
-<h3 id="system-context">System Context<a class="anchor" aria-label="anchor" href="#system-context"></a>
-</h3>
+<div class="section level4">
+<h4 id="system-context">System Context<a class="anchor" aria-label="anchor" href="#system-context"></a>
+</h4>
 <p>The values available for a <strong>fmt_metric</strong> type can be accessed via <em>sys_context</em>:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">sys_context</span>()</span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="op">$</span>sysname</span>
@@ -158,7 +162,7 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <span id="cb2-9"><a href="#cb2-9"></a>[<span class="dv">1</span>] <span class="st">"#27~20.04.1-Ubuntu SMP Fri Jan 7 15:02:06 UTC 2022"</span></span>
 <span id="cb2-10"><a href="#cb2-10"></a></span>
 <span id="cb2-11"><a href="#cb2-11"></a><span class="op">$</span>nodename</span>
-<span id="cb2-12"><a href="#cb2-12"></a>[<span class="dv">1</span>] <span class="st">"fv-az33-58"</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a>[<span class="dv">1</span>] <span class="st">"fv-az77-149"</span></span>
 <span id="cb2-13"><a href="#cb2-13"></a></span>
 <span id="cb2-14"><a href="#cb2-14"></a><span class="op">$</span>machine</span>
 <span id="cb2-15"><a href="#cb2-15"></a>[<span class="dv">1</span>] <span class="st">"x86_64"</span></span>
@@ -177,9 +181,9 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <span id="cb2-28"><a href="#cb2-28"></a></span>
 <span id="cb2-29"><a href="#cb2-29"></a><span class="kw">attr</span>(,<span class="st">"class"</span>)</span>
 <span id="cb2-30"><a href="#cb2-30"></a>[<span class="dv">1</span>] <span class="st">"sys_context"</span> <span class="st">"context"</span>    </span></code></pre></div>
-<div class="section level4">
-<h4 id="system-context-example">System Context Example<a class="anchor" aria-label="anchor" href="#system-context-example"></a>
-</h4>
+<div class="section level5">
+<h5 id="system-context-example">System Context Example<a class="anchor" aria-label="anchor" href="#system-context-example"></a>
+</h5>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/new_log_layout.html">new_log_layout</a></span><span class="op">(</span>
   format <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
@@ -197,14 +201,14 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 
 <span class="va">Logger</span><span class="op">$</span><span class="fu">debug</span><span class="op">(</span><span class="st">"my log message - var1: {var1}, var2: {var2}, var3: {var3}"</span>, 
              layout <span class="op">=</span> <span class="st">"ex-sys-layout"</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code><span style="color: #00D7FF; font-weight: bold;">DEBUG</span>-<span style="color: #00BB00; font-weight: bold;">Linux</span>-<span style="color: #BBBB00; font-weight: bold;">5.11.0-1025-azure</span>-<span style="color: #555555; font-style: italic;">[01/16/22 22:44:18]</span>-<span style="color: #DADADA;">my log message - var1: abc, var2: 123, var3: 0.740316</span>
+<pre class="fansi fansi-output"><code><span style="color: #00D7FF; font-weight: bold;">DEBUG</span>-<span style="color: #00BB00; font-weight: bold;">Linux</span>-<span style="color: #BBBB00; font-weight: bold;">5.11.0-1025-azure</span>-<span style="color: #555555; font-style: italic;">[01/16/22 22:49:30]</span>-<span style="color: #DADADA;">my log message - var1: abc, var2: 123, var3: 0.187294</span>
 </code></pre>
 <p>As you can see, the log message has a great deal of detail, but difficult to interpret due to the amount of information jammed into one line. This is where literals and new lines come into play.</p>
 </div>
 </div>
-<div class="section level3">
-<h3 id="literals-new-lines">Literals &amp; New Lines<a class="anchor" aria-label="anchor" href="#literals-new-lines"></a>
-</h3>
+<div class="section level4">
+<h4 id="literals-new-lines">Literals &amp; New Lines<a class="anchor" aria-label="anchor" href="#literals-new-lines"></a>
+</h4>
 <p>Literals and new lines are simple formatting objects that help you tweak the layout of a log message to something that is both informative and easy to consume. Taking the previous example, and tweaking the format slightly incorporating literals &amp; new lines, we can produce a log message like this:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/new_log_layout.html">new_log_layout</a></span><span class="op">(</span>
@@ -227,13 +231,13 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <span class="va">Logger</span><span class="op">$</span><span class="fu">debug</span><span class="op">(</span><span class="st">"my log message - var1: {var1}, var2: {var2}, var3: {var3}"</span>, 
              layout <span class="op">=</span> <span class="st">"ex-syslit-layout"</span><span class="op">)</span></code></pre></div>
 <pre class="fansi fansi-output"><code><span style="color: #00BB00; font-weight: bold;">Linux</span> <span style="color: #BB00BB;">[</span> <span style="color: #0000BB; font-weight: bold;">5.11.0-1025-azure</span> <span style="color: #BB00BB;">]</span>
-<span style="color: #00D7FF; font-weight: bold;">DEBUG</span> <span style="color: #555555; font-style: italic;">[01/16/22 22:44:18]</span> <span style="color: #DADADA;">my log message - var1: abc, var2: 123, var3: 0.993431</span>
+<span style="color: #00D7FF; font-weight: bold;">DEBUG</span> <span style="color: #555555; font-style: italic;">[01/16/22 22:49:30]</span> <span style="color: #DADADA;">my log message - var1: abc, var2: 123, var3: 0.712654</span>
 </code></pre>
 <p>Which has the same information as the previous example, but much easier to consume.</p>
 </div>
-<div class="section level3">
-<h3 id="execution-scope">Execution Scope<a class="anchor" aria-label="anchor" href="#execution-scope"></a>
-</h3>
+<div class="section level4">
+<h4 id="execution-scope">Execution Scope<a class="anchor" aria-label="anchor" href="#execution-scope"></a>
+</h4>
 <p>Execution scope formats give you the ability to log the context around the invocation of the logger, and is a context object, much like <em>sys_context</em>, called <strong>exec_context</strong>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">test</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span>, <span class="va">c</span><span class="op">)</span> <span class="op">{</span>
@@ -348,7 +352,7 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 
 <span class="fu">local_fn</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre class="fansi fansi-output"><code><span style="color: #00BB00; font-weight: bold;">Linux</span>-<span style="color: #BBBB00;">5.11.0-1025-azure</span>
-<span style="color: #00D7FF; font-weight: bold;">DEBUG</span>-<span style="color: #555555; font-style: italic;">[01/16/22 22:44:18]</span>-<span style="color: #BB00BB; font-weight: bold;">fn(</span>-<span style="color: #BB00BB; font-weight: bold;">inner</span>-<span style="color: #BB00BB; font-weight: bold;">)</span>-<span style="color: #DADADA;">my log message - var1: 'abc', var2: '123', var3: '0.555308'</span>
+<span style="color: #00D7FF; font-weight: bold;">DEBUG</span>-<span style="color: #555555; font-style: italic;">[01/16/22 22:49:31]</span>-<span style="color: #BB00BB; font-weight: bold;">fn(</span>-<span style="color: #BB00BB; font-weight: bold;">inner</span>-<span style="color: #BB00BB; font-weight: bold;">)</span>-<span style="color: #DADADA;">my log message - var1: 'abc', var2: '123', var3: '0.079593'</span>
 <span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">knitr:::block_exec</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">knitr:::eng_r</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">knitr:::in_dir</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">knitr:::evaluate</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">evaluate::evaluate</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">evaluate:::evaluate_call</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">evaluate:::timing_fn</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">base:::handle</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">base::withCallingHandlers</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">base::withVisible</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">base::eval</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">base::eval</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">global::local_fn</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">outer</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">inner</span>
 </code></pre>
 </div>
@@ -367,7 +371,7 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
     </footer>
