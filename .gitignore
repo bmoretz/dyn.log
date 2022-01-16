@@ -12,4 +12,5 @@ cellar/
 staging/
 check/
 docs
+inst/doc
 bin/
