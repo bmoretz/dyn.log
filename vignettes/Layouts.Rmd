@@ -60,7 +60,7 @@ layouts:
 
 ```
 
-The R equivalent of creating the default layout is essentailly the same as the yaml definition:
+The R equivalent of creating the default layout is essentially the same as the yaml definition:
 
 ```{r}
 new_log_layout(
