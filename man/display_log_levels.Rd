@@ -20,6 +20,7 @@ Other Logging:
 \code{\link{LogDispatch}},
 \code{\link{attach_log_levels}()},
 \code{\link{configure_logger}()},
+\code{\link{get_configurations}()},
 \code{\link{init_logger}()},
 \code{\link{load_log_layouts}()},
 \code{\link{set_log_configuration}()}

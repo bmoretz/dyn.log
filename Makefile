@@ -1,19 +1,23 @@
 PKGNAME = `sed -n "s/Package: *\([^ ]*\)/\1/p" DESCRIPTION`
 PKGVERS = `sed -n "s/Version: *\([^ ]*\)/\1/p" DESCRIPTION`
 
-all: check
+all: check clean
 
 activate:
 	Rscript -e 'source("renv/activate.R")'
 
-build: activate
+build: activate document
 	@rm -rf bin
 	@mkdir bin
 
 	Rscript \
 	-e 'devtools::build(path = "bin", binary = F, vignettes = T, manual = T)'
 
-check: activate
+document: activate
+	Rscript \
+		-e 'devtools::document()'
+
+check: activate document
 	
 	Rscript \
 	-e 'options(crayon.enabled = TRUE)' \
@@ -29,4 +33,5 @@ install: build
 
 clean:
 	@rm -rf $(PKGNAME)_$(PKGVERS).tar.gz $(PKGNAME).Rcheck
-	@rm -r check
+	@rm -rf check
+	@rm -rf bin
