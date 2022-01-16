@@ -4,7 +4,7 @@
 \alias{get_configurations}
 \title{Get Configurations}
 \usage{
-get_configurations(pkgname)
+get_configurations(pkgname = "dyn.log")
 }
 \arguments{
 \item{pkgname}{package name to get configs for.}
