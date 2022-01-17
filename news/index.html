@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">dyn.log</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.3-1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,7 +54,47 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.2.1.1" id="dynlog-0211">dyn.log 0.2.1.1<a class="anchor" aria-label="anchor" href="#dynlog-0211"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.2.4" id="dynlog-024">dyn.log 0.2.4<a class="anchor" aria-label="anchor" href="#dynlog-024"></a></h2>
+<div class="section level3">
+<h3 id="whats-changed-0-2-4">What’s Changed<a class="anchor" aria-label="anchor" href="#whats-changed-0-2-4"></a></h3>
+<ul><li>Enhancements
+<ul><li>cleaned up code coverage to ~95%.</li>
+<li>added vignette on “Configuration” to detail the steps in customizing dyn.log in client applications.</li>
+<li>cleaned up all logging configurations to streamline customization.</li>
+<li>added clear examples on how to setup bespoke customizations to dyn.log via config templates</li>
+</ul></li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.2.3-1" id="dynlog-023-1">dyn.log 0.2.3-1<a class="anchor" aria-label="anchor" href="#dynlog-023-1"></a></h2>
+<div class="section level3">
+<h3 id="patch-release-0-2-3-1">(Patch Release)<a class="anchor" aria-label="anchor" href="#patch-release-0-2-3-1"></a></h3>
+<ul><li>Enhancements
+<ul><li>patch to expose configurations</li>
+</ul></li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.2.3" id="dynlog-023">dyn.log 0.2.3<a class="anchor" aria-label="anchor" href="#dynlog-023"></a></h2>
+<div class="section level3">
+<h3 id="whats-changed-0-2-3">What’s Changed<a class="anchor" aria-label="anchor" href="#whats-changed-0-2-3"></a></h3>
+<ul><li>New Features
+<ul><li>added functionality to export logging configurations that are bundled with the package so they can effectively be used as templates in consuming clients.</li>
+<li>Added a configuration vignette with examples on how to use the bundled configurations as templates.</li>
+</ul></li>
+<li>Enhancements
+<ul><li>cleaned up renv dependencies and git actions build cache mechanics to reduce build times.</li>
+<li>added dispatch &amp; singleton helper objects to streamline unit testing of core functionality.</li>
+<li>streamlined threshold and log dispatch evaluation routine.</li>
+<li>cleaned up makefile to provide a clean &amp; efficient interface for building and deploying the package.</li>
+<li>cleaned up all logging configurations and added ability to specify layouts with strings or !expr’s.</li>
+</ul></li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.2.2" id="dynlog-022">dyn.log 0.2.2<a class="anchor" aria-label="anchor" href="#dynlog-022"></a></h2>
+<div class="section level3">
+<h3 id="whats-changed-0-2-2">What’s Changed<a class="anchor" aria-label="anchor" href="#whats-changed-0-2-2"></a></h3>
 <ul><li>New Features
 <ul><li>added execution context &amp; related log formatters (call stack, top call, parent fn, etc.)</li>
 <li>added vignettes for: <strong>levels</strong>, <strong>formats</strong> and <strong>layouts</strong>
@@ -66,18 +106,15 @@
 <li>updated all vignettes to use <a href="https://github.com/brodieG/fansi" class="external-link">fansi</a> package to display clean logging output like you would see in the terminal.</li>
 <li>added callstack evaluation parameters to logging configuration to account for things like <a href="https://github.com/r-lib/testthat" class="external-link">testthat</a> and <a href="https://github.com/yihui/knitr" class="external-link">knitr</a>
 </li>
-<li>general cleaned up of documentation and unittests.</li>
+<li>general cleaned up of documentation and unit tests.</li>
 <li>added a lintr github action &amp; started working through clearing all the warnings.</li>
 </ul></li>
 </ul></div>
+</div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.1.4" id="dynlog-014">dyn.log 0.1.4<a class="anchor" aria-label="anchor" href="#dynlog-014"></a></h2>
-<ul><li>Enhancements
-<ul><li>focusing on cleaning up the pkgdown site, documentation, vignettes and the readme.</li>
-</ul></li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.1.3" id="dynlog-013">dyn.log 0.1.3<a class="anchor" aria-label="anchor" href="#dynlog-013"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.1.3" id="dynlog-013-alpha">dyn.log 0.1.3-alpha<a class="anchor" aria-label="anchor" href="#dynlog-013-alpha"></a></h2>
+<div class="section level3">
+<h3 id="whats-changed-0-1-3">What’s Changed<a class="anchor" aria-label="anchor" href="#whats-changed-0-1-3"></a></h3>
 <ul><li>New Features
 <ul><li>Log layouts are now fully configuration driven, w/ some reasonable defaults.</li>
 </ul></li>
@@ -90,8 +127,11 @@
 <li>updated renv pkgs cache in the github actions CI builds to reduce build time ~90%.</li>
 </ul></li>
 </ul></div>
+</div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.1.2" id="dynlog-012">dyn.log 0.1.2<a class="anchor" aria-label="anchor" href="#dynlog-012"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.1.2" id="dynlog-012-alpha">dyn.log 0.1.2-alpha<a class="anchor" aria-label="anchor" href="#dynlog-012-alpha"></a></h2>
+<div class="section level3">
+<h3 id="whats-changed-0-1-2">What’s Changed<a class="anchor" aria-label="anchor" href="#whats-changed-0-1-2"></a></h3>
 <ul><li>New Features
 <ul><li>added codecov, R CMD Check &amp; pkgdown github actions</li>
 <li>added a pkg down site and started fleshing out basic vignettes on usage/design.</li>
@@ -102,14 +142,17 @@
 <li>added README that gives a solid overview of what the package is trying to achieve &amp; how</li>
 </ul></li>
 </ul></div>
+</div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.1.1" id="dynlog-v011">dyn.log v0.1.1<a class="anchor" aria-label="anchor" href="#dynlog-v011"></a></h2>
-<ul><li>Initial Version
-<ul><li>baseline logging components are fully functional: levels, formats, layouts and the dispatcher.</li>
+<h2 class="pkg-version" data-toc-text="0.1.1" id="dynlog-v011-alpha">dyn.log v0.1.1-alpha<a class="anchor" aria-label="anchor" href="#dynlog-v011-alpha"></a></h2>
+<div class="section level3">
+<h3 id="initial-version-0-1-1">Initial Version<a class="anchor" aria-label="anchor" href="#initial-version-0-1-1"></a></h3>
+<ul><li>New Features</li>
+<li>baseline logging components are fully functional: levels, formats, layouts and the dispatcher.</li>
 <li>pkg instantiates a singleton instance of the log dispatcher, and the default configuration will give you a fully functional logging environment.</li>
 <li>cls level customization options are working as expected; you can create a log layout associated with an R6 type, and the have the logger spit out variables from the enclosing class. Example added to README.</li>
-</ul></li>
 </ul></div>
+</div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 

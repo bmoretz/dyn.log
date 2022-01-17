@@ -9,7 +9,7 @@
     are several excellent logging solutions already in the R ecosystem, I always feel constrained 
     in some way by each of them. Every project is designed differently to achieve its stated goal; 
     to solve some problem, and ultimately the utility of a logging solution is its ability to adapt 
-    to the project’s design. This is the rai·son d'ê·tre for dyn.log, to provide a modular design, 
+    to the projects design. This is the rai·son d'ê·tre for dyn.log, to provide a modular design, 
     template mechanics and a configuration-based integration model, so that the logger can integrate 
     deeply into your design, even though it knows nothing about it.">
 <title>Dynamic Logging for R Inspired by Configuration Driven Development • dyn.log</title>
@@ -25,7 +25,7 @@
     are several excellent logging solutions already in the R ecosystem, I always feel constrained 
     in some way by each of them. Every project is designed differently to achieve its stated goal; 
     to solve some problem, and ultimately the utility of a logging solution is its ability to adapt 
-    to the project’s design. This is the rai·son d'ê·tre for dyn.log, to provide a modular design, 
+    to the projects design. This is the rai·son d'ê·tre for dyn.log, to provide a modular design, 
     template mechanics and a configuration-based integration model, so that the logger can integrate 
     deeply into your design, even though it knows nothing about it.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -41,7 +41,7 @@
     
     <a class="navbar-brand me-2" href="index.html">dyn.log</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.3-1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -151,6 +151,10 @@
 <h4 id="configuration">Configuration<a class="anchor" aria-label="anchor" href="#configuration"></a>
 </h4>
 <p>Everything about dyn.log is configuration driven, the package comes with a basic configuration <strong>default.yaml</strong>, show below it its entirety and broken down in the sections that follow:</p>
+<p><em>For a detailed look at customizing these settings please see <a href="https://bmoretz.github.io/dyn.log/articles/Configuration.html" class="external-link">Configurations</a> vignette online, or</em></p>
+<blockquote>
+<p>vignette(“Configuration”, package = “dyn.log”)</p>
+</blockquote>
 <div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">settings</span><span class="kw">:</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="at">  </span><span class="fu">threshold</span><span class="kw">:</span><span class="at"> TRACE</span></span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="at">  </span><span class="fu">callstack</span><span class="kw">:</span></span>
@@ -160,49 +164,49 @@
 <span id="cb4-7"><a href="#cb4-7"></a><span class="fu">levels</span><span class="kw">:</span></span>
 <span id="cb4-8"><a href="#cb4-8"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> TRACE</span></span>
 <span id="cb4-9"><a href="#cb4-9"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> This level designates finer-grained informational events than the DEBUG.</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> !expr 600L</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> </span><span class="dv">600</span></span>
 <span id="cb4-11"><a href="#cb4-11"></a><span class="at">  </span><span class="fu">log_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style("antiquewhite3")$bold</span></span>
 <span id="cb4-12"><a href="#cb4-12"></a><span class="at">  </span><span class="fu">msg_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('gray60')</span></span>
 <span id="cb4-13"><a href="#cb4-13"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> DEBUG</span></span>
 <span id="cb4-14"><a href="#cb4-14"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> This level designates fine-grained informational events that are most useful to debug an application.</span></span>
-<span id="cb4-15"><a href="#cb4-15"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> !expr 500L</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> </span><span class="dv">500</span></span>
 <span id="cb4-16"><a href="#cb4-16"></a><span class="at">  </span><span class="fu">log_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('deepskyblue2')$bold</span></span>
 <span id="cb4-17"><a href="#cb4-17"></a><span class="at">  </span><span class="fu">msg_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('gray90')</span></span>
 <span id="cb4-18"><a href="#cb4-18"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> INFO</span></span>
 <span id="cb4-19"><a href="#cb4-19"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> This level designates informational messages that highlight the progress of the application at coarse-grained level.</span></span>
-<span id="cb4-20"><a href="#cb4-20"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> !expr 400L</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> </span><span class="dv">400</span></span>
 <span id="cb4-21"><a href="#cb4-21"></a><span class="at">  </span><span class="fu">log_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('dodgerblue4')$bold</span></span>
 <span id="cb4-22"><a href="#cb4-22"></a><span class="at">  </span><span class="fu">msg_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('gray100')</span></span>
 <span id="cb4-23"><a href="#cb4-23"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> SUCCESS</span></span>
 <span id="cb4-24"><a href="#cb4-24"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> This level designates that the operation was unencumbered.</span></span>
-<span id="cb4-25"><a href="#cb4-25"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> !expr 300L</span></span>
+<span id="cb4-25"><a href="#cb4-25"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> </span><span class="dv">300</span></span>
 <span id="cb4-26"><a href="#cb4-26"></a><span class="at">  </span><span class="fu">log_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('chartreuse')$bold</span></span>
 <span id="cb4-27"><a href="#cb4-27"></a><span class="at">  </span><span class="fu">msg_style</span><span class="kw">:</span><span class="at"> !expr crayon::bgGreen$bold$black</span></span>
 <span id="cb4-28"><a href="#cb4-28"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> WARN</span></span>
 <span id="cb4-29"><a href="#cb4-29"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> This level designates potentially harmful situations.</span></span>
-<span id="cb4-30"><a href="#cb4-30"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> !expr 350L</span></span>
+<span id="cb4-30"><a href="#cb4-30"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> </span><span class="dv">350</span></span>
 <span id="cb4-31"><a href="#cb4-31"></a><span class="at">  </span><span class="fu">log_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('darkorange')$bold</span></span>
 <span id="cb4-32"><a href="#cb4-32"></a><span class="at">  </span><span class="fu">msg_style</span><span class="kw">:</span><span class="at"> !expr crayon::bgYellow$bold$black</span></span>
 <span id="cb4-33"><a href="#cb4-33"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> ERROR</span></span>
 <span id="cb4-34"><a href="#cb4-34"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> This level designates error events that might still allow the application to continue running.</span></span>
-<span id="cb4-35"><a href="#cb4-35"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> !expr 200L</span></span>
+<span id="cb4-35"><a href="#cb4-35"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> </span><span class="dv">200</span></span>
 <span id="cb4-36"><a href="#cb4-36"></a><span class="at">  </span><span class="fu">log_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('firebrick1')$bold</span></span>
 <span id="cb4-37"><a href="#cb4-37"></a><span class="at">  </span><span class="fu">msg_style</span><span class="kw">:</span><span class="at"> !expr crayon::bgBlack$bold$white</span></span>
 <span id="cb4-38"><a href="#cb4-38"></a><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> FATAL</span></span>
 <span id="cb4-39"><a href="#cb4-39"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> This level designates very severe error events that will presumably lead the application to abort.</span></span>
-<span id="cb4-40"><a href="#cb4-40"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> !expr 100L</span></span>
+<span id="cb4-40"><a href="#cb4-40"></a><span class="at">  </span><span class="fu">severity</span><span class="kw">:</span><span class="at"> </span><span class="dv">100</span></span>
 <span id="cb4-41"><a href="#cb4-41"></a><span class="at">  </span><span class="fu">log_style</span><span class="kw">:</span><span class="at"> !expr crayon::make_style('firebrick')$bold</span></span>
 <span id="cb4-42"><a href="#cb4-42"></a><span class="at">  </span><span class="fu">msg_style</span><span class="kw">:</span><span class="at"> !expr crayon::bgRed$bold$white</span></span>
 <span id="cb4-43"><a href="#cb4-43"></a><span class="fu">layouts</span><span class="kw">:</span></span>
 <span id="cb4-44"><a href="#cb4-44"></a><span class="kw">-</span><span class="at"> </span><span class="fu">association</span><span class="kw">:</span><span class="at"> default</span></span>
-<span id="cb4-45"><a href="#cb4-45"></a><span class="at">  </span><span class="fu">seperator</span><span class="kw">:</span><span class="at"> !expr as.character(' ')</span></span>
-<span id="cb4-46"><a href="#cb4-46"></a><span class="at">  </span><span class="fu">new_line</span><span class="kw">:</span><span class="at"> !expr as.character('\n')</span></span>
+<span id="cb4-45"><a href="#cb4-45"></a><span class="at">  </span><span class="fu">seperator</span><span class="kw">:</span><span class="at"> </span><span class="st">' '</span></span>
+<span id="cb4-46"><a href="#cb4-46"></a><span class="at">  </span><span class="fu">new_line</span><span class="kw">:</span><span class="at"> \n</span></span>
 <span id="cb4-47"><a href="#cb4-47"></a><span class="at">  </span><span class="fu">formats</span><span class="kw">:</span><span class="at"> new_fmt_log_level(),</span></span>
 <span id="cb4-48"><a href="#cb4-48"></a><span class="at">           new_fmt_timestamp(crayon::silver$italic),</span></span>
 <span id="cb4-49"><a href="#cb4-49"></a><span class="at">           new_fmt_log_msg()</span></span>
 <span id="cb4-50"><a href="#cb4-50"></a><span class="kw">-</span><span class="at"> </span><span class="fu">association</span><span class="kw">:</span><span class="at"> level_msg</span></span>
-<span id="cb4-51"><a href="#cb4-51"></a><span class="at">  </span><span class="fu">seperator</span><span class="kw">:</span><span class="at"> !expr as.character(' ')</span></span>
-<span id="cb4-52"><a href="#cb4-52"></a><span class="at">  </span><span class="fu">new_line</span><span class="kw">:</span><span class="at"> !expr as.character('\n')</span></span>
+<span id="cb4-51"><a href="#cb4-51"></a><span class="at">  </span><span class="fu">seperator</span><span class="kw">:</span><span class="at"> </span><span class="st">' '</span></span>
+<span id="cb4-52"><a href="#cb4-52"></a><span class="at">  </span><span class="fu">new_line</span><span class="kw">:</span><span class="at"> \n</span></span>
 <span id="cb4-53"><a href="#cb4-53"></a><span class="at">  </span><span class="fu">formats</span><span class="kw">:</span><span class="at"> new_fmt_log_level(),</span></span>
 <span id="cb4-54"><a href="#cb4-54"></a><span class="at">           new_fmt_log_msg()</span></span></code></pre></div>
 </div>
