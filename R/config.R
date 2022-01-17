@@ -35,8 +35,8 @@ set_log_configuration <- function(file_name, envir = parent.frame()) {
 #'
 #' @family Logging
 #'
-#' @importFrom stringr str_split str_trim
-get_configurations <- function(pkgname) {
+#' @export
+get_configurations <- function(pkgname = "dyn.log") {
 
   config_files <- list.files(
     system.file("", package = pkgname),

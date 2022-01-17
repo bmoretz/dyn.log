@@ -13,6 +13,13 @@ build: activate document
 	Rscript \
 	-e 'devtools::build(path = "bin", binary = F, vignettes = T, manual = T)'
 
+binary: activate document
+	@rm -rf bin
+	@mkdir bin
+
+	Rscript \
+	-e 'devtools::build(path = "bin", binary = T, vignettes = T, manual = T)'
+
 document: activate
 	Rscript \
 		-e 'devtools::document()'
