@@ -91,9 +91,9 @@ Everything about dyn.log is configuration driven, the package comes with
 a basic configuration **default.yaml**, show below it its entirety and
 broken down in the sections that follow:
 
-For a detailed look at customizing these settings please see
+*For a detailed look at customizing these settings please see
 [Configurations](https://bmoretz.github.io/dyn.log/articles/Configuration.html)
-vignette online, or
+vignette online, or*
 
 > vignette(“Configuration”, package = “dyn.log”)
 

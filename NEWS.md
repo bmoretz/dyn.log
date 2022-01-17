@@ -3,7 +3,9 @@
 ## What's Changed
 * Enhancements
   + cleaned up code coverage to  ~95%.
-  + 
+  + added vignette on "Configuration" to detail the steps in customizing dyn.log in client applications.
+  + cleaned up all logging configurations to streamline customization.
+  + added clear examples on how to setup bespoke customizations to dyn.log via config templates
   
 # dyn.log 0.2.3-1
 
