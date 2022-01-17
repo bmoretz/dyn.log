@@ -7,8 +7,8 @@ Logger <- LogDispatch$new()
 #'
 #' @param libname library name
 #' @param pkgname package name
-.onLoad <- function(libname, pkgname) {
-
+.onLoad <- function(libname, pkgname) { # nolint
+  # nocov start
   assign("namespace", pkgname, envir = topenv())
 
   configs <- get_configurations(pkgname = pkgname)
@@ -25,4 +25,5 @@ Logger <- LogDispatch$new()
   )
 
   invisible()
+  # nocov end
 }

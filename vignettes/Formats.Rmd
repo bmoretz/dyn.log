@@ -18,12 +18,12 @@ vignette: >
 library(dyn.log)
 
 # set logging config with tweaks for kitr output
-set_log_configuration(file_name = system.file("knitr.yaml", 
+set_log_configuration(file_name = system.file("knitr.yaml",
                                               package = "dyn.log"))
 ```
 
 ```{r, comment="", results="asis", echo=F}
-options(crayon.enabled=TRUE)
+options(crayon.enabled = TRUE)
 knitr::opts_chunk$set(collapse = TRUE,
                       fig.path = "man/figures/FORMAT-",
                       comment = "")
@@ -79,7 +79,7 @@ new_log_layout(
 
 var1 <- "abc"; var2 <- 123; var3 <- round(runif(1), digits = 6)
 
-Logger$debug("my log message - var1: {var1}, var2: {var2}, var3: {var3}", 
+Logger$debug("my log message - var1: {var1}, var2: {var2}, var3: {var3}",
              layout = "ex-sys-layout")
 ```
 
@@ -107,7 +107,7 @@ new_log_layout(
 
 var1 <- "abc"; var2 <- 123; var3 <- round(runif(1), digits = 6)
 
-Logger$debug("my log message - var1: {var1}, var2: {var2}, var3: {var3}", 
+Logger$debug("my log message - var1: {var1}, var2: {var2}, var3: {var3}",
              layout = "ex-syslit-layout")
 ```
 
@@ -184,8 +184,8 @@ local_fn <- function() {
   outer <- function() {
     inner <- function() {
       var1 <- "abc"; var2 <- 123; var3 <- round(runif(1), digits = 6)
-      
-      Logger$debug("my log message - var1: '{var1}', var2: '{var2}', var3: '{var3}'", 
+
+      Logger$debug("my log message - var1: '{var1}', var2: '{var2}', var3: '{var3}'",
                    layout = 'ex-sysexec-cs-layout')
     }
     inner()

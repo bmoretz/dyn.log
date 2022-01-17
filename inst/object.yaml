@@ -2,7 +2,7 @@ settings:
   threshold: TRACE
   callstack:
     max: 5
-    start: 20
+    start: -1
     stop: -1
 levels:
 - name: TRACE
@@ -52,3 +52,13 @@ layouts:
   new_line: \n
   formats: new_fmt_log_level(),
            new_fmt_log_msg()
+- association: TestObject
+  seperator: ' '
+  new_line: \n
+  formats: !expr list(new_fmt_literal(crayon::cyan$bold, 'Object Id:'),
+           new_fmt_cls_field(crayon::bgCyan$silver$bold, 'id'),
+           new_fmt_line_break(),
+           new_fmt_log_level(),
+           new_fmt_timestamp(crayon::silver$italic),
+           new_fmt_exec_scope(crayon::magenta$bold, 'calling_fn'),
+           new_fmt_log_msg())

@@ -36,8 +36,6 @@ DerivedTestObject <- R6::R6Class(
       a <- "derived test"; b <- 321; c <- 200L
 
       Logger$trace("variables in derived: {a} - {b} - {c}")
-
-      Logger$trace
     }
   ),
 

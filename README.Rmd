@@ -95,6 +95,10 @@ Logger$debug("my log message - var1: {var1}, var2: {var2}, var3: {var3}")
 
 Everything about dyn.log is configuration driven, the package comes with a basic configuration **default.yaml**, show below it its entirety and broken down in the sections that follow:
 
+For a detailed look at customizing these settings please see [Configurations](https://bmoretz.github.io/dyn.log/articles/Configuration.html) vignette online, or
+
+> vignette("Configuration", package = "dyn.log")
+
 ```yaml
 `r xfun::file_string('inst/default.yaml')`
 ```

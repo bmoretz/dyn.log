@@ -45,7 +45,7 @@ LogDispatch <- R6::R6Class(
     #' @param level log level
     #' @return reference to self to support chaining.
     add_log_level = function(level) {
-
+      # nocov start
       name <- tolower(level_name(level))
 
       self[[name]] <- function(msg,
@@ -113,6 +113,7 @@ LogDispatch <- R6::R6Class(
       }
 
       invisible(self)
+      # nocov end
     },
 
     #' @description
@@ -143,7 +144,7 @@ LogDispatch <- R6::R6Class(
     private_bind_env = NULL,
 
     create_singleton = function(obj) {
-
+      # nocov start
       private$public_bind_env <- base::dynGet("public_bind_env")
       private$private_bind_env <- base::dynGet("private_bind_env")
 
@@ -156,6 +157,7 @@ LogDispatch <- R6::R6Class(
               "private_bind_env",
               private$private_bind_env,
               overwrite = TRUE)
+      # nocov end
     },
 
     set_bindings = function() {

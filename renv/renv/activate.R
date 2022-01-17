@@ -68,54 +68,54 @@ local({
 
   }
 
-  # load bootstrap tools   
+  # load bootstrap tools
   `%||%` <- function(x, y) {
     if (is.environment(x) || length(x)) x else y
   }
-  
+
   bootstrap <- function(version, library) {
-  
+
     # attempt to download renv
     tarball <- tryCatch(renv_bootstrap_download(version), error = identity)
     if (inherits(tarball, "error"))
       stop("failed to download renv ", version)
-  
+
     # now attempt to install
     status <- tryCatch(renv_bootstrap_install(version, tarball, library), error = identity)
     if (inherits(status, "error"))
       stop("failed to install renv ", version)
-  
+
   }
-  
+
   renv_bootstrap_tests_running <- function() {
     getOption("renv.tests.running", default = FALSE)
   }
-  
+
   renv_bootstrap_repos <- function() {
-  
+
     # check for repos override
     repos <- Sys.getenv("RENV_CONFIG_REPOS_OVERRIDE", unset = NA)
     if (!is.na(repos))
       return(repos)
-  
+
     # check for lockfile repositories
     repos <- tryCatch(renv_bootstrap_repos_lockfile(), error = identity)
     if (!inherits(repos, "error") && length(repos))
       return(repos)
-  
+
     # if we're testing, re-use the test repositories
     if (renv_bootstrap_tests_running())
       return(getOption("renv.tests.repos"))
-  
+
     # retrieve current repos
     repos <- getOption("repos")
-  
+
     # ensure @CRAN@ entries are resolved
     repos[repos == "@CRAN@"] <- getOption(
       "renv.repos.cran",
       "https://cloud.r-project.org"
     )
-  
+
     # add in renv.bootstrap.repos if set
     default <- c(FALLBACK = "https://cloud.r-project.org")
     extra <- getOption("renv.bootstrap.repos", default = default)
