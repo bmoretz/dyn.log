@@ -1,4 +1,4 @@
-test_that("test_load_log_config_works", {
+test_that("load_log_config_works", {
 
   test_config_file <- system.file("test-data",
                                   "test-config.yaml",
@@ -35,7 +35,7 @@ test_that("test_load_log_config_works", {
 
 })
 
-test_that("test_set_settings_works", {
+test_that("set_settings_works", {
 
   test_config_file <- system.file("test-data",
                                   "test-config.yaml",
@@ -74,7 +74,7 @@ test_that("test_set_settings_works", {
   })
 })
 
-test_that("test_get_configurations_works", {
+test_that("get_configurations_works", {
 
   log_configs <- get_configurations()
 
@@ -84,7 +84,7 @@ test_that("test_get_configurations_works", {
 
 })
 
-test_that("test_object_config_works", {
+test_that("object_config_works", {
 
   test_config_file <- system.file("test-data",
                                   "test-object.yaml",
