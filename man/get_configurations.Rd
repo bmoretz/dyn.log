@@ -10,7 +10,7 @@ get_configurations(pkgname = "dyn.log")
 \item{pkgname}{package name to get configs for.}
 }
 \description{
-Gets all avaliable logging configurations
+Gets all available logging configurations
 exposed by the package.
 }
 \seealso{

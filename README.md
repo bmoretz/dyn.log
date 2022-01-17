@@ -6,8 +6,12 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/bmoretz/dyn.log/workflows/R-CMD-check/badge.svg)](https://github.com/bmoretz/dyn.log/actions)
+[![License:
+MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://cran.r-project.org/web/licenses/MIT)
 [![Codecov test
 coverage](https://codecov.io/gh/bmoretz/dyn.log/branch/master/graph/badge.svg)](https://app.codecov.io/gh/bmoretz/dyn.log?branch=master)
+[![](https://img.shields.io/badge/devel%20version-0.2.4-blue.svg)](https://github.com/https://bmoretz.github.io/dyn.log/)
+[![Lifecycle](https://img.shields.io/badge/lifecycle-stable-darkgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- badges: end -->
 
 The goal of dyn.log is to be a comprehensive and dynamic configuration
@@ -91,6 +95,12 @@ Everything about dyn.log is configuration driven, the package comes with
 a basic configuration **default.yaml**, show below it its entirety and
 broken down in the sections that follow:
 
+*For a detailed look at customizing these settings please see
+[Configurations](https://bmoretz.github.io/dyn.log/articles/Configuration.html)
+vignette online, or*
+
+> vignette(“Configuration”, package = “dyn.log”)
+
 ``` yaml
 settings:
   threshold: TRACE
@@ -101,49 +111,49 @@ settings:
 levels:
 - name: TRACE
   description: This level designates finer-grained informational events than the DEBUG.
-  severity: !expr 600L
+  severity: 600
   log_style: !expr crayon::make_style("antiquewhite3")$bold
   msg_style: !expr crayon::make_style('gray60')
 - name: DEBUG
   description: This level designates fine-grained informational events that are most useful to debug an application.
-  severity: !expr 500L
+  severity: 500
   log_style: !expr crayon::make_style('deepskyblue2')$bold
   msg_style: !expr crayon::make_style('gray90')
 - name: INFO
   description: This level designates informational messages that highlight the progress of the application at coarse-grained level.
-  severity: !expr 400L
+  severity: 400
   log_style: !expr crayon::make_style('dodgerblue4')$bold
   msg_style: !expr crayon::make_style('gray100')
 - name: SUCCESS
   description: This level designates that the operation was unencumbered.
-  severity: !expr 300L
+  severity: 300
   log_style: !expr crayon::make_style('chartreuse')$bold
   msg_style: !expr crayon::bgGreen$bold$black
 - name: WARN
   description: This level designates potentially harmful situations.
-  severity: !expr 350L
+  severity: 350
   log_style: !expr crayon::make_style('darkorange')$bold
   msg_style: !expr crayon::bgYellow$bold$black
 - name: ERROR
   description: This level designates error events that might still allow the application to continue running.
-  severity: !expr 200L
+  severity: 200
   log_style: !expr crayon::make_style('firebrick1')$bold
   msg_style: !expr crayon::bgBlack$bold$white
 - name: FATAL
   description: This level designates very severe error events that will presumably lead the application to abort.
-  severity: !expr 100L
+  severity: 100
   log_style: !expr crayon::make_style('firebrick')$bold
   msg_style: !expr crayon::bgRed$bold$white
 layouts:
 - association: default
-  seperator: !expr as.character(' ')
-  new_line: !expr as.character('\n')
+  seperator: ' '
+  new_line: \n
   formats: new_fmt_log_level(),
            new_fmt_timestamp(crayon::silver$italic),
            new_fmt_log_msg()
 - association: level_msg
-  seperator: !expr as.character(' ')
-  new_line: !expr as.character('\n')
+  seperator: ' '
+  new_line: \n
   formats: new_fmt_log_level(),
            new_fmt_log_msg()
 ```

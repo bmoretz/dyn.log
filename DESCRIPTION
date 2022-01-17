@@ -1,7 +1,7 @@
 Package: dyn.log
 Type: Package
 Title: Dynamic Logging for R Inspired by Configuration Driven Development
-Version: 0.2.3-1
+Version: 0.2.4
 Authors@R: 
     c(person(given = "Brandon",
        family = "Moretz",
@@ -14,7 +14,7 @@ Description: A comprehensive and dynamic configuration driven logging package fo
     are several excellent logging solutions already in the R ecosystem, I always feel constrained 
     in some way by each of them. Every project is designed differently to achieve its stated goal; 
     to solve some problem, and ultimately the utility of a logging solution is its ability to adapt 
-    to the project’s design. This is the rai·son d'ê·tre for dyn.log, to provide a modular design, 
+    to the projects design. This is the rai·son d'ê·tre for dyn.log, to provide a modular design, 
     template mechanics and a configuration-based integration model, so that the logger can integrate 
     deeply into your design, even though it knows nothing about it.
 License: MIT + file LICENSE
@@ -48,6 +48,7 @@ Suggests:
     here,
     fansi,
     DT,
+    languageserver,
     httpgd
 Config/testthat/edition: 3
 Language: en-US

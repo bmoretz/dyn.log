@@ -27,7 +27,10 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/bmoretz/dyn.log/workflows/R-CMD-check/badge.svg)](https://github.com/bmoretz/dyn.log/actions)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://cran.r-project.org/web/licenses/MIT)
 [![Codecov test coverage](https://codecov.io/gh/bmoretz/dyn.log/branch/master/graph/badge.svg)](https://app.codecov.io/gh/bmoretz/dyn.log?branch=master)
+[![](https://img.shields.io/badge/devel%20version-0.2.4-blue.svg)](https://github.com/https://bmoretz.github.io/dyn.log/)
+[![Lifecycle](https://img.shields.io/badge/lifecycle-stable-darkgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- badges: end -->
 
 The goal of dyn.log is to be a comprehensive and dynamic configuration driven logging package
@@ -94,6 +97,10 @@ Logger$debug("my log message - var1: {var1}, var2: {var2}, var3: {var3}")
 #### Configuration
 
 Everything about dyn.log is configuration driven, the package comes with a basic configuration **default.yaml**, show below it its entirety and broken down in the sections that follow:
+
+*For a detailed look at customizing these settings please see [Configurations](https://bmoretz.github.io/dyn.log/articles/Configuration.html) vignette online, or*
+
+> vignette("Configuration", package = "dyn.log")
 
 ```yaml
 `r xfun::file_string('inst/default.yaml')`

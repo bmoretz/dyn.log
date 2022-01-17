@@ -28,7 +28,7 @@ set_log_configuration <- function(file_name, envir = parent.frame()) {
 #' @title Get Configurations
 #'
 #' @description
-#' Gets all avaliable logging configurations
+#' Gets all available logging configurations
 #' exposed by the package.
 #'
 #' @param pkgname package name to get configs for.
@@ -74,7 +74,7 @@ attach_log_levels <- function(levels) {
 
     new_level <- new_log_level(name = level$name,
                                description = level$description,
-                               severity = level$severity,
+                               severity = as.integer(level$severity),
                                log_style = level$log_style,
                                msg_style = level$msg_style)
 
@@ -121,11 +121,15 @@ load_log_layouts <- function(layouts) {
 
   for (layout in layouts) {
 
-    parsed <- stringr::str_split(layout$formats, pattern = ",", simplify = T)
+    if (identical(class(layout$format), "character")) {
+      parsed <- stringr::str_split(layout$formats, pattern = ",", simplify = T)
 
-    formats <- sapply(parsed, function(fmt) {
-      eval(parse(text = stringr::str_trim(fmt)))
-    })
+      formats <- sapply(parsed, function(fmt) {
+        eval(parse(text = stringr::str_trim(fmt)))
+      })
+    } else {
+      formats <- layout$formats
+    }
 
     new_layout <- new_log_layout(
       format = formats,

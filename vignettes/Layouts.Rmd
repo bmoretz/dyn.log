@@ -47,14 +47,14 @@ There are two basic layouts that come with the standard configuration (*default.
 ```yaml
 layouts:
 - association: default
-  seperator: !expr as.character(' ')
-  new_line: !expr as.character('\n')
+  seperator: ' '
+  new_line: \n
   formats: new_fmt_log_level(),
            new_fmt_timestamp(crayon::silver$italic),
            new_fmt_log_msg()
 - association: level_msg
-  seperator: !expr as.character(' ')
-  new_line: !expr as.character('\n')
+  seperator: ' '
+  new_line: \n
   formats: new_fmt_log_level(),
            new_fmt_log_msg()
 

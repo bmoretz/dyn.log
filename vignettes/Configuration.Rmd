@@ -24,3 +24,142 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(dyn.log)
 ```
+
+```{r, comment="", results="asis", echo=F}
+options(crayon.enabled=TRUE)
+knitr::opts_chunk$set(collapse = TRUE, comment = "")
+old.hooks <- fansi::set_knit_hooks(knitr::knit_hooks)
+```
+
+## Configurations
+
+The dyn.log package is configuration-driven to provide the client flexibility both with the look & feel of log layouts and formatting (aesthetics) and how it interacts with its container environment. This vignette will focus less on *how the logger works*, and more on *how to make it work for you*.
+
+## Templates
+
+The package comes with a few preconfigured logging setups that are common starting points for your bespoke configuration. To see the configuration templates call the *get_configurations* method:
+
+
+```{r}
+configs <- get_configurations()
+configs
+```
+
+This will return a list of configurations and the yaml file path on your local system. To make a copy of one of them:
+
+### Package
+
+To use a custom logging configuration in a package:
+
+```{r, eval=FALSE}
+file.copy(from = configs$default, to = "inst/logging.yaml")
+```
+
+Then you can:
+
+```{r, eval=FALSE}
+bespoke <- system.file("logging.yaml", package = "yourpkg")
+set_log_configuration(file_name = bespoke)
+```
+
+### Script Directory
+
+To use a custom configuration in a directory/project:
+
+```{r, eval=F}
+file.copy(from = configs$default, to = "logging.yaml")
+```
+
+then in your **.Rprofile**:
+
+```{r, eval=F}
+library(dyn.log)
+set_log_configuration("logging.yaml")
+```
+
+## Integration
+
+If your client code leverages the use of R6 classes, you can specify a custom layout for standalone objects or objects that are part of a hierarchy by using the *association* property. For example, [TestObject](https://github.com/bmoretz/dyn.log/blob/master/tests/testthat/helper-object.R) is a helper object defined in the testthat folder of dyn.log:
+
+The object hierarchy is declared as follows:
+
+```{r}
+TestObject <- R6::R6Class(
+  classname = "TestObject",
+
+  public = list(
+    id = NULL,
+
+    initialize = function() {
+      self$id <- private$generate_id()
+    },
+
+    invoke_logger = function() {
+      a <- "test"; b <- 123; c <- 100L
+
+      Logger$trace("these are some variables: {a} - {b} - {c}")
+    }
+  ),
+
+  private = list(
+    generate_id = function(n = 15) {
+      paste0(sample(LETTERS, n, TRUE), collapse =  '')
+    }
+  )
+)
+
+DerivedTestObject <- R6::R6Class(
+  classname = "DerivedTestObject",
+  inherit = TestObject,
+  public = list(
+    id = NULL,
+
+    initialize = function() {
+      super$initialize()
+    },
+
+    invoke_logger = function() {
+      a <- "derived test"; b <- 321; c <- 200L
+
+      Logger$trace("variables in derived: {a} - {b} - {c}")
+    }
+  ),
+
+  private = list(
+    generate_id = function(n = 15) {
+      paste0(sample(LETTERS, n, TRUE), collapse =  '')
+    }
+  )
+)
+```
+
+The layout configuration for "TestObject" looks like this:
+
+```yaml
+layouts:
+- association: TestObject
+  seperator: ' '
+  new_line: \n
+  formats: !expr list(new_fmt_literal(crayon::cyan$bold, 'Object Id:'),
+           new_fmt_cls_field(crayon::bgCyan$silver$bold, 'id'),
+           new_fmt_line_break(),
+           new_fmt_log_level(),
+           new_fmt_timestamp(crayon::silver$italic),
+           new_fmt_log_msg())
+```
+
+```{r}
+set_log_configuration(configs$object)
+
+test_obj <- DerivedTestObject$new()
+
+test_obj$invoke_logger()
+```
+
+As you can see, the logger knows to log contextual information about any object derived from "TestObject" which exposes a public property, "id", which in this case is a random string, but you can substitute this with any information exposed by the public interface of the type.
+
+This can be a powerful mechanic for templatizing important contextual information in your client applications or scripts.
+
+For a detailed look at layouts refer to the [Layouts](https://bmoretz.github.io/dyn.log/articles/Layouts.html) vignette online, or
+
+> vignette("Layouts", package = "dyn.log")
