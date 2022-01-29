@@ -3,6 +3,8 @@
 
 # dyn.log
 
+# Hex <img src="man/figures/hex.png" width = "175" height = "200" align="right" />
+
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/bmoretz/dyn.log/workflows/R-CMD-check/badge.svg)](https://github.com/bmoretz/dyn.log/actions)

@@ -33,7 +33,7 @@ old.hooks <- fansi::set_knit_hooks(knitr::knit_hooks)
 
 ## Configurations
 
-The dyn.log package is configuration-driven to provide the client flexibility both with the look & feel of log layouts and formatting (aesthetics) and how it interacts with its container environment. This vignette will focus less on *how the logger works*, and more on *how to make it work for you*.
+The dyn.log package is configuration-driven to provide the client flexibility with both the look & feel of log layouts/formatting (aesthetics), and how it interacts with its container environment. This vignette will focus less on *how the logger works*, and more on *how to make it work for you*.
 
 ## Templates
 
