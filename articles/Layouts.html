@@ -79,7 +79,7 @@
       <img src="" class="logo" alt=""><h1>Layouts</h1>
                         <h4 data-toc-skip class="author">Brandon Moretz</h4>
             
-            <h4 data-toc-skip class="date">2022-01-17</h4>
+            <h4 data-toc-skip class="date">2022-01-29</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/bmoretz/dyn.log/blob/HEAD/vignettes/Layouts.Rmd" class="external-link"><code>vignettes/Layouts.Rmd</code></a></small>
       <div class="d-none name"><code>Layouts.Rmd</code></div>
@@ -132,12 +132,12 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <p>An info level log message generated with the package default config:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Logger</span><span class="op">$</span><span class="fu">info</span><span class="op">(</span><span class="st">"this is the default layout"</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code><span style="color: #005FAF; font-weight: bold;">INFO</span> <span style="color: #555555; font-style: italic;">[01/17/22 23:44:30 +0000]</span> <span style="color: #EEEEEE;">this is the default layout</span>
+<pre class="fansi fansi-output"><code><span style="color: #005FAF; font-weight: bold;">INFO</span> <span style="color: #555555; font-style: italic;">[01/29/22 21:55:31 +0000]</span> <span style="color: #EEEEEE;">this is the default layout</span>
 </code></pre>
 <p>Now with the new layout defined above:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Logger</span><span class="op">$</span><span class="fu">info</span><span class="op">(</span><span class="st">"this is the custom layout object"</span>, layout <span class="op">=</span> <span class="st">"default_via_r"</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code><span style="color: #005FAF; font-weight: bold;">INFO</span> <span style="color: #555555; font-style: italic;">[01/17/22 23:44:30 +0000]</span> <span style="color: #EEEEEE;">this is the custom layout object</span>
+<pre class="fansi fansi-output"><code><span style="color: #005FAF; font-weight: bold;">INFO</span> <span style="color: #555555; font-style: italic;">[01/29/22 21:55:31 +0000]</span> <span style="color: #EEEEEE;">this is the custom layout object</span>
 </code></pre>
 <p>which render the exact same output, the idea here is that defining layouts via custom R code or via yaml in the configuration are exactly the same.</p>
 </div>
@@ -178,8 +178,8 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <span class="op">}</span>
 
 <span class="fu">log_fn</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code><span style="color: #00BB00; font-weight: bold;">Linux</span>-<span style="color: #BBBB00; font-weight: bold;">5.11.0-1025-azure</span>
-<span style="color: #00D7FF; font-weight: bold;">DEBUG</span>-<span style="color: #555555; font-style: italic;">[01/17/22 23:44:30 +0000]</span>-<span style="color: #BB00BB; font-weight: bold;">inner</span>-<span style="color: #0000BB; font-style: italic;">literal text</span>-<span style="color: #DADADA;">my log message - var1: 'abc', var2: '123', var3: '0.10182'</span>
+<pre class="fansi fansi-output"><code><span style="color: #00BB00; font-weight: bold;">Linux</span>-<span style="color: #BBBB00; font-weight: bold;">5.11.0-1027-azure</span>
+<span style="color: #00D7FF; font-weight: bold;">DEBUG</span>-<span style="color: #555555; font-style: italic;">[01/29/22 21:55:31 +0000]</span>-<span style="color: #BB00BB; font-weight: bold;">inner</span>-<span style="color: #0000BB; font-style: italic;">literal text</span>-<span style="color: #DADADA;">my log message - var1: 'abc', var2: '123', var3: '0.43035'</span>
 <span style="color: #00BBBB; font-weight: bold;">knitr:::block_exec</span>-<span style="color: #00BBBB; font-weight: bold;">knitr:::eng_r</span>-<span style="color: #00BBBB; font-weight: bold;">knitr:::in_dir</span>-<span style="color: #00BBBB; font-weight: bold;">knitr:::evaluate</span>-<span style="color: #00BBBB; font-weight: bold;">evaluate::evaluate</span>-<span style="color: #00BBBB; font-weight: bold;">evaluate:::evaluate_call</span>-<span style="color: #00BBBB; font-weight: bold;">evaluate:::timing_fn</span>-<span style="color: #00BBBB; font-weight: bold;">base:::handle</span>-<span style="color: #00BBBB; font-weight: bold;">base::withCallingHandlers</span>-<span style="color: #00BBBB; font-weight: bold;">base::withVisible</span>-<span style="color: #00BBBB; font-weight: bold;">base::eval</span>-<span style="color: #00BBBB; font-weight: bold;">base::eval</span>-<span style="color: #00BBBB; font-weight: bold;">global::log_fn</span>-<span style="color: #00BBBB; font-weight: bold;">outer</span>-<span style="color: #00BBBB; font-weight: bold;">inner</span>
 </code></pre>
 </div>
