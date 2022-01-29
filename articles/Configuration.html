@@ -205,8 +205,8 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <span class="va">test_obj</span> <span class="op">&lt;-</span> <span class="va">DerivedTestObject</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">test_obj</span><span class="op">$</span><span class="fu">invoke_logger</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code><span style="color: #00BBBB; font-weight: bold;">Object Id:</span> <span style="color: #555555; background-color: #00BBBB; font-weight: bold;">QCWCEXLCJCXQSTQ</span>
-<span style="color: #B2B2B2; font-weight: bold;">TRACE</span> <span style="color: #555555; font-style: italic;">[01/29/22 21:55:26 +0000]</span> <span style="color: #BB00BB; font-weight: bold;">test_obj$invoke_logger</span> <span style="color: #949494;">variables in derived: derived test - 321 - 200</span>
+<pre class="fansi fansi-output"><code><span style="color: #00BBBB; font-weight: bold;">Object Id:</span> <span style="color: #555555; background-color: #00BBBB; font-weight: bold;">EBBYPPVTOHUVKZD</span>
+<span style="color: #B2B2B2; font-weight: bold;">TRACE</span> <span style="color: #555555; font-style: italic;">[01/29/22 22:02:36 +0000]</span> <span style="color: #BB00BB; font-weight: bold;">test_obj$invoke_logger</span> <span style="color: #949494;">variables in derived: derived test - 321 - 200</span>
 </code></pre>
 <p>As you can see, the logger knows to log contextual information about any object derived from “TestObject” which exposes a public property, “id”, which in this case is a random string, but you can substitute this with any information exposed by the public interface of the type.</p>
 <p>This can be a powerful mechanic for templatizing important contextual information in your client applications or scripts.</p>
