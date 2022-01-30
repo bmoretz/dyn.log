@@ -3,7 +3,7 @@
 
 # dyn.log
 
-# Overview <img src="man/figures/hex.png" width = "175" height = "200" align="right" />
+# Hex <img src="man/figures/hex.png" width = "175" height = "200" align="right" />
 
 <!-- badges: start -->
 
@@ -12,7 +12,7 @@
 MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://cran.r-project.org/web/licenses/MIT)
 [![Codecov test
 coverage](https://codecov.io/gh/bmoretz/dyn.log/branch/master/graph/badge.svg)](https://app.codecov.io/gh/bmoretz/dyn.log?branch=master)
-[![](https://img.shields.io/badge/devel%20version-0.2.4-blue.svg)](https://github.com/https://bmoretz.github.io/dyn.log/)
+[![](https://img.shields.io/badge/devel%20version-0.3.0-blue.svg)](https://bmoretz.github.io/dyn.log/)
 [![Lifecycle](https://img.shields.io/badge/lifecycle-stable-darkgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- badges: end -->
 
