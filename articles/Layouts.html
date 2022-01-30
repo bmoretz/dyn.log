@@ -132,12 +132,12 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <p>An info level log message generated with the package default config:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Logger</span><span class="op">$</span><span class="fu">info</span><span class="op">(</span><span class="st">"this is the default layout"</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code><span style="color: #005FAF; font-weight: bold;">INFO</span> <span style="color: #555555; font-style: italic;">[01/30/22 21:55:42 +0000]</span> <span style="color: #EEEEEE;">this is the default layout</span>
+<pre class="fansi fansi-output"><code><span style="color: #005FAF; font-weight: bold;">INFO</span> <span style="color: #555555; font-style: italic;">[01/30/22 22:29:31 +0000]</span> <span style="color: #EEEEEE;">this is the default layout</span>
 </code></pre>
 <p>Now with the new layout defined above:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Logger</span><span class="op">$</span><span class="fu">info</span><span class="op">(</span><span class="st">"this is the custom layout object"</span>, layout <span class="op">=</span> <span class="st">"default_via_r"</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code><span style="color: #005FAF; font-weight: bold;">INFO</span> <span style="color: #555555; font-style: italic;">[01/30/22 21:55:42 +0000]</span> <span style="color: #EEEEEE;">this is the custom layout object</span>
+<pre class="fansi fansi-output"><code><span style="color: #005FAF; font-weight: bold;">INFO</span> <span style="color: #555555; font-style: italic;">[01/30/22 22:29:31 +0000]</span> <span style="color: #EEEEEE;">this is the custom layout object</span>
 </code></pre>
 <p>which render the exact same output, the idea here is that defining layouts via custom R code or via yaml in the configuration are exactly the same.</p>
 </div>
@@ -179,7 +179,7 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 
 <span class="fu">log_fn</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre class="fansi fansi-output"><code><span style="color: #00BB00; font-weight: bold;">Linux</span>-<span style="color: #BBBB00; font-weight: bold;">5.11.0-1027-azure</span>
-<span style="color: #00D7FF; font-weight: bold;">DEBUG</span>-<span style="color: #555555; font-style: italic;">[01/30/22 21:55:42 +0000]</span>-<span style="color: #BB00BB; font-weight: bold;">get_call_stack</span>-<span style="color: #0000BB; font-style: italic;">literal text</span>-<span style="color: #DADADA;">my log message - var1: 'abc', var2: '123', var3: '0.170653'</span>
+<span style="color: #00D7FF; font-weight: bold;">DEBUG</span>-<span style="color: #555555; font-style: italic;">[01/30/22 22:29:31 +0000]</span>-<span style="color: #BB00BB; font-weight: bold;">get_call_stack</span>-<span style="color: #0000BB; font-style: italic;">literal text</span>-<span style="color: #DADADA;">my log message - var1: 'abc', var2: '123', var3: '0.772451'</span>
 <span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">get_call_stack</span>
 </code></pre>
 </div>
