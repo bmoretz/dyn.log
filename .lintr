@@ -1,11 +1,5 @@
 linters: with_defaults(
-    single_quotes_linter = NULL, # 112
     line_length_linter = NULL, # 53
-    object_name_linter = NULL, # 15
-    commas_linter = NULL, # 11
-    assignment_linter = NULL, # 4
-    object_usage_linter = NULL, # 1
-    spaces_left_parentheses_linter = NULL, # 1
     dummy_linter = NULL
   )
 exclusions: list(

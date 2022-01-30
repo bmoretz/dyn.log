@@ -1,3 +1,35 @@
+# dyn.log 0.3.0
+
+## What's Changed
+
+* New Features
+  + Added private field support for class context logging.
+  
+* Enhancements
+  + added lintr coverage to makefile.
+  + added public & private property examples to the Configuration vignette.
+  + bug fix in call stack context due to change in rlang::trace
+  + cleaned up formatting for all unit tests.
+  
+* lintr code clean-up, cleaned up all lintr warnings in the following categories:
+  + object_name_lintr (R6 Class names have explicit excludes)
+  + commas_lintr
+  + assignment_lintr
+  + object_useage_lintr
+  + spaces_left_parenthesis_linter
+  
+# dyn.log 0.2.5
+
+## What's Changed
+* New Pkg Logo
+  + Created a Hex logo for dyn.log package.
+
+* Enhancements
+  + added a pkg hex + added to readme
+  + updated dependency pkg versions
+  + cleaned up logging configurations
+  + started cleaning up unit tests
+  
 # dyn.log 0.2.4
 
 ## What's Changed

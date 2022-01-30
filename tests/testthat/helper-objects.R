@@ -1,11 +1,21 @@
-TestObject <- R6::R6Class(
+TestObject <- R6::R6Class( # nolint (class definition)
   classname = "TestObject",
 
   public = list(
-    id = NULL,
+
+    cls_name = NULL,
 
     initialize = function() {
-      self$id <- private$generate_id()
+      private$id <- private$generate_id()
+      self$cls_name <- private$get_class_name()
+    },
+
+    identifier = function() {
+      invisible(private$id)
+    },
+
+    class_name = function() {
+      invisible(self$cls_name)
     },
 
     invoke_logger = function() {
@@ -16,17 +26,25 @@ TestObject <- R6::R6Class(
   ),
 
   private = list(
+    id = NULL,
+
     generate_id = function(n = 15) {
-      paste0(sample(LETTERS, n, TRUE), collapse =  '')
+      paste0(sample(LETTERS, n, TRUE), collapse =  "")
+    },
+
+    get_class_name = function() {
+      calls <- as.character(sys.calls())
+      calls <- calls[max(which(stringr::str_detect(calls, "\\$new\\(.*\\)")))]
+      stopifnot(length(calls) == 1)
+      invisible(stringr::str_remove(calls, "\\$new\\(.*\\)"))
     }
   )
 )
 
-DerivedTestObject <- R6::R6Class(
+DerivedTestObject <- R6::R6Class( # nolint (class definition)
   classname = "DerivedTestObject",
   inherit = TestObject,
   public = list(
-    id = NULL,
 
     initialize = function() {
       super$initialize()
@@ -37,21 +55,17 @@ DerivedTestObject <- R6::R6Class(
 
       Logger$trace("variables in derived: {a} - {b} - {c}")
     }
-  ),
-
-  private = list(
-    generate_id = function(n = 15) {
-      paste0(sample(LETTERS, n, TRUE), collapse =  '')
-    }
   )
 )
 
-UnassociatedTestObject <- R6::R6Class(
+UnassociatedTestObject <- R6::R6Class( # nolint (class definition)
   classname = "UnassociatedTestObject",
 
   public = list(
 
-    initialize = function() {},
+    initialize = function() {
+
+    },
 
     invoke_logger = function() {
       a <- "derived test"; b <- 321; c <- 200L

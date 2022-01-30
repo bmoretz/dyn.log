@@ -1,5 +1,5 @@
 #' Global Logging Instance
-Logger <- LogDispatch$new()
+Logger <- LogDispatch$new() # nolint (global obj style)
 
 #' @title Initialization
 #'

@@ -45,7 +45,7 @@ test_that("log_layout_format", {
   with(log_layout_detail(log_layout), {
     expect_equal(length(formats), 10)
     expect_equal(length(types), 8)
-    expect_equal(seperator, ' ')
+    expect_equal(seperator, " ")
   })
 })
 
@@ -64,20 +64,20 @@ test_that("log_layout_format_types", {
       new_fmt_line_break(),
       new_fmt_exec_scope(crayon::cyan$bold, "call_stack")
     ),
-    seperator = '-',
+    seperator = "-",
     association = "test-layout-format"
   )
 
-  with(log_layout_detail(log_layout),{
-    expect_gt(which(!is.na(match(types, 'fmt_metric'))), 0)
-    expect_gt(which(!is.na(match(types, 'fmt_layout'))), 0)
-    expect_gt(which(!is.na(match(types, 'fmt_newline'))), 0)
-    expect_gt(which(!is.na(match(types, 'fmt_log_level'))), 0)
-    expect_gt(which(!is.na(match(types, 'fmt_timestamp'))), 0)
-    expect_gt(which(!is.na(match(types, 'fmt_literal'))), 0)
-    expect_gt(which(!is.na(match(types, 'fmt_log_msg'))), 0)
+  with(log_layout_detail(log_layout), {
+    expect_gt(which(!is.na(match(types, "fmt_metric"))), 0)
+    expect_gt(which(!is.na(match(types, "fmt_layout"))), 0)
+    expect_gt(which(!is.na(match(types, "fmt_newline"))), 0)
+    expect_gt(which(!is.na(match(types, "fmt_log_level"))), 0)
+    expect_gt(which(!is.na(match(types, "fmt_timestamp"))), 0)
+    expect_gt(which(!is.na(match(types, "fmt_literal"))), 0)
+    expect_gt(which(!is.na(match(types, "fmt_log_msg"))), 0)
 
-    expect_equal(seperator, '-')
+    expect_equal(seperator, "-")
   })
 })
 
@@ -100,7 +100,7 @@ test_that("log_layout_evaluates_simple_singleline", {
 
   expect_true(!is.null(log_layout))
 
-  context = list()
+  context <- list()
 
   detail <- log_layout_detail(log_layout)
 
@@ -127,7 +127,7 @@ test_that("log_layout_evaluates_simple_multiline", {
 
   expect_true(!is.null(log_layout))
 
-  context = list()
+  context <- list()
 
   detail <- log_layout_detail(log_layout)
 
@@ -161,7 +161,7 @@ test_that("log_layout_evaluates_metrics_singleline", {
   expect_equal(length(detail$formats), 5)
   expect_equal(length(detail$types), 5)
 
-  context = list(fmt_metric = sys_context())
+  context <- list(fmt_metric = sys_context())
 
   actual <- evaluate_layout(detail, context)
 
@@ -194,7 +194,7 @@ test_that("log_layout_evaluates_metrics_multiline", {
   expect_equal(length(detail$formats), 6)
   expect_equal(length(detail$types), 6)
 
-  context = list(fmt_metric = sys_context())
+  context <- list(fmt_metric = sys_context())
 
   actual <- evaluate_layout(detail, context)
 
@@ -245,7 +245,7 @@ test_that("log_layout_evaluates_cls_attributes_multiline", {
   expect_true(stringr::str_detect(actual, pattern = stringr::fixed(Sys.info()[["release"]])))
 
   expect_true(stringr::str_detect(actual, pattern = stringr::fixed("Object Id:")))
-  expect_true(stringr::str_detect(actual, pattern = stringr::fixed(test_obj$id)))
+  expect_true(stringr::str_detect(actual, pattern = stringr::fixed(test_obj$identifier())))
 })
 
 test_that("multi_line_fmt_works_2", {
@@ -260,7 +260,7 @@ test_that("multi_line_fmt_works_2", {
       new_fmt_literal(crayon::green$italic, "literal2"),
       new_fmt_literal(crayon::blue$italic, "literal3")
     ),
-    seperator = '-')
+    seperator = "-")
 
   detail <- log_layout_detail(log_layout)
 
@@ -275,7 +275,7 @@ test_that("multi_line_fmt_works_2", {
   expected_metrics <- paste(Sys.info()[["sysname"]],
                             Sys.info()[["release"]],
                             Sys.info()[["version"]],
-                            sep = '-')
+                            sep = "-")
 
   expect_true(stringr::str_detect(actual, stringr::fixed(expected_metrics)))
 
@@ -309,7 +309,7 @@ test_that("multi_line_fmt_works_3", {
       new_fmt_metric(crayon::green$bold, "nodename"),
       new_fmt_metric(crayon::blue$bold, "user")
     ),
-    seperator = '---')
+    seperator = "---")
 
   detail <- log_layout_detail(log_layout)
 
@@ -323,7 +323,7 @@ test_that("multi_line_fmt_works_3", {
   expected_metrics <- paste(Sys.info()[["sysname"]],
                             Sys.info()[["release"]],
                             Sys.info()[["version"]],
-                            sep = '---')
+                            sep = "---")
 
   expect_true(stringr::str_detect(actual, stringr::fixed(expected_metrics)))
 
@@ -337,7 +337,7 @@ test_that("multi_line_fmt_works_3", {
   expected_metrics_2 <- paste(Sys.info()[["machine"]],
                               Sys.info()[["nodename"]],
                               Sys.info()[["user"]],
-                              sep = '---')
+                              sep = "---")
 
   expect_true(stringr::str_detect(actual, stringr::fixed(expected_metrics_2)))
 
@@ -368,7 +368,7 @@ test_that("multi_line_fmt_works_4", {
       new_fmt_literal(crayon::green$italic, "literal5"),
       new_fmt_literal(crayon::blue$italic, "literal6")
     ),
-    seperator = '---')
+    seperator = "---")
 
   detail <- log_layout_detail(log_layout)
 
@@ -382,7 +382,7 @@ test_that("multi_line_fmt_works_4", {
   expected_metrics <- paste(Sys.info()[["sysname"]],
                             Sys.info()[["release"]],
                             Sys.info()[["version"]],
-                            sep = '---')
+                            sep = "---")
 
   expect_true(stringr::str_detect(actual, stringr::fixed(expected_metrics)))
 
@@ -396,7 +396,7 @@ test_that("multi_line_fmt_works_4", {
   expected_metrics_2 <- paste(Sys.info()[["machine"]],
                               Sys.info()[["nodename"]],
                               Sys.info()[["user"]],
-                              sep = '---')
+                              sep = "---")
 
   expect_true(stringr::str_detect(actual, stringr::fixed(expected_metrics_2)))
 

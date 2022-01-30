@@ -1,4 +1,4 @@
-LogDispatchTester <- R6::R6Class(
+LogDispatchTester <- R6::R6Class( # nolint (class name)
   classname = "LogDispatchTester",
   inherit = LogDispatch,
   lock_objects = F,
@@ -15,7 +15,7 @@ LogDispatchTester <- R6::R6Class(
   private = list()
 )
 
-SingletonTester <- R6::R6Class(
+SingletonTester <- R6::R6Class( # nolint (class name)
   classname = "SingletonTester",
   inherit = LogDispatch,
   lock_objects = F,

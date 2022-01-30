@@ -97,13 +97,13 @@ format_fn_call <- function(expr,
 #' @importFrom stringr str_detect fixed
 #' @importFrom purrr map
 get_call_stack <- function(keep_args = F,
-                          call_subset = c(-1, -1),
-                          filter_internal = T) {
+                           call_subset = c(-1, -1),
+                           filter_internal = T) {
 
   trace_back <- rlang::trace_back()
   trace <- sapply(trace_back, list, simplify = "branch")
 
-  call_stack <- sapply(trace$calls,
+  call_stack <- sapply(trace$call,
                        function(fn) {
                          func <- format_fn_call((fn))
                          ifelse(keep_args,
@@ -221,14 +221,15 @@ class_scope <- function(cls) {
 
   values <- list()
 
-  lapply(names(as.list(cls)), function(var) {
-    value <- cls[[var]]
+  cls_bindings <- c(as.list(cls),
+                    as.list(cls$.__enclos_env__$private))
+
+  invisible(lapply(names(cls_bindings), function(var) {
+    value <- cls_bindings[[var]]
 
     if (!(class(value) %in% c("environment", "function")))
       values[[var]] <<- value
-
-    invisible()
-  })
+  }))
 
   structure(values, class = c("cls_context", "context"))
 }

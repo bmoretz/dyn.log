@@ -99,7 +99,7 @@ test_that("test_threshold_evaluation_works", {
   lvl <- new_log_level(name = "TEST",
                        description = "for testing",
                        severity = 100L,
-                       log_style = crayon::make_style('deepskyblue2')$bold,
+                       log_style = crayon::make_style("deepskyblue2")$bold,
                        msg_style = crayon::silver)
 
   dispatch$add_log_level(lvl)

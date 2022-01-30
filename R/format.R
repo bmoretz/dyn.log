@@ -46,7 +46,7 @@ new_fmt_log_level <- function() {
 #'
 #' @return object's value
 #' @export
-value.fmt_log_level <- function(obj, ...) {
+value.fmt_log_level <- function(obj, ...) { # nolint (generic)
   attr(obj, "value")
 }
 
@@ -79,7 +79,7 @@ new_fmt_log_msg <- function() {
 #'
 #' @return object's value
 #' @export
-value.fmt_log_msg <- function(obj, ...) {
+value.fmt_log_msg <- function(obj, ...) { # nolint (generic)
   attr(obj, "value")
 }
 
@@ -113,7 +113,7 @@ new_fmt_metric <- function(style, metric) {
 
   if (!valid_metric) {
     stop(paste0("metric '", metric, "' is not a reconized system metric.",
-    "See ?sys_context for more information."))
+                " See ?sys_context for more information."))
   }
 
   structure(
@@ -134,7 +134,7 @@ new_fmt_metric <- function(style, metric) {
 #'
 #' @return object's value
 #' @export
-style.fmt_layout <- function(obj, ...) {
+style.fmt_layout <- function(obj, ...) { # nolint (generic)
   attr(obj, "style")
 }
 
@@ -150,7 +150,7 @@ style.fmt_layout <- function(obj, ...) {
 #'
 #' @return object's value
 #' @export
-value.fmt_metric <- function(obj, sys_context, ...) {
+value.fmt_metric <- function(obj, sys_context, ...) { # nolint (generic)
   style(obj)(get(attr(obj, "metric"), sys_context))
 }
 
@@ -205,7 +205,7 @@ format.fmt_timestamp <- function(x, ...) {
 #'
 #' @return object's value
 #' @export
-value.fmt_timestamp <- function(obj, ...) {
+value.fmt_timestamp <- function(obj, ...) { # nolint (generic)
   v <- attr(obj, "value")
   f <- attr(obj, "format")
 
@@ -249,7 +249,7 @@ new_fmt_literal <- function(style, literal) {
 #'
 #' @return object's value
 #' @export
-value.fmt_literal <- function(obj, ...) {
+value.fmt_literal <- function(obj, ...) { # nolint (generic)
   style(obj)(attr(obj, "value"))
 }
 
@@ -281,7 +281,7 @@ new_fmt_line_break <- function() {
 #'
 #' @return object's value
 #' @export
-value.fmt_newline <- function(obj, ...) {
+value.fmt_newline <- function(obj, ...) { # nolint (generic)
   attr(obj, "value")
 }
 
@@ -324,7 +324,7 @@ new_fmt_cls_field <- function(style, field) {
 #'
 #' @return object's value
 #' @export
-value.fmt_cls_field <- function(obj, cls_context, ...) {
+value.fmt_cls_field <- function(obj, cls_context, ...) { # nolint (generic)
   value <- get(attr(obj, "field"), cls_context)
   style(obj)(value)
 }
@@ -368,7 +368,7 @@ new_fmt_exec_scope <- function(style, field) {
 #'
 #' @return object's value
 #' @export
-value.fmt_exec_scope <- function(obj, env_context, ...) {
+value.fmt_exec_scope <- function(obj, env_context, ...) { # nolint (generic)
   value <- get(attr(obj, "field"), env_context)
   style(obj)(value)
 }
