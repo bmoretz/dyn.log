@@ -29,7 +29,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">dyn.log</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,7 +79,7 @@
       <img src="" class="logo" alt=""><h1>Formats</h1>
                         <h4 data-toc-skip class="author">Brandon Moretz</h4>
             
-            <h4 data-toc-skip class="date">2022-01-29</h4>
+            <h4 data-toc-skip class="date">2022-01-30</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/bmoretz/dyn.log/blob/HEAD/vignettes/Formats.Rmd" class="external-link"><code>vignettes/Formats.Rmd</code></a></small>
       <div class="d-none name"><code>Formats.Rmd</code></div>
@@ -162,7 +162,7 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <span id="cb2-9"><a href="#cb2-9"></a>[<span class="dv">1</span>] <span class="st">"#30~20.04.1-Ubuntu SMP Wed Jan 12 20:56:50 UTC 2022"</span></span>
 <span id="cb2-10"><a href="#cb2-10"></a></span>
 <span id="cb2-11"><a href="#cb2-11"></a><span class="op">$</span>nodename</span>
-<span id="cb2-12"><a href="#cb2-12"></a>[<span class="dv">1</span>] <span class="st">"fv-az83-962"</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a>[<span class="dv">1</span>] <span class="st">"fv-az77-519"</span></span>
 <span id="cb2-13"><a href="#cb2-13"></a></span>
 <span id="cb2-14"><a href="#cb2-14"></a><span class="op">$</span>machine</span>
 <span id="cb2-15"><a href="#cb2-15"></a>[<span class="dv">1</span>] <span class="st">"x86_64"</span></span>
@@ -201,7 +201,7 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 
 <span class="va">Logger</span><span class="op">$</span><span class="fu">debug</span><span class="op">(</span><span class="st">"my log message - var1: {var1}, var2: {var2}, var3: {var3}"</span>,
              layout <span class="op">=</span> <span class="st">"ex-sys-layout"</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code><span style="color: #00D7FF; font-weight: bold;">DEBUG</span>-<span style="color: #00BB00; font-weight: bold;">Linux</span>-<span style="color: #BBBB00; font-weight: bold;">5.11.0-1027-azure</span>-<span style="color: #555555; font-style: italic;">[01/29/22 22:02:38]</span>-<span style="color: #DADADA;">my log message - var1: abc, var2: 123, var3: 0.942532</span>
+<pre class="fansi fansi-output"><code><span style="color: #00D7FF; font-weight: bold;">DEBUG</span>-<span style="color: #00BB00; font-weight: bold;">Linux</span>-<span style="color: #BBBB00; font-weight: bold;">5.11.0-1027-azure</span>-<span style="color: #555555; font-style: italic;">[01/30/22 20:42:37]</span>-<span style="color: #DADADA;">my log message - var1: abc, var2: 123, var3: 0.457341</span>
 </code></pre>
 <p>As you can see, the log message has a great deal of detail, but difficult to interpret due to the amount of information jammed into one line. This is where literals and new lines come into play.</p>
 </div>
@@ -231,7 +231,7 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <span class="va">Logger</span><span class="op">$</span><span class="fu">debug</span><span class="op">(</span><span class="st">"my log message - var1: {var1}, var2: {var2}, var3: {var3}"</span>,
              layout <span class="op">=</span> <span class="st">"ex-syslit-layout"</span><span class="op">)</span></code></pre></div>
 <pre class="fansi fansi-output"><code><span style="color: #00BB00; font-weight: bold;">Linux</span> <span style="color: #BB00BB;">[</span> <span style="color: #0000BB; font-weight: bold;">5.11.0-1027-azure</span> <span style="color: #BB00BB;">]</span>
-<span style="color: #00D7FF; font-weight: bold;">DEBUG</span> <span style="color: #555555; font-style: italic;">[01/29/22 22:02:38]</span> <span style="color: #DADADA;">my log message - var1: abc, var2: 123, var3: 0.876907</span>
+<span style="color: #00D7FF; font-weight: bold;">DEBUG</span> <span style="color: #555555; font-style: italic;">[01/30/22 20:42:37]</span> <span style="color: #DADADA;">my log message - var1: abc, var2: 123, var3: 0.255507</span>
 </code></pre>
 <p>Which has the same information as the previous example, but much easier to consume.</p>
 </div>
@@ -260,33 +260,25 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <span class="va">exec_context</span> <span class="op">&lt;-</span> <span class="fu">test</span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>exec_context</span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="op">$</span>call_stack</span>
-<span id="cb6-3"><a href="#cb6-3"></a>                     call_<span class="dv">1</span>                      call_<span class="dv">2</span> </span>
-<span id="cb6-4"><a href="#cb6-4"></a>       <span class="st">"knitr:::block_exec"</span>             <span class="st">"knitr:::eng_r"</span> </span>
-<span id="cb6-5"><a href="#cb6-5"></a>                     call_<span class="dv">3</span>                      call_<span class="dv">4</span> </span>
-<span id="cb6-6"><a href="#cb6-6"></a>           <span class="st">"knitr:::in_dir"</span>          <span class="st">"knitr:::evaluate"</span> </span>
-<span id="cb6-7"><a href="#cb6-7"></a>                     call_<span class="dv">5</span>                      call_<span class="dv">6</span> </span>
-<span id="cb6-8"><a href="#cb6-8"></a>       <span class="st">"evaluate::evaluate"</span>  <span class="st">"evaluate:::evaluate_call"</span> </span>
-<span id="cb6-9"><a href="#cb6-9"></a>                     call_<span class="dv">7</span>                      call_<span class="dv">8</span> </span>
-<span id="cb6-10"><a href="#cb6-10"></a>     <span class="st">"evaluate:::timing_fn"</span>             <span class="st">"base:::handle"</span> </span>
-<span id="cb6-11"><a href="#cb6-11"></a>                     call_<span class="dv">9</span>                     call_<span class="dv">10</span> </span>
-<span id="cb6-12"><a href="#cb6-12"></a><span class="st">"base::withCallingHandlers"</span>         <span class="st">"base::withVisible"</span> </span>
-<span id="cb6-13"><a href="#cb6-13"></a>                    call_<span class="dv">11</span>                     call_<span class="dv">12</span> </span>
-<span id="cb6-14"><a href="#cb6-14"></a>               <span class="st">"base::eval"</span>                <span class="st">"base::eval"</span> </span>
-<span id="cb6-15"><a href="#cb6-15"></a>                    call_<span class="dv">13</span>                     call_<span class="dv">14</span> </span>
-<span id="cb6-16"><a href="#cb6-16"></a>             <span class="st">"global::test"</span>                   <span class="st">"wrapper"</span> </span>
-<span id="cb6-17"><a href="#cb6-17"></a>                    call_<span class="dv">15</span>                     call_<span class="dv">16</span> </span>
-<span id="cb6-18"><a href="#cb6-18"></a>                    <span class="st">"outer"</span>                     <span class="st">"inner"</span> </span>
-<span id="cb6-19"><a href="#cb6-19"></a><span class="kw">attr</span>(,<span class="st">"class"</span>)</span>
-<span id="cb6-20"><a href="#cb6-20"></a>[<span class="dv">1</span>] <span class="st">"call_stack"</span> <span class="st">"stack"</span>     </span>
-<span id="cb6-21"><a href="#cb6-21"></a></span>
-<span id="cb6-22"><a href="#cb6-22"></a><span class="op">$</span>calling_fn</span>
-<span id="cb6-23"><a href="#cb6-23"></a>[<span class="dv">1</span>] <span class="st">"inner"</span></span>
-<span id="cb6-24"><a href="#cb6-24"></a></span>
-<span id="cb6-25"><a href="#cb6-25"></a><span class="op">$</span>ncalls</span>
-<span id="cb6-26"><a href="#cb6-26"></a>[<span class="dv">1</span>] <span class="dv">16</span></span>
-<span id="cb6-27"><a href="#cb6-27"></a></span>
-<span id="cb6-28"><a href="#cb6-28"></a><span class="kw">attr</span>(,<span class="st">"class"</span>)</span>
-<span id="cb6-29"><a href="#cb6-29"></a>[<span class="dv">1</span>] <span class="st">"exec_context"</span> <span class="st">"context"</span>     </span></code></pre></div>
+<span id="cb6-3"><a href="#cb6-3"></a>          call_<span class="dv">1</span>           call_<span class="dv">2</span>           call_<span class="dv">3</span>           call_<span class="dv">4</span> </span>
+<span id="cb6-4"><a href="#cb6-4"></a>              <span class="ot">NA</span>               <span class="ot">NA</span>               <span class="ot">NA</span>               <span class="ot">NA</span> </span>
+<span id="cb6-5"><a href="#cb6-5"></a>          call_<span class="dv">5</span>           call_<span class="dv">6</span>           call_<span class="dv">7</span>           call_<span class="dv">8</span> </span>
+<span id="cb6-6"><a href="#cb6-6"></a>              <span class="ot">NA</span>               <span class="ot">NA</span>               <span class="ot">NA</span>               <span class="ot">NA</span> </span>
+<span id="cb6-7"><a href="#cb6-7"></a>          call_<span class="dv">9</span>          call_<span class="dv">10</span>          call_<span class="dv">11</span>          call_<span class="dv">12</span> </span>
+<span id="cb6-8"><a href="#cb6-8"></a>              <span class="ot">NA</span>               <span class="ot">NA</span>               <span class="ot">NA</span>               <span class="ot">NA</span> </span>
+<span id="cb6-9"><a href="#cb6-9"></a>         call_<span class="dv">13</span>          call_<span class="dv">14</span>          call_<span class="dv">15</span> </span>
+<span id="cb6-10"><a href="#cb6-10"></a>              <span class="ot">NA</span>               <span class="ot">NA</span> <span class="st">"get_call_stack"</span> </span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="kw">attr</span>(,<span class="st">"class"</span>)</span>
+<span id="cb6-12"><a href="#cb6-12"></a>[<span class="dv">1</span>] <span class="st">"call_stack"</span> <span class="st">"stack"</span>     </span>
+<span id="cb6-13"><a href="#cb6-13"></a></span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="op">$</span>calling_fn</span>
+<span id="cb6-15"><a href="#cb6-15"></a>[<span class="dv">1</span>] <span class="st">"get_call_stack"</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a></span>
+<span id="cb6-17"><a href="#cb6-17"></a><span class="op">$</span>ncalls</span>
+<span id="cb6-18"><a href="#cb6-18"></a>[<span class="dv">1</span>] <span class="dv">15</span></span>
+<span id="cb6-19"><a href="#cb6-19"></a></span>
+<span id="cb6-20"><a href="#cb6-20"></a><span class="kw">attr</span>(,<span class="st">"class"</span>)</span>
+<span id="cb6-21"><a href="#cb6-21"></a>[<span class="dv">1</span>] <span class="st">"exec_context"</span> <span class="st">"context"</span>     </span></code></pre></div>
 <p>The evaluated exec_context gives you a structure with these 3 fields:</p>
 <ul>
 <li>
@@ -352,8 +344,8 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 
 <span class="fu">local_fn</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre class="fansi fansi-output"><code><span style="color: #00BB00; font-weight: bold;">Linux</span>-<span style="color: #BBBB00;">5.11.0-1027-azure</span>
-<span style="color: #00D7FF; font-weight: bold;">DEBUG</span>-<span style="color: #555555; font-style: italic;">[01/29/22 22:02:39]</span>-<span style="color: #BB00BB; font-weight: bold;">fn(</span>-<span style="color: #BB00BB; font-weight: bold;">inner</span>-<span style="color: #BB00BB; font-weight: bold;">)</span>-<span style="color: #DADADA;">my log message - var1: 'abc', var2: '123', var3: '0.38499'</span>
-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">knitr:::block_exec</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">knitr:::eng_r</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">knitr:::in_dir</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">knitr:::evaluate</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">evaluate::evaluate</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">evaluate:::evaluate_call</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">evaluate:::timing_fn</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">base:::handle</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">base::withCallingHandlers</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">base::withVisible</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">base::eval</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">base::eval</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">global::local_fn</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">outer</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">inner</span>
+<span style="color: #00D7FF; font-weight: bold;">DEBUG</span>-<span style="color: #555555; font-style: italic;">[01/30/22 20:42:38]</span>-<span style="color: #BB00BB; font-weight: bold;">fn(</span>-<span style="color: #BB00BB; font-weight: bold;">get_call_stack</span>-<span style="color: #BB00BB; font-weight: bold;">)</span>-<span style="color: #DADADA;">my log message - var1: 'abc', var2: '123', var3: '0.121662'</span>
+<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">NA</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">NA</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">NA</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">NA</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">NA</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">NA</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">NA</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">NA</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">NA</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">NA</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">NA</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">NA</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">NA</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">NA</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">get_call_stack</span>
 </code></pre>
 </div>
 </div>
