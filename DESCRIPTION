@@ -35,21 +35,21 @@ URL: https://bmoretz.github.io/dyn.log/
 BugReports: https://github.com/bmoretz/dyn.log/issues
 RoxygenNote: 7.1.2
 Suggests: 
-    devtools,
-    usethis,
-    rmarkdown,
-    knitr,
+    devtools (>= 2.4.3),
+    usethis (>= 2.1.5),
+    rmarkdown (>= 2.11),
+    knitr (>= 1.37),
     covr (>= 3.5.1),
     testthat (>= 3.0.0),
     lintr (>= 0.28),
-    remotes,
-    pkgdown,
-    prettydoc,
-    here,
-    fansi,
-    DT,
-    languageserver,
-    httpgd
+    remotes (>= 2.4.2),
+    pkgdown (> 2.0.2),
+    prettydoc (>= 0.4.1),
+    here (>= 1.0.1),
+    fansi (>= 1.0.2),
+    DT (>= 0.20),
+    languageserver (>= 0.3.12),
+    httpgd (>= 1.2.1)
 Config/testthat/edition: 3
 Language: en-US
 VignetteBuilder: knitr
