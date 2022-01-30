@@ -25,7 +25,7 @@ document: activate
 		-e 'devtools::document()'
 
 check: activate document
-	
+
 	Rscript \
 	-e 'options(crayon.enabled = TRUE)' \
 	-e 'rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")'
@@ -34,6 +34,10 @@ restore: activate
 	Rscript \
 	-e 'source("renv/activate.R")' \
 	-e 'renv::restore()'
+
+lint:
+	Rscript \
+	-e 'lintr::lint_dir(exclusions = list.files("renv", full.names = T, recursive = T, all.files = T))'
 
 install: build
 	R CMD INSTALL bin/$(PKGNAME)_$(PKGVERS).tar.gz

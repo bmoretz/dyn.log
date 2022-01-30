@@ -99,7 +99,7 @@ log_levels <- local({
 #' @param ... further arguments passed to or from other methods.
 #' @return log level name
 #' @export
-style.log_level <- function(obj, ...) {
+style.log_level <- function(obj, ...) { # nolint (generic)
   return(list(
     level = attr(obj, "log_style"),
     message = attr(obj, "msg_style")))

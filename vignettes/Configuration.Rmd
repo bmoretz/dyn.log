@@ -88,10 +88,20 @@ TestObject <- R6::R6Class(
   classname = "TestObject",
 
   public = list(
-    id = NULL,
+
+    cls_name = NULL,
 
     initialize = function() {
-      self$id <- private$generate_id()
+      private$id <- private$generate_id()
+      self$cls_name <- private$get_class_name()
+    },
+
+    identifier = function() {
+      invisible(private$id)
+    },
+
+    class_name = function() {
+      invisible(self$cls_name)
     },
 
     invoke_logger = function() {
@@ -102,8 +112,17 @@ TestObject <- R6::R6Class(
   ),
 
   private = list(
+    id = NULL,
+
     generate_id = function(n = 15) {
-      paste0(sample(LETTERS, n, TRUE), collapse =  '')
+      paste0(sample(LETTERS, n, TRUE), collapse =  "")
+    },
+
+    get_class_name = function() {
+      calls <- as.character(sys.calls())
+      calls <- calls[max(which(stringr::str_detect(calls, "\\$new\\(.*\\)")))]
+      stopifnot(length(calls) == 1)
+      invisible(stringr::str_remove(calls, "\\$new\\(.*\\)"))
     }
   )
 )
@@ -112,7 +131,6 @@ DerivedTestObject <- R6::R6Class(
   classname = "DerivedTestObject",
   inherit = TestObject,
   public = list(
-    id = NULL,
 
     initialize = function() {
       super$initialize()
@@ -122,12 +140,6 @@ DerivedTestObject <- R6::R6Class(
       a <- "derived test"; b <- 321; c <- 200L
 
       Logger$trace("variables in derived: {a} - {b} - {c}")
-    }
-  ),
-
-  private = list(
-    generate_id = function(n = 15) {
-      paste0(sample(LETTERS, n, TRUE), collapse =  '')
     }
   )
 )
@@ -140,15 +152,20 @@ layouts:
 - association: TestObject
   seperator: ' '
   new_line: \n
-  formats: !expr list(new_fmt_literal(crayon::cyan$bold, 'Object Id:'),
+  formats: !expr list(
+           new_fmt_literal(crayon::cyan$bold, 'Class:'),
+           new_fmt_cls_field(crayon::bgCyan$silver$bold, 'cls_name'),
+           new_fmt_literal(crayon::cyan$bold, 'Object Id:'),
            new_fmt_cls_field(crayon::bgCyan$silver$bold, 'id'),
            new_fmt_line_break(),
            new_fmt_log_level(),
            new_fmt_timestamp(crayon::silver$italic),
+           new_fmt_exec_scope(crayon::magenta$bold, 'calling_fn'),
            new_fmt_log_msg())
 ```
 
 ```{r}
+
 set_log_configuration(configs$object)
 
 test_obj <- DerivedTestObject$new()
@@ -156,7 +173,10 @@ test_obj <- DerivedTestObject$new()
 test_obj$invoke_logger()
 ```
 
-As you can see, the logger knows to log contextual information about any object derived from "TestObject" which exposes a public property, "id", which in this case is a random string, but you can substitute this with any information exposed by the public interface of the type.
+As you can see, the logger knows to log contextual information about any object derived from "TestObject." TestObject exposes two properties, one public and one private:
+
++ **id**: private property which is a random string unique to the object instance.
++ **cls_name**": a public property which is calculated when the object is instantiated to get the correct run-time class name (since it is derived).
 
 This can be a powerful mechanic for templatizing important contextual information in your client applications or scripts.
 

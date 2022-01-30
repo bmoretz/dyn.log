@@ -16,7 +16,7 @@
 #' @importFrom rlang caller_env
 #' @importFrom glue glue
 #' @export
-LogDispatch <- R6::R6Class(
+LogDispatch <- R6::R6Class( #nolint
   classname = "LogDispatch",
   lock_objects = F,
   lock_class = F,
@@ -55,7 +55,7 @@ LogDispatch <- R6::R6Class(
         current <- level_severity(level)
         threshold <- level_severity(log_levels(private$settings$threshold))
 
-        if(current > threshold) return()
+        if (current > threshold) return()
 
         caller_env <- rlang::caller_env()
         parent_env <- parent.env(caller_env)
