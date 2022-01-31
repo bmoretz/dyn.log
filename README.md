@@ -3,7 +3,7 @@
 
 # dyn.log
 
-# Hex <img src="man/figures/hex.png" width = "175" height = "200" align="right" />
+# Overview <img src="man/figures/hex.png" width = "175" height = "200" align="right" />
 
 <!-- badges: start -->
 
