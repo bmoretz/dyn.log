@@ -138,7 +138,7 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <div class="section level2">
 <h2 id="integration">Integration<a class="anchor" aria-label="anchor" href="#integration"></a>
 </h2>
-<p>If your client code leverages the use of R6 classes, you can specify a custom layout for standalone objects or objects that are part of a hierarchy by using the <em>association</em> property. For example, <a href="https://github.com/bmoretz/dyn.log/blob/master/tests/testthat/helper-object.R" class="external-link">TestObject</a> is a helper object defined in the testthat folder of dyn.log:</p>
+<p>If your client code leverages the use of R6 classes, you can specify a custom layout for standalone objects or objects that are part of a hierarchy by using the <em>association</em> property. For example, <a href="https://github.com/bmoretz/dyn.log/blob/master/tests/testthat/helper-objects.R" class="external-link">TestObject</a> is a helper object defined in the testthat folder of dyn.log:</p>
 <p>The object hierarchy is declared as follows:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">TestObject</span> <span class="op">&lt;-</span> <span class="fu">R6</span><span class="fu">::</span><span class="kw"><a href="https://r6.r-lib.org/reference/R6Class.html" class="external-link">R6Class</a></span><span class="op">(</span>
@@ -222,8 +222,8 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <span class="va">test_obj</span> <span class="op">&lt;-</span> <span class="va">DerivedTestObject</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">test_obj</span><span class="op">$</span><span class="fu">invoke_logger</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code><span style="color: #00BBBB; font-weight: bold;">Class:</span> <span style="color: #555555; background-color: #00BBBB; font-weight: bold;">DerivedTestObject</span> <span style="color: #00BBBB; font-weight: bold;">Object Id:</span> <span style="color: #555555; background-color: #00BBBB; font-weight: bold;">MDMECFGDGZLRMHE</span>
-<span style="color: #B2B2B2; font-weight: bold;">TRACE</span> <span style="color: #555555; font-style: italic;">[01/31/22 01:15:49 +0000]</span> <span style="color: #BB00BB; font-weight: bold;">test_obj$invoke_logger</span> <span style="color: #949494;">variables in derived: derived test - 321 - 200</span>
+<pre class="fansi fansi-output"><code><span style="color: #00BBBB; font-weight: bold;">Class:</span> <span style="color: #555555; background-color: #00BBBB; font-weight: bold;">DerivedTestObject</span> <span style="color: #00BBBB; font-weight: bold;">Object Id:</span> <span style="color: #555555; background-color: #00BBBB; font-weight: bold;">OEQEBDHFGGNPSYS</span>
+<span style="color: #B2B2B2; font-weight: bold;">TRACE</span> <span style="color: #555555; font-style: italic;">[01/31/22 13:38:48 +0000]</span> <span style="color: #BB00BB; font-weight: bold;">test_obj$invoke_logger</span> <span style="color: #949494;">variables in derived: derived test - 321 - 200</span>
 </code></pre>
 <p>As you can see, the logger knows to log contextual information about any object derived from “TestObject.” TestObject exposes two properties, one public and one private:</p>
 <ul>
