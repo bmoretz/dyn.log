@@ -79,7 +79,7 @@
       <img src="" class="logo" alt=""><h1>Configuration</h1>
                         <h4 data-toc-skip class="author">Brandon Moretz</h4>
             
-            <h4 data-toc-skip class="date">2022-01-30</h4>
+            <h4 data-toc-skip class="date">2022-01-31</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/bmoretz/dyn.log/blob/HEAD/vignettes/Configuration.Rmd" class="external-link"><code>vignettes/Configuration.Rmd</code></a></small>
       <div class="d-none name"><code>Configuration.Rmd</code></div>
@@ -222,8 +222,8 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <span class="va">test_obj</span> <span class="op">&lt;-</span> <span class="va">DerivedTestObject</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">test_obj</span><span class="op">$</span><span class="fu">invoke_logger</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code><span style="color: #00BBBB; font-weight: bold;">Class:</span> <span style="color: #555555; background-color: #00BBBB; font-weight: bold;">DerivedTestObject</span> <span style="color: #00BBBB; font-weight: bold;">Object Id:</span> <span style="color: #555555; background-color: #00BBBB; font-weight: bold;">PGHKNOLXXMYWFUT</span>
-<span style="color: #B2B2B2; font-weight: bold;">TRACE</span> <span style="color: #555555; font-style: italic;">[01/30/22 23:43:45 +0000]</span> <span style="color: #BB00BB; font-weight: bold;">test_obj$invoke_logger</span> <span style="color: #949494;">variables in derived: derived test - 321 - 200</span>
+<pre class="fansi fansi-output"><code><span style="color: #00BBBB; font-weight: bold;">Class:</span> <span style="color: #555555; background-color: #00BBBB; font-weight: bold;">DerivedTestObject</span> <span style="color: #00BBBB; font-weight: bold;">Object Id:</span> <span style="color: #555555; background-color: #00BBBB; font-weight: bold;">GHNXAQADJUGZGNV</span>
+<span style="color: #B2B2B2; font-weight: bold;">TRACE</span> <span style="color: #555555; font-style: italic;">[01/31/22 00:02:19 +0000]</span> <span style="color: #BB00BB; font-weight: bold;">test_obj$invoke_logger</span> <span style="color: #949494;">variables in derived: derived test - 321 - 200</span>
 </code></pre>
 <p>As you can see, the logger knows to log contextual information about any object derived from “TestObject.” TestObject exposes two properties, one public and one private:</p>
 <ul>
