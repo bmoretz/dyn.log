@@ -227,7 +227,7 @@ class_scope <- function(cls) {
   invisible(lapply(names(cls_bindings), function(var) {
     value <- cls_bindings[[var]]
 
-    if (!(class(value) %in% c("environment", "function")))
+    if (!(any(class(value) %in% c("environment", "function"))))
       values[[var]] <<- value
   }))
 
