@@ -1,3 +1,5 @@
+# Release Summaries <img src="man/figures/hex.png" width = "175" height = "200" align="right" />
+
 # dyn.log 0.3.0
 
 ## What's Changed

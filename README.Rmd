@@ -172,12 +172,11 @@ For a detailed look at these objects, and how they work please see the "Log Layo
 
 ### Logging Associations
 
-One thing you may have noticed about the previous log layout definition was the *association* parameter. Associations
-are a useful way to build a customized log layout for your custom R6 types. This can be especially useful in larger applications, such as [plumber](https://github.com/rstudio/plumber/) services or [shiny](https://github.com/rstudio/shiny) dashboards.
+One thing you may have noticed about the previous log layout definition was the *association* parameter. Associations are a useful way to build a customized log layout for your custom R6 types. This can be especially useful in larger applications, such as [plumber](https://github.com/rstudio/plumber/) services or [shiny](https://github.com/rstudio/shiny) dashboards.
 
 A TestObject is defined as below, who's primary responsibly is to assign a randomly generated identifier to
 the instance via the constructor. There is also a method on the object that will call the logger with some
-local scope variables that should be logged as well.
+local scope variables that will be logged as well.
 
 ```{r, test_obj_def, eval=F}
 TestObject <- R6::R6Class(
@@ -238,9 +237,7 @@ Logger$debug("this is a normal log msg")
 
 ![custom log ouput](man/figures/README-cls-association-output.PNG)
 
-As you can see, only when the logger is invoked from inside the class that has a custom layout associated with it
-does the custom layout get used. The follow-up log call (outside the class scope) reverts back to the standard
-layout settings.
+As you can see, only when the logger is invoked from inside the class that has a custom layout associated with it does the custom layout get used. The follow-up log call (outside the class scope) reverts back to the standard layout settings.
 
 For a detailed look at class associations, and how they work please see the "Log Layouts" *vignette*.
 

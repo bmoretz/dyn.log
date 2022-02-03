@@ -79,7 +79,7 @@ set_log_configuration("logging.yaml")
 
 ## Integration
 
-If your client code leverages the use of R6 classes, you can specify a custom layout for standalone objects or objects that are part of a hierarchy by using the *association* property. For example, [TestObject](https://github.com/bmoretz/dyn.log/blob/master/tests/testthat/helper-object.R) is a helper object defined in the testthat folder of dyn.log:
+If your client code leverages the use of R6 classes, you can specify a custom layout for standalone objects or objects that are part of a hierarchy by using the *association* property. For example, [TestObject](https://github.com/bmoretz/dyn.log/blob/master/tests/testthat/helper-objects.R) is a helper object defined in the testthat folder of dyn.log:
 
 The object hierarchy is declared as follows:
 
