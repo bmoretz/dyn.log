@@ -1,6 +1,6 @@
 # Release Summaries <img src="man/figures/hex.png" width = "175" height = "200" align="right" />
 
-# dyn.log 0.3.1
+# dyn.log 0.3.2
 
 ## What's Changed
 
@@ -18,7 +18,26 @@
   + added a configuration setting to change the variable name
     of the global logging instance. "Logger" is still the default,
     but now you can specify any legal R variable name by default.
+
+# dyn.log 0.3.1
+
+## What's Changed
+
+* New Features
+  + None
   
+* Enhancements
+  + refactored the entire configuration module 
+    to streamline the process of attaching a
+    logger to the global environment.
+    
+* Bug-fixes
+  + added an event handler to '.onAttach' that
+    monitors for the logger's existence on every
+    load; the annoying behavior of wiping local
+    environment vars and the logger disappearing
+    is now fully resolved.
+    
 # dyn.log 0.3.0
 
 ## What's Changed
