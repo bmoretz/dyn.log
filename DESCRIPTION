@@ -12,11 +12,11 @@ Authors@R:
 Maintainer: Brandon Moretz <bmoretz@ionicsolutions.net>
 Description: A comprehensive and dynamic configuration driven logging package for R. While there 
     are several excellent logging solutions already in the R ecosystem, I always feel constrained 
-    in some way by each of them. Every project is designed differently to achieve its stated goal; 
-    to solve some problem, and ultimately the utility of a logging solution is its ability to adapt 
-    to the projects design. This is the rai·son d'ê·tre for dyn.log, to provide a modular design, 
-    template mechanics and a configuration-based integration model, so that the logger can integrate 
-    deeply into your design, even though it knows nothing about it.
+    in some way by each of them. Every project is designed differently to solve it's domain specific problem, 
+    and ultimately the utility of a logging solution is its ability to adapt to this design. This is the 
+    rai-son de' tre for dyn.log: to provide a modular design, template mechanics and a configuration-based 
+    integration model, so that the logger can integrate deeply into your design, even though it knows 
+    nothing about it.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -28,8 +28,7 @@ Imports:
     R6 (>= 2.5.1),
     rlang (>= 0.4.12),
     stringr (>= 1.4.0),
-    yaml (>= 2.2.1),
-    purrr (>= 0.3.4)
+    yaml (>= 2.2.1)
 Roxygen: list(markdown = TRUE)
 URL: https://bmoretz.github.io/dyn.log/
 BugReports: https://github.com/bmoretz/dyn.log/issues
