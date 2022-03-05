@@ -6,9 +6,6 @@
 \usage{
 display_log_levels()
 }
-\value{
-Nothing.
-}
 \description{
 A utility function that dynamically displays the configured
 log levels (loaded from config), and outputs them in a simple
@@ -16,13 +13,10 @@ layout with only the log level and msg formatted in their
 crayon styles.
 }
 \seealso{
-Other Logging: 
-\code{\link{LogDispatch}},
-\code{\link{attach_log_levels}()},
-\code{\link{configure_logger}()},
-\code{\link{get_configurations}()},
-\code{\link{init_logger}()},
+Other Configuration: 
+\code{\link{config_specification}()},
+\code{\link{ensure_logger}()},
 \code{\link{load_log_layouts}()},
-\code{\link{set_log_configuration}()}
+\code{\link{wipe_logger}()}
 }
-\concept{Logging}
+\concept{Configuration}

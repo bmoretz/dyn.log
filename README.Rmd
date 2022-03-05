@@ -65,6 +65,35 @@ You can install the latest stable version of dyn.log from CRAN:
 library(dyn.log)
 ```
 
+### Basic Usage
+
+For basic/most common usage simply install the package from one of the above sources, load the package, initialize the logger, and a logging instance will show up in your global environment (by default, named 'Logger'):
+
+```{r, eval=F}
+library(dyn.log)
+
+init_logger()
+
+var1 <- "abc"; var2 <- 123; var3 <- runif(1)
+
+Logger$debug("my log message - var1: {var1}, var2: {var2}, var3: {var3}")
+```
+![basic log ouput](man/figures/README-basic-log-output.PNG)
+
+You can also skip the call to *init_logger* by setting a global option that specifies the configuration you wish to use, i.e., placing:
+
+```{r}
+options("dyn.log.config" = "default")
+```
+
+In your .Rprofile will automatically configure the default logger and the global logging instance will be attached when you call:
+
+```{r}
+library(dyn.log)
+```
+
+The **"dyn.log.config"** variable can be either a predefined configuration (name) in the package, or a path to a local file that you have pre-customized. This is useful for sharing a single bespoke log configuration across multiple packages or projects.
+
 ### Logging
 
 There are three main components of a log message, each of them are covered in detail in their respective vignettes. For more detail about how logging works and how you can customize it, please see the [package site](https://bmoretz.github.io/dyn.log/):
@@ -76,13 +105,7 @@ There are three main components of a log message, each of them are covered in de
 * Layouts
   + Containers for format objects that define the rendering specifications for a log message.
   
-The logging functionality is exposed by a R6 class, *LogDispatch*, that is available as a package
-namespace variable called **Logger**. The **Logger** will have methods that correspond to the *log levels*
-that are defined in its yaml configuration, which makes logging intuitive. When the package is loaded,
-the logger will appear in the top / global environment as *Logger*.
-
-Log messages are automatically assumed to be in standard [glue](https://github.com/tidyverse/glue) format
-so local environment variables are capturable in the log output.
+The logging functionality is exposed by a R6 class, *LogDispatch*, is accessible as a global variable called, by default, **Logger**. The Logger will have methods that correspond to the *log levels* that are defined in its yaml configuration, which makes logging intuitive. Log messages are automatically assumed to be in standard [glue](https://github.com/tidyverse/glue) format so local environment variables are captured in messages.
 
 #### Simple Example
 
@@ -100,22 +123,28 @@ Logger$debug("my log message - var1: {var1}, var2: {var2}, var3: {var3}")
 
 Everything about dyn.log is configuration driven, the package comes with a basic configuration **default.yaml**, show below it its entirety and broken down in the sections that follow:
 
-*For a detailed look at customizing these settings please see [Configurations](https://bmoretz.github.io/dyn.log/articles/Configuration.html) vignette online, or*
-
-> vignette("Configuration", package = "dyn.log")
+*For a detailed look at customizing these settings please see [Configurations](https://bmoretz.github.io/dyn.log/articles/Configuration.html) vignette online.*
 
 ```yaml
 `r xfun::file_string('inst/default.yaml')`
 ```
 
+### Logger Variable
+
+The first setting, *variable*, defines the name of the global variable you want to access the logger with. The default is **Logger**, but you can easily change it to: *log*, *my_log*, *msg* or any other value (as long as it's a *valid* R variable name). The **LogDispatch** object is also a [singleton](https://en.wikipedia.org/wiki/Singleton), so you always access the logger directly:
+
+```{r, eval=F}
+
+nums <- paste0(round(rnorm(25, 0, 5), digits = 2), collapse = ", ")
+
+LogDispatch$new()$warn("These numbers '{nums}' are out of the expected range.")
+```
+![custom var name](man/figures/README-cust-var-name.PNG)
+
 #### Settings
 
 The **settings** node contains the core settings of the log dispatcher, by attribute. These
-are covered in detail in the *LogDispatch* section of the manual.
-
-> ?LogDispatch
-
-Most of these should be fairly intuitive.
+are covered in detail in the [Configuration](https://bmoretz.github.io/dyn.log/articles/Configuration.html) section of the manual.
 
 #### Levels
 
@@ -123,22 +152,25 @@ The **levels** node contains the log levels you want available in your environme
 level is defined in the configuration, it automatically becomes accessible via a first-class 
 function on the dispatcher, e.g.:
 
-The default logging configuration closely resembles the fairly ubiquitous [log4j](https://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/Level.html) scheme.
+```{r, eval = F}
+Logger$info("This will be logged with 'INFO' severity level")
+```
 
-For a detailed look at log levels refer to the [Levels](https://bmoretz.github.io/dyn.log/articles/Levels.html) vignette online, or
+You can view all configured log levels, and get a quick summary about them by calling *display_log_levels():*
 
-> vignette("Levels", package = "dyn.log")
+```{r, eval = F}
+display_log_levels()
+```
+
+![log levels](man/figures/README-std-levels-out.PNG)
+
+The default logging configuration closely resembles the fairly ubiquitous [log4j](https://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/Level.html) scheme. For a detailed look at log levels refer to the [Levels](https://bmoretz.github.io/dyn.log/articles/Levels.html) vignette online.
 
 #### Layouts
 
 Every log message needs to have a format so the dispatcher knows what to render on a log call. Formats are defined in the yaml config and comes with some basic ones pre-configured.
 
 The default log layout is a standard format: {LEVEL} - {TIMESTAMP} - {MSG}, with space as a separator between format objects.
-
-
-For a detailed look at layouts refer to the [Layouts](https://bmoretz.github.io/dyn.log/articles/Layouts.html) vignette online, or
-
-> vignette("Layouts", package = "dyn.log")
 
 ### Customizing a Log Message
 
@@ -166,9 +198,7 @@ Logger$info("my log message - var1: {var1}, var2: {var2}, var3: {var3}", layout 
 
 ![custom log ouput](man/figures/README-custom-log-output.PNG)
 
-For a detailed look at these objects, and how they work please see the "Log Layouts" *vignette*.
-
-> (vignette("Log Layouts", package = "dyn.log")
+For a detailed look at layouts refer to the [Layouts](https://bmoretz.github.io/dyn.log/articles/Layouts.html) vignette online.
 
 ### Logging Associations
 
@@ -239,9 +269,7 @@ Logger$debug("this is a normal log msg")
 
 As you can see, only when the logger is invoked from inside the class that has a custom layout associated with it does the custom layout get used. The follow-up log call (outside the class scope) reverts back to the standard layout settings.
 
-For a detailed look at class associations, and how they work please see the "Log Layouts" *vignette*.
-
-> (vignette("Log Layouts", package = "dyn.log")
+*For a detailed look at customizing a layout for a specific type, please see [Configurations](https://bmoretz.github.io/dyn.log/articles/Configuration.html) vignette online for an example.*
 
 ## Acknowledgments
 

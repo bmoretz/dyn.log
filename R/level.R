@@ -283,3 +283,33 @@ format.log_level <- function(x,
     style(x)$message(message)
   }
 }
+
+#' @title Level Severities
+#'
+#' @description
+#' Gets the severity associated with
+#' each log level.
+#'
+#' @return styled level information
+#' @export
+level_severities <- function() {
+  sapply(log_levels(), function(level) {
+    info <- level_info(toupper(level))
+    name <- level_name(level)
+    setNames(info$severity, name)
+  })
+}
+
+#' @title Get Minimum Severity
+#'
+#' @description
+#' Gets the log level with the highest threshold
+#' which is used internally to log 'trace/info'
+#' level messages.
+#'
+#' @return styled level information
+get_minimum_severity <- function() {
+  severities <- level_severities()
+
+  names(which(severities == max(severities)))
+}

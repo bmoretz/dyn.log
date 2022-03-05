@@ -23,9 +23,9 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(dyn.log)
 
-# set logging config with tweaks for kitr output
-set_log_configuration(file_name = system.file("knitr.yaml", 
-                                              package = "dyn.log"))
+configs <- dyn.log::get_configurations(pkgname = "dyn.log")
+
+init_logger(configs$knitr)
 ```
 
 ```{r, comment="", results="asis", echo=F}

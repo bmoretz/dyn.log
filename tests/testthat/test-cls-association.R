@@ -2,6 +2,10 @@ testthat::test_that(
   desc = "can_associate_log_layout",
   code = {
 
+    invisible(testthat::capture_output_lines({
+      init_logger()
+    }))
+
     new_log_layout(
       format = list(
         new_fmt_literal(crayon::bgCyan$black$bold, "Class:"),
@@ -43,11 +47,16 @@ testthat::test_that(
 
     expect_true(stringr::str_detect(actual[3], stringr::fixed(Sys.info()[["sysname"]])))
     expect_true(stringr::str_detect(actual[3], stringr::fixed(Sys.info()[["nodename"]])))
-})
+  }
+)
 
 testthat::test_that(
   desc = "can_associate_derived_log_layout",
   code = {
+
+    invisible(testthat::capture_output_lines({
+      init_logger()
+    }))
 
     new_log_layout(
       format = list(
@@ -91,4 +100,5 @@ testthat::test_that(
 
     expect_true(stringr::str_detect(actual[3], stringr::fixed(Sys.info()[["sysname"]])))
     expect_true(stringr::str_detect(actual[3], stringr::fixed(Sys.info()[["nodename"]])))
-})
+  }
+)

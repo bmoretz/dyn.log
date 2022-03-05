@@ -32,12 +32,16 @@ check: activate document
 
 restore: activate
 	Rscript \
-	-e 'source("renv/activate.R")' \
-	-e 'renv::restore()'
+		-e 'source("renv/activate.R")' \
+		-e 'renv::restore()'
 
 lint:
 	Rscript \
-	-e 'lintr::lint_dir(exclusions = list.files("renv", full.names = T, recursive = T, all.files = T))'
+		-e 'lintr::lint_package()'
+
+covr:
+	Rscript \
+		-e 'covr::report()'
 
 install: build
 	R CMD INSTALL bin/$(PKGNAME)_$(PKGVERS).tar.gz

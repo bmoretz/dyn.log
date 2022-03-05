@@ -4,24 +4,20 @@
 \alias{init_logger}
 \title{Init Logger}
 \usage{
-init_logger(pos = 1)
+init_logger(file_path = NULL)
 }
 \arguments{
-\item{pos}{environment level (1=topenv)}
+\item{file_path}{logging configuration to use.}
 }
 \description{
-Attaches a reference to the global
-logger to the top env if one doesn't
-already exist.
+Loads the configuration passed in,
+or uses the default if nothing is specified,
+and attaches a reference to the singleton
+dispatcher to the global environment.
 }
 \seealso{
 Other Logging: 
 \code{\link{LogDispatch}},
-\code{\link{attach_log_levels}()},
-\code{\link{configure_logger}()},
-\code{\link{display_log_levels}()},
-\code{\link{get_configurations}()},
-\code{\link{load_log_layouts}()},
-\code{\link{set_log_configuration}()}
+\code{\link{get_configurations}()}
 }
 \concept{Logging}

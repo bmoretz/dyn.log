@@ -1,30 +1,3 @@
-#' @title Set Logging Configuration
-#'
-#' @description loads the logging configuration from the
-#' yaml config file and loads the appropriate objects
-#' into the specified environment.
-#'
-#' @param file_name loads logging levels from a yml configuration file.
-#' @param envir environment to load logger into.
-#'
-#' @family Logging
-#' @return initialized log levels from the specified config.
-#'
-#' @export
-#' @importFrom yaml read_yaml
-set_log_configuration <- function(file_name, envir = parent.frame()) {
-
-  log_config <- yaml::read_yaml(file_name, eval.expr = T)
-
-  configure_logger(log_config$settings)
-  attach_log_levels(log_config$levels)
-  load_log_layouts(log_config$layouts)
-
-  init_logger()
-
-  invisible()
-}
-
 #' @title Get Configurations
 #'
 #' @description
@@ -55,52 +28,102 @@ get_configurations <- function(pkgname = "dyn.log") {
   configs
 }
 
-#' @title Load Log Levels
-#'
-#' @description
-#' Parses and loads the levels specified in the
-#' logging configuration and registers them with the
-#' dispatcher via the \code{log_levels} active
-#' binding.
-#'
-#' @param levels defined in the configuration
-#'
-#' @family Logging
-#'
-#' @importFrom stringr str_split str_trim
-attach_log_levels <- function(levels) {
-
-  for (level in levels) {
-
-    new_level <- new_log_level(name = level$name,
-                               description = level$description,
-                               severity = as.integer(level$severity),
-                               log_style = level$log_style,
-                               msg_style = level$msg_style)
-
-    Logger$add_log_level(new_level)
-  }
-
-  invisible()
-}
-
 #' @title Init Logger
 #'
 #' @description
-#' Attaches a reference to the global
-#' logger to the top env if one doesn't
-#' already exist.
+#' Loads the configuration passed in,
+#' or uses the default if nothing is specified,
+#' and attaches a reference to the singleton
+#' dispatcher to the global environment.
 #'
-#' @param pos environment level (1=topenv)
-#'
+#' @param file_path logging configuration to use.
 #' @family Logging
-#'
-#' @importFrom stringr str_split str_trim
-init_logger <- function(pos=1) {
-  envir <- as.environment(pos)
+#' @export
+init_logger <- function(file_path = NULL) {
+  tryCatch(
+    expr = {
 
-  if (!any(!is.na(match(ls(envir), "Logger")))) {
-    assign("Logger", LogDispatch$new(), envir  = envir)
+      config_file <- configs$default
+
+      if (!is.null(file_path)) {
+        if (!file.exists(file_path)) {
+          stop(paste("Unable to load logging configuration: ", file_path))
+        }
+        config_file <- file_path
+      }
+
+      config <- yaml::read_yaml(config_file, eval.expr = T)
+      config_name <- tools::file_path_sans_ext(basename(config_file))
+
+      ensure_logger(config$variable)
+
+      if (!identical(active$config, config_name)) {
+        logger <- LogDispatch$new()
+
+        logger$set_settings(config$settings)
+        logger$attach_log_levels(config$levels)
+        logger$default("dyn.log loaded '{config_name}' configuration successfully.")
+
+        active$config <- config_name
+      }
+
+      load_log_layouts(config$layouts)
+
+      invisible(active)
+    },
+    error = function(cond) {
+      stop(paste0("Failed to load dyn.log:", cond))
+    }
+  )
+}
+
+#' @title Ensure Instance
+#'
+#' @description
+#' Ensures there is an active dispatcher
+#' attached to the specified environment.
+#'
+#' @param variable variable name.
+#'
+#' @family Configuration
+#'
+#' @returns None.
+#' @export
+ensure_logger <- function(variable) {
+
+  if (is.null(variable) |
+      nchar(variable) == 0 |
+      make.names(variable) != variable) {
+    stop("Config setting 'variable' must be supplied and valid R variable name.")
+  }
+
+  envir <- globalenv()
+  idx <- which(ls(envir) == variable, arr.ind = T)
+
+  if (identical(idx, integer())) {
+    logger <- LogDispatch$new()
+    envir[[variable]] <- logger
+    active$log_var <- variable
+  }
+}
+
+#' @title Wipe the Logger Instance
+#'
+#' @description
+#' Cleans up any dangling global instance
+#' from a previous load.
+#'
+#' @family Configuration
+#'
+#' @returns None.
+#' @export
+wipe_logger <- function() {
+  envir <- globalenv(); objs <- ls(envir)
+
+  idx <- which(objs == active$log_var, arr.ind = T)
+
+  if (!identical(idx, integer(0))) {
+    rm(list = objs[idx], envir = envir)
   }
 }
 
@@ -114,13 +137,12 @@ init_logger <- function(pos=1) {
 #'
 #' @param layouts defined in the configuration
 #'
-#' @family Logging
+#' @family Configuration
 #'
-#' @importFrom stringr str_split str_trim
+#' @returns None.
 load_log_layouts <- function(layouts) {
 
-  for (layout in layouts) {
-
+  invisible(sapply(layouts, function(layout) {
     if (identical(class(layout$format), "character")) {
       parsed <- stringr::str_split(layout$formats, pattern = ",", simplify = T)
 
@@ -137,20 +159,7 @@ load_log_layouts <- function(layouts) {
       new_line = layout$new_line,
       association = layout$association
     )
-  }
-}
-
-#' @title Configure Logger
-#'
-#' @description
-#' Parses and loads settings for the log dispatcher.
-#'
-#' @param settings loaded from config
-#' @family Logging
-#'
-#' @importFrom stringr str_split str_trim
-configure_logger <- function(settings) {
-  Logger$set_settings(settings)
+  }))
 }
 
 #' @title Display Log Levels
@@ -161,21 +170,49 @@ configure_logger <- function(settings) {
 #' layout with only the log level and msg formatted in their
 #' crayon styles.
 #'
-#' @family Logging
-#' @return Nothing.
+#' @family Configuration
 #'
 #' @export
-#' @importFrom yaml read_yaml
 display_log_levels <- function() {
   sapply(log_levels(), function(level) {
     info <- level_info(level)
-    fn <- Logger[[tolower(info$name)]]
+    logger <- LogDispatch$new()
+    fn <- logger[[tolower(info$name)]]
 
     if (is.function(fn)) {
       fn(msg = info$description, layout = "level_msg")
       cat("\n")
     }
   })
+
+  invisible()
+}
+
+#' @title Config Specification
+#'
+#' @description
+#' Loads & attaches a logger with the specified
+#' config.
+#'
+#' @family Configuration
+#'
+#' @return Nothing.
+config_specification <- function() {
+
+  config <- getOption("dyn.log.config")
+
+  if (!is.null(config)) {
+
+    if (any(!is.na(match(names(configs), config)))) {
+      config <- configs[[config]]
+    }
+
+    if (file.exists(config)) {
+      init_logger(file_path = config)
+    } else {
+      warning("Config options was specified but the file doesn't exist.")
+    }
+  }
 
   invisible()
 }
