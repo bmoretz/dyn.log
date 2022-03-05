@@ -18,10 +18,10 @@ TestObject <- R6::R6Class( # nolint (class definition)
       invisible(self$cls_name)
     },
 
-    invoke_logger = function(logger) {
+    invoke_logger = function() {
       a <- "test"; b <- 123; c <- 100L
 
-      logger$trace("these are some variables: {a} - {b} - {c}")
+      Logger$trace("these are some variables: {a} - {b} - {c}")
     }
   ),
 
@@ -50,10 +50,10 @@ DerivedTestObject <- R6::R6Class( # nolint (class definition)
       super$initialize()
     },
 
-    invoke_logger = function(logger) {
+    invoke_logger = function() {
       a <- "derived test"; b <- 321; c <- 200L
 
-      logger$trace("variables in derived: {a} - {b} - {c}")
+      Logger$trace("variables in derived: {a} - {b} - {c}")
     }
   )
 )
@@ -67,9 +67,9 @@ UnassociatedTestObject <- R6::R6Class( # nolint (class definition)
 
     },
 
-    invoke_logger = function(logger) {
+    invoke_logger = function() {
       a <- "derived test"; b <- 321; c <- 200L
-      logger$trace("variables in derived: {a} - {b} - {c}")
+      Logger$trace("variables in derived: {a} - {b} - {c}")
     }
   ),
 

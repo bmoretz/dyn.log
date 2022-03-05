@@ -23,7 +23,6 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(dyn.log)
-
 ```
 
 ```{r, comment="", results="asis", echo=F}
@@ -36,6 +35,14 @@ old.hooks <- fansi::set_knit_hooks(knitr::knit_hooks)
 
 The dyn.log package is configuration-driven to provide the client flexibility with both the look & feel of log layouts/formatting (aesthetics), and how it interacts with its container environment. This vignette will focus less on *how the logger works*, and more on *how to make it work for you*.
 
+There are two main ways to set the logging configuration:
+
+* Explicitly pass a configuration file to the *init_logger* function.
+  + init_logger(file_path = "~/package/config.yaml")
+* Global Option
+    + options("dyn.log.config" = "~/package/config.yaml")
+
+If you
 ## Templates
 
 The package comes with a few preconfigured logging setups that are common starting points for your bespoke configuration. To see the configuration templates call the *get_configurations* method:
@@ -173,8 +180,9 @@ layouts:
 ```
 
 ```{r}
+options("dyn.log.config" = "object")
 
-init_logger(configs$object)
+init_logger()
 
 test_obj <- DerivedTestObject$new()
 

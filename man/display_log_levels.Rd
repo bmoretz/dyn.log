@@ -15,6 +15,7 @@ crayon styles.
 \seealso{
 Other Configuration: 
 \code{\link{config_specification}()},
+\code{\link{ensure_instance}()},
 \code{\link{load_log_layouts}()},
 \code{\link{wipe_logger}()}
 }

@@ -4,7 +4,7 @@
 \alias{init_logger}
 \title{Init Logger}
 \usage{
-init_logger(file_path = NULL, envir = parent.frame())
+init_logger(file_path = NULL)
 }
 \arguments{
 \item{file_path}{logging configuration to use.}

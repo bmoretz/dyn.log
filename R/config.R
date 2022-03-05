@@ -40,48 +40,34 @@ get_configurations <- function(pkgname = "dyn.log") {
 #' @param envir environment to load to.
 #' @family Logging
 #' @export
-init_logger <- function(file_path = NULL,
-                        envir = parent.frame()) {
+init_logger <- function(file_path = NULL) {
   tryCatch(
     expr = {
 
+      config_file <- configs$default
+
       if (!is.null(file_path)) {
-        if (!file.exists(file_path))
+        if (!file.exists(file_path)) {
           stop(paste("Unable to load logging configuration: ", file_path))
+        }
         config_file <- file_path
-      } else {
-        config_file <- configs$default
       }
 
-      configuration <- yaml::read_yaml(config_file, eval.expr = T)
-
-      settings <- configuration$settings
-
-      if (is.null(settings$variable) | nchar(settings$variable) == 0) {
-        stop("Config setting 'variable' must be supplied and valid.")
-      }
-
-      wipe_logger(settings$variable, envir)
-
-      logger <- LogDispatch$new()
-
-      with(configuration, {
-        logger$set_settings(settings)
-        logger$attach_log_levels(levels)
-
-        envir[[settings$variable]] <- logger
-      })
-
+      config <- yaml::read_yaml(config_file, eval.expr = T)
       config_name <- tools::file_path_sans_ext(basename(config_file))
-      logger$default("dyn.log loaded '{config_name}' configuration successfully.")
 
-      load_log_layouts(configuration$layouts)
+      ensure_instance(config$variable)
 
-      active = list(
-        name = config_name,
-        path = config_file,
-        log_var = settings$variable
-      )
+      if (!identical(active$config, config_name)) {
+        logger <- LogDispatch$new()
+        logger$set_settings(config$settings)
+        logger$attach_log_levels(config$levels)
+
+        active$config <- config_name
+        logger$default("dyn.log loaded '{config_name}' configuration successfully.")
+      }
+
+      load_log_layouts(config$layouts)
 
       invisible(active)
     },
@@ -89,6 +75,37 @@ init_logger <- function(file_path = NULL,
       stop(paste0("Failed to load dyn.log:", cond))
     }
   )
+}
+
+#' @title Ensure Instance
+#'
+#' @description
+#' Ensures there is an active dispatcher
+#' attached to the specified environment.
+#'
+#' @param variable variable name.
+#'
+#' @family Configuration
+#'
+#' @returns None.
+#' @export
+ensure_instance <- function(variable) {
+
+  if (is.null(variable) |
+      nchar(variable) == 0 |
+      make.names(variable) != variable) {
+    stop("Config setting 'variable' must be supplied and valid R variable name.")
+  }
+
+  envir <- globalenv()
+  idx <- which(ls(envir) == variable, arr.ind = T)
+
+  if (identical(idx, integer())) {
+    envir[[variable]] <- LogDispatch$new()
+    active$log_var <- variable
+  }
+
+  invisible()
 }
 
 #' @title Wipe the Logger Instance
@@ -103,8 +120,7 @@ init_logger <- function(file_path = NULL,
 #'
 #' @returns None.
 #' @export
-wipe_logger <- function(name,
-                        envir = parent.frame()) {
+wipe_logger <- function(envir = parent.frame()) {
   objs <- ls(envir)
   idx <- which(objs == name)
 

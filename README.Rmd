@@ -92,7 +92,7 @@ In your .Rprofile will automatically configure the default logger and the global
 library(dyn.log)
 ```
 
-The **"dyn.log.config"** variable be either a predefined configuration (name) in the package, or a path to a local file that you have pre customized. This is useful for sharing a single log configuration across multiple packages or projects.
+The **"dyn.log.config"** variable can be either a predefined configuration (name) in the package, or a path to a local file that you have pre-customized. This is useful for sharing a single bespoke log configuration across multiple packages or projects.
 
 ### Logging
 
@@ -106,9 +106,7 @@ There are three main components of a log message, each of them are covered in de
   + Containers for format objects that define the rendering specifications for a log message.
   
 The logging functionality is exposed by a R6 class, *LogDispatch*, that is available as a package
-namespace variable called **Logger**. The **Logger** will have methods that correspond to the *log levels*
-that are defined in its yaml configuration, which makes logging intuitive. When the package is loaded,
-the logger will appear in the top / global environment as *Logger*.
+namespace variable called, by default, **Logger**. The Logger will have methods that correspond to the *log levels* that are defined in its yaml configuration, which makes logging intuitive. When the package is loaded,the logger will appear in the top / global environment as *Logger*.
 
 Log messages are automatically assumed to be in standard [glue](https://github.com/tidyverse/glue) format
 so local environment variables are capturable in the log output.

@@ -1,7 +1,7 @@
 Package: dyn.log
 Type: Package
 Title: Dynamic Logging for R Inspired by Configuration Driven Development
-Version: 0.3.1.9002
+Version: 0.3.1.9005
 Authors@R: 
     c(person(given = "Brandon",
        family = "Moretz",
@@ -45,12 +45,10 @@ Suggests:
     remotes,
     pkgdown,
     prettydoc,
-    here,
     fansi,
     DT,
     languageserver,
-    httpgd,
-    withr
+    httpgd
 Config/testthat/edition: 3
 Language: en-US
 VignetteBuilder: knitr

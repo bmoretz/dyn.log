@@ -4,12 +4,12 @@
 \alias{wipe_logger}
 \title{Wipe the Logger Instance}
 \usage{
-wipe_logger(name, envir = parent.frame())
+wipe_logger(envir = parent.frame())
 }
 \arguments{
-\item{name}{variable name.}
-
 \item{envir}{environment}
+
+\item{name}{variable name.}
 }
 \value{
 None.
@@ -22,6 +22,7 @@ from a previous load.
 Other Configuration: 
 \code{\link{config_specification}()},
 \code{\link{display_log_levels}()},
+\code{\link{ensure_instance}()},
 \code{\link{load_log_layouts}()}
 }
 \concept{Configuration}
