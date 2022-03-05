@@ -95,7 +95,6 @@ format_fn_call <- function(expr,
 #' @family Context
 #' @returns formatted call stack
 #' @importFrom stringr str_detect fixed
-#' @importFrom purrr map
 get_call_stack <- function(keep_args = F,
                            call_subset = c(-1, -1),
                            filter_internal = T) {
