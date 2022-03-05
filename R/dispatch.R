@@ -29,11 +29,17 @@ LogDispatch <- R6::R6Class( #nolint
     #' Creates a new instance of a log config.
     #' @return A new `LogLayout` object.
     initialize = function() {
+
       if (is.null(private$public_bind_env)) {
         private$create_singleton(LogDispatch)
       } else {
         self <- private$instance
-        private$set_bindings()
+
+        private$copy_env("public_bind_env",
+                         private$public_bind_env)
+
+        private$copy_env("private_bind_env",
+                         private$private_bind_env)
       }
 
       invisible(self)
@@ -46,7 +52,6 @@ LogDispatch <- R6::R6Class( #nolint
     #' binding.
     #'
     #' @param levels defined in the configuration
-    #'
     #' @family Logging
     attach_log_levels = function(levels) {
 
@@ -60,12 +65,9 @@ LogDispatch <- R6::R6Class( #nolint
         self$add_log_level(new_level)
       })
 
-      level_thresholds <- sapply(levels, function(level) {
-        setNames(level$severity, level$name)
-      })
-
-      max_threshold_key <- names(which(level_thresholds == max(level_thresholds)))
-      self[["default"]] <- self[[tolower(max_threshold_key)]]
+      # used internally to log information
+      min_severity <- get_minimum_severity()
+      self[['default']] <- self[[min_severity]]
 
       invisible()
     },

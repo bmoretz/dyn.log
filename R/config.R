@@ -56,15 +56,16 @@ init_logger <- function(file_path = NULL) {
       config <- yaml::read_yaml(config_file, eval.expr = T)
       config_name <- tools::file_path_sans_ext(basename(config_file))
 
-      ensure_instance(config$variable)
+      ensure_logger(config$variable)
 
       if (!identical(active$config, config_name)) {
         logger <- LogDispatch$new()
+
         logger$set_settings(config$settings)
         logger$attach_log_levels(config$levels)
+        logger$default("dyn.log loaded '{config_name}' configuration successfully.")
 
         active$config <- config_name
-        logger$default("dyn.log loaded '{config_name}' configuration successfully.")
       }
 
       load_log_layouts(config$layouts)
@@ -89,7 +90,7 @@ init_logger <- function(file_path = NULL) {
 #'
 #' @returns None.
 #' @export
-ensure_instance <- function(variable) {
+ensure_logger <- function(variable) {
 
   if (is.null(variable) |
       nchar(variable) == 0 |
@@ -101,11 +102,10 @@ ensure_instance <- function(variable) {
   idx <- which(ls(envir) == variable, arr.ind = T)
 
   if (identical(idx, integer())) {
-    envir[[variable]] <- LogDispatch$new()
+    logger <- LogDispatch$new()
+    envir[[variable]] <- logger
     active$log_var <- variable
   }
-
-  invisible()
 }
 
 #' @title Wipe the Logger Instance
@@ -114,15 +114,14 @@ ensure_instance <- function(variable) {
 #' Cleans up any dangling global instance
 #' from a previous load.
 #'
-#' @param name variable name.
-#' @param envir environment
 #' @family Configuration
 #'
 #' @returns None.
 #' @export
-wipe_logger <- function(envir = parent.frame()) {
-  objs <- ls(envir)
-  idx <- which(objs == name)
+wipe_logger <- function() {
+  envir <- globalenv(); objs <- ls(envir)
+
+  idx <- which(objs == active$log_var, arr.ind = T)
 
   if (!identical(idx, integer(0))) {
     rm(list = objs[idx], envir = envir)

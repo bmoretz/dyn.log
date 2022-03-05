@@ -16,7 +16,7 @@ config.
 \seealso{
 Other Configuration: 
 \code{\link{display_log_levels}()},
-\code{\link{ensure_instance}()},
+\code{\link{ensure_logger}()},
 \code{\link{load_log_layouts}()},
 \code{\link{wipe_logger}()}
 }

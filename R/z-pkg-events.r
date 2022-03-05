@@ -1,5 +1,6 @@
 # active logger configuration
 active <- new.env(parent = emptyenv())
+Logger <- NULL
 
 #' @title Load Handler
 #'
@@ -35,6 +36,29 @@ active <- new.env(parent = emptyenv())
     packageEvent(pkgname, "attach"),
     function(...) {
       config_specification()
+    }
+  )
+
+  invisible()
+  # nocov end
+}
+
+#' @title Detach Handler
+#'
+#' Package initialization routine.
+#'
+#' @param libpath
+.onDetach <- function(libpath) { # nolint
+
+  # nocov start
+  wipe_logger()
+
+  # Set a hook to reinitialize the logger
+  # in the event the environment got wiped out.
+  setHook(
+    packageEvent(pkgname, "detach"),
+    function(...) {
+      wipe_logger()
     }
   )
 

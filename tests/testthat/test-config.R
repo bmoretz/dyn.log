@@ -120,3 +120,57 @@ testthat::test_that(
     expect_true(stringr::str_detect(actual[2], stringr::fixed("derived test - 321 - 200")))
   }
 )
+
+testthat::test_that(
+  desc = "option_missing_warns",
+  code = {
+
+    options("dyn.log.config" = "does/exist.yaml")
+
+    expect_warning({
+      config_specification()
+    })
+  }
+)
+
+testthat::test_that(
+  desc = "variable_name_works",
+  code = {
+
+    test_config_file <- system.file("test-data",
+                                    "test-variable.yaml",
+                                    package = "dyn.log")
+
+    config <- yaml::read_yaml(test_config_file, eval.expr = T)
+
+    ensure_logger(config$variable)
+
+    idx <- which(ls(globalenv()) == config$variable)
+
+    expect_gt(idx, 0)
+  }
+)
+
+testthat::test_that(
+  desc = "wipe_works",
+  code = {
+
+    test_config_file <- system.file("test-data",
+                                    "test-variable.yaml",
+                                    package = "dyn.log")
+
+    config <- yaml::read_yaml(test_config_file, eval.expr = T)
+
+    ensure_logger(config$variable)
+
+    idx <- which(ls(globalenv()) == config$variable)
+
+    expect_gt(idx, 0)
+
+    wipe_logger()
+
+    idx <- which(ls(globalenv()) == config$variable)
+
+    expect_true(identical(idx, integer()))
+  }
+)

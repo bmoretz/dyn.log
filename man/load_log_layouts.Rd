@@ -22,7 +22,7 @@ binding.
 Other Configuration: 
 \code{\link{config_specification}()},
 \code{\link{display_log_levels}()},
-\code{\link{ensure_instance}()},
+\code{\link{ensure_logger}()},
 \code{\link{wipe_logger}()}
 }
 \concept{Configuration}

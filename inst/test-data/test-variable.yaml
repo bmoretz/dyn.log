@@ -1,4 +1,4 @@
-variable: Logger
+variable: log
 settings:
   threshold: TRACE
   callstack:
