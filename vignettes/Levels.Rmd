@@ -17,6 +17,8 @@ vignette: >
 
 ```{r setup}
 library(dyn.log)
+
+init_logger()
 ```
 
 ```{r, comment="", results="asis", echo=F}

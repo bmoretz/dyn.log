@@ -1,5 +1,6 @@
 settings:
   threshold: TRACE
+  variable: Logger
   callstack:
     max: 5
     start: -1

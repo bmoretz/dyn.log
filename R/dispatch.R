@@ -6,7 +6,7 @@
 #' @details
 #' This object is designed to a centralized logging dispatcher that
 #' renders log messages with the appropriate context of the calling
-#' object. The \code{log_layout} object is used to generate log message
+#' object. The [log_layout()] object is used to generate log message
 #' layouts (render formats), which are used by the \code{LogDispatcher}
 #' to render highly-customizable and detailed log messages.
 #'
@@ -40,9 +40,42 @@ LogDispatch <- R6::R6Class( #nolint
     },
 
     #' @description
+    #' Parses and loads the levels specified in the
+    #' logging configuration and registers them with the
+    #' dispatcher via the \code{log_levels} active
+    #' binding.
+    #'
+    #' @param levels defined in the configuration
+    #'
+    #' @family Logging
+    attach_log_levels = function(levels) {
+
+      sapply(levels, function(level) {
+        new_level <- new_log_level(name = level$name,
+                                   description = level$description,
+                                   severity = as.integer(level$severity),
+                                   log_style = level$log_style,
+                                   msg_style = level$msg_style)
+
+        self$add_log_level(new_level)
+      })
+
+      level_thresholds <- sapply(levels, function(level) {
+        setNames(level$severity, level$name)
+      })
+
+      max_threshold_key <- names(which(level_thresholds == max(level_thresholds)))
+      self[["default"]] <- self[[tolower(max_threshold_key)]]
+
+      invisible()
+    },
+
+    #' @description
     #' Adds dynamic function as a short-cut to
     #' log a message with a configured level.
+    #'
     #' @param level log level
+    #'
     #' @return reference to self to support chaining.
     add_log_level = function(level) {
       # nocov start
@@ -137,7 +170,7 @@ LogDispatch <- R6::R6Class( #nolint
 
   private = list(
 
-    settings = NA,
+    settings = NULL,
 
     # overrides from base R6
     public_bind_env = NULL,

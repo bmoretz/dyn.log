@@ -1,11 +1,30 @@
 # Release Summaries <img src="man/figures/hex.png" width = "175" height = "200" align="right" />
 
+# dyn.log 0.3.1
+
+## What's Changed
+
+* New Features
+  + added a default logging function that uses the level with the highest severity.
+  + changed how loggers are instantiated, you must now call init_logging() or
+    specify the logging configuration with the dyn.log.config option.
+  
+* Enhancements
+  + cleaned up the entire configuration module and streamlined the
+    process of initialization.
+  + updated configuration vignette to reflect these changes.
+  + added withr suggestion package to isolate all logging unit
+    tests to their initialized environment.
+  + added a configuration setting to change the variable name
+    of the global logging instance. "Logger" is still the default,
+    but now you can specify any legal R variable name by default.
+  
 # dyn.log 0.3.0
 
 ## What's Changed
 
 * New Features
-  + Added private field support for class context logging.
+  + added private field support for class context logging.
   
 * Enhancements
   + added lintr coverage to makefile.
@@ -24,7 +43,7 @@
 
 ## What's Changed
 * New Pkg Logo
-  + Created a Hex logo for dyn.log package.
+  + created a Hex logo for dyn.log package.
 
 * Enhancements
   + added a pkg hex + added to readme

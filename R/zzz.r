@@ -1,6 +1,3 @@
-#' Global Logging Instance
-Logger <- LogDispatch$new() # nolint (global obj style)
-
 #' @title Initialization
 #'
 #' Package initialization routine.
@@ -14,13 +11,11 @@ Logger <- LogDispatch$new() # nolint (global obj style)
   configs <- get_configurations(pkgname = pkgname)
   assign("configs", configs, envir = topenv())
 
-  set_log_configuration(configs$default, envir = topenv())
-
   # Always register hook in case package is later unloaded & loaded
   setHook(
     packageEvent(pkgname, "onLoad"),
     function(...) {
-      set_log_configuration(configs$default, envir = topenv())
+      config_specification()
     }
   )
 

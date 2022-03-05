@@ -16,19 +16,19 @@ to render highly-customizable and detailed log messages.
 }
 \seealso{
 Other Logging: 
-\code{\link{attach_log_levels}()},
-\code{\link{configure_logger}()},
-\code{\link{display_log_levels}()},
 \code{\link{get_configurations}()},
-\code{\link{init_logger}()},
-\code{\link{load_log_layouts}()},
-\code{\link{set_log_configuration}()}
+\code{\link{init_logger}()}
+
+Other Logging: 
+\code{\link{get_configurations}()},
+\code{\link{init_logger}()}
 }
 \concept{Logging}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-new}{\code{LogDispatch$new()}}
+\item \href{#method-attach_log_levels}{\code{LogDispatch$attach_log_levels()}}
 \item \href{#method-add_log_level}{\code{LogDispatch$add_log_level()}}
 \item \href{#method-get_settings}{\code{LogDispatch$get_settings()}}
 \item \href{#method-set_settings}{\code{LogDispatch$set_settings()}}
@@ -45,6 +45,26 @@ Creates a new instance of a log config.
 
 \subsection{Returns}{
 A new \code{LogLayout} object.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-attach_log_levels"></a>}}
+\if{latex}{\out{\hypertarget{method-attach_log_levels}{}}}
+\subsection{Method \code{attach_log_levels()}}{
+Parses and loads the levels specified in the
+logging configuration and registers them with the
+dispatcher via the \code{log_levels} active
+binding.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{LogDispatch$attach_log_levels(levels)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{levels}}{defined in the configuration}
+}
+\if{html}{\out{</div>}}
 }
 }
 \if{html}{\out{<hr>}}

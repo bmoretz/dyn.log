@@ -9,6 +9,9 @@ load_log_layouts(layouts)
 \arguments{
 \item{layouts}{defined in the configuration}
 }
+\value{
+None.
+}
 \description{
 Parses and loads layouts specified in the logging
 configuration and registers them with the log
@@ -16,13 +19,9 @@ dispatcher via the \code{log_layouts} active
 binding.
 }
 \seealso{
-Other Logging: 
-\code{\link{LogDispatch}},
-\code{\link{attach_log_levels}()},
-\code{\link{configure_logger}()},
+Other Configuration: 
+\code{\link{config_specification}()},
 \code{\link{display_log_levels}()},
-\code{\link{get_configurations}()},
-\code{\link{init_logger}()},
-\code{\link{set_log_configuration}()}
+\code{\link{wipe_logger}()}
 }
-\concept{Logging}
+\concept{Configuration}

@@ -23,6 +23,7 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(dyn.log)
+
 ```
 
 ```{r, comment="", results="asis", echo=F}
@@ -59,7 +60,7 @@ Then you can:
 
 ```{r, eval=FALSE}
 bespoke <- system.file("logging.yaml", package = "yourpkg")
-set_log_configuration(file_name = bespoke)
+init_logger(config_file = bespoke)
 ```
 
 ### Script Directory
@@ -74,10 +75,17 @@ then in your **.Rprofile**:
 
 ```{r, eval=F}
 library(dyn.log)
-set_log_configuration("logging.yaml")
+
+init_logger("logging.yaml")
 ```
 
 ## Integration
+
+```{r}
+# initialize the logger so the test object
+# can "close over" the global logging instance.
+init_logger()
+```
 
 If your client code leverages the use of R6 classes, you can specify a custom layout for standalone objects or objects that are part of a hierarchy by using the *association* property. For example, [TestObject](https://github.com/bmoretz/dyn.log/blob/master/tests/testthat/helper-objects.R) is a helper object defined in the testthat folder of dyn.log:
 
@@ -166,7 +174,7 @@ layouts:
 
 ```{r}
 
-set_log_configuration(configs$object)
+init_logger(configs$object)
 
 test_obj <- DerivedTestObject$new()
 

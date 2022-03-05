@@ -50,6 +50,44 @@ You can install the latest stable version of dyn.log from CRAN:
 library(dyn.log)
 ```
 
+### Basic Usage
+
+For basic/most common usage simply install the package from one of the
+above sources, load the package, initialize the logger, and a logging
+instance will show up in your global environment (by default, named
+‘Logger’):
+
+``` r
+library(dyn.log)
+
+init_logger()
+
+var1 <- "abc"; var2 <- 123; var3 <- runif(1)
+
+Logger$debug("my log message - var1: {var1}, var2: {var2}, var3: {var3}")
+```
+
+![basic log ouput](man/figures/README-basic-log-output.PNG)
+
+You can also skip the call to *init_logger* by setting a global option
+that specifies the configuration you wish to use, i.e., placing:
+
+``` r
+options("dyn.log.config" = "default")
+```
+
+In your .Rprofile will automatically configure the default logger and
+the global logging instance will be attached when you call:
+
+``` r
+library(dyn.log)
+```
+
+The **“dyn.log.config”** variable be either a predefined configuration
+in the package, or a path to a local file that you have pre customized.
+This is useful for sharing a single log configuration across multiple
+packages or projects.
+
 ### Logging
 
 There are three main components of a log message, each of them are
@@ -106,6 +144,7 @@ vignette online, or*
 ``` yaml
 settings:
   threshold: TRACE
+  variable: Logger
   callstack:
     max: 5
     start: -1
@@ -245,7 +284,7 @@ useful in larger applications, such as
 A TestObject is defined as below, who’s primary responsibly is to assign
 a randomly generated identifier to the instance via the constructor.
 There is also a method on the object that will call the logger with some
-local scope variables that should be logged as well.
+local scope variables that will be logged as well.
 
 ``` r
 TestObject <- R6::R6Class(
