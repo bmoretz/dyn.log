@@ -7,11 +7,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="A comprehensive and dynamic configuration driven logging package for R. While there 
     are several excellent logging solutions already in the R ecosystem, I always feel constrained 
-    in some way by each of them. Every project is designed differently to achieve its stated goal; 
-    to solve some problem, and ultimately the utility of a logging solution is its ability to adapt 
-    to the projects design. This is the rai·son d'ê·tre for dyn.log, to provide a modular design, 
-    template mechanics and a configuration-based integration model, so that the logger can integrate 
-    deeply into your design, even though it knows nothing about it.">
+    in some way by each of them. Every project is designed differently to solve its domain specific problem, 
+    and ultimately the utility of a logging solution is its ability to adapt to this design. This is the 
+    rai-son de tre for dyn.log: to provide a modular design, template mechanics and a configuration-based 
+    integration model, so that the logger can integrate deeply into your design, even though it knows 
+    nothing about it.">
 <title>Dynamic Logging for R Inspired by Configuration Driven Development • dyn.log</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
@@ -23,11 +23,11 @@
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Dynamic Logging for R Inspired by Configuration Driven Development">
 <meta property="og:description" content="A comprehensive and dynamic configuration driven logging package for R. While there 
     are several excellent logging solutions already in the R ecosystem, I always feel constrained 
-    in some way by each of them. Every project is designed differently to achieve its stated goal; 
-    to solve some problem, and ultimately the utility of a logging solution is its ability to adapt 
-    to the projects design. This is the rai·son d'ê·tre for dyn.log, to provide a modular design, 
-    template mechanics and a configuration-based integration model, so that the logger can integrate 
-    deeply into your design, even though it knows nothing about it.">
+    in some way by each of them. Every project is designed differently to solve its domain specific problem, 
+    and ultimately the utility of a logging solution is its ability to adapt to this design. This is the 
+    rai-son de tre for dyn.log: to provide a modular design, template mechanics and a configuration-based 
+    integration model, so that the logger can integrate deeply into your design, even though it knows 
+    nothing about it.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -177,10 +177,7 @@
 <h4 id="configuration">Configuration<a class="anchor" aria-label="anchor" href="#configuration"></a>
 </h4>
 <p>Everything about dyn.log is configuration driven, the package comes with a basic configuration <strong>default.yaml</strong>, show below it its entirety and broken down in the sections that follow:</p>
-<p><em>For a detailed look at customizing these settings please see <a href="https://bmoretz.github.io/dyn.log/articles/Configuration.html" class="external-link">Configurations</a> vignette online, or</em></p>
-<blockquote>
-<p>vignette(“Configuration”, package = “dyn.log”)</p>
-</blockquote>
+<p><em>For a detailed look at customizing these settings please see <a href="https://bmoretz.github.io/dyn.log/articles/Configuration.html" class="external-link">Configurations</a> vignette online.</em></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">variable</span><span class="kw">:</span><span class="at"> Logger</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="fu">settings</span><span class="kw">:</span></span>
 <span id="cb7-3"><a href="#cb7-3"></a><span class="at">  </span><span class="fu">threshold</span><span class="kw">:</span><span class="at"> TRACE</span></span>
@@ -252,38 +249,34 @@
 <div class="section level4">
 <h4 id="settings">Settings<a class="anchor" aria-label="anchor" href="#settings"></a>
 </h4>
-<p>The <strong>settings</strong> node contains the core settings of the log dispatcher, by attribute. These are covered in detail in the <em>LogDispatch</em> section of the manual.</p>
-<blockquote>
-<p>?LogDispatch</p>
-</blockquote>
-<p>Most of these should be fairly intuitive.</p>
+<p>The <strong>settings</strong> node contains the core settings of the log dispatcher, by attribute. These are covered in detail in the <a href="https://bmoretz.github.io/dyn.log/articles/Configuration.html" class="external-link">Configuration</a> section of the manual.</p>
 </div>
 <div class="section level4">
 <h4 id="levels">Levels<a class="anchor" aria-label="anchor" href="#levels"></a>
 </h4>
 <p>The <strong>levels</strong> node contains the log levels you want available in your environment. When a log level is defined in the configuration, it automatically becomes accessible via a first-class function on the dispatcher, e.g.:</p>
-<p>The default logging configuration closely resembles the fairly ubiquitous <a href="https://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/Level.html" class="external-link">log4j</a> scheme.</p>
-<p>For a detailed look at log levels refer to the <a href="https://bmoretz.github.io/dyn.log/articles/Levels.html" class="external-link">Levels</a> vignette online, or</p>
-<blockquote>
-<p>vignette(“Levels”, package = “dyn.log”)</p>
-</blockquote>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Logger</span><span class="op">$</span><span class="fu">info</span><span class="op">(</span><span class="st">"This will be logged with 'INFO' severity level"</span><span class="op">)</span></code></pre></div>
+<p>You can view all configured log levels, and get a quick summary about them by calling <em>display_log_levels():</em></p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/display_log_levels.html">display_log_levels</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="figure">
+<img src="reference/figures/README-std-levels-out.PNG" alt=""><p class="caption">log levels</p>
+</div>
+<p>The default logging configuration closely resembles the fairly ubiquitous <a href="https://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/Level.html" class="external-link">log4j</a> scheme. For a detailed look at log levels refer to the <a href="https://bmoretz.github.io/dyn.log/articles/Levels.html" class="external-link">Levels</a> vignette online.</p>
 </div>
 <div class="section level4">
 <h4 id="layouts">Layouts<a class="anchor" aria-label="anchor" href="#layouts"></a>
 </h4>
 <p>Every log message needs to have a format so the dispatcher knows what to render on a log call. Formats are defined in the yaml config and comes with some basic ones pre-configured.</p>
 <p>The default log layout is a standard format: {LEVEL} - {TIMESTAMP} - {MSG}, with space as a separator between format objects.</p>
-<p>For a detailed look at layouts refer to the <a href="https://bmoretz.github.io/dyn.log/articles/Layouts.html" class="external-link">Layouts</a> vignette online, or</p>
-<blockquote>
-<p>vignette(“Layouts”, package = “dyn.log”)</p>
-</blockquote>
 </div>
 </div>
 <div class="section level3">
 <h3 id="customizing-a-log-message">Customizing a Log Message<a class="anchor" aria-label="anchor" href="#customizing-a-log-message"></a>
 </h3>
 <p>Log message layouts are exposed as an S3 type in the package called <em>log_layout</em>. Layouts are composed from a series of objects that inherit from <em>fmt_layout</em>.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/new_log_layout.html">new_log_layout</a></span><span class="op">(</span>
   format <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
     <span class="fu"><a href="reference/new_fmt_metric.html">new_fmt_metric</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">green</a></span><span class="op">$</span><span class="va">bold</span>, <span class="st">"sysname"</span><span class="op">)</span>,
@@ -301,17 +294,14 @@
 <div class="figure">
 <img src="reference/figures/README-custom-log-output.PNG" alt=""><p class="caption">custom log ouput</p>
 </div>
-<p>For a detailed look at these objects, and how they work please see the “Log Layouts” <em>vignette</em>.</p>
-<blockquote>
-<p>(vignette(“Log Layouts”, package = “dyn.log”)</p>
-</blockquote>
+<p>For a detailed look at layouts refer to the <a href="https://bmoretz.github.io/dyn.log/articles/Layouts.html" class="external-link">Layouts</a> vignette online.</p>
 </div>
 <div class="section level3">
 <h3 id="logging-associations">Logging Associations<a class="anchor" aria-label="anchor" href="#logging-associations"></a>
 </h3>
 <p>One thing you may have noticed about the previous log layout definition was the <em>association</em> parameter. Associations are a useful way to build a customized log layout for your custom R6 types. This can be especially useful in larger applications, such as <a href="https://github.com/rstudio/plumber/" class="external-link">plumber</a> services or <a href="https://github.com/rstudio/shiny" class="external-link">shiny</a> dashboards.</p>
 <p>A TestObject is defined as below, who’s primary responsibly is to assign a randomly generated identifier to the instance via the constructor. There is also a method on the object that will call the logger with some local scope variables that will be logged as well.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">TestObject</span> <span class="op">&lt;-</span> <span class="fu">R6</span><span class="fu">::</span><span class="kw"><a href="https://r6.r-lib.org/reference/R6Class.html" class="external-link">R6Class</a></span><span class="op">(</span>
   classname <span class="op">=</span> <span class="st">"TestObject"</span>,
 
@@ -338,7 +328,7 @@
 
 <span class="va">obj</span> <span class="op">&lt;-</span> <span class="va">TestObject</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>With the above class defined, we can create a custom log layout that associated with this R6 type with a new log layout:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/new_log_layout.html">new_log_layout</a></span><span class="op">(</span>
   format <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
     <span class="fu"><a href="reference/new_fmt_literal.html">new_fmt_literal</a></span><span class="op">(</span><span class="fu">crayon</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/crayon/man/crayon.html" class="external-link">cyan</a></span><span class="op">$</span><span class="va">bold</span>, <span class="st">"Object Id:"</span><span class="op">)</span>,
@@ -366,10 +356,7 @@
 <img src="reference/figures/README-cls-association-output.PNG" alt=""><p class="caption">custom log ouput</p>
 </div>
 <p>As you can see, only when the logger is invoked from inside the class that has a custom layout associated with it does the custom layout get used. The follow-up log call (outside the class scope) reverts back to the standard layout settings.</p>
-<p>For a detailed look at class associations, and how they work please see the “Log Layouts” <em>vignette</em>.</p>
-<blockquote>
-<p>(vignette(“Log Layouts”, package = “dyn.log”)</p>
-</blockquote>
+<p><em>For a detailed look at customizing a layout for a specific type, please see <a href="https://bmoretz.github.io/dyn.log/articles/Configuration.html" class="external-link">Configurations</a> vignette online for an example.</em></p>
 </div>
 </div>
 <div class="section level2">
