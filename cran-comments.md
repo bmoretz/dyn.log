@@ -1,7 +1,33 @@
-── R CMD check results dyn.log 0.3.1.9007 ────
-Duration: 24.5s
+## R CMD check results
+### dyn.log **0.3.2**
 
-0 errors ✓ | 0 warnings ✓ | 0 notes ✓
+* 1 Note
+  + checking CRAN incoming feasibility ... NOTE
+    Maintainer: ‘Brandon Moretz <bmoretz@ionicsolutions.net>’
+  + New submission
 
-R CMD check succeeded
+#### Documentation
 
+* Short-form
+   + [README](https://github.com/bmoretz/dyn.log/blob/master/README.md)
+* Long-form
+   + [pkgdown](https://bmoretz.github.io/dyn.log/)
+
+##### Build Platforms
+
+* Continuous Integration [GitActions](https://github.com/bmoretz/dyn.log/actions/workflows/R-CMD-check.yaml)
+
+  * **Operating Systems**
+    + macOS-latest
+      + **R** release
+    + windows-latest
+      + **R** release
+    + ubuntu-latest:
+      + **R** devel
+      + **R** release
+      + **R** oldrel
+
+##### Misc.
+
+* Code Coverage: [covr](https://app.codecov.io/gh/bmoretz/dyn.log?branch=master)
+* Lintr: [lintr](https://github.com/bmoretz/dyn.log/actions/workflows/lint.yaml)

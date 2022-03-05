@@ -47,6 +47,7 @@ Suggests:
     prettydoc,
     here,
     fansi,
+    pander,
     DT,
     languageserver,
     httpgd
