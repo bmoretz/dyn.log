@@ -123,9 +123,7 @@ Logger$debug("my log message - var1: {var1}, var2: {var2}, var3: {var3}")
 
 Everything about dyn.log is configuration driven, the package comes with a basic configuration **default.yaml**, show below it its entirety and broken down in the sections that follow:
 
-*For a detailed look at customizing these settings please see [Configurations](https://bmoretz.github.io/dyn.log/articles/Configuration.html) vignette online, or*
-
-> vignette("Configuration", package = "dyn.log")
+*For a detailed look at customizing these settings please see [Configurations](https://bmoretz.github.io/dyn.log/articles/Configuration.html) vignette online.*
 
 ```yaml
 `r xfun::file_string('inst/default.yaml')`
@@ -146,11 +144,7 @@ LogDispatch$new()$warn("These numbers '{nums}' are out of the expected range.")
 #### Settings
 
 The **settings** node contains the core settings of the log dispatcher, by attribute. These
-are covered in detail in the *LogDispatch* section of the manual.
-
-> ?LogDispatch
-
-Most of these should be fairly intuitive.
+are covered in detail in the [Configuration](https://bmoretz.github.io/dyn.log/articles/Configuration.html) section of the manual.
 
 #### Levels
 
@@ -158,22 +152,25 @@ The **levels** node contains the log levels you want available in your environme
 level is defined in the configuration, it automatically becomes accessible via a first-class 
 function on the dispatcher, e.g.:
 
-The default logging configuration closely resembles the fairly ubiquitous [log4j](https://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/Level.html) scheme.
+```{r, eval = F}
+Logger$info("This will be logged with 'INFO' severity level")
+```
 
-For a detailed look at log levels refer to the [Levels](https://bmoretz.github.io/dyn.log/articles/Levels.html) vignette online, or
+You can view all configured log levels, and get a quick summary about them by calling *display_log_levels():*
 
-> vignette("Levels", package = "dyn.log")
+```{r, eval = F}
+display_log_levels()
+```
+
+![log levels](man/figures/README-std-levels-out.PNG)
+
+The default logging configuration closely resembles the fairly ubiquitous [log4j](https://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/Level.html) scheme. For a detailed look at log levels refer to the [Levels](https://bmoretz.github.io/dyn.log/articles/Levels.html) vignette online.
 
 #### Layouts
 
 Every log message needs to have a format so the dispatcher knows what to render on a log call. Formats are defined in the yaml config and comes with some basic ones pre-configured.
 
 The default log layout is a standard format: {LEVEL} - {TIMESTAMP} - {MSG}, with space as a separator between format objects.
-
-
-For a detailed look at layouts refer to the [Layouts](https://bmoretz.github.io/dyn.log/articles/Layouts.html) vignette online, or
-
-> vignette("Layouts", package = "dyn.log")
 
 ### Customizing a Log Message
 
@@ -201,9 +198,7 @@ Logger$info("my log message - var1: {var1}, var2: {var2}, var3: {var3}", layout 
 
 ![custom log ouput](man/figures/README-custom-log-output.PNG)
 
-For a detailed look at these objects, and how they work please see the "Log Layouts" *vignette*.
-
-> (vignette("Log Layouts", package = "dyn.log")
+For a detailed look at layouts refer to the [Layouts](https://bmoretz.github.io/dyn.log/articles/Layouts.html) vignette online.
 
 ### Logging Associations
 
@@ -274,9 +269,7 @@ Logger$debug("this is a normal log msg")
 
 As you can see, only when the logger is invoked from inside the class that has a custom layout associated with it does the custom layout get used. The follow-up log call (outside the class scope) reverts back to the standard layout settings.
 
-For a detailed look at class associations, and how they work please see the "Log Layouts" *vignette*.
-
-> (vignette("Log Layouts", package = "dyn.log")
+*For a detailed look at customizing a layout for a specific type, please see [Configurations](https://bmoretz.github.io/dyn.log/articles/Configuration.html) vignette online for an example.*
 
 ## Acknowledgments
 

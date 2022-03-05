@@ -67,7 +67,7 @@ LogDispatch <- R6::R6Class( #nolint
 
       # used internally to log information
       min_severity <- get_minimum_severity()
-      self[['default']] <- self[[min_severity]]
+      self[["default"]] <- self[[min_severity]]
 
       invisible()
     },

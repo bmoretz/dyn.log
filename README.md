@@ -134,9 +134,7 @@ broken down in the sections that follow:
 
 *For a detailed look at customizing these settings please see
 [Configurations](https://bmoretz.github.io/dyn.log/articles/Configuration.html)
-vignette online, or*
-
-> vignette(“Configuration”, package = “dyn.log”)
+vignette online.*
 
 ``` yaml
 variable: Logger
@@ -216,12 +214,9 @@ LogDispatch$new()$warn("These numbers '{nums}' are out of the expected range.")
 #### Settings
 
 The **settings** node contains the core settings of the log dispatcher,
-by attribute. These are covered in detail in the *LogDispatch* section
-of the manual.
-
-> ?LogDispatch
-
-Most of these should be fairly intuitive.
+by attribute. These are covered in detail in the
+[Configuration](https://bmoretz.github.io/dyn.log/articles/Configuration.html)
+section of the manual.
 
 #### Levels
 
@@ -230,16 +225,25 @@ environment. When a log level is defined in the configuration, it
 automatically becomes accessible via a first-class function on the
 dispatcher, e.g.:
 
+``` r
+Logger$info("This will be logged with 'INFO' severity level")
+```
+
+You can view all configured log levels, and get a quick summary about
+them by calling *display_log_levels():*
+
+``` r
+display_log_levels()
+```
+
+![log levels](man/figures/README-std-levels-out.PNG)
+
 The default logging configuration closely resembles the fairly
 ubiquitous
 [log4j](https://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/Level.html)
-scheme.
-
-For a detailed look at log levels refer to the
+scheme. For a detailed look at log levels refer to the
 [Levels](https://bmoretz.github.io/dyn.log/articles/Levels.html)
-vignette online, or
-
-> vignette(“Levels”, package = “dyn.log”)
+vignette online.
 
 #### Layouts
 
@@ -249,12 +253,6 @@ with some basic ones pre-configured.
 
 The default log layout is a standard format: {LEVEL} - {TIMESTAMP} -
 {MSG}, with space as a separator between format objects.
-
-For a detailed look at layouts refer to the
-[Layouts](https://bmoretz.github.io/dyn.log/articles/Layouts.html)
-vignette online, or
-
-> vignette(“Layouts”, package = “dyn.log”)
 
 ### Customizing a Log Message
 
@@ -281,10 +279,9 @@ Logger$info("my log message - var1: {var1}, var2: {var2}, var3: {var3}", layout 
 
 ![custom log ouput](man/figures/README-custom-log-output.PNG)
 
-For a detailed look at these objects, and how they work please see the
-“Log Layouts” *vignette*.
-
-> (vignette(“Log Layouts”, package = “dyn.log”)
+For a detailed look at layouts refer to the
+[Layouts](https://bmoretz.github.io/dyn.log/articles/Layouts.html)
+vignette online.
 
 ### Logging Associations
 
@@ -364,10 +361,10 @@ that has a custom layout associated with it does the custom layout get
 used. The follow-up log call (outside the class scope) reverts back to
 the standard layout settings.
 
-For a detailed look at class associations, and how they work please see
-the “Log Layouts” *vignette*.
-
-> (vignette(“Log Layouts”, package = “dyn.log”)
+*For a detailed look at customizing a layout for a specific type, please
+see
+[Configurations](https://bmoretz.github.io/dyn.log/articles/Configuration.html)
+vignette online for an example.*
 
 ## Acknowledgments
 

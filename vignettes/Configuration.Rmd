@@ -25,8 +25,8 @@ knitr::opts_chunk$set(
 library(dyn.log)
 ```
 
-```{r, comment="", results="asis", echo=F}
-options(crayon.enabled=TRUE)
+```{r, comment = "", results = "asis", echo = F}
+options(crayon.enabled = TRUE)
 knitr::opts_chunk$set(collapse = TRUE, comment = "")
 old.hooks <- fansi::set_knit_hooks(knitr::knit_hooks)
 ```
@@ -42,18 +42,27 @@ There are two main ways to set the logging configuration:
 * Global Option
     + options("dyn.log.config" = "~/package/config.yaml")
 
-If you
+If you work on a large project (i.e., comprised of many packages) setting the global option in your .Rprofile is the suggested approach; it will save you a great deal of time.
+
 ## Templates
 
 The package comes with a few preconfigured logging setups that are common starting points for your bespoke configuration. To see the configuration templates call the *get_configurations* method:
 
 
-```{r}
+```{r, eval = F}
 configs <- get_configurations()
 configs
 ```
+```{r, echo = F}
+configs <- get_configurations()
+pander::pander(sapply(configs, basename))
+```
 
-This will return a list of configurations and the yaml file path on your local system. To make a copy of one of them:
+This will return a list of configurations and the yaml file path on your local system.
+
+There are two main ways to utilize these 'OTB' templates, both having the basic
+idea of copying a pre-configured template from the package to your local
+working environment, and then setting the logger to look for that file going-forward.
 
 ### Package
 
@@ -63,19 +72,29 @@ To use a custom logging configuration in a package:
 file.copy(from = configs$default, to = "inst/logging.yaml")
 ```
 
-Then you can:
+Which will make the new template part of your package, to load it, you can:
+
+Put this in your packages' ".onLoad" handler:
 
 ```{r, eval=FALSE}
-bespoke <- system.file("logging.yaml", package = "yourpkg")
-init_logger(config_file = bespoke)
+init_logger(config_file = system.file("logging.yaml", package = "yourpkg"))
 ```
+
+Or, put this line in your **.Rprofile**, and whenver you attach the **dyn.log** package, the logger will automatically load your custom configuration.
+
+```{r, eval=FALSE}
+options("dyn.log.config" = system.file("logging.yaml", package = "yourpkg"))
+```
+
 
 ### Script Directory
 
-To use a custom configuration in a directory/project:
+Usage of a custom configuration in a directory/project is basically the same:
 
 ```{r, eval=F}
-file.copy(from = configs$default, to = "logging.yaml")
+# use here to get your workspace root
+file.copy(from = configs$default, 
+          to = file.path(here::here(), "logging.yaml"))
 ```
 
 then in your **.Rprofile**:
@@ -86,13 +105,17 @@ library(dyn.log)
 init_logger("logging.yaml")
 ```
 
+Or,
+
+```{r, eval=FALSE}
+options("dyn.log.config" = file.path(here::here(), "logging.yaml"))
+```
+
+And whenever the **dyn.log** package gets attached, it will be auto-configure for you.
+
 ## Integration
 
-```{r}
-# initialize the logger so the test object
-# can "close over" the global logging instance.
-init_logger()
-```
+Now we'll take look at customizing log layouts for types in your project.
 
 If your client code leverages the use of R6 classes, you can specify a custom layout for standalone objects or objects that are part of a hierarchy by using the *association* property. For example, [TestObject](https://github.com/bmoretz/dyn.log/blob/master/tests/testthat/helper-objects.R) is a helper object defined in the testthat folder of dyn.log:
 
@@ -180,9 +203,7 @@ layouts:
 ```
 
 ```{r}
-options("dyn.log.config" = "object")
-
-init_logger()
+init_logger(configs$object)
 
 test_obj <- DerivedTestObject$new()
 
