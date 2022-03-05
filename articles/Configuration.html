@@ -253,15 +253,15 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <span id="cb10-14"><a href="#cb10-14"></a><span class="at">           new_fmt_log_msg())</span></span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/init_logger.html">init_logger</a></span><span class="op">(</span><span class="va">configs</span><span class="op">$</span><span class="va">object</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code><span style="color: #B2B2B2; font-weight: bold;">TRACE</span> <span style="color: #555555; font-style: italic;">[03/05/22 20:56:12 +0000]</span> <span style="color: #949494;">dyn.log loaded 'object' configuration successfully.</span>
+<pre class="fansi fansi-output"><code><span style="color: #B2B2B2; font-weight: bold;">TRACE</span> <span style="color: #555555; font-style: italic;">[03/05/22 21:21:12 +0000]</span> <span style="color: #949494;">dyn.log loaded 'object' configuration successfully.</span>
 </code></pre>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="va">test_obj</span> <span class="op">&lt;-</span> <span class="va">DerivedTestObject</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">test_obj</span><span class="op">$</span><span class="fu">invoke_logger</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code><span style="color: #00BBBB; font-weight: bold;">Class:</span> <span style="color: #555555; background-color: #00BBBB; font-weight: bold;">DerivedTestObject</span> <span style="color: #00BBBB; font-weight: bold;">Object Id:</span> <span style="color: #555555; background-color: #00BBBB; font-weight: bold;">VRTUETXPHFRBFRG</span>
-<span style="color: #B2B2B2; font-weight: bold;">TRACE</span> <span style="color: #555555; font-style: italic;">[03/05/22 20:56:12 +0000]</span> <span style="color: #BB00BB; font-weight: bold;">test_obj$invoke_logger</span> <span style="color: #949494;">variables in derived: derived test - 321 - 200</span>
+<pre class="fansi fansi-output"><code><span style="color: #00BBBB; font-weight: bold;">Class:</span> <span style="color: #555555; background-color: #00BBBB; font-weight: bold;">DerivedTestObject</span> <span style="color: #00BBBB; font-weight: bold;">Object Id:</span> <span style="color: #555555; background-color: #00BBBB; font-weight: bold;">XAJFDLASAOMOHSO</span>
+<span style="color: #B2B2B2; font-weight: bold;">TRACE</span> <span style="color: #555555; font-style: italic;">[03/05/22 21:21:12 +0000]</span> <span style="color: #BB00BB; font-weight: bold;">test_obj$invoke_logger</span> <span style="color: #949494;">variables in derived: derived test - 321 - 200</span>
 </code></pre>
 <p>As you can see, the logger knows to log contextual information about any object derived from “TestObject.” TestObject exposes two properties, one public and one private:</p>
 <ul>
