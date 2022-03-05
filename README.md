@@ -83,10 +83,10 @@ the global logging instance will be attached when you call:
 library(dyn.log)
 ```
 
-The **“dyn.log.config”** variable be either a predefined configuration
-in the package, or a path to a local file that you have pre customized.
-This is useful for sharing a single log configuration across multiple
-packages or projects.
+The **“dyn.log.config”** variable can be either a predefined
+configuration (name) in the package, or a path to a local file that you
+have pre-customized. This is useful for sharing a single bespoke log
+configuration across multiple packages or projects.
 
 ### Logging
 
@@ -104,16 +104,13 @@ site](https://bmoretz.github.io/dyn.log/):
     -   Containers for format objects that define the rendering
         specifications for a log message.
 
-The logging functionality is exposed by a R6 class, *LogDispatch*, that
-is available as a package namespace variable called **Logger**. The
-**Logger** will have methods that correspond to the *log levels* that
-are defined in its yaml configuration, which makes logging intuitive.
-When the package is loaded, the logger will appear in the top / global
-environment as *Logger*.
-
-Log messages are automatically assumed to be in standard
+The logging functionality is exposed by a R6 class, *LogDispatch*, is
+accessible as a global variable called, by default, **Logger**. The
+Logger will have methods that correspond to the *log levels* that are
+defined in its yaml configuration, which makes logging intuitive. Log
+messages are automatically assumed to be in standard
 [glue](https://github.com/tidyverse/glue) format so local environment
-variables are capturable in the log output.
+variables are captured in messages.
 
 #### Simple Example
 
@@ -142,9 +139,9 @@ vignette online, or*
 > vignette(“Configuration”, package = “dyn.log”)
 
 ``` yaml
+variable: Logger
 settings:
   threshold: TRACE
-  variable: Logger
   callstack:
     max: 5
     start: -1
@@ -198,6 +195,23 @@ layouts:
   formats: new_fmt_log_level(),
            new_fmt_log_msg()
 ```
+
+### Logger Variable
+
+The first setting, *variable*, defines the name of the global variable
+you want to access the logger with. The default is **Logger**, but you
+can easily change it to: *log*, *my_log*, *msg* or any other value (as
+long as it’s a *valid* R variable name). The **LogDispatch** object is
+also a [singleton](https://en.wikipedia.org/wiki/Singleton), so you
+always access the logger directly:
+
+``` r
+nums <- paste0(round(rnorm(25, 0, 5), digits = 2), collapse = ", ")
+
+LogDispatch$new()$warn("These numbers '{nums}' are out of the expected range.")
+```
+
+![custom var name](man/figures/README-cust-var-name.PNG)
 
 #### Settings
 
