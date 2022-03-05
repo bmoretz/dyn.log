@@ -291,6 +291,7 @@ format.log_level <- function(x,
 #' each log level.
 #'
 #' @return styled level information
+#' @export
 level_severities <- function() {
   sapply(log_levels(), function(level) {
     info <- level_info(toupper(level))
