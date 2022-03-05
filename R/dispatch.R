@@ -6,7 +6,7 @@
 #' @details
 #' This object is designed to a centralized logging dispatcher that
 #' renders log messages with the appropriate context of the calling
-#' object. The [log_layout()] object is used to generate log message
+#' object. The \code{log_layout()} object is used to generate log message
 #' layouts (render formats), which are used by the \code{LogDispatcher}
 #' to render highly-customizable and detailed log messages.
 #'

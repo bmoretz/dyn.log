@@ -9,9 +9,12 @@
 #' @param seperator format entry separator, defaults to a single space.
 #' @param new_line the layout separator that is inserted between lines.
 #' @param association objects to associate this log format with.
+#'
 #' @family Log Layout
 #' @return object's value
+#'
 #' @export
+#' @importFrom stats setNames
 new_log_layout <- function(format = list(),
                            seperator = " ",
                            new_line = "\n",

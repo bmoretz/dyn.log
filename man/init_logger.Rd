@@ -8,8 +8,6 @@ init_logger(file_path = NULL)
 }
 \arguments{
 \item{file_path}{logging configuration to use.}
-
-\item{envir}{environment to load to.}
 }
 \description{
 Loads the configuration passed in,

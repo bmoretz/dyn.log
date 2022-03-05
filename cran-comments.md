@@ -1,5 +1,6 @@
-## R CMD check results
+── R CMD check results dyn.log 0.3.1.9007 ────
+Duration: 24.5s
 
-0 errors | 0 warnings | 1 note
+0 errors ✓ | 0 warnings ✓ | 0 notes ✓
 
-* This is a new release.
+R CMD check succeeded

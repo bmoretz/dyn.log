@@ -37,7 +37,6 @@ get_configurations <- function(pkgname = "dyn.log") {
 #' dispatcher to the global environment.
 #'
 #' @param file_path logging configuration to use.
-#' @param envir environment to load to.
 #' @family Logging
 #' @export
 init_logger <- function(file_path = NULL) {

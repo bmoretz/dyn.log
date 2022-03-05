@@ -6,12 +6,10 @@
 
 Package initialization routine.}
 \usage{
-.onDetach(libname, pkgname)
+.onDetach(libpath)
 }
 \arguments{
-\item{libname}{library name}
-
-\item{pkgname}{package name}
+\item{libpath}{libpath}
 }
 \description{
 Detach Handler
