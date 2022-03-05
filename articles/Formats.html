@@ -97,7 +97,7 @@
 
 <span class="co"># set logging config with tweaks for knitr output</span>
 <span class="fu"><a href="../reference/init_logger.html">init_logger</a></span><span class="op">(</span><span class="va">configs</span><span class="op">$</span><span class="va">knitr</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## <span style="color: #B2B2B2; font-weight: bold;">TRACE</span> <span style="color: #555555; font-style: italic;">[03/05/22 20:54:13 +0000]</span> <span style="color: #949494;">dyn.log loaded 'knitr' configuration successfully.</span></span></code></pre>
+<pre><code><span class="co">## <span style="color: #B2B2B2; font-weight: bold;">TRACE</span> <span style="color: #555555; font-style: italic;">[03/05/22 20:56:15 +0000]</span> <span style="color: #949494;">dyn.log loaded 'knitr' configuration successfully.</span></span></code></pre>
 <style type="text/css" scoped>
 PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 </style>
@@ -164,7 +164,7 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <span id="cb4-9"><a href="#cb4-9"></a>[<span class="dv">1</span>] <span class="st">"#31~20.04.2-Ubuntu SMP Tue Jan 18 08:46:15 UTC 2022"</span></span>
 <span id="cb4-10"><a href="#cb4-10"></a></span>
 <span id="cb4-11"><a href="#cb4-11"></a><span class="op">$</span>nodename</span>
-<span id="cb4-12"><a href="#cb4-12"></a>[<span class="dv">1</span>] <span class="st">"fv-az77-935"</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a>[<span class="dv">1</span>] <span class="st">"fv-az130-814"</span></span>
 <span id="cb4-13"><a href="#cb4-13"></a></span>
 <span id="cb4-14"><a href="#cb4-14"></a><span class="op">$</span>machine</span>
 <span id="cb4-15"><a href="#cb4-15"></a>[<span class="dv">1</span>] <span class="st">"x86_64"</span></span>
@@ -203,7 +203,7 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 
 <span class="va">Logger</span><span class="op">$</span><span class="fu">debug</span><span class="op">(</span><span class="st">"my log message - var1: {var1}, var2: {var2}, var3: {var3}"</span>,
              layout <span class="op">=</span> <span class="st">"ex-sys-layout"</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code><span style="color: #00D7FF; font-weight: bold;">DEBUG</span>-<span style="color: #00BB00; font-weight: bold;">Linux</span>-<span style="color: #BBBB00; font-weight: bold;">5.11.0-1028-azure</span>-<span style="color: #555555; font-style: italic;">[03/05/22 20:54:13]</span>-<span style="color: #DADADA;">my log message - var1: abc, var2: 123, var3: 0.971494</span>
+<pre class="fansi fansi-output"><code><span style="color: #00D7FF; font-weight: bold;">DEBUG</span>-<span style="color: #00BB00; font-weight: bold;">Linux</span>-<span style="color: #BBBB00; font-weight: bold;">5.11.0-1028-azure</span>-<span style="color: #555555; font-style: italic;">[03/05/22 20:56:16]</span>-<span style="color: #DADADA;">my log message - var1: abc, var2: 123, var3: 0.391029</span>
 </code></pre>
 <p>As you can see, the log message has a great deal of detail, but difficult to interpret due to the amount of information jammed into one line. This is where literals and new lines come into play.</p>
 </div>
@@ -233,7 +233,7 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <span class="va">Logger</span><span class="op">$</span><span class="fu">debug</span><span class="op">(</span><span class="st">"my log message - var1: {var1}, var2: {var2}, var3: {var3}"</span>,
              layout <span class="op">=</span> <span class="st">"ex-syslit-layout"</span><span class="op">)</span></code></pre></div>
 <pre class="fansi fansi-output"><code><span style="color: #00BB00; font-weight: bold;">Linux</span> <span style="color: #BB00BB;">[</span> <span style="color: #0000BB; font-weight: bold;">5.11.0-1028-azure</span> <span style="color: #BB00BB;">]</span>
-<span style="color: #00D7FF; font-weight: bold;">DEBUG</span> <span style="color: #555555; font-style: italic;">[03/05/22 20:54:13]</span> <span style="color: #DADADA;">my log message - var1: abc, var2: 123, var3: 0.350911</span>
+<span style="color: #00D7FF; font-weight: bold;">DEBUG</span> <span style="color: #555555; font-style: italic;">[03/05/22 20:56:16]</span> <span style="color: #DADADA;">my log message - var1: abc, var2: 123, var3: 0.839725</span>
 </code></pre>
 <p>Which has the same information as the previous example, but much easier to consume.</p>
 </div>
@@ -346,7 +346,7 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 
 <span class="fu">local_fn</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre class="fansi fansi-output"><code><span style="color: #00BB00; font-weight: bold;">Linux</span>-<span style="color: #BBBB00;">5.11.0-1028-azure</span>
-<span style="color: #00D7FF; font-weight: bold;">DEBUG</span>-<span style="color: #555555; font-style: italic;">[03/05/22 20:54:14]</span>-<span style="color: #BB00BB; font-weight: bold;">fn(</span>-<span style="color: #BB00BB; font-weight: bold;">get_call_stack</span>-<span style="color: #BB00BB; font-weight: bold;">)</span>-<span style="color: #DADADA;">my log message - var1: 'abc', var2: '123', var3: '0.499116'</span>
+<span style="color: #00D7FF; font-weight: bold;">DEBUG</span>-<span style="color: #555555; font-style: italic;">[03/05/22 20:56:16]</span>-<span style="color: #BB00BB; font-weight: bold;">fn(</span>-<span style="color: #BB00BB; font-weight: bold;">get_call_stack</span>-<span style="color: #BB00BB; font-weight: bold;">)</span>-<span style="color: #DADADA;">my log message - var1: 'abc', var2: '123', var3: '0.726636'</span>
 <span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">NA</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">NA</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">NA</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">NA</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">NA</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">NA</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">NA</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">NA</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">NA</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">NA</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">NA</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">NA</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">NA</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">NA</span>-<span style="color: #0000BB; background-color: #BBBB00; font-weight: bold;">get_call_stack</span>
 </code></pre>
 </div>
