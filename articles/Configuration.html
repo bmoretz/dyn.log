@@ -29,7 +29,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">dyn.log</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,7 +79,7 @@
       <img src="" class="logo" alt=""><h1>Configuration</h1>
                         <h4 data-toc-skip class="author">Brandon Moretz</h4>
             
-            <h4 data-toc-skip class="date">2022-02-03</h4>
+            <h4 data-toc-skip class="date">2022-03-05</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/bmoretz/dyn.log/blob/HEAD/vignettes/Configuration.Rmd" class="external-link"><code>vignettes/Configuration.Rmd</code></a></small>
       <div class="d-none name"><code>Configuration.Rmd</code></div>
@@ -96,10 +96,20 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <h2 id="configurations">Configurations<a class="anchor" aria-label="anchor" href="#configurations"></a>
 </h2>
 <p>The dyn.log package is configuration-driven to provide the client flexibility with both the look &amp; feel of log layouts/formatting (aesthetics), and how it interacts with its container environment. This vignette will focus less on <em>how the logger works</em>, and more on <em>how to make it work for you</em>.</p>
-</div>
-<div class="section level2">
-<h2 id="templates">Templates<a class="anchor" aria-label="anchor" href="#templates"></a>
-</h2>
+<p>There are two main ways to set the logging configuration:</p>
+<ul>
+<li>Explicitly pass a configuration file to the <em>init_logger</em> function.
+<ul>
+<li>init_logger(file_path = “~/package/config.yaml”)</li>
+</ul>
+</li>
+<li>Global Option
+<ul>
+<li>options(“dyn.log.config” = “~/package/config.yaml”)</li>
+</ul>
+</li>
+</ul>
+<p>If you ## Templates</p>
 <p>The package comes with a few preconfigured logging setups that are common starting points for your bespoke configuration. To see the configuration templates call the <em>get_configurations</em> method:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>configs &lt;-<span class="st"> </span><span class="kw">get_configurations</span>()</span>
 <span id="cb2-2"><a href="#cb2-2"></a>configs</span>
@@ -121,7 +131,7 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <p>Then you can:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">bespoke</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"logging.yaml"</span>, package <span class="op">=</span> <span class="st">"yourpkg"</span><span class="op">)</span>
-<span class="fu"><a href="../reference/set_log_configuration.html">set_log_configuration</a></span><span class="op">(</span>file_name <span class="op">=</span> <span class="va">bespoke</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="../reference/init_logger.html">init_logger</a></span><span class="op">(</span>config_file <span class="op">=</span> <span class="va">bespoke</span><span class="op">)</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="script-directory">Script Directory<a class="anchor" aria-label="anchor" href="#script-directory"></a>
@@ -132,15 +142,20 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <p>then in your <strong>.Rprofile</strong>:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bmoretz.github.io/dyn.log/" class="external-link">dyn.log</a></span><span class="op">)</span>
-<span class="fu"><a href="../reference/set_log_configuration.html">set_log_configuration</a></span><span class="op">(</span><span class="st">"logging.yaml"</span><span class="op">)</span></code></pre></div>
+
+<span class="fu"><a href="../reference/init_logger.html">init_logger</a></span><span class="op">(</span><span class="st">"logging.yaml"</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="integration">Integration<a class="anchor" aria-label="anchor" href="#integration"></a>
 </h2>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># initialize the logger so the test object</span>
+<span class="co"># can "close over" the global logging instance.</span>
+<span class="fu"><a href="../reference/init_logger.html">init_logger</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>If your client code leverages the use of R6 classes, you can specify a custom layout for standalone objects or objects that are part of a hierarchy by using the <em>association</em> property. For example, <a href="https://github.com/bmoretz/dyn.log/blob/master/tests/testthat/helper-objects.R" class="external-link">TestObject</a> is a helper object defined in the testthat folder of dyn.log:</p>
 <p>The object hierarchy is declared as follows:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">TestObject</span> <span class="op">&lt;-</span> <span class="fu">R6</span><span class="fu">::</span><span class="kw"><a href="https://r6.r-lib.org/reference/R6Class.html" class="external-link">R6Class</a></span><span class="op">(</span>
   classname <span class="op">=</span> <span class="st">"TestObject"</span>,
 
@@ -201,29 +216,29 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
   <span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 <p>The layout configuration for “TestObject” looks like this:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">layouts</span><span class="kw">:</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="kw">-</span><span class="at"> </span><span class="fu">association</span><span class="kw">:</span><span class="at"> TestObject</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="at">  </span><span class="fu">seperator</span><span class="kw">:</span><span class="at"> </span><span class="st">' '</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="at">  </span><span class="fu">new_line</span><span class="kw">:</span><span class="at"> \n</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="at">  </span><span class="fu">formats</span><span class="kw">:</span><span class="at"> !expr list(</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a><span class="at">           new_fmt_literal(crayon::cyan$bold, 'Class:'),</span></span>
-<span id="cb8-7"><a href="#cb8-7"></a><span class="at">           new_fmt_cls_field(crayon::bgCyan$silver$bold, 'cls_name'),</span></span>
-<span id="cb8-8"><a href="#cb8-8"></a><span class="at">           new_fmt_literal(crayon::cyan$bold, 'Object Id:'),</span></span>
-<span id="cb8-9"><a href="#cb8-9"></a><span class="at">           new_fmt_cls_field(crayon::bgCyan$silver$bold, 'id'),</span></span>
-<span id="cb8-10"><a href="#cb8-10"></a><span class="at">           new_fmt_line_break(),</span></span>
-<span id="cb8-11"><a href="#cb8-11"></a><span class="at">           new_fmt_log_level(),</span></span>
-<span id="cb8-12"><a href="#cb8-12"></a><span class="at">           new_fmt_timestamp(crayon::silver$italic),</span></span>
-<span id="cb8-13"><a href="#cb8-13"></a><span class="at">           new_fmt_exec_scope(crayon::magenta$bold, 'calling_fn'),</span></span>
-<span id="cb8-14"><a href="#cb8-14"></a><span class="at">           new_fmt_log_msg())</span></span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="../reference/set_log_configuration.html">set_log_configuration</a></span><span class="op">(</span><span class="va">configs</span><span class="op">$</span><span class="va">object</span><span class="op">)</span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">layouts</span><span class="kw">:</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="kw">-</span><span class="at"> </span><span class="fu">association</span><span class="kw">:</span><span class="at"> TestObject</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="at">  </span><span class="fu">seperator</span><span class="kw">:</span><span class="at"> </span><span class="st">' '</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="at">  </span><span class="fu">new_line</span><span class="kw">:</span><span class="at"> \n</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="at">  </span><span class="fu">formats</span><span class="kw">:</span><span class="at"> !expr list(</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="at">           new_fmt_literal(crayon::cyan$bold, 'Class:'),</span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="at">           new_fmt_cls_field(crayon::bgCyan$silver$bold, 'cls_name'),</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="at">           new_fmt_literal(crayon::cyan$bold, 'Object Id:'),</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a><span class="at">           new_fmt_cls_field(crayon::bgCyan$silver$bold, 'id'),</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a><span class="at">           new_fmt_line_break(),</span></span>
+<span id="cb9-11"><a href="#cb9-11"></a><span class="at">           new_fmt_log_level(),</span></span>
+<span id="cb9-12"><a href="#cb9-12"></a><span class="at">           new_fmt_timestamp(crayon::silver$italic),</span></span>
+<span id="cb9-13"><a href="#cb9-13"></a><span class="at">           new_fmt_exec_scope(crayon::magenta$bold, 'calling_fn'),</span></span>
+<span id="cb9-14"><a href="#cb9-14"></a><span class="at">           new_fmt_log_msg())</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="st">"dyn.log.config"</span> <span class="op">=</span> <span class="st">"object"</span><span class="op">)</span>
+
+<span class="fu"><a href="../reference/init_logger.html">init_logger</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">test_obj</span> <span class="op">&lt;-</span> <span class="va">DerivedTestObject</span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">test_obj</span><span class="op">$</span><span class="fu">invoke_logger</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code><span style="color: #00BBBB; font-weight: bold;">Class:</span> <span style="color: #555555; background-color: #00BBBB; font-weight: bold;">DerivedTestObject</span> <span style="color: #00BBBB; font-weight: bold;">Object Id:</span> <span style="color: #555555; background-color: #00BBBB; font-weight: bold;">CNZTITEPCGSCGVL</span>
-<span style="color: #B2B2B2; font-weight: bold;">TRACE</span> <span style="color: #555555; font-style: italic;">[02/03/22 05:54:53 +0000]</span> <span style="color: #BB00BB; font-weight: bold;">test_obj$invoke_logger</span> <span style="color: #949494;">variables in derived: derived test - 321 - 200</span>
+<pre class="fansi fansi-output"><code><span style="color: #B2B2B2; font-weight: bold;">TRACE</span> <span style="color: #555555; font-style: italic;">[03/05/22 18:44:23 +0000]</span> <span style="color: #949494;">variables in derived: derived test - 321 - 200</span>
 </code></pre>
 <p>As you can see, the logger knows to log contextual information about any object derived from “TestObject.” TestObject exposes two properties, one public and one private:</p>
 <ul>

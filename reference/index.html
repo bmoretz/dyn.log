@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">dyn.log</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,11 +70,6 @@
         <dd>Log Dispatch</dd>
       </dl><dl><dt>
           
-          <code><a href="Logger.html">Logger</a></code> 
-        </dt>
-        <dd>Global Logging Instance</dd>
-      </dl><dl><dt>
-          
           <code><a href="as.character.log_level.html">as.character(<i>&lt;log_level&gt;</i>)</a></code> 
         </dt>
         <dd>Get Log Level Name</dd>
@@ -83,11 +78,6 @@
           <code><a href="as.integer.log_level.html">as.integer(<i>&lt;log_level&gt;</i>)</a></code> 
         </dt>
         <dd>Gets the severity of a log level.</dd>
-      </dl><dl><dt>
-          
-          <code><a href="attach_log_levels.html">attach_log_levels()</a></code> 
-        </dt>
-        <dd>Load Log Levels</dd>
       </dl><dl><dt>
           
           <code><a href="class_scope.html">class_scope()</a></code> 
@@ -100,9 +90,9 @@
         <dd>Clean System Calls</dd>
       </dl><dl><dt>
           
-          <code><a href="configure_logger.html">configure_logger()</a></code> 
+          <code><a href="config_specification.html">config_specification()</a></code> 
         </dt>
-        <dd>Configure Logger</dd>
+        <dd>Config Specification</dd>
       </dl><dl><dt>
           
           <code><a href="display_log_levels.html">display_log_levels()</a></code> 
@@ -110,11 +100,30 @@
         <dd>Display Log Levels</dd>
       </dl><dl><dt>
           
-          <code><a href="dot-onLoad.html">.onLoad()</a></code> 
+          <code><a href="dot-onAttach.html">.onAttach()</a></code> 
         </dt>
-        <dd>Initialization
+        <dd>Attach Handler
 
 Package initialization routine.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="dot-onDetach.html">.onDetach()</a></code> 
+        </dt>
+        <dd>Detach Handler
+
+Package initialization routine.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="dot-onLoad.html">.onLoad()</a></code> 
+        </dt>
+        <dd>Load Handler
+
+Package initialization routine.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="ensure_logger.html">ensure_logger()</a></code> 
+        </dt>
+        <dd>Ensure Instance</dd>
       </dl><dl><dt>
           
           <code><a href="evaluate_layout.html">evaluate_layout()</a></code> 
@@ -157,6 +166,11 @@ Package initialization routine.</dd>
         <dd>Get Configurations</dd>
       </dl><dl><dt>
           
+          <code><a href="get_minimum_severity.html">get_minimum_severity()</a></code> 
+        </dt>
+        <dd>Get Minimum Severity</dd>
+      </dl><dl><dt>
+          
           <code><a href="get_r_version.html">get_r_version()</a></code> 
         </dt>
         <dd>R Version</dd>
@@ -195,6 +209,11 @@ Package initialization routine.</dd>
           <code><a href="level_name.html">level_name()</a></code> 
         </dt>
         <dd>Get Level Name</dd>
+      </dl><dl><dt>
+          
+          <code><a href="level_severities.html">level_severities()</a></code> 
+        </dt>
+        <dd>Level Severities</dd>
       </dl><dl><dt>
           
           <code><a href="level_severity.html">level_severity()</a></code> <code><a href="level_severity.html">level_severity()</a></code> 
@@ -277,11 +296,6 @@ Package initialization routine.</dd>
         <dd>Log Level</dd>
       </dl><dl><dt>
           
-          <code><a href="set_log_configuration.html">set_log_configuration()</a></code> 
-        </dt>
-        <dd>Set Logging Configuration</dd>
-      </dl><dl><dt>
-          
           <code><a href="style.html">style()</a></code> 
         </dt>
         <dd>Style</dd>
@@ -345,6 +359,11 @@ Package initialization routine.</dd>
           <code><a href="value.fmt_timestamp.html">value(<i>&lt;fmt_timestamp&gt;</i>)</a></code> 
         </dt>
         <dd>Value</dd>
+      </dl><dl><dt>
+          
+          <code><a href="wipe_logger.html">wipe_logger()</a></code> 
+        </dt>
+        <dd>Wipe the Logger Instance</dd>
       </dl></div>
   </main></div>
 

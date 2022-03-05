@@ -37,16 +37,10 @@
     <loc>/reference/LogDispatch.html</loc>
   </url>
   <url>
-    <loc>/reference/Logger.html</loc>
-  </url>
-  <url>
     <loc>/reference/as.character.log_level.html</loc>
   </url>
   <url>
     <loc>/reference/as.integer.log_level.html</loc>
-  </url>
-  <url>
-    <loc>/reference/attach_log_levels.html</loc>
   </url>
   <url>
     <loc>/reference/class_scope.html</loc>
@@ -55,13 +49,22 @@
     <loc>/reference/clean_internal_calls.html</loc>
   </url>
   <url>
-    <loc>/reference/configure_logger.html</loc>
+    <loc>/reference/config_specification.html</loc>
   </url>
   <url>
     <loc>/reference/display_log_levels.html</loc>
   </url>
   <url>
+    <loc>/reference/dot-onAttach.html</loc>
+  </url>
+  <url>
+    <loc>/reference/dot-onDetach.html</loc>
+  </url>
+  <url>
     <loc>/reference/dot-onLoad.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ensure_logger.html</loc>
   </url>
   <url>
     <loc>/reference/evaluate_layout.html</loc>
@@ -86,6 +89,9 @@
   </url>
   <url>
     <loc>/reference/get_configurations.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_minimum_severity.html</loc>
   </url>
   <url>
     <loc>/reference/get_r_version.html</loc>
@@ -113,6 +119,9 @@
   </url>
   <url>
     <loc>/reference/level_name.html</loc>
+  </url>
+  <url>
+    <loc>/reference/level_severities.html</loc>
   </url>
   <url>
     <loc>/reference/level_severity.html</loc>
@@ -163,9 +172,6 @@
     <loc>/reference/new_log_level.html</loc>
   </url>
   <url>
-    <loc>/reference/set_log_configuration.html</loc>
-  </url>
-  <url>
     <loc>/reference/style.fmt_layout.html</loc>
   </url>
   <url>
@@ -203,5 +209,8 @@
   </url>
   <url>
     <loc>/reference/value.html</loc>
+  </url>
+  <url>
+    <loc>/reference/wipe_logger.html</loc>
   </url>
 </urlset>

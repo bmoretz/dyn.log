@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">dyn.log</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,11 +54,42 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.3.2" id="dynlog-032">dyn.log 0.3.2<a class="anchor" aria-label="anchor" href="#dynlog-032"></a></h2>
+<div class="section level3">
+<h3 id="whats-changed-0-3-2">What’s Changed<a class="anchor" aria-label="anchor" href="#whats-changed-0-3-2"></a></h3>
+<ul><li>New Features
+<ul><li>added a default logging function that uses the level with the highest severity.</li>
+<li>changed how loggers are instantiated, you must now call init_logging() or specify the logging configuration with the dyn.log.config option.</li>
+</ul></li>
+<li>Enhancements
+<ul><li>cleaned up the entire configuration module and streamlined the process of initialization.</li>
+<li>updated configuration vignette to reflect these changes.</li>
+<li>added withr suggestion package to isolate all logging unit tests to their initialized environment.</li>
+<li>added a configuration setting to change the variable name of the global logging instance. “Logger” is still the default, but now you can specify any legal R variable name by default.</li>
+</ul></li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.3.1" id="dynlog-031">dyn.log 0.3.1<a class="anchor" aria-label="anchor" href="#dynlog-031"></a></h2>
+<div class="section level3">
+<h3 id="whats-changed-0-3-1">What’s Changed<a class="anchor" aria-label="anchor" href="#whats-changed-0-3-1"></a></h3>
+<ul><li>New Features
+<ul><li>None</li>
+</ul></li>
+<li>Enhancements
+<ul><li>refactored the entire configuration module to streamline the process of attaching a logger to the global environment.</li>
+</ul></li>
+<li>Bug-fixes
+<ul><li>added an event handler to ‘.onAttach’ that monitors for the logger’s existence on every load; the annoying behavior of wiping local environment vars and the logger disappearing is now fully resolved.</li>
+</ul></li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.3.0" id="dynlog-030">dyn.log 0.3.0<a class="anchor" aria-label="anchor" href="#dynlog-030"></a></h2>
 <div class="section level3">
 <h3 id="whats-changed-0-3-0">What’s Changed<a class="anchor" aria-label="anchor" href="#whats-changed-0-3-0"></a></h3>
 <ul><li>New Features
-<ul><li>Added private field support for class context logging.</li>
+<ul><li>added private field support for class context logging.</li>
 </ul></li>
 <li>Enhancements
 <ul><li>added lintr coverage to makefile.</li>
@@ -80,7 +111,7 @@
 <div class="section level3">
 <h3 id="whats-changed-0-2-5">What’s Changed<a class="anchor" aria-label="anchor" href="#whats-changed-0-2-5"></a></h3>
 <ul><li>New Pkg Logo
-<ul><li>Created a Hex logo for dyn.log package.</li>
+<ul><li>created a Hex logo for dyn.log package.</li>
 </ul></li>
 <li>Enhancements
 <ul><li>added a pkg hex + added to readme</li>
