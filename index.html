@@ -9,7 +9,7 @@
     are several excellent logging solutions already in the R ecosystem, I always feel constrained 
     in some way by each of them. Every project is designed differently to solve its domain specific problem, 
     and ultimately the utility of a logging solution is its ability to adapt to this design. This is the 
-    rai-son de tre for dyn.log: to provide a modular design, template mechanics and a configuration-based 
+    raison dêtre for dyn.log: to provide a modular design, template mechanics and a configuration-based 
     integration model, so that the logger can integrate deeply into your design, even though it knows 
     nothing about it.">
 <title>Dynamic Logging for R Inspired by Configuration Driven Development • dyn.log</title>
@@ -25,7 +25,7 @@
     are several excellent logging solutions already in the R ecosystem, I always feel constrained 
     in some way by each of them. Every project is designed differently to solve its domain specific problem, 
     and ultimately the utility of a logging solution is its ability to adapt to this design. This is the 
-    rai-son de tre for dyn.log: to provide a modular design, template mechanics and a configuration-based 
+    raison dêtre for dyn.log: to provide a modular design, template mechanics and a configuration-based 
     integration model, so that the logger can integrate deeply into your design, even though it knows 
     nothing about it.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -41,7 +41,7 @@
     
     <a class="navbar-brand me-2" href="index.html">dyn.log</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,7 +93,33 @@
 </h1>
 <!-- badges: start -->
 
-<p>The goal of dyn.log is to be a comprehensive and dynamic configuration driven logging package for R. While there are several excellent logging solutions already in the R ecosystem, I always feel constrained in some way by each of them. Every project is designed differently to achieve its stated goal; to solve some problem, and ultimately the utility of a logging solution is its ability to adapt to the project’s design. This is the rai·​son d’être for dyn.log; to provide a modular design, template mechanics and a configuration-based integration model. This enableds the logger to integrate deeply into your design, even though it knows nothing about it.</p>
+<p>The goal of <code>dyn.log</code> is to be a comprehensive, dynamic, configuration-based logging package for R. While there are several excellent logging solutions already in the R ecosystem, I found none of them were both robust functionality-wise, and completely generic i.e., they are designed exclusively for use within a specific environment (shiny/plumber/etc).</p>
+<p>This is the raison d’être for <code>dyn.log</code>: a flexible logging solution that:</p>
+<ul>
+<li>Integrates seamlessly
+<ul>
+<li>set an R option or call <code>init_logging</code> in your .Rprofile and your logger is attached (and will re-attach when you <code>rm(list = ls())</code>).</li>
+</ul>
+</li>
+<li>Agnostics of project type, so it can be deployed across the entire application stack
+<ul>
+<li><a href="https://github.com/rstudio/shiny" class="external-link">shiny</a></li>
+<li><a href="https://github.com/rstudio/plumber" class="external-link">plumber</a></li>
+<li>stand-alone prototype scripts</li>
+<li>etc.</li>
+</ul>
+</li>
+<li>Reusable
+<ul>
+<li>log layout, levels, etc. can be highly-customized for both shiny apps and plumber services, then reused across packages running in different environments (docker containers).</li>
+</ul>
+</li>
+</ul>
+<div class="section level3">
+<h3 id="demos">Demos<a class="anchor" aria-label="anchor" href="#demos"></a>
+</h3>
+<p>In order to keep the package as light as possible dependency-wise, there are no demos that come integrated with the package. However, separate repositories are <strong>coming soon</strong> to demonstrate the above scenarios and will be linked here.</p>
+</div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -413,7 +439,7 @@
 <li><a href="https://github.com/bmoretz/dyn.log/actions" class="external-link"><img src="https://github.com/bmoretz/dyn.log/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://cran.r-project.org/web/licenses/MIT" class="external-link"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License: MIT"></a></li>
 <li><a href="https://app.codecov.io/gh/bmoretz/dyn.log?branch=master" class="external-link"><img src="https://codecov.io/gh/bmoretz/dyn.log/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://bmoretz.github.io/dyn.log/" class="external-link"><img src="https://img.shields.io/badge/devel%20version-0.3.2-blue.svg"></a></li>
+<li><a href="https://bmoretz.github.io/dyn.log/" class="external-link"><img src="https://img.shields.io/badge/devel%20version-0.3.3-blue.svg"></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://img.shields.io/badge/lifecycle-stable-darkgreen.svg" alt="Lifecycle"></a></li>
 </ul>
 </div>
