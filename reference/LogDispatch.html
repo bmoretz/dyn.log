@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">dyn.log</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,9 +71,6 @@ to render highly-customizable and detailed log messages.</p>
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other Logging: 
 <code><a href="get_configurations.html">get_configurations</a>()</code>,
-<code><a href="init_logger.html">init_logger</a>()</code></p>
-<p>Other Logging: 
-<code><a href="get_configurations.html">get_configurations</a>()</code>,
 <code><a href="init_logger.html">init_logger</a>()</code></p></div>
     </div>
     <div class="section level2">
@@ -83,10 +80,7 @@ to render highly-customizable and detailed log messages.</p>
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
 
 <ul><li><p><a href="#method-new"><code>LogDispatch$new()</code></a></p></li>
-<li><p><a href="#method-attach_log_levels"><code>LogDispatch$attach_log_levels()</code></a></p></li>
-<li><p><a href="#method-add_log_level"><code>LogDispatch$add_log_level()</code></a></p></li>
-<li><p><a href="#method-get_settings"><code>LogDispatch$get_settings()</code></a></p></li>
-<li><p><a href="#method-set_settings"><code>LogDispatch$set_settings()</code></a></p></li>
+<li><p><a href="#method-attach_log_level"><code>LogDispatch$attach_log_level()</code></a></p></li>
 </ul></div><p></p><hr><a id="method-new"></a><div class="section">
 <h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
 <p>Creates a new instance of a log config.</p><div class="section">
@@ -99,76 +93,24 @@ to render highly-customizable and detailed log messages.</p>
 <p>A new <code>LogLayout</code> object.</p>
 </div>
 
-</div><p></p><hr><a id="method-attach_log_levels"></a><div class="section">
-<h3 id="method-attach-log-levels-">Method <code>attach_log_levels()</code><a class="anchor" aria-label="anchor" href="#method-attach-log-levels-"></a></h3>
-<p>Parses and loads the levels specified in the
-logging configuration and registers them with the
-dispatcher via the <code>log_levels</code> active
-binding.</p><div class="section">
+</div><p></p><hr><a id="method-attach_log_level"></a><div class="section">
+<h3 id="method-attach-log-level-">Method <code>attach_log_level()</code><a class="anchor" aria-label="anchor" href="#method-attach-log-level-"></a></h3>
+<p>Attaches a S3 <code>log_level</code> object to the log
+dispatcher by creating a new function wrapping the
+specified log level, and binding and instance
+of the dispatcher quote block with
+the context of the log level.</p><div class="section">
 <h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">LogDispatch</span><span class="op">$</span><span class="fu">attach_log_levels</span><span class="op">(</span><span class="va">levels</span><span class="op">)</span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">LogDispatch</span><span class="op">$</span><span class="fu">attach_log_level</span><span class="op">(</span><span class="va">log_level</span><span class="op">)</span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>levels</code></dt>
-<dd><p>defined in the configuration</p></dd>
+<p></p><div class="arguments"><dl><dt><code>log_level</code></dt>
+<dd><p>log level to attach</p></dd>
 
 
 </dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-add_log_level"></a><div class="section">
-<h3 id="method-add-log-level-">Method <code>add_log_level()</code><a class="anchor" aria-label="anchor" href="#method-add-log-level-"></a></h3>
-<p>Adds dynamic function as a short-cut to
-log a message with a configured level.</p><div class="section">
-<h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">LogDispatch</span><span class="op">$</span><span class="fu">add_log_level</span><span class="op">(</span><span class="va">level</span><span class="op">)</span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>level</code></dt>
-<dd><p>log level</p></dd>
-
-
-</dl><p></p></div>
-</div>
-<div class="section">
-<h4 id="returns-1">Returns<a class="anchor" aria-label="anchor" href="#returns-1"></a></h4>
-<p>reference to self to support chaining.</p>
-</div>
-
-</div><p></p><hr><a id="method-get_settings"></a><div class="section">
-<h3 id="method-get-settings-">Method <code>get_settings()</code><a class="anchor" aria-label="anchor" href="#method-get-settings-"></a></h3>
-<p>Public wrapper around logger settings.</p><div class="section">
-<h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">LogDispatch</span><span class="op">$</span><span class="fu">get_settings</span><span class="op">(</span><span class="op">)</span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="returns-2">Returns<a class="anchor" aria-label="anchor" href="#returns-2"></a></h4>
-<p>logger settings.</p>
-</div>
-
-</div><p></p><hr><a id="method-set_settings"></a><div class="section">
-<h3 id="method-set-settings-">Method <code>set_settings()</code><a class="anchor" aria-label="anchor" href="#method-set-settings-"></a></h3>
-<p>Public wrapper around updating settings.</p><div class="section">
-<h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span class="va">LogDispatch</span><span class="op">$</span><span class="fu">set_settings</span><span class="op">(</span><span class="va">settings</span><span class="op">)</span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>settings</code></dt>
-<dd><p>Logger settings.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-<div class="section">
-<h4 id="returns-3">Returns<a class="anchor" aria-label="anchor" href="#returns-3"></a></h4>
-<p>None.</p>
 </div>
 
 </div>

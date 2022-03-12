@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">dyn.log</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,6 +53,25 @@
       <small>Source: <a href="https://github.com/bmoretz/dyn.log/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.4.0" id="dynlog-040">dyn.log 0.4.0<a class="anchor" aria-label="anchor" href="#dynlog-040"></a></h2>
+<div class="section level3">
+<h3 id="whats-changed-0-4-0">What’s Changed<a class="anchor" aria-label="anchor" href="#whats-changed-0-4-0"></a></h3>
+<ul><li>New Features
+<ul><li>Ground-up rewrite of the dynamic log dispatch mechanics, to make them:
+<ul><li>Simpler. There were areas of the old implementation that were incredibly hard to follow (log levels and log messages, in particular).</li>
+<li>Consistent. Every format object that needs contextual information now gets it injected via the context list in the dispatch function.</li>
+<li>Cleaner. Now leverages even more awesomeness from <a href="https://github.com/r-lib/rlang" class="external-link">rlang</a>, specifically ‘rlang::new_function’ to dynamically create the log dispatch routines &amp; ‘rlang::pairlist2’ to handle completely dynamic &amp; non-defaulted parameters (msg).</li>
+<li>Testable. The new mechanics are much more unit testable, and once the code is cleaned up more (and simplified further), will focus on this area.</li>
+</ul></li>
+</ul></li>
+<li>Enhancements
+<ul><li>updated the README.md to be more reflective of the overall goal of the package.</li>
+<li>streamlined the configuration (in init_logger) to have clear separation of concerns.</li>
+<li>added a ‘default’ logger method that is based on the attached level with the highest severity, so in areas where you always want the lowest possible information logged (even if configurations change) then you can just use ‘Logger$default.’ Useful for packages that might be attached by multiple downstream packages with different level definitions.</li>
+</ul></li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.3.3" id="dynlog-033">dyn.log 0.3.3<a class="anchor" aria-label="anchor" href="#dynlog-033"></a></h2>
 <div class="section level3">

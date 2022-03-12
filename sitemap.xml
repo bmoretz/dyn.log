@@ -37,6 +37,12 @@
     <loc>/reference/LogDispatch.html</loc>
   </url>
   <url>
+    <loc>/reference/active.html</loc>
+  </url>
+  <url>
+    <loc>/reference/apply_active_settings.html</loc>
+  </url>
+  <url>
     <loc>/reference/as.character.log_level.html</loc>
   </url>
   <url>
@@ -50,6 +56,9 @@
   </url>
   <url>
     <loc>/reference/config_specification.html</loc>
+  </url>
+  <url>
+    <loc>/reference/create_log_levels.html</loc>
   </url>
   <url>
     <loc>/reference/display_log_levels.html</loc>
@@ -83,6 +92,9 @@
   </url>
   <url>
     <loc>/reference/format_fn_call.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_active_settings.html</loc>
   </url>
   <url>
     <loc>/reference/get_call_stack.html</loc>
