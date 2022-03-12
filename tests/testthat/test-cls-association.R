@@ -2,9 +2,9 @@ testthat::test_that(
   desc = "can_associate_log_layout",
   code = {
 
-    invisible(testthat::capture_output_lines({
+    testthat::capture_output_lines({
       init_logger()
-    }))
+    })
 
     new_log_layout(
       format = list(
@@ -54,9 +54,9 @@ testthat::test_that(
   desc = "can_associate_derived_log_layout",
   code = {
 
-    invisible(testthat::capture_output_lines({
+    testthat::capture_output_lines({
       init_logger()
-    }))
+    })
 
     new_log_layout(
       format = list(

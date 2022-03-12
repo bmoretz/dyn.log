@@ -43,7 +43,9 @@ test_that("test_add_log_level_works", {
                                   "test-config.yaml",
                                   package = "dyn.log")
 
-  init_logger(file_path = test_config_file)
+  testthat::capture_output_lines({
+    init_logger(file_path = test_config_file)
+  })
 
   new_level <- new_log_level(
     name = "TEST",
@@ -77,7 +79,9 @@ test_that("test_threshold_evaluation_works", {
                                   "test-config.yaml",
                                   package = "dyn.log")
 
-  init_logger(file_path = test_config_file)
+  testthat::capture_output_lines({
+    init_logger(file_path = test_config_file)
+  })
 
   new_level <- new_log_level(name = "TEST",
                        description = "for testing",

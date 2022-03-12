@@ -70,9 +70,9 @@ testthat::test_that(
                                     "test-object.yaml",
                                     package = "dyn.log")
 
-    invisible(testthat::capture_output_lines({
+    testthat::capture_output_lines({
       init_logger(file_path = test_config_file)
-    }))
+    })
 
     test_obj <- DerivedTestObject$new()
 
@@ -101,7 +101,9 @@ testthat::test_that(
                                     "test-no-var.yaml",
                                     package = "dyn.log")
     expect_error({
-      init_logger(file_path = test_config_file)
+      testthat::capture_output_lines({
+        init_logger(file_path = test_config_file)
+      })
     })
   }
 )
@@ -199,7 +201,9 @@ testthat::test_that(
                                     "test-config.yaml",
                                     package = "dyn.log")
 
-    init_logger(file_path = test_config_file)
+    testthat::capture_output_lines({
+      init_logger(file_path = test_config_file)
+    })
 
     actual <- capture_output_lines({
       display_log_levels()
