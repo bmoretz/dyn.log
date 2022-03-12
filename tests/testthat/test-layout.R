@@ -39,6 +39,7 @@ test_that("log_layout_format", {
   )
 
   layouts <- log_layouts()
+
   expect_true(!is.null(log_layout))
   expect_equal(class(log_layout), "log_layout")
 
@@ -92,8 +93,31 @@ test_that("log_layout_evaluates_simple_singleline", {
 
   log_layout <- new_log_layout(
     format = list(
-      new_fmt_log_level(),
+      new_fmt_timestamp(crayon::silver$italic)
+    )
+  )
+
+  expect_true(!is.null(log_layout))
+
+  context <- list()
+
+  detail <- log_layout_detail(log_layout)
+
+  expect_true(!is.null(detail))
+  expect_equal(length(detail$formats), 1)
+  expect_equal(length(detail$types), 2)
+
+  actual <- evaluate_layout(detail, context)
+
+  expect_true(stringr::str_detect(actual, pattern = format(Sys.Date(), "%x")))
+})
+
+test_that("log_layout_evaluates_simple_multiline", {
+
+  log_layout <- new_log_layout(
+    format = list(
       new_fmt_timestamp(crayon::silver$italic),
+      new_fmt_line_break(),
       new_fmt_log_msg()
     )
   )
@@ -110,63 +134,33 @@ test_that("log_layout_evaluates_simple_singleline", {
 
   actual <- evaluate_layout(detail, context)
 
-  expect_true(stringr::str_detect(actual, pattern = stringr::fixed("{format(level)}")))
-  expect_true(stringr::str_detect(actual, pattern = stringr::fixed(" {format(level, message = {log_msg})}")))
-})
-
-test_that("log_layout_evaluates_simple_multiline", {
-
-  log_layout <- new_log_layout(
-    format = list(
-      new_fmt_log_level(),
-      new_fmt_timestamp(crayon::silver$italic),
-      new_fmt_line_break(),
-      new_fmt_log_msg()
-    )
-  )
-
-  expect_true(!is.null(log_layout))
-
-  context <- list()
-
-  detail <- log_layout_detail(log_layout)
-
-  expect_true(!is.null(detail))
-  expect_equal(length(detail$formats), 4)
-  expect_equal(length(detail$types), 5)
-
-  actual <- evaluate_layout(detail, context)
-
-  expect_true(stringr::str_detect(actual, pattern = stringr::fixed("{format(level)}")))
-  expect_true(stringr::str_detect(actual, pattern = stringr::fixed("\n{format(level, message = {log_msg})}")))
+  expect_true(stringr::str_detect(actual, pattern = format(Sys.Date(), "%x")))
 })
 
 test_that("log_layout_evaluates_metrics_singleline", {
 
   log_layout <- new_log_layout(
     format = list(
-      new_fmt_log_level(),
       new_fmt_metric(crayon::green$bold, "sysname"),
       new_fmt_metric(crayon::red$bold, "release"),
-      new_fmt_timestamp(crayon::silver$italic),
-      new_fmt_log_msg()
+      new_fmt_timestamp(crayon::silver$italic)
     )
   )
 
   expect_true(!is.null(log_layout))
 
+
   detail <- log_layout_detail(log_layout)
 
   expect_true(!is.null(detail))
-  expect_equal(length(detail$formats), 5)
-  expect_equal(length(detail$types), 5)
+  expect_equal(length(detail$formats), 3)
+  expect_equal(length(detail$types), 3)
 
   context <- list(fmt_metric = sys_context())
 
   actual <- evaluate_layout(detail, context)
 
-  expect_true(stringr::str_detect(actual, pattern = stringr::fixed("{format(level)}")))
-  expect_true(stringr::str_detect(actual, pattern = stringr::fixed(" {format(level, message = {log_msg})}")))
+  expect_true(stringr::str_detect(actual, pattern = format(Sys.Date(), "%x")))
 
   expect_true(stringr::str_detect(actual, pattern = stringr::fixed(Sys.info()[["sysname"]])))
   expect_true(stringr::str_detect(actual, pattern = stringr::fixed(Sys.info()[["release"]])))
@@ -198,8 +192,7 @@ test_that("log_layout_evaluates_metrics_multiline", {
 
   actual <- evaluate_layout(detail, context)
 
-  expect_true(stringr::str_detect(actual, pattern = stringr::fixed("\n{format(level)}")))
-  expect_true(stringr::str_detect(actual, pattern = stringr::fixed(" {format(level, message = {log_msg})}")))
+  expect_true(stringr::str_detect(actual, pattern = format(Sys.Date(), "%x")))
 
   expect_true(stringr::str_detect(actual, pattern = stringr::fixed(Sys.info()[["sysname"]])))
   expect_true(stringr::str_detect(actual, pattern = stringr::fixed(Sys.info()[["release"]])))
@@ -238,8 +231,7 @@ test_that("log_layout_evaluates_cls_attributes_multiline", {
 
   actual <- evaluate_layout(detail, context)
 
-  expect_true(stringr::str_detect(actual, pattern = stringr::fixed("\n{format(level)}")))
-  expect_true(stringr::str_detect(actual, pattern = stringr::fixed(" {format(level, message = {log_msg})}")))
+  expect_true(stringr::str_detect(actual, pattern = format(Sys.Date(), "%x")))
 
   expect_true(stringr::str_detect(actual, pattern = stringr::fixed(Sys.info()[["sysname"]])))
   expect_true(stringr::str_detect(actual, pattern = stringr::fixed(Sys.info()[["release"]])))

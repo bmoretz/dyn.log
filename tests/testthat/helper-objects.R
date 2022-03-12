@@ -10,6 +10,10 @@ TestObject <- R6::R6Class( # nolint (class definition)
       self$cls_name <- private$get_class_name()
     },
 
+    get_logger = function(name) {
+      globalenv()[[eval(name)]]
+    },
+
     identifier = function() {
       invisible(private$id)
     },
@@ -18,10 +22,11 @@ TestObject <- R6::R6Class( # nolint (class definition)
       invisible(self$cls_name)
     },
 
-    invoke_logger = function() {
-      a <- "test"; b <- 123; c <- 100L
+    invoke_logger = function(name) {
+      logger <- self$get_logger(name)
 
-      Logger$trace("these are some variables: {a} - {b} - {c}")
+      a <- "test"; b <- 123; c <- 100L
+      logger$trace("these are some variables: {a} - {b} - {c}")
     }
   ),
 
@@ -50,10 +55,12 @@ DerivedTestObject <- R6::R6Class( # nolint (class definition)
       super$initialize()
     },
 
-    invoke_logger = function() {
+    invoke_logger = function(name) {
+      logger <- self$get_logger(name)
+
       a <- "derived test"; b <- 321; c <- 200L
 
-      Logger$trace("variables in derived: {a} - {b} - {c}")
+      logger$trace("variables in derived: {a} - {b} - {c}")
     }
   )
 )
@@ -67,9 +74,15 @@ UnassociatedTestObject <- R6::R6Class( # nolint (class definition)
 
     },
 
-    invoke_logger = function() {
+    get_logger = function(name) {
+      globalenv()[[name]]
+    },
+
+    invoke_logger = function(name) {
+      logger <- self$get_logger(name)
+
       a <- "derived test"; b <- 321; c <- 200L
-      Logger$trace("variables in derived: {a} - {b} - {c}")
+      logger$trace("variables in derived: {a} - {b} - {c}")
     }
   ),
 

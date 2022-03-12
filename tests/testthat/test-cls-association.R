@@ -2,9 +2,9 @@ testthat::test_that(
   desc = "can_associate_log_layout",
   code = {
 
-    invisible(testthat::capture_output_lines({
+    testthat::capture_output_lines({
       init_logger()
-    }))
+    })
 
     new_log_layout(
       format = list(
@@ -30,11 +30,11 @@ testthat::test_that(
 
     test_obj <- TestObject$new()
 
-    actual <- capture_output_lines({
-      test_obj$invoke_logger()
+    actual <- testthat::capture_output_lines({
+      test_obj$invoke_logger("Logger")
     })
 
-    expect_equal(length(actual), 3)
+    expect_equal(length(actual), 4)
 
     expect_true(stringr::str_detect(actual[1], stringr::fixed("Object Id:")))
     expect_true(stringr::str_detect(actual[1], stringr::fixed(test_obj$identifier())))
@@ -54,9 +54,9 @@ testthat::test_that(
   desc = "can_associate_derived_log_layout",
   code = {
 
-    invisible(testthat::capture_output_lines({
+    testthat::capture_output_lines({
       init_logger()
-    }))
+    })
 
     new_log_layout(
       format = list(
@@ -84,10 +84,10 @@ testthat::test_that(
     test_obj <- DerivedTestObject$new()
 
     actual <- capture_output_lines({
-      test_obj$invoke_logger()
+      test_obj$invoke_logger("Logger")
     })
 
-    expect_equal(length(actual), 3)
+    expect_equal(length(actual), 4)
 
     expect_true(stringr::str_detect(actual[1], stringr::fixed("Object Id:")))
     expect_true(stringr::str_detect(actual[1], stringr::fixed(test_obj$identifier())))

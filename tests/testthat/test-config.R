@@ -1,37 +1,52 @@
 testthat::test_that(
-  desc = "initialization_works",
+  desc = "init_levels_works",
   code = {
 
-      test_config_file <- system.file("test-data",
+    test_config_file <- system.file("test-data",
                                     "test-config.yaml",
                                     package = "dyn.log")
 
-      invisible(testthat::capture_output_lines({
-        init_logger(file_path = test_config_file)
-      }))
+    config <- yaml::read_yaml(test_config_file,
+                              eval.expr = TRUE)
 
-      settings <- Logger$get_settings()
 
-      expect_equal(settings$threshold, "TRACE")
-      expect_true(!is.null(settings$callstack))
-      expect_equal(settings$callstack$max, 5)
-      expect_equal(settings$callstack$start, -1)
-      expect_equal(settings$callstack$stop, -1)
+    actual <- create_log_levels(config$levels)
 
-      log_levels <- log_levels()
+    log_levels <- log_levels()
 
-      expect_true(any(match(log_levels, "trace")))
-      expect_true(any(match(log_levels, "debug")))
-      expect_true(any(match(log_levels, "info")))
-      expect_true(any(match(log_levels, "success")))
-      expect_true(any(match(log_levels, "warn")))
-      expect_true(any(match(log_levels, "error")))
-      expect_true(any(match(log_levels, "critical")))
-      expect_true(any(match(log_levels, "fatal")))
+    expect_true(any(match(log_levels, "trace")))
+    expect_true(any(match(log_levels, "debug")))
+    expect_true(any(match(log_levels, "info")))
+    expect_true(any(match(log_levels, "success")))
+    expect_true(any(match(log_levels, "warn")))
+    expect_true(any(match(log_levels, "error")))
+    expect_true(any(match(log_levels, "critical")))
+    expect_true(any(match(log_levels, "fatal")))
 
-      with(Logger$get_settings(), {
-        expect_equal(threshold, "TRACE")
-      })
+    expect_equal(length(actual), length(log_levels))
+  }
+)
+
+testthat::test_that(
+  desc = "init_settings_works",
+  code = {
+
+    test_config_file <- system.file("test-data",
+                                    "test-config.yaml",
+                                    package = "dyn.log")
+
+    config <- yaml::read_yaml(test_config_file,
+                              eval.expr = TRUE)
+
+    apply_active_settings(config$settings)
+
+    expect_equal(active$threshold$name, "TRACE")
+    expect_equal(active$threshold$severity, 600)
+    expect_true(!is.null(active$callstack))
+
+    expect_equal(active$callstack$max, 5)
+    expect_equal(active$callstack$start, -1)
+    expect_equal(active$callstack$stop, -1)
   }
 )
 
@@ -44,7 +59,8 @@ testthat::test_that(
     expect_true(!is.null(log_configs$default))
     expect_true(!is.null(log_configs$knitr))
     expect_true(!is.null(log_configs$object))
-})
+  }
+)
 
 testthat::test_that(
   desc = "object_config_works",
@@ -54,14 +70,14 @@ testthat::test_that(
                                     "test-object.yaml",
                                     package = "dyn.log")
 
-    invisible(testthat::capture_output_lines({
+    testthat::capture_output_lines({
       init_logger(file_path = test_config_file)
-    }))
+    })
 
     test_obj <- DerivedTestObject$new()
 
     actual <- capture_output_lines({
-      test_obj$invoke_logger()
+      test_obj$invoke_logger("Logger")
     })
 
     expect_equal(length(actual), 2)
@@ -85,7 +101,9 @@ testthat::test_that(
                                     "test-no-var.yaml",
                                     package = "dyn.log")
     expect_error({
-      init_logger(file_path = test_config_file)
+      testthat::capture_output_lines({
+        init_logger(file_path = test_config_file)
+      })
     })
   }
 )
@@ -105,7 +123,7 @@ testthat::test_that(
     test_obj <- DerivedTestObject$new()
 
     actual <- capture_output_lines({
-      test_obj$invoke_logger()
+      test_obj$invoke_logger("Logger")
     })
 
     expect_equal(length(actual), 2)
@@ -172,5 +190,30 @@ testthat::test_that(
     idx <- which(ls(globalenv()) == config$variable)
 
     expect_true(identical(idx, integer()))
+  }
+)
+
+testthat::test_that(
+  desc = "log_levels_display",
+  code = {
+
+    test_config_file <- system.file("test-data",
+                                    "test-config.yaml",
+                                    package = "dyn.log")
+
+    testthat::capture_output_lines({
+      init_logger(file_path = test_config_file)
+    })
+
+    actual <- capture_output_lines({
+      display_log_levels()
+    })
+
+    for (level in log_levels()) {
+      info <- level_info(level)
+      pattern <- paste(info$name, info$description)
+
+      expect_true(any(!is.na(match(actual, pattern))), label = info$name)
+    }
   }
 )

@@ -122,7 +122,8 @@ Execution scope formats give you the ability to log the context around the invoc
 context object, much like *sys_context*, called **exec_context**:
 
 ```{r, set_knitter_offset, echo=F}
-callstack_settings <- Logger$get_settings()$callstack
+settings <- dyn.log::get_active_settings()
+callstack_settings <- settings$callstack
 ```
 
 ```{r, exec_scope_ex, eval=T}

@@ -216,7 +216,3 @@ As you can see, the logger knows to log contextual information about any object 
 + **cls_name**": a public property which is calculated when the object is instantiated to get the correct run-time class name (since it is derived).
 
 This can be a powerful mechanic for templatizing important contextual information in your client applications or scripts.
-
-For a detailed look at layouts refer to the [Layouts](https://bmoretz.github.io/dyn.log/articles/Layouts.html) vignette online, or
-
-> vignette("Layouts", package = "dyn.log")
