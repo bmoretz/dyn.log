@@ -3,10 +3,12 @@ on:
     branches:
       - master
       - develop
+      - vscode
   pull_request:
     branches:
       - master
       - develop
+      - vscode
 
 name: test-coverage
 

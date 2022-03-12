@@ -85,10 +85,10 @@
     },
     "Rcpp": {
       "Package": "Rcpp",
-      "Version": "1.0.8",
+      "Version": "1.0.8.2",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "22b546dd7e337f6c0c58a39983a496bc",
+      "Hash": "6d93fbe4e93e43cbf59fd90d7932c5fb",
       "Requirements": []
     },
     "askpass": {
@@ -205,10 +205,10 @@
     },
     "commonmark": {
       "Package": "commonmark",
-      "Version": "1.7",
+      "Version": "1.8.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "0f22be39ec1d141fd03683c06f3a6e67",
+      "Hash": "2ba81b120c1655ab696c935ef33ea716",
       "Requirements": []
     },
     "covr": {
@@ -294,13 +294,13 @@
     },
     "desc": {
       "Package": "desc",
-      "Version": "1.4.0",
+      "Version": "1.4.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "28763d08fadd0b733e3cee9dab4e12fe",
+      "Hash": "eebd27ee58fcc58714eedb7aa07d8ad1",
       "Requirements": [
         "R6",
-        "crayon",
+        "cli",
         "rprojroot"
       ]
     },
@@ -450,10 +450,15 @@
     },
     "glue": {
       "Package": "glue",
-      "Version": "1.6.2",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "4f2596dfb05dac67b9dc558e5c6fba2e",
+      "Version": "1.6.1",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "tidyverse",
+      "RemoteRepo": "glue",
+      "RemoteRef": "v1.6.1",
+      "RemoteSha": "2c705a670f6f8cd66b31d43751d8e16156cd9a23",
+      "Hash": "d0e36d06ea40f0492685b1d6f6527000",
       "Requirements": []
     },
     "here": {
@@ -687,17 +692,6 @@
         "askpass"
       ]
     },
-    "pander": {
-      "Package": "pander",
-      "Version": "0.6.4",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "0eae8a954e0c51bd356f8c6f0e00e805",
-      "Requirements": [
-        "Rcpp",
-        "digest"
-      ]
-    },
     "pillar": {
       "Package": "pillar",
       "Version": "1.7.0",
@@ -916,15 +910,15 @@
     },
     "renv": {
       "Package": "renv",
-      "Version": "0.15.4-4",
+      "Version": "0.15.0-10",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteUsername": "rstudio",
       "RemoteRepo": "renv",
-      "RemoteRef": "0.15.4-4",
-      "RemoteSha": "7243b4810f58d4fc11025a1eedf8e9ca8e21fe94",
-      "Hash": "4550413885e5598c957fe56913718df0",
+      "RemoteRef": "0.15.0-10",
+      "RemoteSha": "f03d9d6b828f4bae15b79816a69d44f374cafbd4",
+      "Hash": "a816ad243cb90671ad9367692f1f76c7",
       "Requirements": []
     },
     "rex": {
@@ -947,10 +941,10 @@
     },
     "rmarkdown": {
       "Package": "rmarkdown",
-      "Version": "2.12",
+      "Version": "2.13",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "354da5088ddfdffb73c11cc952885d88",
+      "Hash": "ac78f4d2e0289d4cba73b88af567b8b1",
       "Requirements": [
         "bslib",
         "evaluate",
