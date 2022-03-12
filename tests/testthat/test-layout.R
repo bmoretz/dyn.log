@@ -109,7 +109,7 @@ test_that("log_layout_evaluates_simple_singleline", {
 
   actual <- evaluate_layout(detail, context)
 
-  expect_true(stringr::str_detect(actual, pattern = format(Sys.Date(), "%m/%d/%Y")))
+  expect_true(stringr::str_detect(actual, pattern = format(Sys.Date(), "%x")))
 })
 
 test_that("log_layout_evaluates_simple_multiline", {
@@ -134,7 +134,7 @@ test_that("log_layout_evaluates_simple_multiline", {
 
   actual <- evaluate_layout(detail, context)
 
-  expect_true(stringr::str_detect(actual, pattern = format(Sys.Date(), "%m/%d/%Y")))
+  expect_true(stringr::str_detect(actual, pattern = format(Sys.Date(), "%x")))
 })
 
 test_that("log_layout_evaluates_metrics_singleline", {
@@ -149,6 +149,7 @@ test_that("log_layout_evaluates_metrics_singleline", {
 
   expect_true(!is.null(log_layout))
 
+
   detail <- log_layout_detail(log_layout)
 
   expect_true(!is.null(detail))
@@ -159,7 +160,7 @@ test_that("log_layout_evaluates_metrics_singleline", {
 
   actual <- evaluate_layout(detail, context)
 
-  expect_true(stringr::str_detect(actual, pattern = format(Sys.Date(), "%m/%d/%Y")))
+  expect_true(stringr::str_detect(actual, pattern = format(Sys.Date(), "%x")))
 
   expect_true(stringr::str_detect(actual, pattern = stringr::fixed(Sys.info()[["sysname"]])))
   expect_true(stringr::str_detect(actual, pattern = stringr::fixed(Sys.info()[["release"]])))
