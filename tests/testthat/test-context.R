@@ -57,8 +57,8 @@ testthat::test_that(
       wrapper <- function(x, y, z) {
         outer <- function(d, e, f) {
           inner <- function(g, h, i) {
-            get_call_stack(keep_args = F,
-                           filter_internal = F)
+            get_call_stack(keep_args = FALSE,
+                           filter_internal = FALSE)
           }
 
           inner(d, e, f)
@@ -85,8 +85,8 @@ testthat::test_that(
       wrapper <- function(x, y, z) {
         outer <- function(d, e, f) {
           inner <- function(g, h, i) {
-            get_call_stack(keep_args = T,
-                           filter_internal = F)
+            get_call_stack(keep_args = TRUE,
+                           filter_internal = FALSE)
           }
 
           inner(d, e, f)
@@ -113,7 +113,7 @@ testthat::test_that(
       wrapper <- function(x, y, z) {
         outer <- function(d, e, f) {
           inner <- function(g, h, i) {
-            exec_context(filter_internal = F)
+            exec_context(filter_internal = FALSE)
           }
 
           inner(d, e, f)

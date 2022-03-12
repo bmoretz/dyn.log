@@ -5,10 +5,10 @@
 \title{Execution Context}
 \usage{
 exec_context(
-  keep_args = F,
+  keep_args = FALSE,
   max_calls = 5,
   call_subset = c(-1, -1),
-  filter_internal = T
+  filter_internal = TRUE
 )
 }
 \arguments{

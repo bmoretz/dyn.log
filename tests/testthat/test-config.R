@@ -141,7 +141,7 @@ testthat::test_that(
                                     "test-variable.yaml",
                                     package = "dyn.log")
 
-    config <- yaml::read_yaml(test_config_file, eval.expr = T)
+    config <- yaml::read_yaml(test_config_file, eval.expr = TRUE)
 
     ensure_logger(config$variable)
 
@@ -159,7 +159,7 @@ testthat::test_that(
                                     "test-variable.yaml",
                                     package = "dyn.log")
 
-    config <- yaml::read_yaml(test_config_file, eval.expr = T)
+    config <- yaml::read_yaml(test_config_file, eval.expr = TRUE)
 
     ensure_logger(config$variable)
 

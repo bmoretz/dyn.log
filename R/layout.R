@@ -129,7 +129,7 @@ evaluate_layout <- function(detail, context) {
   if (any(!is.na(match(detail$types, "fmt_newline")))) {
     is_break <- sapply(detail$formats, function(fmt) "fmt_newline" %in% class(fmt))
     groups <- split(range, with(rle(is_break), rep(cumsum(!values), lengths))) # nolint (values is bound from RLE)
-    new_lines <- which(is_break, arr.ind = T)
+    new_lines <- which(is_break, arr.ind = TRUE)
   }
 
   output <- character(0)
@@ -139,7 +139,7 @@ evaluate_layout <- function(detail, context) {
     rng <- unlist(unname(group))
     has_break <- any(rng %in% new_lines)
 
-    if (has_break == T) {
+    if (has_break == TRUE) {
       rng <- rng[-length(rng)]
     }
 

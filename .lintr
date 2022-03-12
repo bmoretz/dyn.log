@@ -1,10 +1,12 @@
 linters: with_defaults(
     line_length_linter = NULL, # 53
-    dummy_linter = NULL
+    dummy_linter = NULL,
+    T_and_F_symbol_linter,
+    equals_na_linter,
+    nonportable_path_linter
   )
 exclusions: list(
     "docs/404.html",
-    "docs/articles/Formats.html",
     "docs/articles/index.html",
     "docs/articles/Layouts.html",
     "docs/articles/Levels.html",
@@ -163,12 +165,6 @@ exclusions: list(
     "man/value.fmt_timestamp.Rd",
     "man/value.Rd",
     "vignettes/Formats.html",
-    "vignettes/Formats.R",
-    "vignettes/Formats.Rmd",
     "vignettes/Layouts.html",
-    "vignettes/Layouts.R",
-    "vignettes/Layouts.Rmd",
-    "vignettes/Levels.html",
-    "vignettes/Levels.R",
-    "vignettes/Levels.Rmd"
+    "vignettes/Levels.html"
   )

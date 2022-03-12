@@ -4,7 +4,11 @@
 \alias{get_call_stack}
 \title{Formatted Call Stack}
 \usage{
-get_call_stack(keep_args = F, call_subset = c(-1, -1), filter_internal = T)
+get_call_stack(
+  keep_args = FALSE,
+  call_subset = c(-1, -1),
+  filter_internal = TRUE
+)
 }
 \arguments{
 \item{keep_args}{T/F to indicate if you want to keep

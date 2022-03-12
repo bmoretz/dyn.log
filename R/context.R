@@ -79,7 +79,9 @@ extract_func_name <- function(func) {
 #' @returns string representation of a func call.
 format_fn_call <- function(expr,
                            cutoff = 100L) {
-  deparse1(expr, collapse = " ", width.cutoff = cutoff, backtick = T)
+  deparse1(expr, collapse = " ",
+           width.cutoff = cutoff,
+           backtick = TRUE)
 }
 
 #' @title Formatted Call Stack
@@ -95,9 +97,9 @@ format_fn_call <- function(expr,
 #' @family Context
 #' @returns formatted call stack
 #' @importFrom stringr str_detect fixed
-get_call_stack <- function(keep_args = F,
+get_call_stack <- function(keep_args = FALSE,
                            call_subset = c(-1, -1),
-                           filter_internal = T) {
+                           filter_internal = TRUE) {
 
   trace_back <- rlang::trace_back()
   trace <- sapply(trace_back, list, simplify = "branch")
@@ -154,7 +156,7 @@ clean_internal_calls <- function(call_stack) {
 
   internal_calls <- sapply(call_stack, function(call) {
     stringr::str_starts(call, pattern = stringr::fixed("dyn.log::"))
-  }, simplify = T)
+  }, simplify = TRUE)
 
   if (length(internal_calls) > 0) {
     call_stack <- call_stack[!internal_calls]
@@ -177,17 +179,17 @@ clean_internal_calls <- function(call_stack) {
 #' @return system context for evaluating \code{fmt_metric} objects.
 #' @family Context
 #' @export
-exec_context <- function(keep_args = F,
+exec_context <- function(keep_args = FALSE,
                          max_calls = 5,
                          call_subset = c(-1, -1),
-                         filter_internal = T) {
+                         filter_internal = TRUE) {
 
   full_stack <- get_call_stack(keep_args = keep_args,
                                call_subset = call_subset,
                                filter_internal = filter_internal)
 
-  lcs <- sapply(full_stack, is_logger_call, simplify = T)
-  lc_idx <- as.integer(which(lcs, arr.ind = T))
+  lcs <- sapply(full_stack, is_logger_call, simplify = TRUE)
+  lc_idx <- as.integer(which(lcs, arr.ind = TRUE))
 
   if (!identical(lc_idx, integer(0))) {
     full_stack <- full_stack[1:(lc_idx - 1)]
