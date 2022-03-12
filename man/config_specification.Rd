@@ -15,8 +15,11 @@ config.
 }
 \seealso{
 Other Configuration: 
+\code{\link{apply_active_settings}()},
+\code{\link{create_log_levels}()},
 \code{\link{display_log_levels}()},
 \code{\link{ensure_logger}()},
+\code{\link{get_active_settings}()},
 \code{\link{load_log_layouts}()},
 \code{\link{wipe_logger}()}
 }

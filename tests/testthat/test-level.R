@@ -143,23 +143,6 @@ testthat::test_that(
 )
 
 testthat::test_that(
-  desc = "log_levels_display",
-  code = {
-
-    actual <- capture_output_lines({
-      display_log_levels()
-    })
-
-    for (level in log_levels()) {
-      info <- level_info(level)
-      pattern <- paste(info$name, info$description)
-
-      expect_true(any(!is.na(match(actual, pattern))), label = info$name)
-    }
-  }
-)
-
-testthat::test_that(
   desc = "can_remove_log_level",
   code = {
     lvl <- new_log_level(name = "TEST",

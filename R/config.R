@@ -55,13 +55,18 @@ init_logger <- function(file_path = NULL) {
       config <- yaml::read_yaml(config_file, eval.expr = TRUE)
       config_name <- tools::file_path_sans_ext(basename(config_file))
 
+      log_levels <- create_log_levels(config$levels)
+      apply_active_settings(config$settings)
+
       ensure_logger(config$variable)
 
       if (!identical(active$config, config_name)) {
         logger <- LogDispatch$new()
 
-        logger$set_settings(config$settings)
-        logger$attach_log_levels(config$levels)
+        sapply(log_levels, function(level) {
+          logger$attach_log_level(level)
+        })
+
         logger$default("dyn.log loaded '{config_name}' configuration successfully.")
 
         active$config <- config_name
@@ -127,6 +132,62 @@ wipe_logger <- function() {
   }
 }
 
+#' @title Apply Active Logger Settings
+#'
+#' @description
+#' Parses and loads the settings specified
+#' in the logger configuration and ensures
+#' they are active in the environment.
+#'
+#' @param settings defined in the configuration
+#'
+#' @family Configuration
+apply_active_settings = function(settings) {
+
+  threshold_level <- log_levels(settings$threshold)
+
+  active$threshold <- list()
+  active$threshold$name <- level_name(threshold_level)
+  active$threshold$severity <- level_severity(threshold_level)
+
+  active$callstack <- list()
+  active$callstack$max <- settings$callstack$max
+  active$callstack$start <- settings$callstack$start
+  active$callstack$stop <- settings$callstack$stop
+}
+
+#' @title Active Logger Settings
+#'
+#' @description
+#' Gets the active global settings
+#' for the logger.
+#'
+#' @family Configuration
+#' @export
+get_active_settings = function() {
+  as.list(active)
+}
+
+#' @title Attach Log Levels
+#'
+#' @description
+#' Parses and loads the levels specified in the
+#' logging configuration and registers them with the
+#' dispatcher via the \code{log_levels} active
+#' binding.
+#'
+#' @param definitions defined in the configuration
+#' @family Configuration
+create_log_levels = function(definitions) {
+  sapply(definitions, function(level) {
+    new_log_level(name = level$name,
+                  description = level$description,
+                  severity = as.integer(level$severity),
+                  log_style = level$log_style,
+                  msg_style = level$msg_style)
+  })
+}
+
 #' @title Load Log Layouts
 #'
 #' @description
@@ -142,7 +203,7 @@ wipe_logger <- function() {
 #' @returns None.
 load_log_layouts <- function(layouts) {
 
-  invisible(sapply(layouts, function(layout) {
+  sapply(layouts, function(layout) {
     if (identical(class(layout$format), "character")) {
 
       parsed <- stringr::str_split(layout$formats,
@@ -162,7 +223,9 @@ load_log_layouts <- function(layouts) {
       new_line = layout$new_line,
       association = layout$association
     )
-  }))
+  })
+
+  invisible()
 }
 
 #' @title Display Log Levels
@@ -177,6 +240,7 @@ load_log_layouts <- function(layouts) {
 #'
 #' @export
 display_log_levels <- function() {
+
   sapply(log_levels(), function(level) {
     info <- level_info(level)
     logger <- LogDispatch$new()

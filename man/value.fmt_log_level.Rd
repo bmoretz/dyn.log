@@ -4,10 +4,12 @@
 \alias{value.fmt_log_level}
 \title{Value}
 \usage{
-\method{value}{fmt_log_level}(obj, ...)
+\method{value}{fmt_log_level}(obj, lvl_context, ...)
 }
 \arguments{
 \item{obj}{object to extract value from.}
+
+\item{lvl_context}{context to evaluate log level.}
 
 \item{...}{further arguments passed to or from other methods.}
 }

@@ -1,5 +1,21 @@
 # Release Summaries <img src="man/figures/hex.png" width = "175" height = "200" align="right" />
 
+# dyn.log 0.4.0
+
+## What's Changed
+
+* New Features
+  + Ground-up rewrite of the dynamic log dispatch mechanics, to make them:
+    + Simpler. There were areas of the old implementation that were incredibly hard to follow (log levels and log messages, in particular).
+    + Consistent. Every format object that needs contextual information now gets it injected via the context list in the dispatch function.
+    + Cleaner. Now leverages even more awesomeness from [rlang](https://github.com/r-lib/rlang), specifically 'rlang::new_function' to dynamically create the log dispatch routines & 'rlang::pairlist2' to handle completely dynamic & non-defaulted parameters (msg).
+    + Testable. The new mechanics are much more unit testable, and once the code is cleaned up more (and simplified further), will focus on this area.
+  
+* Enhancements
+  + updated the README.md to be more reflective of the overall goal of the package.
+  + streamlined the configuration (in init_logger) to have clear separation of concerns.
+  + added a 'default' logger method that is based on the attached level with the highest severity, so in areas where you always want the lowest possible information logged (even if configurations change) then you can just use 'Logger$default.' Useful for packages that might be attached by multiple downstream packages with different level definitions.
+
 # dyn.log 0.3.3
 
 ## What's Changed
@@ -17,7 +33,7 @@
   
 * Other
   + vscode support
-    + moved the development configuration that supports vscode into a separate branch and cleaned up all the additional dependencies. 
+    + moved the development configuration that supports vscode into a separate branch and cleaned up all the additional dependencies.
   
 # dyn.log 0.3.2
 

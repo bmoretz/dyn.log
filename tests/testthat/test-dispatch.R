@@ -21,34 +21,20 @@ test_that("test_log_threshold_works", {
 
   logger <- LogDispatch$new()
 
-  logger$private$settings$threshold <- "INFO"
+  active$threshold$name <- "INFO"
+  active$threshold$severity <- 400
 
   actual <- capture_output({
     var1 <- "abc"; var2 <- 123; var3 <- 0.7535651
     logger$trace("log msg local vars: {var1}, {var2}, {var3}")
   })
 
-  logger$private$settings$threshold <- "TRACE"
+  active$threshold$name <- "TRACE"
+  active$threshold$severity <- 600
 
   expect_equal(actual, "")
   expect_false(stringr::str_detect(actual, stringr::fixed("TEST ")))
   expect_false(stringr::str_detect(actual, stringr::fixed("log msg local vars: abc, 123, 0.7535651")))
-})
-
-test_that("test_can_set_log_settings", {
-
-  test_config_file <- system.file("test-data",
-                                  "test-config.yaml",
-                                  package = "dyn.log")
-
-  log_config <- yaml::read_yaml(test_config_file, eval.expr = TRUE)
-
-  dispatch <- LogDispatchTester$new()
-  dispatch$set_settings(log_config$settings)
-
-  actual <- dispatch$get_settings()
-
-  expect_equal(actual, log_config$settings)
 })
 
 test_that("test_add_log_level_works", {
@@ -57,18 +43,18 @@ test_that("test_add_log_level_works", {
                                   "test-config.yaml",
                                   package = "dyn.log")
 
-  log_config <- yaml::read_yaml(test_config_file, eval.expr = TRUE)
+  init_logger(file_path = test_config_file)
+
+  new_level <- new_log_level(
+    name = "TEST",
+    description = "for testing",
+    severity = 42L,
+    log_style = crayon::blue,
+    msg_style = crayon::silver
+  )
 
   dispatch <- LogDispatchTester$new()
-  dispatch$set_settings(log_config$settings)
-
-  lvl <- new_log_level(name = "TEST",
-                       description = "for testing",
-                       severity = 42L,
-                       log_style = crayon::blue,
-                       msg_style = crayon::silver)
-
-  dispatch$add_log_level(lvl)
+  dispatch$attach_log_level(new_level)
 
   actual <- capture_output({
     var1 <- "abc"; var2 <- 123; var3 <- 0.7535651
@@ -82,7 +68,7 @@ test_that("test_add_log_level_works", {
   log_levels(name = "test", level = NA)
 
   all_levels <- log_levels()
-  expect_true(all(is.na(match(all_levels, tolower(level_name(lvl))))))
+  expect_true(all(is.na(match(all_levels, tolower(level_name(new_level))))))
 })
 
 test_that("test_threshold_evaluation_works", {
@@ -91,18 +77,16 @@ test_that("test_threshold_evaluation_works", {
                                   "test-config.yaml",
                                   package = "dyn.log")
 
-  log_config <- yaml::read_yaml(test_config_file, eval.expr = TRUE)
+  init_logger(file_path = test_config_file)
 
-  dispatch <- LogDispatchTester$new()
-  dispatch$set_settings(log_config$settings)
-
-  lvl <- new_log_level(name = "TEST",
+  new_level <- new_log_level(name = "TEST",
                        description = "for testing",
                        severity = 100L,
                        log_style = crayon::make_style("deepskyblue2")$bold,
                        msg_style = crayon::silver)
 
-  dispatch$add_log_level(lvl)
+  dispatch <- LogDispatchTester$new()
+  dispatch$attach_log_level(new_level)
 
   log_fn <- dispatch[["test"]]
 
@@ -119,5 +103,5 @@ test_that("test_threshold_evaluation_works", {
   log_levels(name = "test", level = NA)
 
   all_levels <- log_levels()
-  expect_true(all(is.na(match(all_levels, tolower(level_name(lvl))))))
+  expect_true(all(is.na(match(all_levels, tolower(level_name(new_level))))))
 })

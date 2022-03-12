@@ -30,7 +30,6 @@ new_fmt_log_level <- function() {
   structure(
     list(),
     style = crayon::black,
-    value = glue::as_glue("{format(level)}"),
     class = c("fmt_log_level", "fmt_layout")
   )
 }
@@ -42,12 +41,13 @@ new_fmt_log_level <- function() {
 #' log level information.
 #'
 #' @param obj object to extract value from.
+#' @param lvl_context context to evaluate log level.
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @return object's value
 #' @export
-value.fmt_log_level <- function(obj, ...) { # nolint (generic)
-  attr(obj, "value")
+value.fmt_log_level <- function(obj, lvl_context, ...) { # nolint (generic)
+  format(lvl_context$level, message = lvl_context$name)
 }
 
 #' @title
@@ -63,7 +63,6 @@ new_fmt_log_msg <- function() {
   structure(
     list(),
     style = crayon::black,
-    value = glue::as_glue("{format(level, message = {log_msg})}"),
     class = c("fmt_log_msg", "fmt_layout")
   )
 }
@@ -75,12 +74,13 @@ new_fmt_log_msg <- function() {
 #' log format message.
 #'
 #' @param obj object to extract value from.
+#' @param msg_context context to evaluate log message.
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @return object's value
 #' @export
-value.fmt_log_msg <- function(obj, ...) { # nolint (generic)
-  attr(obj, "value")
+value.fmt_log_msg <- function(obj, msg_context, ...) { # nolint (generic)
+  format(msg_context$level, message = msg_context$msg)
 }
 
 #' @title Formatted Metric

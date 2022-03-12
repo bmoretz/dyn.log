@@ -18,20 +18,13 @@ to render highly-customizable and detailed log messages.
 Other Logging: 
 \code{\link{get_configurations}()},
 \code{\link{init_logger}()}
-
-Other Logging: 
-\code{\link{get_configurations}()},
-\code{\link{init_logger}()}
 }
 \concept{Logging}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-new}{\code{LogDispatch$new()}}
-\item \href{#method-attach_log_levels}{\code{LogDispatch$attach_log_levels()}}
-\item \href{#method-add_log_level}{\code{LogDispatch$add_log_level()}}
-\item \href{#method-get_settings}{\code{LogDispatch$get_settings()}}
-\item \href{#method-set_settings}{\code{LogDispatch$set_settings()}}
+\item \href{#method-attach_log_level}{\code{LogDispatch$attach_log_level()}}
 }
 }
 \if{html}{\out{<hr>}}
@@ -48,77 +41,24 @@ A new \code{LogLayout} object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-attach_log_levels"></a>}}
-\if{latex}{\out{\hypertarget{method-attach_log_levels}{}}}
-\subsection{Method \code{attach_log_levels()}}{
-Parses and loads the levels specified in the
-logging configuration and registers them with the
-dispatcher via the \code{log_levels} active
-binding.
+\if{html}{\out{<a id="method-attach_log_level"></a>}}
+\if{latex}{\out{\hypertarget{method-attach_log_level}{}}}
+\subsection{Method \code{attach_log_level()}}{
+Attaches a S3 \code{log_level} object to the log
+dispatcher by creating a new function wrapping the
+specified log level, and binding and instance
+of the dispatcher quote block with
+the context of the log level.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{LogDispatch$attach_log_levels(levels)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{LogDispatch$attach_log_level(log_level)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{levels}}{defined in the configuration}
+\item{\code{log_level}}{log level to attach}
 }
 \if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-add_log_level"></a>}}
-\if{latex}{\out{\hypertarget{method-add_log_level}{}}}
-\subsection{Method \code{add_log_level()}}{
-Adds dynamic function as a short-cut to
-log a message with a configured level.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{LogDispatch$add_log_level(level)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{level}}{log level}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-reference to self to support chaining.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_settings"></a>}}
-\if{latex}{\out{\hypertarget{method-get_settings}{}}}
-\subsection{Method \code{get_settings()}}{
-Public wrapper around logger settings.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{LogDispatch$get_settings()}\if{html}{\out{</div>}}
-}
-
-\subsection{Returns}{
-logger settings.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-set_settings"></a>}}
-\if{latex}{\out{\hypertarget{method-set_settings}{}}}
-\subsection{Method \code{set_settings()}}{
-Public wrapper around updating settings.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{LogDispatch$set_settings(settings)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{settings}}{Logger settings.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-None.
 }
 }
 }

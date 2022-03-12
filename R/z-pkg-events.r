@@ -1,4 +1,8 @@
-# active logger configuration
+#' @title Active Settings
+#'
+#' @description
+#' Package environment variable to hold
+#' global level settings.
 active <- new.env(parent = emptyenv())
 
 #' @title Load Handler

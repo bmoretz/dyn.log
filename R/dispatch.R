@@ -31,140 +31,39 @@ LogDispatch <- R6::R6Class( #nolint
     initialize = function() {
 
       if (is.null(private$public_bind_env)) {
+        private$default_severitiy <- 0
         private$create_singleton(LogDispatch)
       } else {
         self <- private$instance
 
-        private$copy_env("public_bind_env",
-                         private$public_bind_env)
-
-        private$copy_env("private_bind_env",
-                         private$private_bind_env)
+        private$set_bindings()
       }
 
       invisible(self)
     },
 
     #' @description
-    #' Parses and loads the levels specified in the
-    #' logging configuration and registers them with the
-    #' dispatcher via the \code{log_levels} active
-    #' binding.
+    #' Attaches a S3 \code{log_level} object to the log
+    #' dispatcher by creating a new function wrapping the
+    #' specified log level, and binding and instance
+    #' of the dispatcher quote block with
+    #' the context of the log level.
     #'
-    #' @param levels defined in the configuration
-    #' @family Logging
-    attach_log_levels = function(levels) {
+    #' @param log_level log level to attach
+    attach_log_level = function(log_level) {
 
-      sapply(levels, function(level) {
-        new_level <- new_log_level(name = level$name,
-                                   description = level$description,
-                                   severity = as.integer(level$severity),
-                                   log_style = level$log_style,
-                                   msg_style = level$msg_style)
+      fn_name <- tolower(level_name(log_level))
+      dispatch <- private$create_level_dispatch(log_level)
 
-        self$add_log_level(new_level)
-      })
+      self[[fn_name]] <- dispatch
 
-      # used internally to log information
-      min_severity <- get_minimum_severity()
-      self[["default"]] <- self[[min_severity]]
-
-      invisible()
-    },
-
-    #' @description
-    #' Adds dynamic function as a short-cut to
-    #' log a message with a configured level.
-    #'
-    #' @param level log level
-    #'
-    #' @return reference to self to support chaining.
-    add_log_level = function(level) {
-      # nocov start
-      name <- tolower(level_name(level))
-
-      self[[name]] <- function(msg,
-                               parent = parent.frame(),
-                               layout = "default") {
-
-        current <- level_severity(level)
-        threshold <- level_severity(log_levels(private$settings$threshold))
-
-        if (current > threshold) return()
-
-        caller_env <- rlang::caller_env()
-        parent_env <- parent.env(caller_env)
-
-        has_calling_class <- ifelse(is.null(parent_env$self), FALSE, TRUE)
-        calling_class <- NA
-        log_msg <- glue::glue(msg, .envir = parent)
-
-        log_layout <- log_layouts(layout)
-
-        if (has_calling_class) {
-          calling_class <- parent_env$self
-
-          # match class name(s) against registered
-          # log layouts, to find the "best" class
-          # association given its hierarchy.
-          cls_name <- class(calling_class)
-          registered <- names(log_layouts())
-          layout_idx <- max(c(0L, match(cls_name, registered)), na.rm = TRUE)
-
-          if (layout_idx > 0) {
-            log_layout <- log_layouts(registered[layout_idx])
-          }
-        }
-
-        if (is.null(layout)) {
-          stop("cannot log without an associated layout.")
-        }
-
-        detail <- log_layout_detail(log_layout)
-
-        context <- list()
-
-        if (has_calling_class && any(!is.na(match(detail$types, "fmt_cls_field")))) {
-          context[["fmt_cls_field"]] <- class_scope(calling_class)
-        }
-
-        if (any(!is.na(match(detail$types, "fmt_metric")))) {
-          context[["fmt_metric"]] <- sys_context()
-        }
-
-        if (any(!is.na(match(detail$types, "fmt_exec_scope")))) {
-
-          context[["fmt_exec_scope"]] <- exec_context(
-            max_calls = private$settings$callstack$max,
-            call_subset = c(private$settings$callstack$start,
-                            private$settings$callstack$stop))
-        }
-
-        evaluated <- evaluate_layout(detail, context)
-
-        cat(glue::glue(evaluated),
-            fill = TRUE,
-            file = stdout())
+      lvl_sev <- level_severity(log_level)
+      if (lvl_sev > private$default_severitiy) {
+        self[["default"]] <- dispatch
+        private$default_severitiy <- lvl_sev
       }
 
       invisible(self)
-      # nocov end
-    },
-
-    #' @description
-    #' Public wrapper around logger settings.
-    #' @return logger settings.
-    get_settings = function() {
-      private$settings
-    },
-
-    #' @description
-    #' Public wrapper around updating settings.
-    #' @param settings Logger settings.
-    #' @return None.
-    set_settings = function(settings) {
-      private$settings <- settings
-      invisible()
     }
   ),
 
@@ -172,7 +71,7 @@ LogDispatch <- R6::R6Class( #nolint
 
   private = list(
 
-    settings = NULL,
+    default_severitiy = NULL,
 
     # overrides from base R6
     public_bind_env = NULL,
@@ -184,9 +83,9 @@ LogDispatch <- R6::R6Class( #nolint
       private$private_bind_env <- base::dynGet("private_bind_env")
 
       obj$set("private",
-                "public_bind_env",
-                private$public_bind_env,
-                overwrite = TRUE)
+              "public_bind_env",
+              private$public_bind_env,
+              overwrite = TRUE)
 
       obj$set("private",
               "private_bind_env",
@@ -217,6 +116,87 @@ LogDispatch <- R6::R6Class( #nolint
       }
 
       invisible()
+    },
+
+    create_level_dispatch = function(level) {
+      rlang::new_function(
+        args = rlang::pairlist2(msg = ,
+                                level = level,
+                                layout = "default"),
+        body = dispatcher,
+        env = rlang::caller_env()
+      )
     }
   )
 )
+
+dispatcher <- quote({
+
+  if (is.null(level)) return()
+
+  if (level_severity(level) > active$threshold$severity) return()
+
+  caller_env <- rlang::caller_env()
+  parent_env <- parent.env(caller_env)
+
+  has_calling_class <- ifelse(is.null(parent_env$self), FALSE, TRUE)
+  calling_class <- NA
+
+  log_msg <- glue::glue(msg, .envir = caller_env)
+  log_layout <- log_layouts(layout)
+
+  if (has_calling_class) {
+    calling_class <- parent_env$self
+
+    # match class name(s) against registered
+    # log layouts, to find the "best" class
+    # association given its hierarchy.
+    cls_name <- class(calling_class)
+    registered <- names(log_layouts())
+    layout_idx <- max(c(0L, match(cls_name, registered)), na.rm = TRUE)
+
+    if (layout_idx > 0) {
+      log_layout <- log_layouts(registered[layout_idx])
+    }
+  }
+
+  if (is.null(layout)) {
+    stop("cannot log without an associated layout.")
+  }
+
+  detail <- log_layout_detail(log_layout)
+
+  context <- list()
+
+  context[["fmt_log_level"]] <- list(
+    name = level_name(level),
+    level = level
+  )
+
+  context[["fmt_log_msg"]] <- list(
+    msg = log_msg,
+    level = level
+  )
+
+  if (has_calling_class && any(!is.na(match(detail$types, "fmt_cls_field")))) {
+    context[["fmt_cls_field"]] <- class_scope(calling_class)
+  }
+
+  if (any(!is.na(match(detail$types, "fmt_metric")))) {
+    context[["fmt_metric"]] <- sys_context()
+  }
+
+  if (any(!is.na(match(detail$types, "fmt_exec_scope")))) {
+
+    context[["fmt_exec_scope"]] <- exec_context(
+      max_calls = active$callstack$max,
+      call_subset = c(active$callstack$start,
+                      active$callstack$stop))
+  }
+
+  evaluated <- evaluate_layout(detail, context)
+
+  cat(evaluated,
+      fill = TRUE,
+      file = stdout())
+})
