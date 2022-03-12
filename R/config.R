@@ -14,7 +14,7 @@ get_configurations <- function(pkgname = "dyn.log") {
   config_files <- list.files(
     system.file("", package = pkgname),
     pattern = ".yaml",
-    full.names = T
+    full.names = TRUE
   )
 
   configs <- list()
@@ -52,7 +52,7 @@ init_logger <- function(file_path = NULL) {
         config_file <- file_path
       }
 
-      config <- yaml::read_yaml(config_file, eval.expr = T)
+      config <- yaml::read_yaml(config_file, eval.expr = TRUE)
       config_name <- tools::file_path_sans_ext(basename(config_file))
 
       ensure_logger(config$variable)
@@ -98,7 +98,7 @@ ensure_logger <- function(variable) {
   }
 
   envir <- globalenv()
-  idx <- which(ls(envir) == variable, arr.ind = T)
+  idx <- which(ls(envir) == variable, arr.ind = TRUE)
 
   if (identical(idx, integer())) {
     logger <- LogDispatch$new()
@@ -120,7 +120,7 @@ ensure_logger <- function(variable) {
 wipe_logger <- function() {
   envir <- globalenv(); objs <- ls(envir)
 
-  idx <- which(objs == active$log_var, arr.ind = T)
+  idx <- which(objs == active$log_var, arr.ind = TRUE)
 
   if (!identical(idx, integer(0))) {
     rm(list = objs[idx], envir = envir)
@@ -144,7 +144,10 @@ load_log_layouts <- function(layouts) {
 
   invisible(sapply(layouts, function(layout) {
     if (identical(class(layout$format), "character")) {
-      parsed <- stringr::str_split(layout$formats, pattern = ",", simplify = T)
+
+      parsed <- stringr::str_split(layout$formats,
+                                   pattern = ",",
+                                   simplify = TRUE)
 
       formats <- sapply(parsed, function(fmt) {
         eval(parse(text = stringr::str_trim(fmt)))

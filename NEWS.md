@@ -1,5 +1,24 @@
 # Release Summaries <img src="man/figures/hex.png" width = "175" height = "200" align="right" />
 
+# dyn.log 0.3.3
+
+## What's Changed
+
+* New Features
+  + N/A
+  
+* Enhancements
+  + additional linters:
+    + T_and_F_symbol_linter
+    + equals_na_linter
+    + nonportable_path_linter
+  + resolved all warnings produced by including the new lintrs.
+  + updated the README.md to be more reflective of the overall goal of the package.
+  
+* Other
+  + vscode support
+    + moved the development configuration that supports vscode into a separate branch and cleaned up all the additional dependencies. 
+  
 # dyn.log 0.3.2
 
 ## What's Changed

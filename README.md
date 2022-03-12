@@ -1,6 +1,4 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 # dyn.log
 
 # Overview <img src="man/figures/hex.png" width = "175" height = "200" align="right" />
@@ -12,20 +10,41 @@
 MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://cran.r-project.org/web/licenses/MIT)
 [![Codecov test
 coverage](https://codecov.io/gh/bmoretz/dyn.log/branch/master/graph/badge.svg)](https://app.codecov.io/gh/bmoretz/dyn.log?branch=master)
-[![](https://img.shields.io/badge/devel%20version-0.3.2-blue.svg)](https://bmoretz.github.io/dyn.log/)
+[![](https://img.shields.io/badge/devel%20version-0.3.3-blue.svg)](https://bmoretz.github.io/dyn.log/)
 [![Lifecycle](https://img.shields.io/badge/lifecycle-stable-darkgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- badges: end -->
 
-The goal of dyn.log is to be a comprehensive and dynamic configuration
-driven logging package for R. While there are several excellent logging
-solutions already in the R ecosystem, I always feel constrained in some
-way by each of them. Every project is designed differently to achieve
-its stated goal; to solve some problem, and ultimately the utility of a
-logging solution is its ability to adapt to the project’s design. This
-is the rai·​son d’être for dyn.log; to provide a modular design,
-template mechanics and a configuration-based integration model. This
-enableds the logger to integrate deeply into your design, even though it
-knows nothing about it.
+The goal of `dyn.log` is to be a comprehensive, dynamic,
+configuration-based logging package for R. While there are several
+excellent logging solutions already in the R ecosystem, I found none of
+them were both robust functionality-wise, and completely generic i.e.,
+they are designed exclusively for use within a specific environment
+(shiny/plumber/etc).
+
+This is the raison d’être for `dyn.log`: a flexible logging solution
+that:
+
+-   Integrates seamlessly
+    -   set an R option or call `init_logging` in your .Rprofile and
+        your logger is attached (and will re-attach when you
+        `rm(list = ls())`).
+-   Agnostics of project type, so it can be deployed across the entire
+    application stack
+    -   [shiny](https://github.com/rstudio/shiny)
+    -   [plumber](https://github.com/rstudio/plumber)
+    -   stand-alone prototype scripts
+    -   etc.
+-   Reusable
+    -   log layout, levels, etc. can be highly-customized for both shiny
+        apps and plumber services, then reused across packages running
+        in different environments (docker containers).
+
+### Demos
+
+In order to keep the package as light as possible dependency-wise, there
+are no demos that come integrated with the package. However, separate
+repositories are **coming soon** to demonstrate the above scenarios and
+will be linked here.
 
 ## Installation
 

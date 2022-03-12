@@ -41,7 +41,7 @@ test_that("test_can_set_log_settings", {
                                   "test-config.yaml",
                                   package = "dyn.log")
 
-  log_config <- yaml::read_yaml(test_config_file, eval.expr = T)
+  log_config <- yaml::read_yaml(test_config_file, eval.expr = TRUE)
 
   dispatch <- LogDispatchTester$new()
   dispatch$set_settings(log_config$settings)
@@ -57,7 +57,7 @@ test_that("test_add_log_level_works", {
                                   "test-config.yaml",
                                   package = "dyn.log")
 
-  log_config <- yaml::read_yaml(test_config_file, eval.expr = T)
+  log_config <- yaml::read_yaml(test_config_file, eval.expr = TRUE)
 
   dispatch <- LogDispatchTester$new()
   dispatch$set_settings(log_config$settings)
@@ -91,7 +91,7 @@ test_that("test_threshold_evaluation_works", {
                                   "test-config.yaml",
                                   package = "dyn.log")
 
-  log_config <- yaml::read_yaml(test_config_file, eval.expr = T)
+  log_config <- yaml::read_yaml(test_config_file, eval.expr = TRUE)
 
   dispatch <- LogDispatchTester$new()
   dispatch$set_settings(log_config$settings)

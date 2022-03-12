@@ -73,7 +73,7 @@ log_levels <- local({
 
       if (length(level) > 0 && is.na(level)) {
         # remove an existing level
-        lvl_idx <- which(!is.na(match(lvl_names, name)), arr.ind = T)
+        lvl_idx <- which(!is.na(match(lvl_names, name)), arr.ind = TRUE)
         if (!identical(lvl_idx, integer())) {
           levels <<- levels[-lvl_idx]
         }

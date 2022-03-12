@@ -25,9 +25,11 @@ init_logger(configs$knitr)
 
 ```{r, comment="", results="asis", echo=F}
 options(crayon.enabled = TRUE)
+
 knitr::opts_chunk$set(collapse = TRUE,
                       fig.path = "man/figures/FORMAT-",
                       comment = "")
+
 old.hooks <- fansi::set_knit_hooks(knitr::knit_hooks)
 ```
 

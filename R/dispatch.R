@@ -18,10 +18,10 @@
 #' @export
 LogDispatch <- R6::R6Class( #nolint
   classname = "LogDispatch",
-  lock_objects = F,
-  lock_class = F,
-  cloneable = F,
-  portable = F,
+  lock_objects = FALSE,
+  lock_class = FALSE,
+  cloneable = FALSE,
+  portable = FALSE,
 
   public = list(
 
@@ -95,7 +95,7 @@ LogDispatch <- R6::R6Class( #nolint
         caller_env <- rlang::caller_env()
         parent_env <- parent.env(caller_env)
 
-        has_calling_class <- ifelse(is.null(parent_env$self), F, T)
+        has_calling_class <- ifelse(is.null(parent_env$self), FALSE, TRUE)
         calling_class <- NA
         log_msg <- glue::glue(msg, .envir = parent)
 
@@ -109,7 +109,7 @@ LogDispatch <- R6::R6Class( #nolint
           # association given its hierarchy.
           cls_name <- class(calling_class)
           registered <- names(log_layouts())
-          layout_idx <- max(c(0L, match(cls_name, registered)), na.rm = T)
+          layout_idx <- max(c(0L, match(cls_name, registered)), na.rm = TRUE)
 
           if (layout_idx > 0) {
             log_layout <- log_layouts(registered[layout_idx])
@@ -143,7 +143,7 @@ LogDispatch <- R6::R6Class( #nolint
         evaluated <- evaluate_layout(detail, context)
 
         cat(glue::glue(evaluated),
-            fill = T,
+            fill = TRUE,
             file = stdout())
       }
 

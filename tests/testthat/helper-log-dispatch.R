@@ -1,10 +1,10 @@
 LogDispatchTester <- R6::R6Class( # nolint (class name)
   classname = "LogDispatchTester",
   inherit = LogDispatch,
-  lock_objects = F,
-  lock_class = F,
-  cloneable = F,
-  portable = F,
+  lock_objects = FALSE,
+  lock_class = FALSE,
+  cloneable = FALSE,
+  portable = FALSE,
 
   public = list(
 
@@ -18,10 +18,10 @@ LogDispatchTester <- R6::R6Class( # nolint (class name)
 SingletonTester <- R6::R6Class( # nolint (class name)
   classname = "SingletonTester",
   inherit = LogDispatch,
-  lock_objects = F,
-  lock_class = F,
-  cloneable = F,
-  portable = F,
+  lock_objects = FALSE,
+  lock_class = FALSE,
+  cloneable = FALSE,
+  portable = FALSE,
 
   public = list(
 
