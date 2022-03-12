@@ -96,7 +96,7 @@
 <span class="va">configs</span> <span class="op">&lt;-</span> <span class="fu">dyn.log</span><span class="fu">::</span><span class="fu"><a href="../reference/get_configurations.html">get_configurations</a></span><span class="op">(</span>pkgname <span class="op">=</span> <span class="st">"dyn.log"</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/init_logger.html">init_logger</a></span><span class="op">(</span><span class="va">configs</span><span class="op">$</span><span class="va">knitr</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;">TRACE</span> <span style="color: #555555; font-style: italic;">[03/12/22 23:26:32 +0000]</span> <span style="color: #949494;">dyn.log loaded 'knitr' configuration successfully.</span></span></code></pre></div>
+<span class="co">#&gt; <span style="color: #949494;">TRACE</span> <span style="color: #555555; font-style: italic;">[03/12/22 23:36:04 +0000]</span> <span style="color: #949494;">dyn.log loaded 'knitr' configuration successfully.</span></span></code></pre></div>
 <style type="text/css" scoped>
 PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 </style>
@@ -133,12 +133,12 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <p>An info level log message generated with the package default config:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Logger</span><span class="op">$</span><span class="fu">info</span><span class="op">(</span><span class="st">"this is the default layout"</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code><span style="color: #EEEEEE;">INFO</span> <span style="color: #555555; font-style: italic;">[03/12/22 23:26:32 +0000]</span> <span style="color: #EEEEEE;">this is the default layout</span>
+<pre class="fansi fansi-output"><code><span style="color: #EEEEEE;">INFO</span> <span style="color: #555555; font-style: italic;">[03/12/22 23:36:04 +0000]</span> <span style="color: #EEEEEE;">this is the default layout</span>
 </code></pre>
 <p>Now with the new layout defined above:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Logger</span><span class="op">$</span><span class="fu">info</span><span class="op">(</span><span class="st">"this is the custom layout object"</span>, layout <span class="op">=</span> <span class="st">"default_via_r"</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code><span style="color: #EEEEEE;">INFO</span> <span style="color: #555555; font-style: italic;">[03/12/22 23:26:32 +0000]</span> <span style="color: #EEEEEE;">this is the custom layout object</span>
+<pre class="fansi fansi-output"><code><span style="color: #EEEEEE;">INFO</span> <span style="color: #555555; font-style: italic;">[03/12/22 23:36:04 +0000]</span> <span style="color: #EEEEEE;">this is the custom layout object</span>
 </code></pre>
 <p>which render the exact same output, the idea here is that defining layouts via custom R code or via yaml in the configuration are exactly the same.</p>
 </div>
@@ -180,7 +180,7 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 
 <span class="fu">log_fn</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre class="fansi fansi-output"><code><span style="color: #00BB00; font-weight: bold;">Linux</span>-<span style="color: #BBBB00; font-weight: bold;">5.11.0-1028-azure</span>
-<span style="color: #DADADA;">DEBUG</span>-<span style="color: #555555; font-style: italic;">[03/12/22 23:26:32 +0000]</span>-<span style="color: #BB00BB; font-weight: bold;">get_call_stack</span>-<span style="color: #0000BB; font-style: italic;">literal text</span>-<span style="color: #DADADA;">my log message - var1: 'abc', var2: '123', var3: '0.070284'</span>
+<span style="color: #DADADA;">DEBUG</span>-<span style="color: #555555; font-style: italic;">[03/12/22 23:36:04 +0000]</span>-<span style="color: #BB00BB; font-weight: bold;">get_call_stack</span>-<span style="color: #0000BB; font-style: italic;">literal text</span>-<span style="color: #DADADA;">my log message - var1: 'abc', var2: '123', var3: '0.54529'</span>
 <span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">get_call_stack</span>
 </code></pre>
 </div>
