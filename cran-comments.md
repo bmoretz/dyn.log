@@ -5,6 +5,7 @@ Previous CRAN submission: <span style="color:red">**FAILED**</span>.
 * Items resolved since previous submission:
   + added lintr rule `T_and_F_symbol_linter` and converted all `T` and `F` to `TRUE` and `FALSE`, respectively.
   + added api name 
+  
 #### R CMD check results
 
 * 1 Note

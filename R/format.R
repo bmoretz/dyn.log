@@ -47,7 +47,11 @@ new_fmt_log_level <- function() {
 #' @return object's value
 #' @export
 value.fmt_log_level <- function(obj, lvl_context, ...) { # nolint (generic)
-  format(lvl_context$level, message = lvl_context$name)
+  if (!is.null(lvl_context)) {
+    with(style(lvl_context$level), {
+      level(lvl_context$name)
+    })
+  }
 }
 
 #' @title
@@ -80,7 +84,11 @@ new_fmt_log_msg <- function() {
 #' @return object's value
 #' @export
 value.fmt_log_msg <- function(obj, msg_context, ...) { # nolint (generic)
-  format(msg_context$level, message = msg_context$msg)
+  if (!is.null(msg_context)) {
+    with(style(msg_context$level), {
+      message(msg_context$msg)
+    })
+  }
 }
 
 #' @title Formatted Metric

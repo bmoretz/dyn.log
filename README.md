@@ -32,12 +32,12 @@ that:
     application stack
     -   [shiny](https://github.com/rstudio/shiny)
     -   [plumber](https://github.com/rstudio/plumber)
-    -   stand-alone prototype scripts
+    -   stand-alone prototypes/scripts
     -   etc.
 -   Reusable
-    -   log layout, levels, etc. can be highly-customized for both shiny
-        apps and plumber services, then reused across packages running
-        in different environments (docker containers).
+    -   log layouts, levels, associations, etc. can be highly-customized
+        for both shiny apps and plumber services, then reused across
+        packages running in different environments (docker containers).
 
 ### Demos
 
@@ -64,10 +64,6 @@ You can install the latest stable version of dyn.log from CRAN:
 (coming soon)
 
 ### Overview
-
-``` r
-library(dyn.log)
-```
 
 ### Basic Usage
 
