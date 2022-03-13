@@ -1,4 +1,4 @@
-### dyn.log **0.3.3**
+### dyn.log **0.4.0**
 
 Previous CRAN submission: <span style="color:red">**FAILED**</span>.
 

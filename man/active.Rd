@@ -5,7 +5,7 @@
 \alias{active}
 \title{Active Settings}
 \format{
-An object of class \code{environment} of length 0.
+An object of class \code{environment} of length 4.
 }
 \usage{
 active
