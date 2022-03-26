@@ -241,13 +241,14 @@ load_log_layouts <- function(layouts) {
 #' @export
 display_log_levels <- function() {
 
-  sapply(log_levels(), function(level) {
-    info <- level_info(level)
+  sapply(log_levels(), function(lname) {
+    level <- log_levels(lname)
+    name <- tolower(level_name(level))
     logger <- LogDispatch$new()
-    fn <- logger[[tolower(info$name)]]
+    fn <- logger[[name]]
 
     if (is.function(fn)) {
-      fn(msg = info$description, layout = "level_msg")
+      fn(msg = level_description(level), layout = "level_msg")
       cat("\n")
     }
   })

@@ -123,14 +123,14 @@ LogDispatch <- R6::R6Class( #nolint
         args = rlang::pairlist2(msg = ,
                                 level = level,
                                 layout = "default"),
-        body = dispatcher,
+        body = evaluate,
         env = rlang::caller_env()
       )
     }
   )
 )
 
-dispatcher <- quote({
+evaluate <- quote({
 
   if (is.null(level)) return()
 

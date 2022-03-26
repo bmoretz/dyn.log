@@ -299,17 +299,3 @@ level_severities <- function() {
     setNames(info$severity, name)
   })
 }
-
-#' @title Get Minimum Severity
-#'
-#' @description
-#' Gets the log level with the highest threshold
-#' which is used internally to log 'trace/info'
-#' level messages.
-#'
-#' @return styled level information
-get_minimum_severity <- function() {
-  severities <- level_severities()
-
-  names(which(severities == max(severities)))
-}

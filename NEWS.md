@@ -1,5 +1,16 @@
 # Release Summaries <img src="man/figures/hex.png" width = "175" height = "200" align="right" />
 
+# dyn.log 0.4.1
+
+## What's Changed
+
+* Enhancements
+  + updated the README.md to be more reflective of the overall goal of the package.
+  + added link to official CRAN release.
+  + cleaned up default logging configurations and styles.
+  + documentation enhancements.  
+
+
 # dyn.log 0.4.0
 
 ## What's Changed
