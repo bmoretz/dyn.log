@@ -9,9 +9,9 @@
 <title>Layouts • dyn.log</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="../deps/_Roboto-0.4.0/font.css" rel="stylesheet">
-<link href="../deps/_JetBrains%20Mono-0.4.0/font.css" rel="stylesheet">
-<link href="../deps/_Roboto%20Slab-0.4.0/font.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="../deps/_Roboto-0.4.1/font.css" rel="stylesheet">
+<link href="../deps/_JetBrains%20Mono-0.4.1/font.css" rel="stylesheet">
+<link href="../deps/_Roboto%20Slab-0.4.1/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Layouts">
@@ -29,7 +29,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">dyn.log</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,7 +79,7 @@
       <img src="" class="logo" alt=""><h1>Layouts</h1>
                         <h4 data-toc-skip class="author">Brandon Moretz</h4>
             
-            <h4 data-toc-skip class="date">2022-03-13</h4>
+            <h4 data-toc-skip class="date">2022-03-26</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/bmoretz/dyn.log/blob/HEAD/vignettes/Layouts.Rmd" class="external-link"><code>vignettes/Layouts.Rmd</code></a></small>
       <div class="d-none name"><code>Layouts.Rmd</code></div>
@@ -96,7 +96,7 @@
 <span class="va">configs</span> <span class="op">&lt;-</span> <span class="fu">dyn.log</span><span class="fu">::</span><span class="fu"><a href="../reference/get_configurations.html">get_configurations</a></span><span class="op">(</span>pkgname <span class="op">=</span> <span class="st">"dyn.log"</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/init_logger.html">init_logger</a></span><span class="op">(</span><span class="va">configs</span><span class="op">$</span><span class="va">knitr</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;">TRACE</span> <span style="color: #555555; font-style: italic;">[03/13/22 00:08:31 +0000]</span> <span style="color: #949494;">dyn.log loaded 'knitr' configuration successfully.</span></span></code></pre></div>
+<span class="co">#&gt; <span style="color: #B2B2B2; font-weight: bold;">TRACE</span> <span style="color: #555555; font-style: italic;">[03/26/22 17:53:02 +0000]</span> <span style="color: #949494;">dyn.log loaded 'knitr' configuration successfully.</span></span></code></pre></div>
 <style type="text/css" scoped>
 PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 </style>
@@ -133,12 +133,12 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 <p>An info level log message generated with the package default config:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Logger</span><span class="op">$</span><span class="fu">info</span><span class="op">(</span><span class="st">"this is the default layout"</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code><span style="color: #EEEEEE;">INFO</span> <span style="color: #555555; font-style: italic;">[03/13/22 00:08:32 +0000]</span> <span style="color: #EEEEEE;">this is the default layout</span>
+<pre class="fansi fansi-output"><code><span style="color: #005FAF; font-weight: bold;">INFO</span> <span style="color: #555555; font-style: italic;">[03/26/22 17:53:02 +0000]</span> <span style="color: #EEEEEE;">this is the default layout</span>
 </code></pre>
 <p>Now with the new layout defined above:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">Logger</span><span class="op">$</span><span class="fu">info</span><span class="op">(</span><span class="st">"this is the custom layout object"</span>, layout <span class="op">=</span> <span class="st">"default_via_r"</span><span class="op">)</span></code></pre></div>
-<pre class="fansi fansi-output"><code><span style="color: #EEEEEE;">INFO</span> <span style="color: #555555; font-style: italic;">[03/13/22 00:08:32 +0000]</span> <span style="color: #EEEEEE;">this is the custom layout object</span>
+<pre class="fansi fansi-output"><code><span style="color: #005FAF; font-weight: bold;">INFO</span> <span style="color: #555555; font-style: italic;">[03/26/22 17:53:02 +0000]</span> <span style="color: #EEEEEE;">this is the custom layout object</span>
 </code></pre>
 <p>which render the exact same output, the idea here is that defining layouts via custom R code or via yaml in the configuration are exactly the same.</p>
 </div>
@@ -180,7 +180,7 @@ PRE.fansi SPAN {padding-top: .25em; padding-bottom: .25em};
 
 <span class="fu">log_fn</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre class="fansi fansi-output"><code><span style="color: #00BB00; font-weight: bold;">Linux</span>-<span style="color: #BBBB00; font-weight: bold;">5.11.0-1028-azure</span>
-<span style="color: #DADADA;">DEBUG</span>-<span style="color: #555555; font-style: italic;">[03/13/22 00:08:32 +0000]</span>-<span style="color: #BB00BB; font-weight: bold;">get_call_stack</span>-<span style="color: #0000BB; font-style: italic;">literal text</span>-<span style="color: #DADADA;">my log message - var1: 'abc', var2: '123', var3: '0.31386'</span>
+<span style="color: #00D7FF; font-weight: bold;">DEBUG</span>-<span style="color: #555555; font-style: italic;">[03/26/22 17:53:03 +0000]</span>-<span style="color: #BB00BB; font-weight: bold;">get_call_stack</span>-<span style="color: #0000BB; font-style: italic;">literal text</span>-<span style="color: #B2B2B2;">my log message - var1: 'abc', var2: '123', var3: '0.106628'</span>
 <span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">NA</span>-<span style="color: #00BBBB; font-weight: bold;">get_call_stack</span>
 </code></pre>
 </div>
